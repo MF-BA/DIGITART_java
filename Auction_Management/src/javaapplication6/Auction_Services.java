@@ -48,9 +48,9 @@ public class Auction_Services {
         try {
             statement = conn.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM auction");
-            
+
             while (resultSet.next()) {
-                LocalDate D = resultSet.getDate(4).toLocalDate() ;
+                LocalDate D = resultSet.getDate(4).toLocalDate();
                 Auction data = new Auction(resultSet.getInt(1),
                         resultSet.getInt(2),
                         resultSet.getInt(3),
@@ -67,4 +67,19 @@ public class Auction_Services {
         return list;
 
     }
+
+    public static void delete(int ID) {
+
+        Statement statement;
+
+        try {
+            statement = conn.createStatement();
+            statement.executeUpdate("DELETE FROM auction WHERE id_auction =" + ID);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
 }

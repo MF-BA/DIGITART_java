@@ -23,13 +23,18 @@ public class JavaApplication6 {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        Connection conn = Con.getCon();
-
         Auction auction1 = new Auction(100, 10, 1, LocalDate.of(2023, Month.MARCH, 10), "new edition");
         //Auction_Services.add(auction1);
         
         ArrayList<Auction> data ;
         data = Auction_Services.Display() ;
+        System.out.println(data);
+        
+        Auction auction2 = data.get(0);
+        
+        Auction_Services.delete(auction2.getId_auction());
+        
+        //data = Auction_Services.Display() ;
         System.out.println(data);
         
         
