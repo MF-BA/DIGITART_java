@@ -27,9 +27,9 @@ public class Auction_Services {
             PreparedStatement st = conn.prepareStatement(add_to_auction);
             st.setInt(1, auction.getStarting_price());
             st.setInt(2, auction.getIncrement());
-            st.setInt(5, auction.getId_artwork());
             st.setDate(3, Date.valueOf(auction.getDate()));
             st.setString(4, auction.getDescription());
+            st.setInt(5, auction.getId_artwork());
 
             st.executeUpdate();
             System.out.println("success!!");
@@ -80,6 +80,26 @@ public class Auction_Services {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    public static void modify(Auction auction) {
+        String modify_auction = "UPDATE auction set starting_price = ?, increment = ?, ending_date = ?, description = ?, id_artwork = ? where id_auction = ? ";
+
+        try {
+            PreparedStatement st = conn.prepareStatement(modify_auction);
+            st.setInt(1, auction.getStarting_price());
+            st.setInt(2, auction.getIncrement());
+            st.setDate(3, Date.valueOf(auction.getDate()));
+            st.setString(4, auction.getDescription());
+            st.setInt(5, auction.getId_artwork());
+            st.setInt(6, auction.getId_auction());
+
+            st.executeUpdate();
+            System.out.println("success!!");
+        } catch (SQLException ex) {
+            System.err.println("error!!");
+            Logger.getLogger(JavaApplication6.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
