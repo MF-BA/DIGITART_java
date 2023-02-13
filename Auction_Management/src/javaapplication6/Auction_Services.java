@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class Auction_Services {
 
-    static Connection conn = Con.getCon();
+    static Connection conn = Conn.getCon();
 
     public static void add(Auction auction) {
 
