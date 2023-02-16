@@ -89,4 +89,30 @@ public class Artwork_Services {
 
     }
     
+    
+     public static void modify(Artwork artwork) {
+
+        String modify_artwork = "update artwork SET artwork_name = ?,id_artist = ? ,artist_name= ?,date_art=?,description=?,image_art=?,id_room=? where id_art= ? ";
+        try {
+            PreparedStatement st = conn.prepareStatement(modify_artwork);
+           
+            st.setString(1, artwork.getArtwork_name());
+            st.setInt(2, artwork.getId_artist());
+            st.setString(3, artwork.getArtist_name());
+            st.setDate(4, Date.valueOf(artwork.getDate_art()));
+            st.setString(5, artwork.getDescription());
+            st.setString(6, artwork.getImage_art());
+            st.setInt(7, artwork.getId_room());
+            st.setInt(8, artwork.getId_art());
+            
+            
+            
+            st.executeUpdate();
+            System.out.println("success!!modify artwork");
+        } catch (SQLException ex) {
+            System.err.println("Err modify artwork");
+             Logger.getLogger(Digitart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }

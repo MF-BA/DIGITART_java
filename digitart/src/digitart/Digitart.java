@@ -49,7 +49,7 @@ public class Digitart {
           Artwork artwork1 = new Artwork("La Jaconde",1,"Leonard de Vinci",LocalDate.of(1517, Month.MARCH, 10),"qdqzdqzd","url",2);
              Artwork_Services.add(artwork1);
         
-        
+          Artwork artwork2 = new Artwork("La Jaconde",1,"Leonard de Vinci",LocalDate.of(1517, Month.MARCH, 10),"qdqzdqzd","url",2);
              data2 = Artwork_Services.Display() ;
              System.out.println(data2);
              

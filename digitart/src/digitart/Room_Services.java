@@ -76,4 +76,26 @@ public class Room_Services {
         }
 
     }
+    
+    
+    
+    
+     public static void modify(Room room) {
+
+        String Modify_room = "update room set name_room = ? ,area,state=? ,description=? where id_room=?  ";
+        try {
+            PreparedStatement st = conn.prepareStatement(Modify_room);
+           
+            st.setString(1, room.getName_room());
+            st.setInt(2, room.getArea());
+            st.setString(3, room.getState());
+            st.setString(4, room.getDescription());
+             st.setInt(5, room.getId_room());
+
+            st.executeUpdate();
+            System.out.println("success!! modify room");
+        } catch (SQLException ex) {
+            System.err.println("Err Modify room");
+        }
+    }
 }
