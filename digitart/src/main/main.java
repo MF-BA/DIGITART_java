@@ -5,6 +5,8 @@
  */
 package main;
 
+import entity.Ticket;
+import Services.ServiceTicket;
 import entity.Auction;
 import Services.Auction_Services;
 import Services.Bid_Services;
@@ -52,10 +54,11 @@ public class main extends Application {
         Auction_Services.add(auction1);
          */
         //display table
+        /*
         ArrayList<Auction> data;
         data = Auction_Services.Display();
         System.out.println(data);
-
+        */
         /*
         Delete and display table
          
@@ -78,31 +81,32 @@ public class main extends Application {
         Bid bid1 = new Bid(2, 7, 110);
         Bid_Services.add(bid1);
 */
+/*
         ArrayList<Bid> dataBid;
         dataBid = Bid_Services.Display();
         System.out.println(dataBid);
-
-        System.exit(0);
+*/
+       // System.exit(0);
         
        
       //Amine---------------------------------------------------------------------------------------------------- 
       
-      
-      //  java.sql.Date ticketDate = java.sql.Date.valueOf("1990-03-12");
-      //  Ticket ticket = new Ticket(123,ticketDate, "Teen", 100, 30, "kes7a");
-      // ServiceTicket.addTicket(ticket);
+      /*
+        java.sql.Date ticketDate = java.sql.Date.valueOf("1990-03-12");
+        Ticket ticket = new Ticket(123,ticketDate, "Teen", 100, 30, "kes7a");
+      ServiceTicket.addTicket(ticket);
 
-        //System.out.println(ServiceTicket.displayTicket());
+       System.out.println(ServiceTicket.displayTicket());
         
-      // ServiceTicket.deleteTicket(1234);
+       ServiceTicket.deleteTicket(1234);
         
-       // System.out.println(ServiceTicket.displayTicket());
+        System.out.println(ServiceTicket.displayTicket());
         
-       // Ticket updatedTicket = new Ticket(123,ticketDate, "Adult", 200, 20, "dar");
-       // ServiceTicket.updateTicket(updatedTicket);
+        Ticket updatedTicket = new Ticket(123,ticketDate, "Adult", 200, 20, "dar");
+        ServiceTicket.updateTicket(updatedTicket);
         
-       // System.out.println(ServiceTicket.displayTicket());
-        
+       System.out.println(ServiceTicket.displayTicket());
+        */
        // Amine---------------------------------------------------------------------------------------------------- 
     }
 
