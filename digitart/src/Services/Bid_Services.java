@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.JavaApplication6;
+import main.main;
 import utils.Conn;
 
 /**
@@ -92,7 +92,7 @@ public class Bid_Services {
                 System.out.println("success!!");
             } catch (SQLException ex) {
                 System.err.println("error!!");
-                Logger.getLogger(JavaApplication6.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             System.err.println("offer must be more than " + next_offer(bid.getId_auction()));
@@ -154,7 +154,7 @@ public class Bid_Services {
             System.out.println("success!!");
         } catch (SQLException ex) {
             System.err.println("error!!");
-            Logger.getLogger(JavaApplication6.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
