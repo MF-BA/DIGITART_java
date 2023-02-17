@@ -17,6 +17,18 @@ public class users {
    int id,cin,phone_number;
    Date birth_date;
 
+    public users(String firstname, String lastname, String email, String address, String gender, int id, int cin, int phone_number, Date birth_date) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.address = address;
+        this.gender = gender;
+        this.id = id;
+        this.cin = cin;
+        this.phone_number = phone_number;
+        this.birth_date = birth_date;
+    }
+    
     public users(String firstname, String lastname, String email, String pwd, String address, String gender, int id, int cin, int phone_number, Date birth_date) {
         this.firstname = firstname;
         this.lastname = lastname;
