@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package javaapplication6;
+package Services;
 
+import utils.Conn;
 import java.time.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import entity.Auction;
+import main.JavaApplication6;
 
 /**
  *
@@ -79,7 +82,6 @@ public class Auction_Services {
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     public static void modify(Auction auction) {
@@ -101,5 +103,23 @@ public class Auction_Services {
             Logger.getLogger(JavaApplication6.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static ArrayList<String> artwork(int ID_artist){
+        ArrayList<String> list = new ArrayList<>();
 
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT artwork_name FROM artwork where id_artist="+ID_artist);
+
+            while (resultSet.next()) {
+                list.add(resultSet.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
 }
