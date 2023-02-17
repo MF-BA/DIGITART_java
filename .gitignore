@@ -3,5 +3,9 @@
 /JavaApplication6/nbproject/private/
 /JavaApplication6/build/
 /Auction_Management/nbproject/private/
+<<<<<<< HEAD
 /Auction_Management/build/
 /Auction_Management/dist/
+=======
+/Auction_Management/build/
+>>>>>>> parent of 62e9db4 (bid class + add to auction(uncompleted))
