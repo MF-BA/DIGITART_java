@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  *
  * @author fedi1
  */
-public class JavaApplication6 extends Application {
+public class main extends Application {
 
     private Stage primaryStage;
     private Parent ADDAUCTION_Page;
