@@ -10,6 +10,7 @@ import Services.Auction_Services;
 import Services.Bid_Services;
 import entity.Bid;
 import java.io.IOException;
+import java.sql.Connection;
 import java.time.*;
 import java.util.ArrayList;
 import javafx.application.Application;
@@ -82,7 +83,27 @@ public class main extends Application {
         System.out.println(dataBid);
 
         System.exit(0);
+        
+       
+      //Amine---------------------------------------------------------------------------------------------------- 
+      
+      
+      //  java.sql.Date ticketDate = java.sql.Date.valueOf("1990-03-12");
+      //  Ticket ticket = new Ticket(123,ticketDate, "Teen", 100, 30, "kes7a");
+      // ServiceTicket.addTicket(ticket);
 
+        //System.out.println(ServiceTicket.displayTicket());
+        
+      // ServiceTicket.deleteTicket(1234);
+        
+       // System.out.println(ServiceTicket.displayTicket());
+        
+       // Ticket updatedTicket = new Ticket(123,ticketDate, "Adult", 200, 20, "dar");
+       // ServiceTicket.updateTicket(updatedTicket);
+        
+       // System.out.println(ServiceTicket.displayTicket());
+        
+       // Amine---------------------------------------------------------------------------------------------------- 
     }
 
 }
