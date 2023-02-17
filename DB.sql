@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `auction`
 --
 
+
 CREATE TABLE `auction` (
   `id_auction` int(11) NOT NULL,
   `starting_price` int(11) NOT NULL,
@@ -41,11 +42,24 @@ CREATE TABLE `auction` (
 --
 
 INSERT INTO `auction` (`id_auction`, `starting_price`, `increment`, `ending_date`, `description`, `id_artwork`) VALUES
-(1, 100, 10, '2023-03-10', 'new edition', 1),
-(3, 100, 10, '2023-03-10', 'new edition', 1),
-(4, 100, 10, '2023-03-10', 'new edition', 1),
-(5, 100, 10, '2023-03-10', 'new edition', 1),
-(6, 100, 10, '2023-03-10', 'new edition', 1);
+(6, 500, 50, '2023-02-15', 'new edition', 1),
+(7, 100, 10, '2023-03-10', 'new edition', 1),
+(8, 100, 10, '2023-03-10', 'new edition', 1),
+(9, 100, 10, '2023-03-10', 'new edition', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `bid`
+--
+
+CREATE TABLE `bid` (
+  `ID` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `offer` int(11) NOT NULL,
+  `id_auction` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Index pour les tables déchargées
@@ -58,6 +72,13 @@ ALTER TABLE `auction`
   ADD PRIMARY KEY (`id_auction`);
 
 --
+-- Index pour la table `bid`
+--
+ALTER TABLE `bid`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `fk_id_auction` (`id_auction`);
+
+--
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
@@ -65,8 +86,25 @@ ALTER TABLE `auction`
 -- AUTO_INCREMENT pour la table `auction`
 --
 ALTER TABLE `auction`
-  MODIFY `id_auction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_auction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT pour la table `bid`
+--
+ALTER TABLE `bid`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `bid`
+--
+ALTER TABLE `bid`
+  ADD CONSTRAINT `fk_id_auction` FOREIGN KEY (`id_auction`) REFERENCES `auction` (`id_auction`);
 COMMIT;
+
 
 -- --------------------------------------------------------
 
