@@ -26,14 +26,15 @@ public class main extends Application {
 
     private Stage primaryStage;
     private Parent ADDAUCTION_Page;
+    private Parent signup_Page;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Hello World");
+        this.primaryStage.setTitle("DigitArt");
 
-        ADDAUCTION_Page = FXMLLoader.load(getClass().getResource("/view/add_auction.fxml"));
-        Scene scene = new Scene(ADDAUCTION_Page);
+         signup_Page = FXMLLoader.load(getClass().getResource("/view/signup_page.fxml"));
+        Scene scene = new Scene( signup_Page);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
