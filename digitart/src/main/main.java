@@ -20,6 +20,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -28,15 +30,38 @@ import javafx.stage.Stage;
 public class main extends Application {
 
     private Stage primaryStage;
-    private Parent ADDAUCTION_Page;
+    //private Parent ADDAUCTION_Page
+    private double  x=0;
+    private double  y=0;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Hello World");
 
-        ADDAUCTION_Page = FXMLLoader.load(getClass().getResource("/view/add_auction.fxml"));
-        Scene scene = new Scene(ADDAUCTION_Page);
+       Parent ADDATICKET_Page = FXMLLoader.load(getClass().getResource("/view/add_ticket.fxml"));
+       // Scene scene = new Scene(ADDAUCTION_Page);
+       Scene scene = new Scene(ADDATICKET_Page);
+       
+        ADDATICKET_Page.setOnMousePressed((MouseEvent event) -> {
+            x = event.getSceneX();
+            y = event.getSceneY();
+        });
+
+        ADDATICKET_Page.setOnMouseDragged((MouseEvent event) -> {
+
+            primaryStage.setX(event.getScreenX() - x);
+            primaryStage.setY(event.getScreenY() - y);
+
+            primaryStage.setOpacity(.8);
+        });
+        ADDATICKET_Page.setOnMouseReleased((MouseEvent event) -> {
+            primaryStage.setOpacity(1);
+        });
+
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+       
+       
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
