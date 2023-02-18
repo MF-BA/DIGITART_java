@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import main.main;
 /**
  * FXML Controller class
  *
@@ -86,6 +87,8 @@ public class Signup_pageController implements Initializable {
     @FXML
     private Button return_btn;
 
+    private main main;
+    
     @FXML
     void confirm_btn(ActionEvent event) {
 
@@ -95,13 +98,16 @@ public class Signup_pageController implements Initializable {
     void return_btn(ActionEvent event) {
 
     }
-
+    public void setMain(main main) {
+        this.main = main; 
+    }
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }    
     
 }

@@ -8,6 +8,7 @@ package main;
 import entity.Auction;
 import Services.Auction_Services;
 import Services.Bid_Services;
+import controller.Signup_pageController;
 import entity.Bid;
 import java.io.IOException;
 import java.time.*;
@@ -16,6 +17,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -26,15 +28,15 @@ public class main extends Application {
 
     private Stage primaryStage;
     private Parent ADDAUCTION_Page;
-    private Parent signup_Page;
+    //private Parent signup_Page;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DigitArt");
 
-         signup_Page = FXMLLoader.load(getClass().getResource("/view/signup_page.fxml"));
-        Scene scene = new Scene( signup_Page);
+        Parent signup_Page = FXMLLoader.load(getClass().getResource("/view/signup_page.fxml"));
+        Scene scene = new Scene(signup_Page);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
@@ -52,9 +54,9 @@ public class main extends Application {
         Auction_Services.add(auction1);
          */
         //display table
-        ArrayList<Auction> data;
+        /*ArrayList<Auction> data;
         data = Auction_Services.Display();
-        System.out.println(data);
+        System.out.println(data);*/
 
         /*
         Delete and display table
@@ -78,11 +80,11 @@ public class main extends Application {
         Bid bid1 = new Bid(2, 7, 110);
         Bid_Services.add(bid1);
 */
-        ArrayList<Bid> dataBid;
+        /*ArrayList<Bid> dataBid;
         dataBid = Bid_Services.Display();
         System.out.println(dataBid);
 
-        System.exit(0);
+        System.exit(0);*/
 
     }
 

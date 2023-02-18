@@ -33,7 +33,7 @@
          </font>
       </Label>
       <PasswordField fx:id="pwd" layoutX="322.0" layoutY="392.0" prefHeight="25.0" prefWidth="164.0" />
-      <TextField fx:id="fname" layoutX="320.0" layoutY="159.0" prefHeight="25.0" prefWidth="164.0" />
+      <TextField fx:id="fname" layoutX="322.0" layoutY="159.0" prefHeight="25.0" prefWidth="164.0" />
       <Label layoutX="321.0" layoutY="215.0" text="Last Name" textFill="#c58940">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
