@@ -3,24 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package digitart;
+package utils;
 
 import java.sql.*;
 
 /**
  *
- * @author mohamed
+ * @author fedi1
  */
-public class Connec {
+public class Conn {
 
-    static Connec A;
+    static Conn A;
 
     String URL = "jdbc:mysql://localhost/digitart";
     String user = "root";
     String pwd = "";
+
     static public Connection conn;
 
-    private Connec() {
+    private Conn() {
 
         try {
             conn = DriverManager.getConnection(URL, user, pwd);
@@ -30,9 +31,9 @@ public class Connec {
         }
     }
 
-    public static Connection getConnec() {
+    public static Connection getCon() {
         if (A == null) {
-            A = new Connec();
+            A = new Conn();
         }
         return conn;
     }
