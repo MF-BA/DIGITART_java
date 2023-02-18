@@ -25,15 +25,15 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private Stage primaryStage;
-    private Parent ADDAUCTION_Page;
+    private Parent root;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Hello World");
 
-        ADDAUCTION_Page = FXMLLoader.load(getClass().getResource("/view/add_auction.fxml"));
-        Scene scene = new Scene(ADDAUCTION_Page);
+        root = FXMLLoader.load(getClass().getResource("/view/HOME.fxml"));
+        Scene scene = new Scene(root);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }

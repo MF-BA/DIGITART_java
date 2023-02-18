@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="410.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Int1Controller">
+<AnchorPane id="AnchorPane" prefHeight="410.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_auction_Controller">
    <children>
       <Label layoutX="154.0" layoutY="125.0" prefHeight="17.0" prefWidth="78.0" text="Select Item:" />
       <Label layoutX="154.0" layoutY="183.0" text="Description:" />
@@ -21,7 +21,7 @@
       <Label layoutX="460.0" layoutY="247.0" text="Ending Date:" />
       <TextField fx:id="in_SB" layoutX="556.0" layoutY="121.0" prefHeight="25.0" prefWidth="103.0" />
       <TextArea fx:id="in_Desc" layoutX="242.0" layoutY="183.0" prefHeight="107.0" prefWidth="176.0" />
-      <DatePicker fx:id="in_ED" layoutX="556.0" layoutY="243.0" onAction="#getDate" prefHeight="25.0" prefWidth="126.0" />
+      <DatePicker fx:id="in_ED" layoutX="556.0" layoutY="243.0" prefHeight="25.0" prefWidth="126.0" />
       <Spinner fx:id="in_BI" editable="true" layoutX="581.0" layoutY="179.0" prefHeight="25.0" prefWidth="78.0">
          <effect>
             <Glow />
