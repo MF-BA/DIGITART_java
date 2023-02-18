@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Auction;
-import main.JavaApplication6;
+import main.Main;
 
 /**
  *
@@ -38,7 +38,7 @@ public class Auction_Services {
             System.out.println("success!!");
         } catch (SQLException ex) {
             System.err.println("error!!");
-            Logger.getLogger(JavaApplication6.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -100,18 +100,18 @@ public class Auction_Services {
             System.out.println("success!!");
         } catch (SQLException ex) {
             System.err.println("error!!");
-            Logger.getLogger(JavaApplication6.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public static ArrayList<String> artwork(int ID_artist){
+
+    public static ArrayList<String> find_artworks(int ID_artist) {
         ArrayList<String> list = new ArrayList<>();
 
         Statement statement;
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT artwork_name FROM artwork where id_artist="+ID_artist);
+            resultSet = statement.executeQuery("SELECT artwork_name FROM artwork where id_artist=" + ID_artist);
 
             while (resultSet.next()) {
                 list.add(resultSet.getString(1));
@@ -122,4 +122,22 @@ public class Auction_Services {
 
         return list;
     }
+
+   public static int find_artwork_id(String artwork_name) {
+    try {
+        PreparedStatement statement = conn.prepareStatement("SELECT id_art FROM artwork WHERE artwork_name = ?");
+        statement.setString(1, artwork_name);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getInt(1);
+        } else {
+            throw new SQLException("No artwork found with name: " + artwork_name);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        return -1;
+    }
+}
+
+
 }

@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  *
  * @author fedi1
  */
-public class JavaApplication6 extends Application {
+public class Main extends Application {
 
     private Stage primaryStage;
     private Parent ADDAUCTION_Page;
@@ -32,7 +32,7 @@ public class JavaApplication6 extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Hello World");
 
-        ADDAUCTION_Page = FXMLLoader.load(getClass().getResource("/view/Int1.fxml"));
+        ADDAUCTION_Page = FXMLLoader.load(getClass().getResource("/view/add_auction.fxml"));
         Scene scene = new Scene(ADDAUCTION_Page);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
