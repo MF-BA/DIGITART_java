@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HOMEController">
+   <children>
+      <Button fx:id="add_aucttion_btn" layoutX="136.0" layoutY="64.0" mnemonicParsing="false" onAction="#add_aucttion_btn_onclick" prefHeight="71.0" prefWidth="328.0" text="add to auction">
+         <font>
+            <Font name="Berlin Sans FB Bold" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
