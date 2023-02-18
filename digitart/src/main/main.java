@@ -32,7 +32,7 @@ public class main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Hello World");
 
-        ADDAUCTION_Page = FXMLLoader.load(getClass().getResource("/view/add_auction.fxml"));
+        ADDAUCTION_Page = FXMLLoader.load(getClass().getResource("/view/add_room.fxml"));
         Scene scene = new Scene(ADDAUCTION_Page);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
@@ -49,12 +49,12 @@ public class main extends Application {
          
         Auction auction1 = new Auction(100, 10, 1, LocalDate.of(2023, Month.MARCH, 10), "new edition");
         Auction_Services.add(auction1);
-         */
+         
         //display table
         ArrayList<Auction> data;
         data = Auction_Services.Display();
         System.out.println(data);
-
+*/
         /*
         Delete and display table
          
@@ -76,14 +76,14 @@ public class main extends Application {
 /* 
         Bid bid1 = new Bid(2, 7, 110);
         Bid_Services.add(bid1);
-*/
+
         ArrayList<Bid> dataBid;
         dataBid = Bid_Services.Display();
         System.out.println(dataBid);
 
         System.exit(0);
         
-        
+   */     
         
         
         

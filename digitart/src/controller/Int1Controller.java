@@ -6,13 +6,8 @@
 package controller;
 
 import Services.Auction_Services;
-import Services.Bid_Services;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import static javafx.application.Application.launch;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,7 +22,7 @@ import javafx.scene.control.TextField;
 /**
  * FXML Controller class
  *
- * @author fedi1
+ * @author mohamed
  */
 public class Int1Controller implements Initializable {
 
@@ -47,21 +42,11 @@ public class Int1Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000);
+         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000);
         valueFactory.setValue(10);
         in_BI.setValueFactory(valueFactory);
         ObservableList<String> myObservableList = FXCollections.observableArrayList(Auction_Services.artwork(1));
         in_I.setItems(myObservableList);
-
-        /*in_I.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> options, String oldValue, String newValue) {
-                myObservableList.clear();
-                myObservableList.addAll(Auction_Services.artwork(1));
-            }
-        });*/
-
-    }
-
+    }    
+    
 }

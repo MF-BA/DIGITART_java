@@ -11,26 +11,26 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="410.0" prefWidth="797.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Int1Controller">
+<AnchorPane id="AnchorPane" prefHeight="388.0" prefWidth="728.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Int1Controller">
    <children>
-      <Label layoutX="154.0" layoutY="125.0" prefHeight="17.0" prefWidth="78.0" text="Select Item:" />
-      <Label layoutX="154.0" layoutY="183.0" text="Description:" />
-      <Label layoutX="461.0" layoutY="125.0" text="Starting Bid:" />
-      <Label layoutX="461.0" layoutY="183.0" text="Bid Increment:" />
-      <Label layoutX="460.0" layoutY="247.0" text="Ending Date:" />
-      <TextField fx:id="in_SB" layoutX="556.0" layoutY="118.0" prefHeight="25.0" prefWidth="97.0" />
-      <TextArea fx:id="in_Desc" layoutX="242.0" layoutY="183.0" prefHeight="107.0" prefWidth="176.0" />
-      <DatePicker fx:id="in_ED" layoutX="556.0" layoutY="240.0" prefHeight="25.0" prefWidth="97.0" />
-      <Spinner fx:id="in_BI" editable="true" layoutX="556.0" layoutY="176.0" prefHeight="25.0" prefWidth="97.0">
+      <Label layoutX="146.0" layoutY="157.0" prefHeight="17.0" prefWidth="78.0" text="Select Item:" />
+      <Label layoutX="146.0" layoutY="215.0" text="Description:" />
+      <Label layoutX="453.0" layoutY="157.0" text="Starting Bid:" />
+      <Label layoutX="453.0" layoutY="215.0" text="Bid Increment:" />
+      <Label layoutX="452.0" layoutY="279.0" text="Ending Date:" />
+      <TextField fx:id="in_SB" layoutX="548.0" layoutY="150.0" prefHeight="25.0" prefWidth="97.0" />
+      <TextArea fx:id="in_Desc" layoutX="234.0" layoutY="215.0" prefHeight="107.0" prefWidth="176.0" />
+      <DatePicker fx:id="in_ED" layoutX="548.0" layoutY="272.0" prefHeight="25.0" prefWidth="97.0" />
+      <Spinner fx:id="in_BI" editable="true" layoutX="548.0" layoutY="208.0" prefHeight="25.0" prefWidth="97.0">
          <effect>
             <Glow />
          </effect></Spinner>
-      <ComboBox fx:id="in_I" layoutX="242.0" layoutY="121.0" prefHeight="25.0" prefWidth="140.0" />
-      <Label layoutX="242.0" layoutY="22.0" text="ADD TO AUCTION">
+      <ComboBox fx:id="in_I" layoutX="234.0" layoutY="153.0" prefHeight="25.0" prefWidth="140.0" />
+      <Label layoutX="234.0" layoutY="54.0" text="ADD TO AUCTION">
          <font>
             <Font name="Microsoft Uighur Bold" size="50.0" />
          </font>
       </Label>
-      <Line endX="0.29290771484375" endY="203.0" layoutX="91.0" layoutY="98.0" startX="0.2928924560546875" startY="-29.0" />
+      <Line endX="0.29290771484375" endY="203.0" layoutX="83.0" layoutY="130.0" startX="0.2928924560546875" startY="-29.0" />
    </children>
 </AnchorPane>

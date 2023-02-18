@@ -3,13 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/github/Primes/digitart/src/controller/Display_roomController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/main/main.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Add_roomController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/Services/Room_Services.java</file>
             <file>file:/E:/github/Primes/digitart/src/entity/Room.java</file>
             <file>file:/E:/github/Primes/digitart/src/Services/Auction_Services.java</file>
+            <file>file:/E:/github/Primes/digitart/src/view/add_room.fxml</file>
             <file>file:/E:/github/Primes/digitart/src/utils/Conn.java</file>
+            <file>file:/E:/github/Primes/digitart/src/view/add_auction.fxml</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Int1Controller.java</file>
             <file>file:/E:/github/Primes/digitart/src/entity/Artwork.java</file>
-            <file>file:/E:/github/Primes/digitart/src/main/main.java</file>
+            <file>file:/E:/github/Primes/digitart/src/view/display_room.fxml</file>
             <file>file:/E:/github/Primes/digitart/src/Services/Artwork_Services.java</file>
-            <file>file:/E:/github/Primes/digitart/src/Services/Room_Services.java</file>
         </group>
     </open-files>
 </project-private>
