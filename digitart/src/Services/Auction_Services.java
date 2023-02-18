@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Auction;
-import main.Main;
+import main.main;
 
 /**
  *
@@ -38,7 +38,7 @@ public class Auction_Services {
             System.out.println("success!!");
         } catch (SQLException ex) {
             System.err.println("error!!");
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -100,7 +100,7 @@ public class Auction_Services {
             System.out.println("success!!");
         } catch (SQLException ex) {
             System.err.println("error!!");
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
