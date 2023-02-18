@@ -27,15 +27,15 @@ import javafx.stage.Stage;
 public class main extends Application {
 
     private Stage primaryStage;
-    private Parent ADDAUCTION_Page;
-    //private Parent signup_Page;
+    //private Parent ADDAUCTION_Page;
+    private Parent signup_Page;
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DigitArt");
 
-        Parent signup_Page = FXMLLoader.load(getClass().getResource("/view/signup_page.fxml"));
+        signup_Page = FXMLLoader.load(getClass().getResource("/view/signup_page.fxml"));
         Scene scene = new Scene(signup_Page);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();

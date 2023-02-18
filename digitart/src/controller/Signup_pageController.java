@@ -98,9 +98,7 @@ public class Signup_pageController implements Initializable {
     void return_btn(ActionEvent event) {
 
     }
-    public void setMain(main main) {
-        this.main = main; 
-    }
+   
     /**
      * Initializes the controller class.
      */
