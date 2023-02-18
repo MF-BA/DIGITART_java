@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="main_anchor" prefHeight="463.0" prefWidth="855.0" styleClass="right-form" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AuctionController">
+<AnchorPane id="AnchorPane" fx:id="main_anchor" prefHeight="463.0" prefWidth="855.0" styleClass="right-form" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TicketController">
    <children>
       <AnchorPane layoutY="31.0" prefHeight="431.0" prefWidth="182.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
@@ -65,7 +65,7 @@
             <FontAwesomeIconView glyphName="TICKET" layoutX="14.0" layoutY="19.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="dashboard_anchor" layoutX="193.0" layoutY="41.0" prefHeight="410.0" prefWidth="671.0">
+      <AnchorPane fx:id="dashboard_anchor" layoutX="193.0" layoutY="41.0" prefHeight="410.0" prefWidth="671.0" visible="false">
          <children>
             <AnchorPane layoutX="12.0" layoutY="14.0" prefHeight="120.0" prefWidth="648.0" stylesheets="@auctionDesign.css">
                <styleClass>
@@ -138,7 +138,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="addticket_anchor" layoutX="182.0" layoutY="43.0" prefHeight="410.0" prefWidth="671.0" visible="false">
+      <AnchorPane fx:id="addticket_anchor" layoutX="182.0" layoutY="43.0" prefHeight="410.0" prefWidth="671.0">
          <children>
             <AnchorPane layoutX="8.0" layoutY="9.0" prefHeight="391.0" prefWidth="293.0" stylesheets="@auctionDesign.css">
                <styleClass>
@@ -182,10 +182,10 @@
                      </font>
                   </Label>
                   <TextArea fx:id="ticket_desc" layoutX="97.0" layoutY="186.0" prefHeight="76.0" prefWidth="179.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
-                  <Button fx:id="ticket_add_button" layoutX="35.0" layoutY="285.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add" />
-                  <Button fx:id="ticket_update_button" layoutX="171.0" layoutY="285.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" styleClass="update-btn" stylesheets="@auctionDesign.css" text="Update" />
-                  <Button fx:id="ticket_reset_button" layoutX="35.0" layoutY="332.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" styleClass="reset-btn" stylesheets="@auctionDesign.css" text="Reset" />
-                  <Button fx:id="ticket_delete_button" layoutX="171.0" layoutY="332.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete" />
+                  <Button fx:id="ticket_add_button" layoutX="35.0" layoutY="285.0" mnemonicParsing="false" onAction="#TicketAdd" prefHeight="30.0" prefWidth="82.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add" />
+                  <Button fx:id="ticket_update_button" layoutX="171.0" layoutY="285.0" mnemonicParsing="false" onAction="#TicketUpdate" prefHeight="30.0" prefWidth="82.0" styleClass="update-btn" stylesheets="@auctionDesign.css" text="Update" />
+                  <Button fx:id="ticket_reset_button" layoutX="35.0" layoutY="332.0" mnemonicParsing="false" onAction="#TicketReset" prefHeight="30.0" prefWidth="82.0" styleClass="reset-btn" stylesheets="@auctionDesign.css" text="Reset" />
+                  <Button fx:id="ticket_delete_button" layoutX="171.0" layoutY="332.0" mnemonicParsing="false" onAction="#TicketDelete" prefHeight="30.0" prefWidth="82.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="307.0" layoutY="9.0" prefHeight="391.0" prefWidth="349.0" stylesheets="@auctionDesign.css">
@@ -194,7 +194,7 @@
                   <String fx:value="shadow" />
                </styleClass>
                <children>
-                  <TableView fx:id="ticket_tableview" layoutX="2.0" layoutY="67.0" prefHeight="226.0" prefWidth="358.0" stylesheets="@auctionDesign.css">
+                  <TableView fx:id="ticket_tableview" layoutX="2.0" layoutY="67.0" onMouseClicked="#SelectTicket" prefHeight="226.0" prefWidth="358.0" stylesheets="@auctionDesign.css">
                      <columns>
                         <TableColumn fx:id="ticket_tv_id" prefWidth="49.60003662109375" text="ID" />
                         <TableColumn fx:id="ticket_tv_date" prefWidth="83.20001220703125" text="Date" />
