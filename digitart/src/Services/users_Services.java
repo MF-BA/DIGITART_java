@@ -7,10 +7,12 @@ package Services;
 
 import entity.users;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,10 +27,13 @@ public class users_Services {
     
     static Connection conn = Conn.getCon();
     PreparedStatement pst;
+
+    public users_Services() {
+    }
     
     public void adduser(users u){
        
-            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender) values (? ,?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role) values (? ,?, ?, ?, ?, ?, ?, ?, ?, ?)";
              try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1,u.getCin());
@@ -38,8 +43,9 @@ public class users_Services {
             pst.setString(5,u.getPwd());
             pst.setString(6,u.getAddress());
             pst.setInt(7,u.getPhone_number());
-            pst.setDate(8,u.getBirth_date());
+            pst.setDate(8,Date.valueOf(u.getBirth_date()));
             pst.setString(9,u.getGender());
+            pst.setString(10,"");
             
              pst.executeUpdate();
             System.out.println("success!!");
@@ -62,7 +68,8 @@ public class users_Services {
             res= statement.executeQuery("SELECT * FROM users");
 
             while (res.next()) {
-                users data = new users(res.getString("id"),
+                LocalDate D = res.getDate("birth_date").toLocalDate();
+                users data = new users(
                         res.getString("firstname"),
                         res.getString("lastname"),
                         res.getString("email"),
@@ -71,7 +78,7 @@ public class users_Services {
                         res.getInt("id"),
                         res.getInt("cin"),
                         res.getInt("phone_number"),
-                        res.getDate("birth_date")
+                        D
                         
                 );
                 list.add(data);
@@ -112,7 +119,7 @@ public class users_Services {
             pst.setString(5,u.getPwd());
             pst.setString(6,u.getAddress());
             pst.setInt(7,u.getPhone_number());
-            pst.setDate(8,u.getBirth_date());
+            pst.setDate(8,Date.valueOf(u.getBirth_date()));
             pst.setString(9,u.getGender());
             pst.setString(9,u.getRole());
             
