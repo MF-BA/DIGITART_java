@@ -26,8 +26,8 @@
          <effect>
             <Glow />
          </effect></Spinner>
-      <ComboBox fx:id="in_I" layoutX="234.0" layoutY="153.0" prefHeight="25.0" prefWidth="140.0" />
-      <Label layoutX="234.0" layoutY="54.0" text="ADD TO AUCTION">
+      <ComboBox fx:id="in_I" layoutX="242.0" layoutY="121.0" prefHeight="25.0" prefWidth="140.0" />
+      <Label layoutX="242.0" layoutY="22.0" text="ADD TO AUCTION">
          <font>
             <Font name="Microsoft Uighur Bold" size="50.0" />
          </font>
