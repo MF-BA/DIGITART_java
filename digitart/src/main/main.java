@@ -38,10 +38,16 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Hello World");
-/* 
-        ADDAUCTION_Page = FXMLLoader.load(getClass().getResource("/view/add_room.fxml"));
-        Scene scene = new Scene(ADDAUCTION_Page);*/
+        this.primaryStage.setTitle("DIGITART");
+        
+        
+        
+        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/display_room.fxml"));
+        Scene scene = new Scene(DisplayROOM_Page);
+        
+ /*
+       Parent ADDROOM_Page = FXMLLoader.load(getClass().getResource("/view/add_room.fxml"));
+        Scene scene = new Scene(ADDROOM_Page);
        Parent ADDATICKET_Page = FXMLLoader.load(getClass().getResource("/view/add_ticket.fxml"));
        // Scene scene = new Scene(ADDAUCTION_Page);
        Scene scene = new Scene(ADDATICKET_Page);
@@ -63,7 +69,7 @@ public class main extends Application {
         });
 
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-       
+       */
        
         this.primaryStage.setScene(scene);
         this.primaryStage.show();

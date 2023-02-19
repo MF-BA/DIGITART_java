@@ -5,48 +5,51 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_roomController">
+<AnchorPane id="AnchorPane" prefHeight="714.0" prefWidth="1218.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_artworkController">
    <children>
-      <Text layoutX="473.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of rooms" textAlignment="CENTER" wrappingWidth="275.64453125">
+      <Text layoutX="478.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of artworks" textAlignment="CENTER" wrappingWidth="296.64453125">
          <font>
             <Font name="Impact" size="46.0" />
          </font>
       </Text>
-      <TableView fx:id="table_room" layoutX="240.0" layoutY="180.0" prefHeight="350.0" prefWidth="752.0">
-        <columns>
-          <TableColumn fx:id="col_id" prefWidth="40.0" text="ID" />
-          <TableColumn fx:id="col_name" prefWidth="110.0" text="Name" />
-            <TableColumn fx:id="col_area" prefWidth="75.0" text="Area" />
-            <TableColumn fx:id="col_state" prefWidth="75.0" text="State" />
-            <TableColumn fx:id="col_desc" prefWidth="428.0" text="Description" />
-        </columns>
+      <TableView fx:id="table_Artwork" layoutX="223.0" layoutY="190.0" prefHeight="350.0" prefWidth="546.0">
+         <columns>
+            <TableColumn fx:id="col_id" prefWidth="19.0" text="ID" />
+            <TableColumn fx:id="col_name" prefWidth="115.0" text="Name" />
+            <TableColumn fx:id="col_idartist" prefWidth="53.0" text="Id_Artist" />
+            <TableColumn fx:id="col_nameartist" prefWidth="137.0" text="Name_Artist" />
+            <TableColumn fx:id="col_date" prefWidth="63.0" text="Date" />
+            <TableColumn fx:id="col_desc" prefWidth="106.0" text="Description" />
+            <TableColumn fx:id="col_idroom" prefWidth="51.0" text="id_room" />
+         </columns>
       </TableView>
-      <Button fx:id="BTN_add" layoutX="341.0" layoutY="582.0" mnemonicParsing="false" onAction="#btn_add_clicked" prefHeight="38.0" prefWidth="194.0" text="Add new room">
+      <Button fx:id="BTN_add" layoutX="351.0" layoutY="592.0" mnemonicParsing="false" onAction="#btn_add_clicked" prefHeight="38.0" prefWidth="194.0" text="Add new artwork">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_statistics" layoutX="652.0" layoutY="582.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="194.0" text="Show statistics">
+      <Button fx:id="BTN_statistics" layoutX="662.0" layoutY="592.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="194.0" text="Show statistics">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_modify" layoutX="1019.0" layoutY="274.0" mnemonicParsing="false" onAction="#btn_modify_clicked" prefHeight="38.0" prefWidth="98.0" text="modify ">
+      <Button fx:id="BTN_modify" layoutX="1078.0" layoutY="283.0" mnemonicParsing="false" onAction="#btn_modify_clicked" prefHeight="38.0" prefWidth="98.0" text="modify ">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_delete" layoutX="1019.0" layoutY="364.0" mnemonicParsing="false" onAction="#btn_delete_clicked" prefHeight="38.0" prefWidth="98.0" text="delete">
+      <Button fx:id="BTN_delete" layoutX="1078.0" layoutY="374.0" mnemonicParsing="false" onAction="#btn_delete_clicked" prefHeight="38.0" prefWidth="98.0" text="delete">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <AnchorPane layoutX="-10.0" prefHeight="710.0" prefWidth="203.0" styleClass="left-form" stylesheets="@auctionDesign.css">
+      <AnchorPane prefHeight="720.0" prefWidth="206.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
             <FontAwesomeIconView fill="#fafafa" glyphName="USER" layoutX="61.0" layoutY="83.0" size="80.0" text="" wrappingWidth="59.19998016357408" />
             <Label layoutX="48.0" layoutY="94.0" prefHeight="27.0" prefWidth="82.0" text="WELCOME," textAlignment="CENTER" textFill="WHITE">
@@ -59,12 +62,13 @@
                   <Font name="Tahoma Bold" size="16.0" />
                </font>
             </Label>
-            <Button fx:id="btn_dashboard" layoutX="31.0" layoutY="161.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="30.0" prefWidth="178.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Room Management" />
+            <Button fx:id="btn_roomM" layoutX="36.0" layoutY="161.0" mnemonicParsing="false" onAction="#btn_room_clicked" prefHeight="30.0" prefWidth="178.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Room Management" />
             <Button fx:id="btn_artworkM" layoutX="29.0" layoutY="199.0" mnemonicParsing="false" onAction="#btn_artwork_clicked" prefHeight="30.0" prefWidth="166.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Artwork Management" />
             <Line endX="29.20001220703125" layoutX="123.0" layoutY="149.0" startX="-100.0" stroke="WHITE" />
             <FontAwesomeIconView fill="WHITE" glyphName="IMAGE" layoutX="12.0" layoutY="220.0" size="17.0" text="" wrappingWidth="22.857142448425293" />
             <FontAwesomeIconView fill="WHITE" glyphName="CUBE" layoutX="14.0" layoutY="182.0" size="17.0" text="" />
          </children>
       </AnchorPane>
+      <ImageView fx:id="image" fitHeight="237.0" fitWidth="245.0" layoutX="796.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
