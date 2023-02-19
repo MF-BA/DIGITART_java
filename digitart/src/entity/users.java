@@ -6,6 +6,7 @@
 package entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -15,9 +16,9 @@ public class users {
     
    String firstname,lastname,email,pwd,address,gender,role;
    int id,cin,phone_number;
-   Date birth_date;
+   LocalDate birth_date;
 
-    public users(String firstname, String lastname, String email, String address, String gender, int id, int cin, int phone_number, Date birth_date) {
+    public users(String firstname, String lastname, String email, String address, String gender, int id, int cin, int phone_number,  LocalDate birth_date) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -29,20 +30,29 @@ public class users {
         this.birth_date = birth_date;
     }
     
-    public users(String firstname, String lastname, String email, String pwd, String address, String gender, int id, int cin, int phone_number, Date birth_date) {
+    public users(String firstname, String lastname, String email, String pwd, String address, String gender, int cin, int phone_number,  LocalDate birth_date) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.pwd = pwd;
         this.address = address;
         this.gender = gender;
-        this.id = id;
         this.cin = cin;
         this.phone_number = phone_number;
         this.birth_date = birth_date;
     }
-
-    public users(String firstname, String lastname, String email, String pwd, String address, String gender, String role, int id, int cin, int phone_number, Date birth_date) {
+  public users(String firstname, String lastname, String email, String pwd, String address, String gender, int cin, int phone_number) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.pwd = pwd;
+        this.address = address;
+        this.gender = gender;
+        this.cin = cin;
+        this.phone_number = phone_number;
+        
+    }
+    public users(String firstname, String lastname, String email, String pwd, String address, String gender, String role, int id, int cin, int phone_number,  LocalDate birth_date) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -136,11 +146,11 @@ public class users {
         this.phone_number = phone_number;
     }
 
-    public Date getBirth_date() {
+    public  LocalDate getBirth_date() {
         return birth_date;
     }
 
-    public void setBirth_date(Date birth_date) {
+    public void setBirth_date( LocalDate birth_date) {
         this.birth_date = birth_date;
     }
    
