@@ -10,6 +10,7 @@ import Services.ServiceTicket;
 import entity.Auction;
 import Services.Auction_Services;
 import Services.Bid_Services;
+import controller.Signup_pageController;
 import entity.Bid;
 import java.io.IOException;
 import java.sql.Connection;
@@ -19,6 +20,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.StageStyle;
@@ -36,11 +38,11 @@ public class main extends Application {
     private double  y=0;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Hello World");
+        this.primaryStage.setTitle("DigitArt");
 
-       Parent ADDATICKET_Page = FXMLLoader.load(getClass().getResource("/view/add_ticket.fxml"));
+       Parent ADDATICKET_Page = FXMLLoader.load(getClass().getResource("/view/signin_page.fxml"));
        // Scene scene = new Scene(ADDAUCTION_Page);
        Scene scene = new Scene(ADDATICKET_Page);
        
@@ -134,6 +136,8 @@ public class main extends Application {
        System.out.println(ServiceTicket.displayTicket());
         */
        // Amine---------------------------------------------------------------------------------------------------- 
+        System.exit(0);
+
     }
 
 }
