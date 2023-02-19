@@ -10,6 +10,7 @@ import Services.ServiceTicket;
 import entity.Auction;
 import Services.Auction_Services;
 import Services.Bid_Services;
+import controller.Signup_pageController;
 import entity.Bid;
 import entity.auction_display;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.StageStyle;
@@ -37,7 +39,7 @@ public class main extends Application {
     private double y = 0;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DIGITART");
         
@@ -207,8 +209,10 @@ public class main extends Application {
         ServiceTicket.updateTicket(updatedTicket);
         
        System.out.println(ServiceTicket.displayTicket());
-         */
-        // Amine---------------------------------------------------------------------------------------------------- 
+        */
+       // Amine---------------------------------------------------------------------------------------------------- 
+        System.exit(0);
+
     }
 
 }
