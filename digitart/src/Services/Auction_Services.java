@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Auction;
+import entity.auction_display;
 import main.main;
 
 /**
@@ -67,9 +68,20 @@ public class Auction_Services {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return list;
+            return list;
 
     }
+    
+    public static ArrayList<auction_display> Display_auction_details() {
+        ArrayList<auction_display> displayList = new ArrayList<auction_display>(); // initialize displayList
+        for (Auction auction : Display()) {
+           auction_display display = new auction_display(auction, Auction_Services.find_artwork_name(auction.getId_artwork()), Bid_Services.highest_offer(auction.getId_artwork()));
+           displayList.add(display);
+        }
+        return displayList;
+}
+
+    
 
     public static void delete(int ID) {
 
@@ -137,6 +149,22 @@ public class Auction_Services {
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
+        }
+    }
+    
+    public static String find_artwork_name(int id) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT artwork_name FROM artwork WHERE id_art= ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            } else {
+                throw new SQLException("No artwork found with id: " + id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
 

@@ -36,6 +36,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -61,6 +62,16 @@ public class Add_auction_Controller implements Initializable {
     private ComboBox<String> in_I;
     @FXML
     private Button submit_add_auction;
+    @FXML
+    private Button btn_Add_Auction;
+    @FXML
+    private Button btn_Artworks_Auction;
+    @FXML
+    private Button Close;
+    @FXML
+    private Button Minimize;
+    @FXML
+    private AnchorPane main_anchor;
 
     /**
      * Initializes the controller class.
@@ -118,7 +129,6 @@ public class Add_auction_Controller implements Initializable {
             alert.setContentText("Some Fields are empty!");
             alert.showAndWait();
         } else {
-
             LocalDate date = in_ED.getValue();
             /*date */
             System.out.println(in_I.getValue());
@@ -133,7 +143,7 @@ public class Add_auction_Controller implements Initializable {
 
     private void go_Home(ActionEvent event) {
         try {
-             root = FXMLLoader.load(getClass().getResource("/view/HOME.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/Display_auctions.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -142,6 +152,27 @@ public class Add_auction_Controller implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @FXML
+    private void Artworks__Auction_cicked(ActionEvent event) {
+        go_Home(event);
+    }
+
+    @FXML
+    private void Close(ActionEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    private void Minimize(ActionEvent event) {
+        Stage stage = (Stage) main_anchor.getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    private void btn_Add_Auction_click(ActionEvent event) {
+        
     }
 
 }
