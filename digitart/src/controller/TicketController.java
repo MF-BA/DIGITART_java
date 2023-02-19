@@ -145,10 +145,12 @@ public class TicketController implements Initializable {
     @FXML
     private Button ticket_update_button;
 
+    @FXML
     public void Close() {
         System.exit(0);
     }
 
+    @FXML
     public void Minimize() {
         Stage stage = (Stage) main_anchor.getScene().getWindow();
         stage.setIconified(true);
@@ -160,6 +162,7 @@ public class TicketController implements Initializable {
 
     }
 
+    @FXML
     public void switchForm(ActionEvent event) {
         if (event.getSource() == btn_dashboard) {
             dashboard_anchor.setVisible(true);
@@ -201,6 +204,7 @@ public class TicketController implements Initializable {
         }
     }
 
+    @FXML
     public void SelectTicket() {
 
         Ticket t = ((TableView<Ticket>) ticket_tableview).getSelectionModel().getSelectedItem();
@@ -219,6 +223,7 @@ public class TicketController implements Initializable {
 
     }
 
+    @FXML
     public void TicketAdd() {
 
         String ticket_id = this.ticket_id.getText();
@@ -269,6 +274,7 @@ public class TicketController implements Initializable {
         }
     }
 
+    @FXML
     public void TicketUpdate() {
         Alert alert;
         try {
@@ -309,6 +315,7 @@ public class TicketController implements Initializable {
         }
     }
 
+    @FXML
     public void TicketDelete() {
         Alert alert;
         try {
@@ -344,6 +351,7 @@ public class TicketController implements Initializable {
         }
     }
 
+    @FXML
     public void TicketReset() {
 
         ticket_id.setText("");

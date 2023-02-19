@@ -11,6 +11,7 @@ import entity.Auction;
 import Services.Auction_Services;
 import Services.Bid_Services;
 import entity.Bid;
+import entity.auction_display;
 import java.io.IOException;
 import java.sql.Connection;
 import java.time.*;
@@ -32,8 +33,8 @@ public class main extends Application {
     private Stage primaryStage;
     private Parent root;
     //private Parent ADDAUCTION_Page
-    private double  x=0;
-    private double  y=0;
+    private double x = 0;
+    private double y = 0;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -57,14 +58,14 @@ public class main extends Application {
             y = event.getSceneY();
         });
 
-        ADDATICKET_Page.setOnMouseDragged((MouseEvent event) -> {
+        root.setOnMouseDragged((MouseEvent event) -> {
 
             primaryStage.setX(event.getScreenX() - x);
             primaryStage.setY(event.getScreenY() - y);
 
             primaryStage.setOpacity(.8);
         });
-        ADDATICKET_Page.setOnMouseReleased((MouseEvent event) -> {
+        root.setOnMouseReleased((MouseEvent event) -> {
             primaryStage.setOpacity(1);
         });
 
@@ -80,6 +81,12 @@ public class main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+        
+         ArrayList<auction_display> AuctionList;
+       AuctionList = Auction_Services.Display_auction_details();
+
+        System.out.println(AuctionList);
+        
         // TODO code application logic here
         /*
         Add auction to table 
@@ -92,8 +99,8 @@ public class main extends Application {
         ArrayList<Auction> data;
         data = Auction_Services.Display();
         System.out.println(data);
-        */
-        /*
+         */
+ /*
         Delete and display table
          
         Auction auction2 = data.get(0);
@@ -111,21 +118,20 @@ public class main extends Application {
         data = Auction_Services.Display();
         System.out.println(data);
          */
-/* 
+ /* 
         Bid bid1 = new Bid(2, 7, 110);
         Bid_Services.add(bid1);
-*/
-/*
+         */
+ /*
+ 
+ 
         ArrayList<Bid> dataBid;
         dataBid = Bid_Services.Display();
         System.out.println(dataBid);
-*/
-       // System.exit(0);
-        
-       
-      //Amine---------------------------------------------------------------------------------------------------- 
-      
-      /*
+         */
+        // System.exit(0);
+        //Amine---------------------------------------------------------------------------------------------------- 
+        /*
         java.sql.Date ticketDate = java.sql.Date.valueOf("1990-03-12");
         Ticket ticket = new Ticket(123,ticketDate, "Teen", 100, 30, "kes7a");
       ServiceTicket.addTicket(ticket);
@@ -201,8 +207,8 @@ public class main extends Application {
         ServiceTicket.updateTicket(updatedTicket);
         
        System.out.println(ServiceTicket.displayTicket());
-        */
-       // Amine---------------------------------------------------------------------------------------------------- 
+         */
+        // Amine---------------------------------------------------------------------------------------------------- 
     }
 
 }
