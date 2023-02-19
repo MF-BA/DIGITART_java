@@ -22,9 +22,9 @@
             </Label>
          </children>
       </Pane>
-      <Button fx:id="confirm_sign" cache="true" layoutX="606.0" layoutY="502.0" mnemonicParsing="false" onAction="#confirm_btn" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;" text="Confirm" textFill="WHITE">
+      <Button fx:id="confirm_sign" cache="true" layoutX="495.0" layoutY="505.0" mnemonicParsing="false" onAction="#confirm_btn" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;" text="Confirm" textFill="WHITE">
          <font>
-            <Font name="Comic Sans MS" size="14.0" />
+            <Font name="Berlin Sans FB" size="17.0" />
          </font>
       </Button>
       <Label layoutX="320.0" layoutY="136.0" text="First Name" textFill="#c58940">
@@ -83,9 +83,9 @@
             </Label>
          </children>
       </Pane>
-      <Button fx:id="return_btn" layoutX="391.0" layoutY="501.0" mnemonicParsing="false" onAction="#return_btn" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;" text="return" textFill="WHITE">
+      <Button fx:id="return_btn" layoutX="281.0" layoutY="14.0" mnemonicParsing="false" onAction="#return_btn_clicked" style="-fx-background-radius: 11; -fx-background-color: #E5BA73;" text="return" textFill="WHITE">
          <font>
-            <Font name="Comic Sans MS" size="15.0" />
+            <Font name="Berlin Sans FB" size="15.0" />
          </font>
          <graphic>
             <FontAwesomeIconView fill="WHITE" glyphName="ARROW_CIRCLE_LEFT" />
