@@ -118,4 +118,63 @@ public class Artwork_Services {
     }
     
     
+    
+    public static ArrayList<Integer> find_idartist() {
+        ArrayList<Integer> list = new ArrayList<>();
+
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT id FROM users WHERE role = 'artist'");
+
+            while (resultSet.next()) {
+                list.add(resultSet.getInt(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
+    
+    public static ArrayList<Integer> find_idroom() {
+        ArrayList<Integer> list = new ArrayList<>();
+
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT id_room FROM room");
+
+            while (resultSet.next()) {
+                list.add(resultSet.getInt(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
+      public static String find_artwork(int ID_artwork) {
+    String result = null;
+
+    Statement statement;
+    ResultSet resultSet;
+    try {
+        statement = conn.createStatement();
+        resultSet = statement.executeQuery("SELECT image_art FROM artwork WHERE id_artist = " + ID_artwork);
+
+        if (resultSet.next()) {
+            result = resultSet.getString("image_art");
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return result;
+}
+    
 }

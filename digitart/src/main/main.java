@@ -83,14 +83,14 @@ public class main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        
+        /*
          ArrayList<auction_display> AuctionList;
        AuctionList = Auction_Services.Display_auction_details();
 
         System.out.println(AuctionList);
         
         // TODO code application logic here
-        /*
+        
         Add auction to table 
          
         Auction auction1 = new Auction(100, 10, 1, LocalDate.of(2023, Month.MARCH, 10), "new edition");

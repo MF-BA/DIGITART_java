@@ -7,9 +7,11 @@ package controller;
 
 import java.util.ArrayList;
 import Services.Artwork_Services;
+import static Services.Artwork_Services.find_artwork;
 import entity.Artwork;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,10 +23,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -63,6 +69,7 @@ public class Display_artworkController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
+     private Image image1;
     @FXML
     private Button btn_roomM;
     @FXML
@@ -120,18 +127,44 @@ public class Display_artworkController implements Initializable {
     }
          
          
-            public Artwork SelectRoom() {
+    
+            
+            
+    @FXML
+            public void showimage() {
+                 selectedArtwork = ((TableView<Artwork>) table_Artwork).getSelectionModel().getSelectedItem();
+        int num = table_Artwork.getSelectionModel().getFocusedIndex();
+     if ((num - 1) < -1) {
+            return ;
+        }
+      String url =  selectedArtwork.getImage_art();
 
-    Artwork t = ((TableView<Artwork>) table_Artwork).getSelectionModel().getSelectedItem();
-        return t;
- 
-    }
+        image1 = new Image(url, 245, 237, false, true);
+
+        image.setImage(image1);
+    
+             
+            }
+            
+            private Artwork selectedArtwork;
+
+public Artwork SelectArtwork() {
+    selectedArtwork = ((TableView<Artwork>) table_Artwork).getSelectionModel().getSelectedItem();
+    
+    
+    return selectedArtwork;
+}
         
         
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         ShowArtwork();
+        
+
+        
+        
+    
     }    
 
     @FXML
@@ -146,6 +179,41 @@ public class Display_artworkController implements Initializable {
 
     @FXML
     private void btn_delete_clicked(ActionEvent event) {
+        
+        Alert alert;
+         Artwork a= SelectArtwork();
+       
+        try {
+            if (table_Artwork.getSelectionModel().getSelectedIndex()== -1) {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select the item first");
+                alert.showAndWait();
+            } else {
+                alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure you want to delete the artwork with ID: " + a.getId_art()+ "?");
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get().equals(ButtonType.OK)) {
+                    
+                    Artwork_Services.delete(a.getId_art());
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Deleted!");
+                    alert.showAndWait();
+                    ShowArtwork();
+                } else {
+                    return;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
     }
 
    

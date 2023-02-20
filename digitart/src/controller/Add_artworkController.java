@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -143,17 +145,16 @@ public class Add_artworkController implements Initializable {
     
     
         public void combobox() {
-        List<Integer> options = new ArrayList<>();
-        options.add(1);
-        options.add(2);
-        input_id_artist.getItems().addAll(options);
-      
-          List<Integer> options1 = new ArrayList<>();
-        options.add(1);
+        ObservableList<Integer> myObservableList = FXCollections.observableArrayList(Artwork_Services.find_idartist());
+        input_id_artist.setItems(myObservableList);
+        
        
-        input_idroom.getItems().addAll(options1);
+      ObservableList<Integer> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_idroom());
+        input_idroom.setItems(myObservableList1);
         
-        
+          
+
+      
         
     }
 

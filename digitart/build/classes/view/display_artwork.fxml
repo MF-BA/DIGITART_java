@@ -18,7 +18,7 @@
             <Font name="Impact" size="46.0" />
          </font>
       </Text>
-      <TableView fx:id="table_Artwork" layoutX="223.0" layoutY="190.0" prefHeight="350.0" prefWidth="546.0">
+      <TableView fx:id="table_Artwork" layoutX="223.0" layoutY="190.0" onMouseClicked="#showimage" prefHeight="350.0" prefWidth="546.0">
          <columns>
             <TableColumn fx:id="col_id" prefWidth="19.0" text="ID" />
             <TableColumn fx:id="col_name" prefWidth="115.0" text="Name" />
