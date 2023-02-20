@@ -3,7 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/main/main.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Display_artworkController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Display_roomController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Display_auctionsController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/main/main.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Add_roomController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/HOMEController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/Services/Room_Services.java</file>
+            <file>file:/E:/github/Primes/digitart/src/Services/Auction_Services.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Add_auction_Controller.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Add_artworkController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/view/display_artwork.fxml</file>
+            <file>file:/E:/github/Primes/digitart/src/entity/Artwork.java</file>
+            <file>file:/E:/github/Primes/digitart/src/Services/ServiceTicket.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/TicketController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/view/display_room.fxml</file>
+            <file>file:/E:/github/Primes/digitart/src/Services/Artwork_Services.java</file>
         </group>
     </open-files>
 </project-private>

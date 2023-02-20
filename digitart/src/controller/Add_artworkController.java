@@ -114,7 +114,11 @@ public class Add_artworkController implements Initializable {
     private void btn_add_clicked(ActionEvent event) {
           String name = this.Input_name_artwork.getText();
         String nameartist = this.input_name_artist.getText(); 
-        int id_artist = this.input_id_artist.getSelectionModel().getSelectedItem();
+        int id_artist;
+        if(this.input_id_artist.getSelectionModel().getSelectedItem()== null){
+            id_artist=-1;
+        }else
+        {id_artist = this.input_id_artist.getSelectionModel().getSelectedItem();}
         int id_room = this.input_idroom.getSelectionModel().getSelectedItem();
         String desc = this.input_desc.getText();
          LocalDate date = this.input_date.getValue();
