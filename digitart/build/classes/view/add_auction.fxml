@@ -66,7 +66,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="-8.0" layoutY="30.0" prefHeight="457.0" prefWidth="178.0" styleClass="left-form" stylesheets="@auctionDesign.css">
+      <AnchorPane layoutY="30.0" prefHeight="457.0" prefWidth="178.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
             <FontAwesomeIconView fill="#fafafa" glyphName="USER" layoutX="61.0" layoutY="83.0" size="80.0" text="" wrappingWidth="59.19998016357408" />
             <Label layoutX="48.0" layoutY="94.0" prefHeight="27.0" prefWidth="82.0" text="WELCOME," textAlignment="CENTER" textFill="WHITE">

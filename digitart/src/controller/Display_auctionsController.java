@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,6 +36,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -42,8 +45,6 @@ import javafx.stage.Stage;
  */
 public class Display_auctionsController implements Initializable {
 
-    @FXML
-    private Button btn_add_auction;
     @FXML
     private Button Close;
     @FXML
@@ -67,24 +68,24 @@ public class Display_auctionsController implements Initializable {
     @FXML
     private TableColumn<auction_display, Integer> Increment;
     @FXML
-    private TableColumn<auction_display, Integer> Current_bid;
+    private TableColumn<auction_display, String> Current_bid;
     @FXML
     private AnchorPane main_anchor;
-    @FXML
-    private FontAwesomeIconView minimize;
-    @FXML
-    private Button btn_artwork_auctin;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
+    @FXML
+    private Button btn_Add_Auction;
+    @FXML
+    private Button btn_Artworks_Auction;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ShowTicket();
+        Showauction();
 
         Dslay_delete_button.setOnAction(this::AuctonDelete);
     }
@@ -102,7 +103,7 @@ public class Display_auctionsController implements Initializable {
 
     private ArrayList<auction_display> AuctionList;
 
-    public void ShowTicket() {
+    public void Showauction() {
 
         AuctionList = Auction_Services.Display_auction_details();
 
@@ -111,7 +112,17 @@ public class Display_auctionsController implements Initializable {
         Ending_Date.setCellValueFactory(new PropertyValueFactory<>("Date"));
         Description.setCellValueFactory(new PropertyValueFactory<>("desc"));
         Increment.setCellValueFactory(new PropertyValueFactory<>("increment"));
-        Current_bid.setCellValueFactory(new PropertyValueFactory<>("bid"));
+        Current_bid.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<auction_display, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<auction_display, String> cellData) {
+                int bid = cellData.getValue().getBid();
+                if (bid == 0) {
+                    return new SimpleStringProperty("None");
+                } else {
+                    return new SimpleStringProperty(String.valueOf(bid));
+                }       }
+        });
+
 
         if (table_auction != null && table_auction instanceof TableView) {
             // Cast ticket_tableview to TableView<Ticket> and set its items     
@@ -119,11 +130,7 @@ public class Display_auctionsController implements Initializable {
         }
     }
 
-    @FXML
-    private void UpdateUpdate(ActionEvent event) {
-    }
 
-    @FXML
     private void AuctonDelete(ActionEvent event) {
         int t = select_auction(null);
         System.out.println(t);
@@ -139,15 +146,11 @@ public class Display_auctionsController implements Initializable {
             alert.setContentText("DELETION ACCOMPLISHED SUCCESSFULLY!!!");
             alert.showAndWait();
         }
-        ShowTicket();
+        Showauction();
 
     }
 
-    @FXML
-    private void Showbid_click(ActionEvent event) {
-    }
 
-    @FXML
     private int select_auction(MouseEvent event) {
         auction_display t = ((TableView<auction_display>) table_auction).getSelectionModel().getSelectedItem();
         int num = table_auction.getSelectionModel().getSelectedIndex();
@@ -160,14 +163,11 @@ public class Display_auctionsController implements Initializable {
 
     @FXML
     private void btn_add_auction_clck(ActionEvent event) {
-        go_Home(event);
+        go_ADD_auction(event);
     }
 
-    @FXML
-    private void btn_artwork_auctin_click(ActionEvent event) {
-    }
 
-    private void go_Home(ActionEvent event) {
+    private void go_ADD_auction(ActionEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("/view/add_auction.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -178,6 +178,18 @@ public class Display_auctionsController implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @FXML
+    private void Artworks__Auction_cicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void TicketUpdate(ActionEvent event) {
+    }
+
+    @FXML
+    private void TicketDelete(ActionEvent event) {
     }
 
 }
