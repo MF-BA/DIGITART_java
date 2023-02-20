@@ -68,20 +68,19 @@ public class Auction_Services {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-            return list;
+        return list;
 
     }
-    
+
     public static ArrayList<auction_display> Display_auction_details() {
         ArrayList<auction_display> displayList = new ArrayList<auction_display>(); // initialize displayList
         for (Auction auction : Display()) {
-           auction_display display = new auction_display(auction, Auction_Services.find_artwork_name(auction.getId_artwork()), Bid_Services.highest_offer(auction.getId_artwork()));
-           displayList.add(display);
+            System.out.println(auction.getId_artwork());
+            auction_display display = new auction_display(auction, Auction_Services.find_artwork_name(auction.getId_artwork()), Bid_Services.highest_offer(auction.getId_auction()));
+            displayList.add(display);
         }
         return displayList;
-}
-
-    
+    }
 
     public static void delete(int ID) {
 
@@ -151,7 +150,7 @@ public class Auction_Services {
             return -1;
         }
     }
-    
+
     public static String find_artwork_name(int id) {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT artwork_name FROM artwork WHERE id_art= ?");

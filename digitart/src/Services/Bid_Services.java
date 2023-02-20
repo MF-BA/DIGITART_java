@@ -43,7 +43,7 @@ public class Bid_Services {
             if (resultLatest_bidt.next()) {
                 latest_bid = resultLatest_bidt.getInt(1);
             }
-            if (latest_bid == 0) {
+            /*if (latest_bid == 0) {
                 String starting_price = "SELECT starting_price FROM auction WHERE id_auction = ?";
                 PreparedStatement starting_price_stmt;
                 ResultSet resultstarting_price;
@@ -54,10 +54,11 @@ public class Bid_Services {
                 if (resultstarting_price.next()) {
                     return resultstarting_price.getInt(1);
                 }
-            }
+            }*/
         } catch (SQLException ex) {
             Logger.getLogger(Bid_Services.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return latest_bid;
 
     }
