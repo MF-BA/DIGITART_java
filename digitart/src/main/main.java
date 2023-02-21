@@ -46,7 +46,7 @@ public class main extends Application {
        // Scene scene = new Scene(ADDAUCTION_Page);
        Scene scene = new Scene(ADDATICKET_Page);
        
-        ADDATICKET_Page.setOnMousePressed((MouseEvent event) -> {
+        /*ADDATICKET_Page.setOnMousePressed((MouseEvent event) -> {
             x = event.getSceneX();
             y = event.getSceneY();
         });
@@ -63,7 +63,7 @@ public class main extends Application {
         });
 
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-       
+       */
        
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
