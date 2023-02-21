@@ -88,6 +88,30 @@ public class Event_Services {
             }
         }
     }
+        
+          public static void updateEvent(Event ev) {
+        Connection connection;
+        PreparedStatement preparedStatement;
+        try {
+            connection = Conn.getCon();
+            preparedStatement = connection.prepareStatement("UPDATE event SET event_name = ?, start_date = ?, end_date = ?, nb_participants = ?, detail = ?, start_time = ? WHERE id = ?");
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String sdate = dateFormat.format(ev.getStart_date());
+            String edate = dateFormat.format(ev.getEnd_date());
+
+            preparedStatement.setString(1, ev.getEvent_name());
+            preparedStatement.setString(2,sdate);
+            preparedStatement.setString(3, edate);
+            preparedStatement.setInt(4,ev.getNb_participants());
+            preparedStatement.setString(5, ev.getDetail());
+            preparedStatement.setInt(6,ev.getStart_time() );
+            preparedStatement.setInt(7,ev.getEvent_id());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "error in update!!", e);
+        }
+    }
    
 
 }

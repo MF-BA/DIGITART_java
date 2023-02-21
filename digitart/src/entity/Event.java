@@ -31,6 +31,16 @@ public class Event {
         
 }
 
+    public Event(Date start_date, Date end_date, int start_time, String event_name, String detail, int nb_participants) {
+      
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.start_time = start_time;
+        this.event_name = event_name;
+        this.detail = detail;
+        this.nb_participants=nb_participants;
+    }
+
     public int getEvent_id() {
         return event_id;
     }
