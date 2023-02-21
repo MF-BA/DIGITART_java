@@ -15,7 +15,7 @@ public class Conn {
 
     static Conn A;
 
-    String URL = "jdbc:mysql://localhost/digitart?zeroDateTimeBehavior=convertToNull";
+    String URL = "jdbc:mysql://localhost/digitart";
     String user = "root";
     String pwd = "";
 

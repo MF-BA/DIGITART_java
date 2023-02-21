@@ -116,6 +116,9 @@ public class Add_eventController implements Initializable {
         }
         if(event.getSource()==btndelete){
            EventDelete();
+        }if(event.getSource()==btnupdate)
+        {
+            EventUpdate();
         }
     }
     
@@ -124,19 +127,20 @@ public class Add_eventController implements Initializable {
     public void showevent() {
 
         eventList = Event_Services.displayEvent();
-colid.setCellValueFactory(new PropertyValueFactory<Event,Integer>("event_id"));
-        coleventname.setCellValueFactory(new PropertyValueFactory<Event,String>("event_name") );
-        colstartdate.setCellValueFactory(new PropertyValueFactory<Event,Date>("start_date") );
-        colenddate.setCellValueFactory(new PropertyValueFactory<Event,Date>("end_date") );
-        colnbparticipants.setCellValueFactory(new PropertyValueFactory<Event,Integer>("nb_participants") );
-        colstarttime.setCellValueFactory(new PropertyValueFactory<Event,Integer>("start_time") );
-        coldesc.setCellValueFactory(new PropertyValueFactory<Event,String>("detail") );
+        colid.setCellValueFactory(new PropertyValueFactory<>("event_id"));
+        coleventname.setCellValueFactory(new PropertyValueFactory<>("event_name") );
+        colstartdate.setCellValueFactory(new PropertyValueFactory<>("start_date") );
+        colenddate.setCellValueFactory(new PropertyValueFactory<>("end_date") );
+        colnbparticipants.setCellValueFactory(new PropertyValueFactory<>("nb_participants") );
+        colstarttime.setCellValueFactory(new PropertyValueFactory<>("start_time") );
+        coldesc.setCellValueFactory(new PropertyValueFactory<>("detail") );
 
         if (tabevent != null && tabevent instanceof TableView) {
             // Cast ticket_tableview to TableView<Ticket> and set its items
             ((TableView<Event>) tabevent).setItems(FXCollections.observableArrayList(eventList));
         }
     }
+    
   
    
     
@@ -249,10 +253,10 @@ colid.setCellValueFactory(new PropertyValueFactory<Event,Integer>("event_id"));
         
             
     }
-    
-    /* public void TicketUpdate() {
+     
+    public void EventUpdate() {
         Alert alert;
-        String event_id = this.txt_event_id.getText();
+        int event_id = Integer.parseInt(this.txt_event_id.getText());
         LocalDate start_date = this.txt_start_date.getValue();
         LocalDate end_date = this.txt_end_date.getValue();
         String event_name = this.txt_event_name.getText();
@@ -273,11 +277,13 @@ colid.setCellValueFactory(new PropertyValueFactory<Event,Integer>("event_id"));
                 alert.setContentText("Are you sure you want to UPDATE ticket ID: " + event_id + "?");
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get().equals(ButtonType.OK)) {
-                    LocalDate localDate = ticket_date.getValue();
-                    Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                    Ticket t = new Ticket(Integer.parseInt(ticket_id.getText()), date, ticket_type.getSelectionModel().getSelectedItem(),
-                    Integer.parseInt(ticket_price.getText()), Integer.parseInt(ticket_stock.getText()), ticket_desc.getText());
-                    ServiceTicket.updateTicket(t);
+                    LocalDate localDates = start_date;
+                    LocalDate localDatee = end_date;
+                    
+                    Date dates = Date.from(localDates.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    Date datee = Date.from(localDatee.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    Event e = new Event (event_id,dates,datee, start_time, event_name,event_desc,nb_participants);
+                    Event_Services.updateEvent(e);
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
@@ -292,6 +298,7 @@ colid.setCellValueFactory(new PropertyValueFactory<Event,Integer>("event_id"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
+    
     
 }
