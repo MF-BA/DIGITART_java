@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Auction;
-import entity.auction_display;
+import entity.Auction_display;
 import main.main;
 
 /**
@@ -72,11 +72,11 @@ public class Auction_Services {
 
     }
 
-    public static ArrayList<auction_display> Display_auction_details() {
-        ArrayList<auction_display> displayList = new ArrayList<auction_display>(); // initialize displayList
+    public static ArrayList<Auction_display> Display_auction_details() {
+        ArrayList<Auction_display> displayList = new ArrayList<Auction_display>(); // initialize displayList
         for (Auction auction : Display()) {
             System.out.println(auction.getId_artwork());
-            auction_display display = new auction_display(auction, Auction_Services.find_artwork_name(auction.getId_artwork()), Bid_Services.highest_offer(auction.getId_auction()));
+            Auction_display display = new Auction_display(auction, Auction_Services.find_artwork_name(auction.getId_artwork()), Bid_Services.highest_offer(auction.getId_auction()));
             displayList.add(display);
         }
         return displayList;

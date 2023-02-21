@@ -11,7 +11,7 @@ import java.time.LocalDate;
  *
  * @author fedi1
  */
-public class auction_display {
+public class Auction_display {
 
     LocalDate Date;
     String desc;
@@ -21,7 +21,7 @@ public class auction_display {
 
     int id_auction, id_artwork;
 
-    public auction_display(Auction auction, String name, int bid) {
+    public Auction_display(Auction auction, String name, int bid) {
         this.id_auction = auction.getId_auction();
         this.id_artwork = auction.getId_artwork();
         this.desc = auction.getDescription();

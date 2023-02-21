@@ -12,7 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="425.0" prefWidth="1123.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_auctionsController">
    <children>
-      <TableView fx:id="table_auction" layoutX="254.0" layoutY="118.0" prefHeight="307.0" prefWidth="743.0">
+      <TableView fx:id="table_auction" layoutX="254.0" layoutY="118.0" onMouseClicked="#select_auction" prefHeight="307.0" prefWidth="743.0">
         <columns>
             <TableColumn fx:id="artwork_Name" minWidth="6.0" prefWidth="110.0" text="Artwork Name" />
           <TableColumn fx:id="Starting_price" prefWidth="119.0" text="Starting Price" />
@@ -67,7 +67,7 @@
          </children>
       </AnchorPane>
       <Button fx:id="display_show_bid_btn" layoutX="1002.0" layoutY="300.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="107.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show Bids" />
-      <Button fx:id="Dslay_update_button" layoutX="1002.0" layoutY="348.0" mnemonicParsing="false" onAction="#TicketUpdate" prefHeight="30.0" prefWidth="107.0" styleClass="update-btn" stylesheets="@auctionDesign.css" text="Update" />
-      <Button fx:id="Dslay_delete_button" layoutX="1002.0" layoutY="395.0" mnemonicParsing="false" onAction="#TicketDelete" prefHeight="30.0" prefWidth="107.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete" />
+      <Button fx:id="Dslay_update_button" layoutX="1002.0" layoutY="348.0" mnemonicParsing="false" onAction="#Auctonupdate" prefHeight="30.0" prefWidth="107.0" styleClass="update-btn" stylesheets="@auctionDesign.css" text="Update" />
+      <Button fx:id="Dslay_delete_button" layoutX="1002.0" layoutY="395.0" mnemonicParsing="false" onAction="#AuctonDelete" prefHeight="30.0" prefWidth="107.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete" />
    </children>
 </AnchorPane>

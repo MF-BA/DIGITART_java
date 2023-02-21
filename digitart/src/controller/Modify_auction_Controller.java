@@ -5,19 +5,16 @@
  */
 package controller;
 
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import Services.Auction_Services;
-import Services.Bid_Services;
 import entity.Auction;
+import entity.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javafx.application.Application.launch;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,9 +24,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Spinner;
@@ -44,14 +43,14 @@ import javafx.stage.Stage;
  *
  * @author fedi1
  */
-public class Add_auction_Controller implements Initializable {
+public class Modify_auction_Controller implements Initializable {
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
     @FXML
-    private TextField in_SB;
+    private TextField in_SP;
     @FXML
     private TextArea in_Desc;
     @FXML
@@ -63,82 +62,42 @@ public class Add_auction_Controller implements Initializable {
     @FXML
     private Button submit_add_auction;
     @FXML
-    private Button btn_Add_Auction;
-    @FXML
-    private Button btn_Artworks_Auction;
+    private AnchorPane main_anchor;
     @FXML
     private Button Close;
     @FXML
     private Button Minimize;
-    @FXML
-    private AnchorPane main_anchor;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000);
-        valueFactory.setValue(10);
-        in_BI.setValueFactory(valueFactory);
-
-        ArrayList<String> arr = Auction_Services.find_artworks(1);
-        if (arr.size() == 0) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("WARNING !!!!");
-            alert.setContentText("You dont have any artwork to add!!!");
-            alert.showAndWait();
-            go_Home(new ActionEvent());
-        }
-
         ObservableList<String> myObservableList = FXCollections.observableArrayList(Auction_Services.find_artworks(1));
 
         in_I.setItems(myObservableList);
 
         // force the field to be numeric only
-        in_SB.textProperty().addListener(new ChangeListener<String>() {
+        in_SP.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
                     String newValue) {
                 if (!newValue.matches("\\d*")) {
-                    in_SB.setText(newValue.replaceAll("[^\\d]", ""));
+                    in_SP.setText(newValue.replaceAll("[^\\d]", ""));
                 }
             }
         });
 
-        submit_add_auction.setOnAction(this::submit_add_auction_clicked);
+        in_I.setValue(Auction_Services.find_artwork_name(Data.auction_display.getId_artwork()));
+        in_SP.setText(String.valueOf(Data.auction_display.getStarting_price()));
+        in_Desc.setText(Data.auction_display.getDesc());
 
-        /*
-        in_I.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> options, String oldValue, String newValue) {
-                myObservableList.clear();
-                myObservableList.addAll(Auction_Services.artwork(1));
-            }
-        });
-         */
-    }
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000);
+        valueFactory.setValue(Data.auction_display.getIncrement());
+        in_BI.setValueFactory(valueFactory);
 
-    @FXML
-    private void submit_add_auction_clicked(ActionEvent event) {
+        in_ED.setValue(Data.auction_display.getDate());
 
-        if (in_SB.textProperty().getValue().isEmpty() || in_ED.getValue() == null || in_Desc.textProperty().getValue().isEmpty() || in_I.getValue() == null) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("WARNING !!!!");
-            alert.setContentText("Some Fields are empty!");
-            alert.showAndWait();
-        } else {
-            LocalDate date = in_ED.getValue();
-            /*date */
-            System.out.println(in_I.getValue());
-
-            Auction auction = new Auction(Integer.parseInt(in_SB.textProperty().getValue()),
-                    in_BI.getValue(), Auction_Services.find_artwork_id(in_I.getValue()),
-                    date, in_Desc.textProperty().getValue());
-            Auction_Services.add(auction);
-            go_Home(event);
-        }
     }
 
     private void go_Home(ActionEvent event) {
@@ -155,24 +114,39 @@ public class Add_auction_Controller implements Initializable {
     }
 
     @FXML
-    private void Artworks__Auction_cicked(ActionEvent event) {
-        go_Home(event);
+    private void submit_add_auction_clicked(ActionEvent event) {
+        Alert alert;
+        if (in_SP.textProperty().getValue().isEmpty() || in_ED.getValue() == null || in_Desc.textProperty().getValue().isEmpty() || in_I.getValue() == null) {
+            alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING !!!!");
+            alert.setContentText("Some Fields are empty!");
+            alert.showAndWait();
+        } else {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to modify the auction?");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get().equals(ButtonType.OK)) {
+                LocalDate date = in_ED.getValue();
+                /*date */
+                System.out.println(in_I.getValue());
+
+                Auction auction = new Auction(Data.auction_display.getId_auction(), Integer.parseInt(in_SP.textProperty().getValue()),
+                        in_BI.getValue(), Auction_Services.find_artwork_id(in_I.getValue()),
+                        date, in_Desc.textProperty().getValue());
+                Auction_Services.modify(auction);
+                go_Home(event);
+            }
+        }
     }
 
     @FXML
     private void Close(ActionEvent event) {
-        System.exit(0);
     }
 
     @FXML
     private void Minimize(ActionEvent event) {
-        Stage stage = (Stage) main_anchor.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-    @FXML
-    private void btn_Add_Auction_click(ActionEvent event) {
-
     }
 
 }
