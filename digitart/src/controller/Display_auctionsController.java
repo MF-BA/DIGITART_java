@@ -49,10 +49,6 @@ import javafx.util.Callback;
 public class Display_auctionsController implements Initializable {
 
     @FXML
-    private Button Close;
-    @FXML
-    private Button Minimize;
-    @FXML
     private Button Dslay_update_button;
     @FXML
     private Button Dslay_delete_button;
@@ -72,7 +68,6 @@ public class Display_auctionsController implements Initializable {
     private TableColumn<Auction_display, Integer> Increment;
     @FXML
     private TableColumn<Auction_display, String> Current_bid;
-    @FXML
     private AnchorPane main_anchor;
 
     private Stage stage;
@@ -93,12 +88,10 @@ public class Display_auctionsController implements Initializable {
         Dslay_delete_button.setOnAction(this::AuctonDelete);
     }
 
-    @FXML
     private void Close(ActionEvent event) {
         System.exit(0);
     }
 
-    @FXML
     private void Minimize(ActionEvent event) {
         Stage stage = (Stage) main_anchor.getScene().getWindow();
         stage.setIconified(true);

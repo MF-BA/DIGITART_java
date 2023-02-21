@@ -62,11 +62,7 @@ public class Modify_auction_Controller implements Initializable {
     @FXML
     private Button submit_add_auction;
     @FXML
-    private AnchorPane main_anchor;
-    @FXML
-    private Button Close;
-    @FXML
-    private Button Minimize;
+    private Button cancel_add_auction;
 
     /**
      * Initializes the controller class.
@@ -142,11 +138,9 @@ public class Modify_auction_Controller implements Initializable {
     }
 
     @FXML
-    private void Close(ActionEvent event) {
+    private void cancel_add_auction_clicked(ActionEvent event) {
+        go_Home(event);
     }
 
-    @FXML
-    private void Minimize(ActionEvent event) {
-    }
 
 }
