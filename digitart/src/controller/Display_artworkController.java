@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import Services.Artwork_Services;
 import static Services.Artwork_Services.find_artwork;
 import entity.Artwork;
+import entity.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -106,6 +107,18 @@ public class Display_artworkController implements Initializable {
         }
     }
         
+                   private void go_modify_artwork(ActionEvent event) {
+        try {
+             root = FXMLLoader.load(getClass().getResource("/view/modify_artwork.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
         
         
          public void ShowArtwork() {
@@ -175,6 +188,12 @@ public Artwork SelectArtwork() {
 
     @FXML
     private void btn_modify_clicked(ActionEvent event) {
+        
+        Data.setArtwork(SelectArtwork());
+        go_modify_artwork(event);
+        
+        
+        
     }
 
     @FXML

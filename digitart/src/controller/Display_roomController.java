@@ -6,6 +6,7 @@
 package controller;
 
 import Services.Room_Services;
+import entity.Data;
 import entity.Room;
 import java.io.IOException;
 import java.net.URL;
@@ -131,11 +132,26 @@ public class Display_roomController implements Initializable {
         }
 
     }
+     
+       private void go_modify_room(ActionEvent event) {
+        try {
+             root = FXMLLoader.load(getClass().getResource("/view/modify_room.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     
     
 
     @FXML
     private void btn_modify_clicked(ActionEvent event) {
+         Data.setRoom(SelectRoom());
+        go_modify_room(event);
     }
 
     @FXML

@@ -83,7 +83,7 @@ public class Room_Services {
     
      public static void modify(Room room) {
 
-        String Modify_room = "update room set name_room = ? ,area,state=? ,description=? where id_room=?  ";
+        String Modify_room = "update room set name_room = ? ,area=?,state=? ,description=? where id_room=?  ";
         try {
             PreparedStatement st = conn.prepareStatement(Modify_room);
            
