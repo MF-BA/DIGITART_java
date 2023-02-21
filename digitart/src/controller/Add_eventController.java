@@ -73,7 +73,7 @@ public class Add_eventController implements Initializable {
     @FXML
     private TextField txt_start_time;
     @FXML
-    private TextField txt_desc;
+    private TextArea txt_desc;
     @FXML
     private TableView<Event> tabevent;
     @FXML
@@ -299,6 +299,7 @@ public class Add_eventController implements Initializable {
             e.printStackTrace();
         }
     }
+
     
     
 }
