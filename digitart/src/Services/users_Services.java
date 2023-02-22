@@ -68,26 +68,27 @@ public class users_Services {
             res= statement.executeQuery("SELECT * FROM users");
 
             while (res.next()) {
-                LocalDate D = res.getDate("birth_date").toLocalDate();
+                LocalDate D = res.getDate(9).toLocalDate();
                 users data = new users(
-                        res.getInt("id"),
-                        res.getInt("cin"),
-                        res.getString("firstname"),
-                        res.getString("lastname"),
-                        res.getString("email"),
-                        res.getString("password"),
-                        res.getString("address"),
-                        res.getInt("phone_num"),
+                        res.getInt(1),
+                        res.getInt(2),
+                        res.getString(3),
+                        res.getString(4),
+                        res.getString(5),
+                        res.getString(6),
+                        res.getString(7),
+                        res.getInt(8),
                            D,
-                        res.getString("gender"),
-                        res.getString("role")
+                        res.getString(10),
+                        res.getString(11)
                         
                 );
                 list.add(data);
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(users_Services.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(users_Services.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
         return list;

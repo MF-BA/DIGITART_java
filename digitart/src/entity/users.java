@@ -17,7 +17,9 @@ public class users {
    String firstname,lastname,email,pwd,address,gender,role;
    int id,cin,phone_number;
    LocalDate birth_date;
-
+ public users() {
+       
+    }
     public users(String firstname, String lastname, String email, String address, String gender, int id, int cin, int phone_number,  LocalDate birth_date) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -53,17 +55,19 @@ public class users {
         
     }
     public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role) {
+        this.id = id;
+        this.cin = cin;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.pwd = pwd;
         this.address = address;
-        this.gender = gender;
-        this.role = role;
-        this.id = id;
-        this.cin = cin;
         this.phone_number = phone_number;
         this.birth_date = birth_date;
+        this.gender = gender;
+        this.role = role;
+        
+        
     }
 
     public String getFirstname() {
