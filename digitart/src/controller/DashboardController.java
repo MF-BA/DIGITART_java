@@ -177,7 +177,7 @@ public class DashboardController implements Initializable {
     @FXML
     private Button clear_fields_update;
     @FXML
-    private ComboBox<?> Rolebox_up;
+    private ComboBox<String> Rolebox_up;
     @FXML
     private Button modify_fromlist;
     @FXML
@@ -194,8 +194,10 @@ public class DashboardController implements Initializable {
         default_anchor.setVisible(true);
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
+        update_page.setVisible(false);
         
-        
+        comboboxup(); 
+        combobox();
     }    
 
     
@@ -206,27 +208,31 @@ public class DashboardController implements Initializable {
         listusers_btn.setVisible(false);
         update_page.setVisible(false);
         adduser_dash_btn.setVisible(true);
-        list_users.setStyle("-fx-background-color:  #C58940 ");
-        add_user.setStyle("-fx-background-color: #E5BA73 ");
-        modify_user.setStyle("-fx-background-color: #C58940 ");
+         add_user.setStyle("-fx-background-color: #470011 ");
+        list_users.setStyle("-fx-background-color:  transparent ");
+        modify_user.setStyle("-fx-background-color: transparent ");
         
-        List<String> options = new ArrayList<>();
+        
+    }
+
+public void combobox()
+{
+    List<String> options = new ArrayList<>();
         options.add("Admin");
         options.add("Artist");
         options.add("Subscriber");
         Rolebox.getItems().addAll(options);
-    }
-
-
+}
     @FXML
     private void modify_user_btn(ActionEvent event) {
       default_anchor.setVisible(false);
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
         update_page.setVisible(true);
-        list_users.setStyle("-fx-background-color:  #C58940 ");
-        add_user.setStyle("-fx-background-color: #C58940 ");
-        modify_user.setStyle("-fx-background-color: #E5BA73 ");  
+        list_users.setStyle("-fx-background-color:   transparent ");
+        add_user.setStyle("-fx-background-color:  transparent ");
+        modify_user.setStyle("-fx-background-color: #470011 ");  
+        
     }
 
     @FXML
@@ -236,9 +242,9 @@ public class DashboardController implements Initializable {
         update_page.setVisible(false);
         listusers_btn.setVisible(true);
         
-       list_users.setStyle("-fx-background-color: #E5BA73 ");
-       add_user.setStyle("-fx-background-color: #C58940 ");
-       modify_user.setStyle("-fx-background-color: #C58940 ");
+       list_users.setStyle("-fx-background-color: #470011 ");
+       add_user.setStyle("-fx-background-color: transparent ");
+       modify_user.setStyle("-fx-background-color:  transparent ");
        showusers();
        
       
@@ -251,9 +257,9 @@ public class DashboardController implements Initializable {
         fname_tb.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         lname_tb.setCellValueFactory(new PropertyValueFactory<>("lastname"));
        email_tb.setCellValueFactory(new PropertyValueFactory<>("email"));
-       pwd_tb.setCellValueFactory(new PropertyValueFactory<>("password"));
+       pwd_tb.setCellValueFactory(new PropertyValueFactory<>("pwd"));
        address_tb.setCellValueFactory(new PropertyValueFactory<>("address"));
-       phnum_tb.setCellValueFactory(new PropertyValueFactory<>("phone_num"));
+       phnum_tb.setCellValueFactory(new PropertyValueFactory<>("phone_number"));
        birth_d_tb.setCellValueFactory(new PropertyValueFactory<>("birth_date"));
       gender_tb.setCellValueFactory(new PropertyValueFactory<>("gender"));
        role_tb.setCellValueFactory(new PropertyValueFactory<>("role"));
@@ -271,6 +277,7 @@ public class DashboardController implements Initializable {
         address.setText("");
         cin.setText("");
         phone_num.setText("");
+        birth_d.setValue(null);
         female_gender.setSelected(false);
         male_gender.setSelected(false);
         Rolebox.getSelectionModel().clearSelection();  
@@ -298,22 +305,26 @@ public class DashboardController implements Initializable {
         String Email = email.getText();
         String passwd = pwd.getText();
         String Address = address.getText();
-        String gender = null;
+        String gender=null;
         String role = (String) Rolebox.getSelectionModel().getSelectedItem();
         
          int Cin = 0;
          int phone_number = 0;
+     errormsgfname.setText("");
+    errormsglname.setText("");
+    errormsgemail.setText("");
+    errormsgpwd.setText("");
+    errormsgcin.setText("");
+    errormsgaddress.setText("");
+     errormsgphonenum.setText("");
+   errormsggender.setText("");
+   errormsgelements.setText("");
+   errormsgbirthdate.setText("");
+   errormsgrole.setText("");
        
-
-   if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null) {
-       if (!male_gender.isSelected() && !female_gender.isSelected()) {
-        //errormsggender.setStyle("-fx-text-color: #ff0000 ");   
-        errormsggender.setText("Please specify your gender!"); 
-        }  
-       if (!phone_num.getText().isEmpty())
+    if (!phone_num.getText().isEmpty())
     {               
     if (!phone_num.getText().matches("\\d+")) {
-        //errormsgphonenum.setStyle("-fx-text-color: #ff0000 ");  
         errormsgphonenum.setText("Phone number should be a number!");
     } else {
         phone_number = Integer.parseInt(phone_num.getText().trim());
@@ -322,55 +333,78 @@ public class DashboardController implements Initializable {
        if (!cin.getText().isEmpty())
     {
      if (!cin.getText().matches("\\d+")) {
-        //errormsgcin.setTextFill(Color.RED);
-        
         errormsgcin.setText("CIN should be a number!");
-    } else {
+    } else if (cin.getText().toString().length()<8)
+    {
+        errormsgcin.setText("CIN should contain 8 digits!");
+    }
+    else
+    {
         Cin = Integer.parseInt(cin.getText().trim());  
     }   
     }
-       //errormsgelements.setStyle("-fx-text-color: #ff0000 ");
+     if (!male_gender.isSelected() && !female_gender.isSelected()) {
+          
+        errormsggender.setText("Please specify your gender!"); 
+        }  
+     
+     if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+    errormsgemail.setText("Invalid email format!");
+    }
+     
+   if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null || (!male_gender.isSelected() && !female_gender.isSelected())) {
+         
        errormsgelements.setText("Please fill all elements!!");  
-    } 
+    
     if (passwd.isEmpty())   {
-     //errormsgpwd.setStyle("-fx-text-color: #ff0000 ");
+     
      errormsgpwd.setText("fill paswword !!");   
     }
     if (Address.isEmpty())  {
-      //errormsgaddress.setStyle("-fx-text-color: #ff0000 ");
+     
      errormsgaddress.setText("fill Address !!");   
     }
     if ( Email.isEmpty())
     {
-     //errormsgemail.setStyle("-fx-text-color: #ff0000 ");
-     errormsgemail.setText("fill Email !!");   
+     
+     errormsgemail.setText("Fill Email !!");   
     }
     if ( firstname.isEmpty())
     {
-     errormsgfname.setText("fill first name !!");   
+     errormsgfname.setText("Fill first name !!");   
     }
     if ( lastname.isEmpty())
     {
-       errormsglname.setText("fill last name !!");
+       errormsglname.setText("Fill last name !!");
     }
     if (phone_num.getText().isEmpty())
     {
-     errormsgphonenum.setText("fill phone number !!");  
+     errormsgphonenum.setText("Fill phone number !!");  
     }
     if (BirthDate == null)
     {
-        errormsgbirthdate.setText("fill birth date !!"); 
+        errormsgbirthdate.setText("Fill birth date !!"); 
     }
-    
+    if ( cin.getText().isEmpty() )
+    {
+     errormsgcin.setText("Fill Cin !!");   
+    }
+    } 
+   else if (male_gender.isSelected() && female_gender.isSelected())
+    {
+     errormsggender.setText("Please specify your gender!");    
+    }
     else {
     if (male_gender.isSelected()) {
         gender = male_gender.getText();  
-    } else if (female_gender.isSelected()) {
+    } 
+    if (female_gender.isSelected()) {
         gender = female_gender.getText();
     }
-    user1 = new users(firstname, lastname, Email, passwd, Address, gender, Cin, phone_number, BirthDate);
+   
+    user1 = new users(Cin ,firstname, lastname, Email, passwd, Address, phone_number, BirthDate, gender, role);
     user = new users_Services();
-    user.adduser(user1); 
+    user.adminadduser(user1); 
      
     errormsgfname.setText("");
     errormsglname.setText("");
@@ -393,6 +427,17 @@ public class DashboardController implements Initializable {
     @FXML
     private void clear_fields_btn(ActionEvent event) {
         clear();
+    errormsgfname.setText("");
+    errormsglname.setText("");
+    errormsgemail.setText("");
+    errormsgpwd.setText("");
+    errormsgcin.setText("");
+    errormsgaddress.setText("");
+     errormsgphonenum.setText("");
+   errormsggender.setText("");
+   errormsgelements.setText("");
+   errormsgbirthdate.setText("");
+   errormsgrole.setText("");
     }
 
     @FXML
@@ -441,9 +486,10 @@ public class DashboardController implements Initializable {
     }
     public void showmodif()
     {
-       list_users.setStyle("-fx-background-color: #C58940 ");
-       add_user.setStyle("-fx-background-color: #C58940 ");
-       modify_user.setStyle("-fx-background-color: #E5BA73 ");
+        modify_user.setStyle("-fx-background-color: #470011 ");
+       list_users.setStyle("-fx-background-color: transparent ");
+       add_user.setStyle("-fx-background-color: transparent ");
+       
         default_anchor.setVisible(false);
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
@@ -454,11 +500,19 @@ public class DashboardController implements Initializable {
         clearupd();
         
     }
-
+ public void comboboxup()
+ {
+     List<String> options = new ArrayList<>();
+        options.add("Admin");
+        options.add("Artist");
+        options.add("Subscriber");
+        Rolebox_up.getItems().addAll(options);
+ }
     @FXML
     private void modify_fromlist_btn(ActionEvent event) {
-        
-      user_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+       
+       
+      users newSelection = user_table.getSelectionModel().getSelectedItem();
     if (newSelection != null) {
         // Set up the update page with text fields filled with the data of the selected user
         
@@ -483,23 +537,24 @@ public class DashboardController implements Initializable {
 
       
     }
-    });
-      showmodif();
+    
+      showmodif(); 
         
     }
 
     @FXML
     private void delete_fromlist_btn(ActionEvent event) {
         
-        user_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-    if (newSelection != null) {
+        users selectedUser = user_table.getSelectionModel().getSelectedItem();
+    if (selectedUser != null) {
         // Remove the selected item from the table's data list
         
-        users_Services.deleteuser(newSelection.getId());
-        user_table.getItems().remove(newSelection);
-        showusers();
+        users_Services.deleteuser(selectedUser.getId());
+        user_table.getItems().remove(selectedUser);
+        
     }
-});
+   
+        showusers();
     }
     
 }
