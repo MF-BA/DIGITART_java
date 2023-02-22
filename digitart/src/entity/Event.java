@@ -19,6 +19,7 @@ public class Event {
     private String event_name;
     private String detail;
     private int nb_participants;
+    private int id_room;
     
     public Event(int event_id,Date start_date,Date end_date,int start_time,String event_name,String detail,int nb_participants) {
         this.event_id = event_id;
@@ -28,6 +29,17 @@ public class Event {
         this.event_name = event_name;
         this.detail = detail;
         this.nb_participants=nb_participants;
+        
+}
+         public Event(int event_id,Date start_date,Date end_date,int start_time,String event_name,String detail,int nb_participants,int id_room) {
+        this.event_id = event_id;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.start_time = start_time;
+        this.event_name = event_name;
+        this.detail = detail;
+        this.nb_participants=nb_participants;
+        this.id_room=id_room;
         
 }
 
@@ -56,6 +68,15 @@ public class Event {
     public int getStart_time() {
         return start_time;
     }
+    
+     public int getId_room() {
+        return id_room;
+    }
+     
+      public void setId_room(int id_room) {
+        this.id_room = id_room;
+    }
+
 
     public String getEvent_name() {
         return event_name;

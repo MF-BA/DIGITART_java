@@ -96,6 +96,10 @@ public class Add_eventController implements Initializable {
     private Button btndelete;
     @FXML
     private TextField txt_event_name;
+    @FXML
+    private ComboBox<Integer> txt_room;
+    @FXML
+    private TableColumn<Event, Integer> colroomid;
  
     
 
@@ -106,6 +110,7 @@ public class Add_eventController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
      showevent();
+     combobox();
     }    
 
     @FXML
@@ -134,6 +139,7 @@ public class Add_eventController implements Initializable {
         colnbparticipants.setCellValueFactory(new PropertyValueFactory<>("nb_participants") );
         colstarttime.setCellValueFactory(new PropertyValueFactory<>("start_time") );
         coldesc.setCellValueFactory(new PropertyValueFactory<>("detail") );
+        colroomid.setCellValueFactory(new PropertyValueFactory<>("id_room") );
 
         if (tabevent != null && tabevent instanceof TableView) {
             // Cast ticket_tableview to TableView<Ticket> and set its items
@@ -154,6 +160,9 @@ public class Add_eventController implements Initializable {
         int nb_participants = Integer.parseInt(this.txt_nb_participants.getText());
         String event_desc = this.txt_desc.getText();
         int start_time = Integer.parseInt(this.txt_start_time.getText());
+        int id_room;
+        id_room = this.txt_room.getSelectionModel().getSelectedItem();
+        
         
 
         Alert alert;
@@ -181,7 +190,7 @@ public class Add_eventController implements Initializable {
                     alert.setContentText("Event ID: " + event_id + " already exists!");
                     alert.showAndWait();
                 } else {
-                    Event_Services.insertevent(event_name,start_date, end_date,nb_participants,start_time,event_desc);
+                    Event_Services.insertevent(event_name,start_date, end_date,nb_participants,start_time,event_desc,id_room);
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
@@ -240,8 +249,6 @@ public class Add_eventController implements Initializable {
     @FXML
     private void handleMouseAction(MouseEvent event) {
         Event eventt = tabevent.getSelectionModel().getSelectedItem();
-        System.out.println("id" + eventt.getEvent_id());
-        System.out.println("name" + eventt.getEvent_name());
         txt_event_id.setText(String.valueOf(eventt.getEvent_id()));
         txt_start_date.setValue(LocalDate.parse(String.valueOf(eventt.getStart_date())));
         txt_end_date.setValue(LocalDate.parse(String.valueOf(eventt.getEnd_date())));
@@ -249,11 +256,16 @@ public class Add_eventController implements Initializable {
         txt_desc.setText(String.valueOf(eventt.getDetail()));
         txt_start_time.setText(String.valueOf(eventt.getStart_time()));
         txt_event_name.setText(String.valueOf(eventt.getEvent_name()));
+        ((ComboBox<Integer>) txt_room).setValue(eventt.getId_room());
         
         
             
     }
-     
+      public void combobox() {
+        ObservableList<Integer> myObservableList = FXCollections.observableArrayList(Event_Services.find_idroom());
+        txt_room.setItems(myObservableList);
+        }
+      
     public void EventUpdate() {
         Alert alert;
         int event_id = Integer.parseInt(this.txt_event_id.getText());
@@ -263,6 +275,7 @@ public class Add_eventController implements Initializable {
         int nb_participants = Integer.parseInt(this.txt_nb_participants.getText());
         String event_desc = this.txt_desc.getText();
         int start_time = Integer.parseInt(this.txt_start_time.getText());
+        int id_room = this.txt_room.getSelectionModel().getSelectedItem();
         try {
             if (event_name.isEmpty() || start_date == null  || end_date == null) {
                 alert = new Alert(AlertType.ERROR);
@@ -282,7 +295,7 @@ public class Add_eventController implements Initializable {
                     
                     Date dates = Date.from(localDates.atStartOfDay(ZoneId.systemDefault()).toInstant());
                     Date datee = Date.from(localDatee.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                    Event e = new Event (event_id,dates,datee, start_time, event_name,event_desc,nb_participants);
+                    Event e = new Event (event_id,dates,datee, start_time, event_name,event_desc,nb_participants,id_room);
                     Event_Services.updateEvent(e);
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
