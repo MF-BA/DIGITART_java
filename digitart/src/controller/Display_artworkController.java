@@ -30,9 +30,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -79,6 +81,8 @@ public class Display_artworkController implements Initializable {
     private ImageView image;
     @FXML
     private TableView<?> table_Artwork;
+    @FXML
+    private TextField artwork_search;
     /**
      * Initializes the controller class.
      */
@@ -244,6 +248,26 @@ public Artwork SelectArtwork() {
     @FXML
     private void btn_room_clicked(ActionEvent event) {
         go_room(event);
+    }
+
+    @FXML
+    private void serach_keytyped(KeyEvent event) {
+         ArtworkList = Artwork_Services.search(artwork_search.getText());
+
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id_art"));
+        col_name.setCellValueFactory(new PropertyValueFactory<>("artwork_name"));
+        col_idartist.setCellValueFactory(new PropertyValueFactory<>("id_artist"));
+        col_nameartist.setCellValueFactory(new PropertyValueFactory<>("artist_name"));
+        col_date.setCellValueFactory(new PropertyValueFactory<>("date_art"));
+        col_desc.setCellValueFactory(new PropertyValueFactory<>("description"));
+        col_idroom.setCellValueFactory(new PropertyValueFactory<>("id_room"));
+
+        if (table_Artwork != null && table_Artwork instanceof TableView) {
+            // Cast room_tableview to TableView<Room> and set its items
+            ((TableView<Artwork>) table_Artwork).setItems(FXCollections.observableArrayList(ArtworkList));
+        }
+        
+        
     }
     
 }

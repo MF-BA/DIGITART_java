@@ -4,7 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/github/Primes/digitart/src/controller/Display_artworkController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Modify_roomController.java</file>
             <file>file:/E:/github/Primes/digitart/src/controller/Display_roomController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/controller/Modify_artworkController.java</file>
             <file>file:/E:/github/Primes/digitart/src/controller/Display_auctionsController.java</file>
             <file>file:/E:/github/Primes/digitart/src/main/main.java</file>
             <file>file:/E:/github/Primes/digitart/src/controller/Add_roomController.java</file>
@@ -13,10 +15,13 @@
             <file>file:/E:/github/Primes/digitart/src/Services/Auction_Services.java</file>
             <file>file:/E:/github/Primes/digitart/src/controller/Add_auction_Controller.java</file>
             <file>file:/E:/github/Primes/digitart/src/controller/Add_artworkController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/view/add_ticket.fxml</file>
             <file>file:/E:/github/Primes/digitart/src/entity/Artwork.java</file>
             <file>file:/E:/github/Primes/digitart/src/Services/ServiceTicket.java</file>
             <file>file:/E:/github/Primes/digitart/src/controller/TicketController.java</file>
+            <file>file:/E:/github/Primes/digitart/src/entity/auction_display.java</file>
             <file>file:/E:/github/Primes/digitart/src/Services/Artwork_Services.java</file>
+            <file>file:/E:/github/Primes/digitart/src/entity/Data.java</file>
         </group>
     </open-files>
 </project-private>

@@ -68,7 +68,7 @@ public class Artwork_Services {
                         resultSet.getInt(8)
                 );
                 list.add(data);
-                System.out.println("success!!display artwork");
+         
             }
         } catch (SQLException ex) {
             System.err.println("Err Display artwork");
@@ -176,5 +176,38 @@ public class Artwork_Services {
 
     return result;
 }
+      
+      public static ArrayList<Artwork> search(String s) {
+
+        ArrayList<Artwork> list = new ArrayList<>();
+
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM artwork where artwork_name like '%"+s+"%' or artist_name like '%"+s+"%'");
+            
+
+            while (resultSet.next()) {
+                    LocalDate D = resultSet.getDate(5).toLocalDate();
+                Artwork data = new Artwork(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getInt(3),
+                        resultSet.getString(4),
+                        D,
+                        resultSet.getString(6), 
+                        resultSet.getString(7),
+                        resultSet.getInt(8)
+                );
+                list.add(data);
+
+            }
+        } catch (SQLException ex) {
+            System.err.println("Err search artwork");
+        }
+
+        return list;
+
+    }
     
 }

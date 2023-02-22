@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -12,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="710.0" prefWidth="1140.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_roomController">
    <children>
-      <Text layoutX="473.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of rooms" textAlignment="CENTER" wrappingWidth="275.64453125">
+      <Text layoutX="478.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of rooms" textAlignment="CENTER" wrappingWidth="275.64453125">
          <font>
             <Font name="Impact" size="46.0" />
          </font>
@@ -66,5 +67,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="CUBE" layoutX="14.0" layoutY="182.0" size="17.0" text="" />
          </children>
       </AnchorPane>
+      <TextField fx:id="room_search" layoutX="240.0" layoutY="137.0" onKeyTyped="#search_room_Keytyped" prefHeight="30.0" prefWidth="231.0" promptText="Search" styleClass="search" stylesheets="@auctionDesign.css" />
+      <FontAwesomeIconView glyphName="SEARCH" layoutX="246.0" layoutY="157.0" />
    </children>
 </AnchorPane>

@@ -55,7 +55,7 @@ public class Room_Services {
                 );
                 list.add(data);
             }
-            System.out.println("success!! display room");
+           
         } catch (SQLException ex) {
             System.err.println("Err Display room");
         }
@@ -98,5 +98,34 @@ public class Room_Services {
         } catch (SQLException ex) {
             System.err.println("Err Modify room");
         }
+    }
+     
+          public static ArrayList<Room> search(String s) {
+
+        ArrayList<Room> list = new ArrayList<>();
+
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM room where name_room like'%" +s+"%' or state like '%"+s+"%' or description like '%"+s+"%'");
+            
+
+            while (resultSet.next()) {
+              
+                Room data = new Room(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getInt(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5)
+                );
+                list.add(data);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Err Display room");
+        }
+
+        return list;
+
     }
 }

@@ -29,7 +29,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -69,10 +72,12 @@ public class Display_roomController implements Initializable {
     private Button btn_dashboard;
     @FXML
     private Button btn_artworkM;
+    @FXML
+    private TextField room_search;
 
     public void ShowRoom() {
 
-        RoomList = Room_Services.Display();
+       RoomList = Room_Services.Display();
 
         col_id.setCellValueFactory(new PropertyValueFactory<>("id_room"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("name_room"));
@@ -212,5 +217,23 @@ public class Display_roomController implements Initializable {
     @FXML
     private void switchForm(ActionEvent event) {
     }
+
+  
+    @FXML
+    private void search_room_Keytyped(KeyEvent event) {
+               RoomList = Room_Services.search(room_search.getText());
+
+        col_id.setCellValueFactory(new PropertyValueFactory<>("id_room"));
+        col_name.setCellValueFactory(new PropertyValueFactory<>("name_room"));
+        col_area.setCellValueFactory(new PropertyValueFactory<>("area"));
+        col_state.setCellValueFactory(new PropertyValueFactory<>("state"));
+        col_desc.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        if (table_room != null && table_room instanceof TableView) {
+            // Cast room_tableview to TableView<Room> and set its items
+            ((TableView<Room>) table_room).setItems(FXCollections.observableArrayList(RoomList));
+        }
+    }
+    
 }
   
