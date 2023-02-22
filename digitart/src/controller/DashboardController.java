@@ -7,6 +7,7 @@ package controller;
 
 import Services.users_Services;
 import entity.users;
+import java.awt.Color;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -149,15 +150,49 @@ public class DashboardController implements Initializable {
     PreparedStatement pst;
     @FXML
     private AnchorPane default_anchor;
+    @FXML
+    private Button update_btn;
+    @FXML
+    private PasswordField pwd_up;
+    @FXML
+    private TextField fname_up;
+    @FXML
+    private TextField lname_up;
+    @FXML
+    private TextField email_up;
+    @FXML
+    private DatePicker birth_d_up;
+    @FXML
+    private TextField cin_up;
+    @FXML
+    private TextField address_up;
+    @FXML
+    private TextField phone_num_up;
+    @FXML
+    private RadioButton male_gender_up;
+    @FXML
+    private RadioButton female_gender_up;
+    @FXML
+    private Button clear_fields_update;
+    @FXML
+    private ComboBox<?> Rolebox_up;
+    @FXML
+    private Button modify_fromlist;
+    @FXML
+    private Button delete_fromlist;
+    @FXML
+    private AnchorPane update_page;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        default_anchor.setVisible(true);
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
-        default_anchor.setVisible(true);
+        
         
     }    
 
@@ -165,8 +200,14 @@ public class DashboardController implements Initializable {
     
     @FXML
     private void add_user_btn(ActionEvent event) {
+        default_anchor.setVisible(false);
         listusers_btn.setVisible(false);
+        update_page.setVisible(false);
         adduser_dash_btn.setVisible(true);
+        list_users.setStyle("-fx-background-color:  #C58940 ");
+        add_user.setStyle("-fx-background-color: #E5BA73 ");
+        modify_user.setStyle("-fx-background-color: #C58940 ");
+        
         List<String> options = new ArrayList<>();
         options.add("Admin");
         options.add("Artist");
@@ -177,14 +218,26 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void modify_user_btn(ActionEvent event) {
+      default_anchor.setVisible(false);
+        listusers_btn.setVisible(false);
+        adduser_dash_btn.setVisible(false);
+        update_page.setVisible(true);
+        list_users.setStyle("-fx-background-color:  #C58940 ");
+        add_user.setStyle("-fx-background-color: #C58940 ");
+        modify_user.setStyle("-fx-background-color: #E5BA73 ");  
     }
 
     @FXML
     private void list_users_btn(ActionEvent event) {
-        //listusers_btn.setVisible(true);
-        //adduser_dash_btn.setVisible(false);
-       /* list_users.setStyle("-fx-background-color: #E5BA73");
-         add_user.setStyle("-fx-background-color:transparent");*/
+        default_anchor.setVisible(false);
+        adduser_dash_btn.setVisible(false);
+        update_page.setVisible(false);
+        listusers_btn.setVisible(true);
+        
+       list_users.setStyle("-fx-background-color: #E5BA73 ");
+       add_user.setStyle("-fx-background-color: #C58940 ");
+       modify_user.setStyle("-fx-background-color: #C58940 ");
+       
          userslist = users_Services.Displayusers();
        id_tb.setCellValueFactory(new PropertyValueFactory<>("id"));
         cin_tb.setCellValueFactory(new PropertyValueFactory<>("cin"));
@@ -204,7 +257,18 @@ public class DashboardController implements Initializable {
       
     }
 
-     
+    public void clear(){
+        fname.setText("");
+        lname.setText("");
+        email.setText("");
+        pwd.setText("");
+        address.setText("");
+        cin.setText("");
+        phone_num.setText("");
+        female_gender.setSelected(false);
+        male_gender.setSelected(false);
+        Rolebox.getSelectionModel().clearSelection();  
+    }
  
      @FXML
     private void add_dash_btn(ActionEvent event) {
@@ -216,31 +280,70 @@ public class DashboardController implements Initializable {
         String passwd = pwd.getText();
         String Address = address.getText();
         String gender = null;
+        String role = (String) Rolebox.getSelectionModel().getSelectedItem();
         
-    int Cin = 0;
-    int phone_number = 0;
+         int Cin = 0;
+         int phone_number = 0;
        
-       if (!phone_num.getText().isEmpty()) {
+
+   if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null) {
+       if (!male_gender.isSelected() && !female_gender.isSelected()) {
+        //errormsggender.setStyle("-fx-text-color: #ff0000 ");   
+        errormsggender.setText("Please specify your gender!"); 
+        }  
+       if (!phone_num.getText().isEmpty())
+    {               
     if (!phone_num.getText().matches("\\d+")) {
+        //errormsgphonenum.setStyle("-fx-text-color: #ff0000 ");  
         errormsgphonenum.setText("Phone number should be a number!");
     } else {
         phone_number = Integer.parseInt(phone_num.getText().trim());
     }
-}
-
-if (!cin.getText().isEmpty()) {
-    if (!cin.getText().matches("\\d+")) {
+            }
+       if (!cin.getText().isEmpty())
+    {
+     if (!cin.getText().matches("\\d+")) {
+        //errormsgcin.setTextFill(Color.RED);
+        
         errormsgcin.setText("CIN should be a number!");
     } else {
         Cin = Integer.parseInt(cin.getText().trim());  
+    }   
     }
-}
-
-   if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null) {
-    errormsgelements.setText("Please fill all elements!!");  
-    } else if (!male_gender.isSelected() && !female_gender.isSelected()) {
-    errormsggender.setText("Please specify your gender!"); 
-    }  else {
+       //errormsgelements.setStyle("-fx-text-color: #ff0000 ");
+       errormsgelements.setText("Please fill all elements!!");  
+    } 
+    if (passwd.isEmpty())   {
+     //errormsgpwd.setStyle("-fx-text-color: #ff0000 ");
+     errormsgpwd.setText("fill paswword !!");   
+    }
+    if (Address.isEmpty())  {
+      //errormsgaddress.setStyle("-fx-text-color: #ff0000 ");
+     errormsgaddress.setText("fill Address !!");   
+    }
+    if ( Email.isEmpty())
+    {
+     //errormsgemail.setStyle("-fx-text-color: #ff0000 ");
+     errormsgemail.setText("fill Email !!");   
+    }
+    if ( firstname.isEmpty())
+    {
+     errormsgfname.setText("fill first name !!");   
+    }
+    if ( lastname.isEmpty())
+    {
+       errormsglname.setText("fill last name !!");
+    }
+    if (phone_num.getText().isEmpty())
+    {
+     errormsgphonenum.setText("fill phone number !!");  
+    }
+    if (BirthDate == null)
+    {
+        errormsgbirthdate.setText("fill birth date !!"); 
+    }
+    
+    else {
     if (male_gender.isSelected()) {
         gender = male_gender.getText();  
     } else if (female_gender.isSelected()) {
@@ -249,12 +352,19 @@ if (!cin.getText().isEmpty()) {
     user1 = new users(firstname, lastname, Email, passwd, Address, gender, Cin, phone_number, BirthDate);
     user = new users_Services();
     user.adduser(user1); 
-    
-        fname.setText("");
-        lname.setText("");
-        email.setText("");
-        pwd.setText("");
-        address.setText("");
+     
+    errormsgfname.setText("");
+    errormsglname.setText("");
+    errormsgemail.setText("");
+    errormsgpwd.setText("");
+    errormsgcin.setText("");
+    errormsgaddress.setText("");
+     errormsgphonenum.setText("");
+   errormsggender.setText("");
+   errormsgelements.setText("");
+   errormsgbirthdate.setText("");
+   errormsgrole.setText("");
+   clear();
         
     }
         
@@ -263,10 +373,110 @@ if (!cin.getText().isEmpty()) {
 
     @FXML
     private void clear_fields_btn(ActionEvent event) {
+        clear();
     }
 
     @FXML
     private void edit_profile_btn(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void update_btn_dash(ActionEvent event) {
+        
+        //int id = ;
+        int Cin = Integer.parseInt(cin_up.getText().trim());
+        int phone_number = Integer.parseInt(phone_num_up.getText().trim());
+        LocalDate BirthDate = birth_d_up.getValue();
+        String firstname = fname_up.getText();
+        String lastname = lname_up.getText();
+        String Email = email_up.getText();
+        String passwd = pwd_up.getText();
+        String Address = address_up.getText();
+        if (male_gender_up.isSelected()) {
+        String gender = male_gender_up.getText();  
+    } else if (female_gender_up.isSelected()) {
+        String gender = female_gender_up.getText();
+    }
+        String role = (String) Rolebox_up.getSelectionModel().getSelectedItem();
+        users u = new users (
+        
+        
+        
+        
+        );
+        user.modifyuser(u);
+    }
+
+    
+    public void showmodif()
+    {
+       list_users.setStyle("-fx-background-color: #C58940 ");
+       add_user.setStyle("-fx-background-color: #C58940 ");
+       modify_user.setStyle("-fx-background-color: #E5BA73 ");
+        default_anchor.setVisible(false);
+        listusers_btn.setVisible(false);
+        adduser_dash_btn.setVisible(false);
+        update_page.setVisible(true);
+    }
+    @FXML
+    private void clear_fields_update_btn(ActionEvent event) {
+        fname_up.setText("");
+        lname_up.setText("");
+        email_up.setText("");
+        pwd_up.setText("");
+        address_up.setText("");
+        cin_up.setText("");
+        phone_num_up.setText("");
+        female_gender_up.setSelected(false);
+        male_gender_up.setSelected(false);
+        Rolebox_up.getSelectionModel().clearSelection(); 
+    }
+
+    @FXML
+    private void modify_fromlist_btn(ActionEvent event) {
+        
+      user_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+    if (newSelection != null) {
+        // Set up the update page with text fields filled with the data of the selected user
+
+        fname_up.setText(newSelection.getFirstname());
+        lname_up.setText(newSelection.getLastname());
+        email_up.setText(newSelection.getEmail());
+        pwd_up.setText(newSelection.getPwd());
+        address_up.setText(newSelection.getAddress());
+        if (newSelection.getGender().equals("Male")) {
+            male_gender_up.setSelected(true);
+        } else {
+            female_gender_up.setSelected(true);
+        }
+        
+        //Rolebox_up.getSelectionModel().select(newSelection.getRole());
+        
+        cin_up.setText(Integer.toString(newSelection.getCin()));
+        phone_num_up.setText(Integer.toString(newSelection.getPhone_number()));
+        //birth_d_up.setText(newSelection.getBirth_date().toString());
+        
+
+      
+    }
+    });
+      showmodif();
+        
+    }
+
+    @FXML
+    private void delete_fromlist_btn(ActionEvent event) {
+        
+        user_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+    if (newSelection != null) {
+        // Remove the selected item from the table's data list
+        
+        users_Services.deleteuser(newSelection.getId());
+        user_table.getItems().remove(newSelection);
+        
+    }
+});
     }
     
 }

@@ -124,7 +124,8 @@ public class users_Services {
             pst.setInt(7,u.getPhone_number());
             pst.setDate(8,Date.valueOf(u.getBirth_date()));
             pst.setString(9,u.getGender());
-            pst.setString(9,u.getRole());
+            pst.setString(10,u.getRole());
+            pst.setInt(11,u.getId());
             
              pst.executeUpdate();
             System.out.println("success!!");
