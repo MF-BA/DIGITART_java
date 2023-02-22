@@ -7,9 +7,11 @@ package controller;
 
 import utils.Conn;
 import Services.ServiceTicket;
+import Services.ServicePayment;
 import utils.Conn;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entity.Ticket;
+import entity.Payment;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.Date;
@@ -167,9 +169,6 @@ public class TicketController implements Initializable {
     private Button ticketbuy_add_button;
 
     @FXML
-    private DatePicker ticketbuy_date;
-
-    @FXML
     private Button ticketbuy_reset_button;
 
     @FXML
@@ -195,23 +194,60 @@ public class TicketController implements Initializable {
 
     @FXML
     private TextField date_warning;
+    @FXML
+    private Button check_payment;
+    @FXML
+    private AnchorPane payment_anchor;
+    @FXML
+    private TableView<Payment> payment_tableview;
+    @FXML
+    private TableColumn<?, ?> payment_tv_id;
+    @FXML
+    private TableColumn<?, ?> payment_tv_idUser;
+    @FXML
+    private TableColumn<?, ?> payment_tv_purchaseD;
+    @FXML
+    private TableColumn<?, ?> payment_tv_adult;
+    @FXML
+    private TableColumn<?, ?> payment_tv_teen;
+    @FXML
+    private TextField payment_search;
+    @FXML
+    private Button payment_delete_button;
+    @FXML
+    private TableColumn<?, ?> payment_tv_student;
+    @FXML
+    private TableColumn<?, ?> payment_tv_total;
 
+    @FXML
     public void Close() {
         System.exit(0);
     }
 
+    @FXML
     public void Minimize() {
         Stage stage = (Stage) main_anchor.getScene().getWindow();
         stage.setIconified(true);
     }
 
-    public void defaultBtn() {
-        btn_dashboard.setStyle("-fx-background-color:linear-gradient(to bottom right, #a73f4a, #9c8585)");
-        btn_addticket.setStyle("-fx-background-color:transparent");
-        btn_buyticket.setStyle("-fx-background-color:transparent");
-
+    public void combobox() {
+        List<String> options = new ArrayList<>();
+        options.add("Adult");
+        options.add("Teen");
+        options.add("Student");
+        ticket_type.getItems().addAll(options);
     }
 
+    public void showSpinner(Spinner<Integer> spinner) {
+        // Create a new spinner value factory with a range of 1 to 10, and an initial value of 1
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0);
+
+        // Set the spinner value factory
+        spinner.setValueFactory(valueFactory);
+    }
+//////// STOP  //////////////////////////////////////////////// STOP /////////////////////////////////////////////////////
+
+    @FXML
     public void checkDate() {
         int i = 0;
         LocalDate selectedDate = payment_date.getValue();
@@ -235,6 +271,7 @@ public class TicketController implements Initializable {
                     afterdate_anchor.setVisible(true);
                     date_warning.setVisible(false);
                     i = 1;
+                    SpinnerReset();
                 }
             }
 
@@ -262,14 +299,6 @@ public class TicketController implements Initializable {
 
     }
 
-    public void showSpinner(Spinner<Integer> spinner) {
-        // Create a new spinner value factory with a range of 1 to 10, and an initial value of 1
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0);
-
-        // Set the spinner value factory
-        spinner.setValueFactory(valueFactory);
-    }
-
     public int getTicketPrice(String ticketType, LocalDate selectedDate) {
         String sql = "SELECT price FROM ticket WHERE ticket_type = ? AND ? BETWEEN ticket_date AND ticket_edate";
         int price = 0;
@@ -294,6 +323,7 @@ public class TicketController implements Initializable {
     private int qty3;
     private int total;
 
+    @FXML
     public void getSpinner(MouseEvent event) {
         qty1 = spinner_adult.getValue();
         qty2 = spinner_teen.getValue();
@@ -310,18 +340,137 @@ public class TicketController implements Initializable {
         price_1.setText("$" + String.valueOf(price1));
         price_2.setText("$" + String.valueOf(price2));
         price_3.setText("$" + String.valueOf(price3));
-
         price_4.setText("$" + String.valueOf(total));
     }
 
-    public void combobox() {
-        List<String> options = new ArrayList<>();
-        options.add("Adult");
-        options.add("Teen");
-        options.add("Student");
-        ticket_type.getItems().addAll(options);
+    @FXML
+    public void addPayment() {
+        // Get the user ID (assuming the user ID is 1)
+        int userId = 1;
+
+        // Get the selected date from the date picker
+        LocalDate purchaseDate = payment_date.getValue();
+
+        // Get the quantities from the spinners
+        int nbAdult = spinner_adult.getValue();
+        int nbTeenager = spinner_teen.getValue();
+        int nbStudent = spinner_student.getValue();
+
+        // Calculate the total payment from the labels
+        int totalPayment = Integer.parseInt(price_4.getText().substring(1));
+
+        // Create a new Payment object with the collected data
+        Payment payment = new Payment(userId, purchaseDate, nbAdult, nbTeenager, nbStudent, totalPayment);
+
+        // Create an alert dialog to confirm the payment
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to make this payment?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // Insert the new Payment into the database
+            try {
+                Connection conn = Conn.getCon();
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO payment (purchase_date, nb_adult, nb_teenager, nb_student, total_payment) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                stmt.setDate(1, java.sql.Date.valueOf(payment.getPurchaseDate()));
+                stmt.setInt(2, payment.getNbAdult());
+                stmt.setInt(3, payment.getNbTeenager());
+                stmt.setInt(4, payment.getNbStudent());
+                stmt.setInt(5, payment.getTotalPayment());
+
+                int affectedRows = stmt.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating payment failed, no rows affected.");
+                }
+
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        payment.setId(generatedKeys.getInt(1));
+                    } else {
+                        throw new SQLException("Creating payment failed, no ID obtained.");
+                    }
+                }
+
+                // Show a success alert
+                Alert successAlert = new Alert(AlertType.INFORMATION);
+                successAlert.setTitle("Payment Success");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Payment made successfully!");
+                successAlert.showAndWait();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
+    public void ShowPayment() {
+        ArrayList<Payment> paymentList = ServicePayment.displayPayment();
+
+        payment_tv_id.setCellValueFactory(new PropertyValueFactory<>("paymentid"));
+        payment_tv_idUser.setCellValueFactory(new PropertyValueFactory<>("id"));
+        payment_tv_purchaseD.setCellValueFactory(new PropertyValueFactory<>("purchaseDate"));
+        payment_tv_adult.setCellValueFactory(new PropertyValueFactory<>("nbAdult"));
+        payment_tv_teen.setCellValueFactory(new PropertyValueFactory<>("nbTeenager"));
+        payment_tv_student.setCellValueFactory(new PropertyValueFactory<>("nbStudent"));
+        payment_tv_total.setCellValueFactory(new PropertyValueFactory<>("totalPayment"));
+
+        if (payment_tableview != null && payment_tableview instanceof TableView) {
+            // Cast payment_tableview to TableView<Payment> and set its items
+            ((TableView<Payment>) payment_tableview).setItems(FXCollections.observableArrayList(paymentList));
+        }
+    }
+
+    @FXML
+    public void PaymentDelete() {
+        // Get the selected payment from the tableview
+        Payment selectedPayment = payment_tableview.getSelectionModel().getSelectedItem();
+
+        // Check if a payment is selected
+        if (selectedPayment == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("No Payment Selected");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select a payment to delete.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Show confirmation dialog before deleting payment
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Delete");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete this payment?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK) {
+            // Delete payment from database
+
+            if (ServicePayment.deletePayment(selectedPayment.getPaymentid())) {
+                // Remove payment from tableview
+                payment_tableview.getItems().remove(selectedPayment);
+
+                // Show success message
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Payment Deleted");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("The selected payment has been deleted.");
+                successAlert.showAndWait();
+            } else {
+                // Show error message
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Delete Failed");
+                errorAlert.setHeaderText(null);
+                errorAlert.setContentText("An error occurred while deleting the payment.");
+                errorAlert.showAndWait();
+            }
+
+        }
+    }
+
+//////// TICKET  //////////////////////////////////////////////// TICKET /////////////////////////////////////////////////////
     private ArrayList<Ticket> ticketList;
 
     public void ShowTicket() {
@@ -340,6 +489,7 @@ public class TicketController implements Initializable {
         }
     }
 
+    @FXML
     public void SelectTicket() {
 
         Ticket t = ((TableView<Ticket>) ticket_tableview).getSelectionModel().getSelectedItem();
@@ -356,6 +506,7 @@ public class TicketController implements Initializable {
 
     }
 
+    @FXML
     public void TicketAdd() {
         LocalDate ticketDate = this.ticket_date.getValue();
         LocalDate ticketEDate = this.ticket_edate.getValue();
@@ -428,6 +579,7 @@ public class TicketController implements Initializable {
         }
     }
 
+    @FXML
     public void TicketUpdate() {
         Alert alert;
         try {
@@ -480,6 +632,7 @@ public class TicketController implements Initializable {
         }
     }
 
+    @FXML
     public void TicketDelete() {
         Alert alert;
         try {
@@ -516,25 +669,6 @@ public class TicketController implements Initializable {
         }
     }
 
-    public void TicketReset() {
-        ticket_id.setText("");
-        ticket_date.setValue(null);
-        ticket_edate.setValue(null);
-        ticket_type.getSelectionModel().clearSelection();
-        ticket_price.setText("");
-
-    }
-
-    public void SpinnerReset() {
-        price_1.setText("");
-        price_2.setText("");
-        price_3.setText("");
-        price_4.setText("");
-        spinner_student.getValueFactory().setValue(0);
-        spinner_teen.getValueFactory().setValue(0);
-        spinner_adult.getValueFactory().setValue(0);
-    }
-
     public void searchTicket() {
         ObservableList<Ticket> ticketObservableList = FXCollections.observableList(ticketList);
         FilteredList<Ticket> filteredData = new FilteredList<>(ticketObservableList, p -> true);
@@ -563,7 +697,7 @@ public class TicketController implements Initializable {
         SortedList<Ticket> sortedData = new SortedList<>(filteredData);
         ((TableView<Ticket>) ticket_tableview).setItems(sortedData);
     }
-
+//////// DASHBOARD  //////////////////////////////////////////////// DASHBOARD /////////////////////////////////////////////////////
     private int count = 0;
 
     public void dashboardDisplayAvailableTickets() {
@@ -588,11 +722,43 @@ public class TicketController implements Initializable {
         }
     }
 
+//////// DISPLAY  //////////////////////////////////////////////// DISPLAY /////////////////////////////////////////////////////
+    @FXML
+    public void TicketReset() {
+        ticket_id.setText("");
+        ticket_date.setValue(null);
+        ticket_edate.setValue(null);
+        ticket_type.getSelectionModel().clearSelection();
+        ticket_price.setText("");
+
+    }
+
+    @FXML
+    public void SpinnerReset() {
+        price_1.setText("");
+        price_2.setText("");
+        price_3.setText("");
+        price_4.setText("");
+        spinner_student.getValueFactory().setValue(0);
+        spinner_teen.getValueFactory().setValue(0);
+        spinner_adult.getValueFactory().setValue(0);
+    }
+
+    @FXML
+    public void CheckPayment() {
+        addticket_anchor.setVisible(false);
+        payment_anchor.setVisible(true);
+        ShowPayment();
+    }
+
+    @FXML
     public void switchForm(ActionEvent event) {
         if (event.getSource() == btn_dashboard) {
             dashboard_anchor.setVisible(true);
             addticket_anchor.setVisible(false);
             buyticket_anchor.setVisible(false);
+            payment_anchor.setVisible(false);
+            SpinnerReset();
             btn_dashboard.setStyle("-fx-background-color:linear-gradient(to bottom right, #a73f4a, #9c8585)");
             btn_addticket.setStyle("-fx-background-color:transparent");
             btn_buyticket.setStyle("-fx-background-color:transparent");
@@ -601,6 +767,8 @@ public class TicketController implements Initializable {
             addticket_anchor.setVisible(true);
             buyticket_anchor.setVisible(false);
             dashboard_anchor.setVisible(false);
+            payment_anchor.setVisible(false);
+            SpinnerReset();
             btn_addticket.setStyle("-fx-background-color:linear-gradient(to bottom right, #a73f4a, #9c8585)");
             btn_dashboard.setStyle("-fx-background-color:transparent");
             btn_buyticket.setStyle("-fx-background-color:transparent");
@@ -609,10 +777,19 @@ public class TicketController implements Initializable {
             addticket_anchor.setVisible(false);
             buyticket_anchor.setVisible(true);
             dashboard_anchor.setVisible(false);
+            payment_anchor.setVisible(false);
+            SpinnerReset();
             btn_buyticket.setStyle("-fx-background-color:linear-gradient(to bottom right, #a73f4a, #9c8585)");
             btn_dashboard.setStyle("-fx-background-color:transparent");
             btn_addticket.setStyle("-fx-background-color:transparent");
         }
+    }
+
+    public void defaultBtn() {
+        btn_dashboard.setStyle("-fx-background-color:linear-gradient(to bottom right, #a73f4a, #9c8585)");
+        btn_addticket.setStyle("-fx-background-color:transparent");
+        btn_buyticket.setStyle("-fx-background-color:transparent");
+
     }
 
     @Override
@@ -624,6 +801,7 @@ public class TicketController implements Initializable {
         buyticket_anchor.setVisible(false);
         ticket_id.setVisible(false);
         afterdate_anchor.setVisible(false);
+        payment_anchor.setVisible(false);
         dashboardDisplayAvailableTickets();
         defaultBtn();
         ShowTicket();

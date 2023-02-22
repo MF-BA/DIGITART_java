@@ -19,7 +19,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="main_anchor" prefHeight="463.0" prefWidth="855.0" styleClass="right-form" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TicketController">
    <children>
-      <AnchorPane layoutY="31.0" prefHeight="435.0" prefWidth="182.0" styleClass="left-form" stylesheets="@auctionDesign.css">
+      <AnchorPane layoutY="31.0" prefHeight="466.0" prefWidth="182.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
             <FontAwesomeIconView fill="#fafafa" glyphName="USER" layoutX="61.0" layoutY="83.0" size="80.0" text="" wrappingWidth="59.19998016357408" />
             <Label layoutX="48.0" layoutY="94.0" prefHeight="27.0" prefWidth="82.0" text="WELCOME," textAlignment="CENTER" textFill="WHITE">
@@ -193,17 +193,42 @@
                         <TableColumn fx:id="ticket_tv_id" prefWidth="33.599945068359375" text="ID" />
                         <TableColumn fx:id="ticket_tv_date" prefWidth="108.0" text="Start Date" />
                         <TableColumn fx:id="ticket_tv_edate" prefWidth="106.4000244140625" text="End Date" />
-                        <TableColumn fx:id="ticket_tv_price" prefWidth="68.0" text="Price" />
-                        <TableColumn fx:id="ticket_tv_type" prefWidth="69.5999755859375" text="Type" />
+                        <TableColumn fx:id="ticket_tv_price" prefWidth="60.0" text="Price" />
+                        <TableColumn fx:id="ticket_tv_type" prefWidth="77.5999755859375" text="Type" />
                      </columns>
                   </TableView>
                   <TextField fx:id="ticket_search" layoutX="28.0" layoutY="19.0" onKeyTyped="#searchTicket" prefHeight="30.0" prefWidth="179.0" promptText="Search" styleClass="search" stylesheets="@auctionDesign.css" />
                   <FontAwesomeIconView glyphName="SEARCH" layoutX="34.0" layoutY="39.0" />
+                  <Button fx:id="check_payment" layoutX="199.0" layoutY="333.0" mnemonicParsing="false" onAction="#CheckPayment" prefHeight="30.0" prefWidth="168.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Check Ticket Bought" />
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="buyticket_anchor" layoutX="192.0" layoutY="53.0" prefHeight="410.0" prefWidth="671.0">
+      <AnchorPane fx:id="payment_anchor" layoutX="192.0" layoutY="39.0" prefHeight="449.0" prefWidth="691.0">
+         <children>
+            <AnchorPane layoutX="6.0" prefHeight="433.0" prefWidth="658.0" stylesheets="@auctionDesign.css">
+               <styleClass>
+                  <String fx:value="white-bg" />
+                  <String fx:value="shadow" />
+               </styleClass>
+               <children>
+                  <TableView fx:id="payment_tableview" layoutX="33.0" layoutY="56.0" onMouseClicked="#SelectTicket" prefHeight="226.0" prefWidth="609.0" stylesheets="@auctionDesign.css">
+                     <columns>
+                        <TableColumn fx:id="payment_tv_id" prefWidth="48.0" text="PID" />
+                        <TableColumn fx:id="payment_tv_idUser" prefWidth="44.0" text="UID" />
+                        <TableColumn fx:id="payment_tv_purchaseD" prefWidth="98.4000244140625" text="Purchase Date" />
+                        <TableColumn fx:id="payment_tv_adult" prefWidth="95.99996948242188" text="Nb Adult " />
+                        <TableColumn fx:id="payment_tv_teen" prefWidth="104.0" text="Nb Teen" />
+                        <TableColumn fx:id="payment_tv_student" prefWidth="108.79998779296875" text="Nb Student" />
+                        <TableColumn fx:id="payment_tv_total" prefWidth="113.5999755859375" text="Total payment" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="payment_delete_button" layoutX="288.0" layoutY="317.0" mnemonicParsing="false" onAction="#PaymentDelete" prefHeight="30.0" prefWidth="82.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="buyticket_anchor" layoutX="192.0" layoutY="53.0" prefHeight="410.0" prefWidth="671.0" visible="false">
          <children>
             <AnchorPane layoutX="8.0" layoutY="9.0" prefHeight="391.0" prefWidth="642.0" stylesheets="@auctionDesign.css">
                <styleClass>
@@ -223,7 +248,7 @@
                   </Label>
                   <AnchorPane fx:id="afterdate_anchor" layoutX="33.0" layoutY="109.0" prefHeight="268.0" prefWidth="594.0">
                      <children>
-                        <Button fx:id="ticketbuy_add_button" layoutX="497.0" layoutY="223.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Buy" />
+                        <Button fx:id="ticketbuy_add_button" layoutX="497.0" layoutY="223.0" mnemonicParsing="false" onAction="#addPayment" prefHeight="30.0" prefWidth="82.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Buy" />
                         <Button fx:id="ticketbuy_update_button" layoutX="384.0" layoutY="223.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" styleClass="update-btn" stylesheets="@auctionDesign.css" text="Receipt" />
                         <Button fx:id="ticketbuy_reset_button" layoutX="21.0" layoutY="223.0" mnemonicParsing="false" onAction="#SpinnerReset" prefHeight="30.0" prefWidth="82.0" styleClass="reset-btn" stylesheets="@auctionDesign.css" text="Reset" />
                         <Label layoutX="64.0" layoutY="56.0" text="Adult">

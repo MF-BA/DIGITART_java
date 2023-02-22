@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .left-form{
-    -fx-background-color:linear-gradient(to bottom right, #360a0a, #4d3532);
+    -fx-background-color:linear-gradient(to bottom right, #93341A, #B67332);
     -fx-border-color:#000;
     -fx-border-width:.4px 0px .4px .4px;
 }
