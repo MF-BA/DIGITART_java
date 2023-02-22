@@ -81,6 +81,7 @@ public class Auction_Services {
         }
         return displayList;
     }
+    
 
     public static void delete(int ID) {
 
@@ -160,6 +161,38 @@ public class Auction_Services {
                 return resultSet.getString(1);
             } else {
                 throw new SQLException("No artwork found with id: " + id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static String get_img(int id) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT image_art FROM artwork WHERE id_art= ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            } else {
+                throw new SQLException("No image_art found with id: " + id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+     public static String find_artist_name(int id) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT CONCAT(firstname,' ',lastname) AS name FROM users WHERE id= ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            } else {
+                throw new SQLException("No user found with id: " + id);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);

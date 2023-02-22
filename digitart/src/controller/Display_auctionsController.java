@@ -162,7 +162,6 @@ public class Display_auctionsController implements Initializable {
         }
         Data.auction_display = t;
         return t;
-
     }
 
     @FXML
