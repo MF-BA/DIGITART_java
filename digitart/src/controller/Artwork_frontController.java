@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entity.Auction;
 import entity.Auction_display;
 import java.net.URL;
 import java.sql.Date;
@@ -18,8 +19,10 @@ import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -46,6 +49,9 @@ public class Artwork_frontController implements Initializable {
     @FXML
     private Label artist;
     ZonedDateTime endDateTime;
+    Auction_display auction_display;
+    @FXML
+    private Button add_bid;
 
     /**
      * Initializes the controller class.
@@ -62,8 +68,14 @@ public class Artwork_frontController implements Initializable {
 
     }
 
+    public Auction_display getArtwork() {
+        return this.auction_display;
+    }
+
     public void set_artwork(Auction_display auction_display) {
-        //photo.setImage(new Image(getClass().getResourceAsStream(auction_display.getImg())));
+        auction_display.setImg("/view/pexels-sam-kolder-2387873.jpg");
+        this.auction_display = auction_display;
+//photo.setImage(new Image(getClass().getResourceAsStream(auction_display.getImg())));
 
         artwork_name.setText(auction_display.getName().toUpperCase());
         artist.setText("Artist: " + auction_display.getName_artist());
@@ -78,7 +90,6 @@ public class Artwork_frontController implements Initializable {
         TimerTask task = new TimerTask() {
             public void run() {
                 String result = findDifference(zonedDateTime);
-                System.out.println(result);
                 Platform.runLater(() -> Date.setText(result));
             }
         };
@@ -105,6 +116,11 @@ public class Artwork_frontController implements Initializable {
 
         // Return the result string
         return result;
+    }
+
+    @FXML
+    private void add_bid_clicked(ActionEvent event) {
+        System.out.println("add bid clicked");
     }
 
 }

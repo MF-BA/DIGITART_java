@@ -17,8 +17,11 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
@@ -35,6 +38,7 @@ public class Auction_frontController implements Initializable {
     private HBox auction_view;
     @FXML
     private GridPane auction_container;
+    HBox cardBox;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -46,12 +50,19 @@ public class Auction_frontController implements Initializable {
 
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/view/artwork_front.fxml"));
-            HBox cardBox;
+
             try {
                 cardBox = fxmlLoader.load();
                 Artwork_frontController cardController = fxmlLoader.getController();
                 //System.out.println(auction_array_detailed.get(0));
                 cardController.set_artwork(auction_array_detailed.get(i));
+                ImageView cardPane = (ImageView) cardBox.getChildren().get(0);
+
+
+                cardPane.setOnMouseClicked(event -> {
+                    // Pass the selected artwork to the detail view
+                    showArtworkDetails(cardController.getArtwork());
+                });
                 auction_view.getChildren().add(cardBox);
                 if (column == 1) {
                     column = 0;
@@ -59,11 +70,19 @@ public class Auction_frontController implements Initializable {
                 }
                 auction_container.add(cardBox, column++, row);
                 GridPane.setMargin(cardBox, new Insets(10));//topRightBottomLeft: 10
-                
+
             } catch (IOException ex) {
                 Logger.getLogger("heeerrreeeee" + Auction_frontController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    private void showArtworkDetails(Auction_display artwork) {
+        System.out.println(artwork);
+    }
+
+    @FXML
+    private void view_clicked(MouseEvent event) {
     }
 
 }

@@ -35,6 +35,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -47,6 +48,10 @@ import javafx.util.Callback;
  * @author fedi1
  */
 public class Display_auctionsController implements Initializable {
+
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
 
     @FXML
     private Button Dslay_update_button;
@@ -68,15 +73,14 @@ public class Display_auctionsController implements Initializable {
     private TableColumn<Auction_display, Integer> Increment;
     @FXML
     private TableColumn<Auction_display, String> Current_bid;
-    private AnchorPane main_anchor;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     @FXML
     private Button btn_Add_Auction;
     @FXML
     private Button btn_Artworks_Auction;
+    @FXML
+    private Button search_btn;
+    @FXML
+    private TextField search_in;
 
     /**
      * Initializes the controller class.
@@ -86,15 +90,6 @@ public class Display_auctionsController implements Initializable {
         Showauction();
 
         Dslay_delete_button.setOnAction(this::AuctonDelete);
-    }
-
-    private void Close(ActionEvent event) {
-        System.exit(0);
-    }
-
-    private void Minimize(ActionEvent event) {
-        Stage stage = (Stage) main_anchor.getScene().getWindow();
-        stage.setIconified(true);
     }
 
     private ArrayList<Auction_display> AuctionList;
@@ -203,6 +198,54 @@ public class Display_auctionsController implements Initializable {
     private void Auctonupdate(ActionEvent event) {
 
         go_modify_auction(event);
+    }
+
+    @FXML
+    private void search_btn_clicked(ActionEvent event) {
+        if (search_in.textProperty().getValue().isEmpty()) {
+            Showauction();
+        } else {
+            artwork_Name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            Starting_price.setCellValueFactory(new PropertyValueFactory<>("starting_price"));
+            Ending_Date.setCellValueFactory(new PropertyValueFactory<>("Date"));
+            Description.setCellValueFactory(new PropertyValueFactory<>("desc"));
+            Increment.setCellValueFactory(new PropertyValueFactory<>("increment"));
+            Current_bid.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Auction_display, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<Auction_display, String> cellData) {
+                    int bid = cellData.getValue().getBid();
+                    if (bid == 0) {
+                        return new SimpleStringProperty("None");
+                    } else {
+                        return new SimpleStringProperty(String.valueOf(bid));
+                    }
+                }
+            });
+
+            if (table_auction != null && table_auction instanceof TableView) {
+                // Cast ticket_tableview to TableView<Ticket> and set its items     
+                ((TableView<Auction_display>) table_auction).setItems(FXCollections.observableArrayList(searchAuctions(AuctionList, search_in.textProperty().getValue())));
+            }
+        }
+
+    }
+
+    private ArrayList<Auction_display> searchAuctions(ArrayList<Auction_display> auctions, String searchStr) {
+        ArrayList<Auction_display> results = new ArrayList<>();
+
+        // Convert search string to lowercase for case-insensitive search
+        searchStr = searchStr.toLowerCase();
+
+        // Loop through each auction and check if it contains the search string
+        for (Auction_display auction : auctions) {
+            if (auction.getName().toLowerCase().contains(searchStr)
+                    || auction.getDesc().toLowerCase().contains(searchStr)
+                    || auction.getName_artist().toLowerCase().contains(searchStr)) {
+                results.add(auction);
+            }
+        }
+
+        return results;
     }
 
 }

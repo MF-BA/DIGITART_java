@@ -131,8 +131,6 @@ public class Add_auction_Controller implements Initializable {
         } else {
             LocalDate date = in_ED.getValue();
             /*date */
-            
-
             Auction auction = new Auction(Integer.parseInt(in_SB.textProperty().getValue()),
                     in_BI.getValue(), Auction_Services.find_artwork_id(in_I.getValue()),
                     date, in_Desc.textProperty().getValue());
