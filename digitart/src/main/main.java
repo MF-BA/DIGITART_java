@@ -42,7 +42,7 @@ public class main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DigitArt");
 
-       Parent ADDATICKET_Page = FXMLLoader.load(getClass().getResource("/view/signin_page.fxml"));
+       Parent ADDATICKET_Page = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
        // Scene scene = new Scene(ADDAUCTION_Page);
        Scene scene = new Scene(ADDATICKET_Page);
        

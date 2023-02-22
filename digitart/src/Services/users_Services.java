@@ -70,15 +70,17 @@ public class users_Services {
             while (res.next()) {
                 LocalDate D = res.getDate("birth_date").toLocalDate();
                 users data = new users(
+                        res.getInt("id"),
+                        res.getInt("cin"),
                         res.getString("firstname"),
                         res.getString("lastname"),
                         res.getString("email"),
+                        res.getString("password"),
                         res.getString("address"),
+                        res.getInt("phone_num"),
+                           D,
                         res.getString("gender"),
-                        res.getInt("id"),
-                        res.getInt("cin"),
-                        res.getInt("phone_number"),
-                        D
+                        res.getString("role")
                         
                 );
                 list.add(data);

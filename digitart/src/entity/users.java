@@ -52,7 +52,7 @@ public class users {
         this.phone_number = phone_number;
         
     }
-    public users(String firstname, String lastname, String email, String pwd, String address, String gender, String role, int id, int cin, int phone_number,  LocalDate birth_date) {
+    public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
