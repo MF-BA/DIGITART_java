@@ -98,7 +98,7 @@
             </Button>
          </children>
       </VBox>
-      <AnchorPane fx:id="adduser_dash_btn" layoutX="280.0" layoutY="10.0" prefHeight="699.0" prefWidth="813.0" stylesheets="@auctionDesign.css" visible="false">
+      <AnchorPane fx:id="adduser_dash_btn" layoutX="280.0" layoutY="10.0" prefHeight="699.0" prefWidth="813.0" stylesheets="@auctionDesign.css">
          <children>
             <Button fx:id="add_dash" cache="true" layoutX="328.0" layoutY="602.0" mnemonicParsing="false" onAction="#add_dash_btn" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;" text="Confirm" textFill="WHITE">
                <font>
@@ -187,17 +187,17 @@
                </font>
             </Label>
             <ComboBox fx:id="Rolebox" layoutX="481.0" layoutY="491.0" prefHeight="25.0" prefWidth="164.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
-            <Label fx:id="errormsgfname" layoutX="170.0" layoutY="212.0" prefHeight="17.0" prefWidth="164.0" />
-            <Label fx:id="errormsglname" layoutX="169.0" layoutY="285.0" prefHeight="17.0" prefWidth="164.0" />
-            <Label fx:id="errormsgemail" layoutX="169.0" layoutY="362.0" prefHeight="17.0" prefWidth="164.0" />
-            <Label fx:id="errormsgpwd" layoutX="169.0" layoutY="436.0" prefHeight="17.0" prefWidth="164.0" />
-            <Label fx:id="errormsgcin" layoutX="481.0" layoutY="211.0" prefHeight="17.0" prefWidth="164.0" />
-            <Label fx:id="errormsgaddress" layoutX="481.0" layoutY="436.0" prefHeight="17.0" prefWidth="164.0" />
-            <Label fx:id="errormsgphonenum" layoutX="481.0" layoutY="285.0" prefHeight="17.0" prefWidth="164.0" />
-            <Label fx:id="errormsggender" layoutX="169.0" layoutY="516.0" prefHeight="17.0" prefWidth="164.0" />
+            <Label fx:id="errormsgfname" layoutX="170.0" layoutY="212.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsglname" layoutX="169.0" layoutY="285.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgemail" layoutX="169.0" layoutY="362.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgpwd" layoutX="169.0" layoutY="436.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgcin" layoutX="481.0" layoutY="211.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgaddress" layoutX="481.0" layoutY="436.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgphonenum" layoutX="481.0" layoutY="285.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsggender" layoutX="169.0" layoutY="516.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgelements" layoutX="334.0" layoutY="648.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsgbirthdate" layoutX="481.0" layoutY="362.0" prefHeight="17.0" prefWidth="164.0" />
-            <Label fx:id="errormsgrole" layoutX="481.0" layoutY="525.0" prefHeight="17.0" prefWidth="164.0" />
+            <Label fx:id="errormsgbirthdate" layoutX="481.0" layoutY="362.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgrole" layoutX="481.0" layoutY="525.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="listusers_btn" layoutX="268.0" layoutY="5.0" prefHeight="713.0" prefWidth="800.0" visible="false">
@@ -252,7 +252,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="default_anchor" layoutX="268.0" layoutY="-1.0" prefHeight="722.0" prefWidth="823.0" style="-fx-background-color: #ffff;" />
+      <AnchorPane fx:id="default_anchor" layoutX="268.0" layoutY="-1.0" prefHeight="722.0" prefWidth="823.0" style="-fx-background-color: #ffff;" visible="false" />
       <AnchorPane fx:id="update_page" layoutX="273.0" layoutY="12.0" prefHeight="699.0" prefWidth="813.0" visible="false">
          <children>
             <Label layoutX="290.0" layoutY="49.0" prefHeight="57.0" prefWidth="234.0" text="Modify user" textFill="#c58940">

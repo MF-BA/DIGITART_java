@@ -147,6 +147,8 @@ public class DashboardController implements Initializable {
     private users_Services user;
     private users user1;
      static Connection conn = Conn.getCon();
+    private int idup;
+    
     PreparedStatement pst;
     @FXML
     private AnchorPane default_anchor;
@@ -237,8 +239,13 @@ public class DashboardController implements Initializable {
        list_users.setStyle("-fx-background-color: #E5BA73 ");
        add_user.setStyle("-fx-background-color: #C58940 ");
        modify_user.setStyle("-fx-background-color: #C58940 ");
+       showusers();
        
-         userslist = users_Services.Displayusers();
+      
+    }
+    public void showusers()
+    {
+       userslist = users_Services.Displayusers();
        id_tb.setCellValueFactory(new PropertyValueFactory<>("id"));
         cin_tb.setCellValueFactory(new PropertyValueFactory<>("cin"));
         fname_tb.setCellValueFactory(new PropertyValueFactory<>("firstname"));
@@ -253,8 +260,7 @@ public class DashboardController implements Initializable {
         if (user_table != null && user_table instanceof TableView) {
             // Cast user_table to TableView<users> and set its items
             ((TableView<users>) user_table).setItems(FXCollections.observableArrayList(userslist));
-        }
-      
+        }   
     }
 
     public void clear(){
@@ -268,6 +274,19 @@ public class DashboardController implements Initializable {
         female_gender.setSelected(false);
         male_gender.setSelected(false);
         Rolebox.getSelectionModel().clearSelection();  
+    }
+    public void clearupd(){
+      fname_up.setText("");
+        lname_up.setText("");
+        email_up.setText("");
+        pwd_up.setText("");
+        address_up.setText("");
+        cin_up.setText("");
+        phone_num_up.setText("");
+        female_gender_up.setSelected(false);
+        male_gender_up.setSelected(false);
+        Rolebox_up.getSelectionModel().clearSelection(); 
+        birth_d_up.setValue(null);  
     }
  
      @FXML
@@ -393,22 +412,33 @@ public class DashboardController implements Initializable {
         String Email = email_up.getText();
         String passwd = pwd_up.getText();
         String Address = address_up.getText();
+        String gender = null;
         if (male_gender_up.isSelected()) {
-        String gender = male_gender_up.getText();  
+        gender = male_gender_up.getText();  
     } else if (female_gender_up.isSelected()) {
-        String gender = female_gender_up.getText();
+        gender = female_gender_up.getText();
     }
         String role = (String) Rolebox_up.getSelectionModel().getSelectedItem();
-        users u = new users (
-        
-        
-        
-        
+        users u = new users (idup,
+             Cin,
+             firstname,
+                lastname,
+                Email,
+                passwd,
+                Address,
+             phone_number,   
+             BirthDate,
+                gender,
+                role
         );
+        users_Services user = new users_Services();
         user.modifyuser(u);
     }
 
-    
+    public int getidupdate(int id){
+      idup = id;  
+      return idup;
+    }
     public void showmodif()
     {
        list_users.setStyle("-fx-background-color: #C58940 ");
@@ -421,16 +451,8 @@ public class DashboardController implements Initializable {
     }
     @FXML
     private void clear_fields_update_btn(ActionEvent event) {
-        fname_up.setText("");
-        lname_up.setText("");
-        email_up.setText("");
-        pwd_up.setText("");
-        address_up.setText("");
-        cin_up.setText("");
-        phone_num_up.setText("");
-        female_gender_up.setSelected(false);
-        male_gender_up.setSelected(false);
-        Rolebox_up.getSelectionModel().clearSelection(); 
+        clearupd();
+        
     }
 
     @FXML
@@ -439,7 +461,8 @@ public class DashboardController implements Initializable {
       user_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
     if (newSelection != null) {
         // Set up the update page with text fields filled with the data of the selected user
-
+        
+        getidupdate(newSelection.getId());
         fname_up.setText(newSelection.getFirstname());
         lname_up.setText(newSelection.getLastname());
         email_up.setText(newSelection.getEmail());
@@ -451,11 +474,11 @@ public class DashboardController implements Initializable {
             female_gender_up.setSelected(true);
         }
         
-        //Rolebox_up.getSelectionModel().select(newSelection.getRole());
+        ((ComboBox<String>) Rolebox_up).setValue(newSelection.getRole());
         
         cin_up.setText(Integer.toString(newSelection.getCin()));
         phone_num_up.setText(Integer.toString(newSelection.getPhone_number()));
-        //birth_d_up.setText(newSelection.getBirth_date().toString());
+        birth_d_up.setValue(newSelection.getBirth_date());
         
 
       
@@ -474,7 +497,7 @@ public class DashboardController implements Initializable {
         
         users_Services.deleteuser(newSelection.getId());
         user_table.getItems().remove(newSelection);
-        
+        showusers();
     }
 });
     }
