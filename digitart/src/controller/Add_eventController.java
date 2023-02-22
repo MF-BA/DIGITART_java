@@ -33,6 +33,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -100,6 +102,20 @@ public class Add_eventController implements Initializable {
     private ComboBox<Integer> txt_room;
     @FXML
     private TableColumn<Event, Integer> colroomid;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
+    @FXML
+    private Button add_user;
+    @FXML
+    private Button modify_user;
+    @FXML
+    private Button list_users;
+    @FXML
+    private TextField event_search;
  
     
 
@@ -149,7 +165,33 @@ public class Add_eventController implements Initializable {
     
   
    
-    
+    /*public void searchEvent() {
+        ObservableList<Event> eventObservableList = FXCollections.observableList(eventList);
+        FilteredList<Event> filteredData = new FilteredList<>(eventObservableList, p -> true);
+        event_search.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(event -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(event.getEvent_id()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches ticket id.
+                } else if (event.getEvent_name().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches ticket type.
+                } else if (String.valueOf(event.getNb_participants()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches ticket price.
+                } else if (event.getDetail().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches ticket date.
+                } 
+                return false; // Does not match.
+            });
+        });
+
+        SortedList<Event> sortedData = new SortedList<>(filteredData);
+        ((TableView<Event>) tabevent).setItems(sortedData);
+    }
+    */
       
       public void EventAdd() {
 
@@ -311,6 +353,18 @@ public class Add_eventController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void add_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void modify_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void list_users_btn(ActionEvent event) {
     }
 
     
