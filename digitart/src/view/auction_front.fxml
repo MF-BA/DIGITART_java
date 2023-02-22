@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controller.Auction_frontController">
+<AnchorPane id="AnchorPane" prefHeight="495.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Auction_frontController">
    <children>
-      <HBox fx:id="auction_view" layoutX="14.0" layoutY="27.0" prefHeight="150.0" prefWidth="570.0" />
+      <ScrollPane layoutX="22.0" layoutY="23.0" prefHeight="449.0" prefWidth="987.0">
+         <content>
+            <HBox fx:id="auction_view" prefHeight="186.0" prefWidth="219.0">
+               <children>
+                  <GridPane fx:id="auction_container" prefHeight="186.0" prefWidth="220.0">
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </children>
+            </HBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

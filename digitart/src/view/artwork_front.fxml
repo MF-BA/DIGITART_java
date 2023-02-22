@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="185.0" prefWidth="400.0" spacing="15.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Artwork_frontController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="695.0" spacing="50.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Artwork_frontController">
    <children>
-      <ImageView fx:id="photo" fitHeight="155.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="photo" fitHeight="158.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../../wallpapers/pexels-sam-kolder-2387873.jpg" />
          </image>
       </ImageView>
-      <VBox alignment="BASELINE_LEFT" prefHeight="185.0" prefWidth="207.0">
+      <VBox alignment="BASELINE_LEFT" prefHeight="200.0" prefWidth="392.0">
          <children>
             <Label fx:id="artwork_name" text="MONALISA">
                <font>

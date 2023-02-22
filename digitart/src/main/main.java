@@ -84,6 +84,7 @@ public class main extends Application {
     public static void main(String[] args) {
         Data.user = new users("firstname", "lastname", "email", " pwd", "address", " gender", "role", 1, 12, 45, LocalDate.of(2023, Month.FEBRUARY, 15));
         launch(args);
+        
 
         ArrayList<Auction_display> AuctionList;
         AuctionList = Auction_Services.Display_auction_details();

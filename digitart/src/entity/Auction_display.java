@@ -37,7 +37,7 @@ public class Auction_display {
         this.name = name;
         this.bid = bid;
         img = Auction_Services.get_img(id_artwork);
-        name_artist = Auction_Services.find_artist_name(Auction_Services.find_artwork_id(name));
+        name_artist = Auction_Services.find_artist_name(Auction_Services.find_artist_id(name));
     }
   public String getName_artist() {
         return name_artist;

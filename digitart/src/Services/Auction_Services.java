@@ -184,6 +184,21 @@ public class Auction_Services {
         }
     }
     
+    public static int find_artist_id(String artwork_name) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT id_artist FROM artwork WHERE artwork_name = ?");
+            statement.setString(1, artwork_name);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                throw new SQLException("No artwork found with name: " + artwork_name);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
      public static String find_artist_name(int id) {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT CONCAT(firstname,' ',lastname) AS name FROM users WHERE id= ?");
