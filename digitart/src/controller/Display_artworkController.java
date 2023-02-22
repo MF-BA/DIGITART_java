@@ -28,6 +28,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -65,16 +66,12 @@ public class Display_artworkController implements Initializable {
     private Button BTN_modify;
     @FXML
     private Button BTN_delete;
-    @FXML
-    private Button btn_artworkM;
     
     private ArrayList<Artwork> ArtworkList;
     private Stage stage;
     private Scene scene;
     private Parent root;
      private Image image1;
-    @FXML
-    private Button btn_roomM;
     @FXML
     private TableColumn<?, ?> col_idroom;
     @FXML
@@ -83,6 +80,24 @@ public class Display_artworkController implements Initializable {
     private TableView<?> table_Artwork;
     @FXML
     private TextField artwork_search;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
+    @FXML
+    private Button edit_profile;
+    @FXML
+    private Button add_user;
+    @FXML
+    private Button modify_user;
+    @FXML
+    private Button list_users;
+    @FXML
+    private Button btn_room;
+    @FXML
+    private Button btn_artwork;
     /**
      * Initializes the controller class.
      */
@@ -179,7 +194,8 @@ public Artwork SelectArtwork() {
         ShowArtwork();
         
 
-        
+       btn_room.setStyle("-fx-background-color: #BD2A2E ");
+       btn_artwork.setStyle("-fx-background-color: #470011 ");
         
     
     }    
@@ -268,6 +284,22 @@ public Artwork SelectArtwork() {
         }
         
         
+    }
+
+    @FXML
+    private void edit_profile_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void add_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void modify_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void list_users_btn(ActionEvent event) {
     }
     
 }

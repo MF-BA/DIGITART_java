@@ -26,6 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -54,6 +55,24 @@ public class Add_roomController implements Initializable {
     private Button BTN_add;
     @FXML
     private TextField INPUT_area;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
+    @FXML
+    private Button edit_profile;
+    @FXML
+    private Button add_user;
+    @FXML
+    private Button modify_user;
+    @FXML
+    private Button list_users;
+    @FXML
+    private Button btn_room;
+    @FXML
+    private Button btn_artwork;
 
     /**
      * Initializes the controller class.
@@ -122,7 +141,8 @@ public class Add_roomController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
-        
+       btn_room.setStyle("-fx-background-color: #470011 ");
+       btn_artwork.setStyle("-fx-background-color: #BD2A2E ");
         
         
         INPUT_area.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -133,4 +153,28 @@ public class Add_roomController implements Initializable {
 
         combobox();
     } 
+
+    @FXML
+    private void edit_profile_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void add_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void modify_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void list_users_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void btn_room_clicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void btn_artwork_clicked(ActionEvent event) {
+    }
 }

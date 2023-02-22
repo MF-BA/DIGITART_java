@@ -30,6 +30,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -71,6 +72,24 @@ public class Add_artworkController implements Initializable {
     private DatePicker input_date;
     @FXML
     private TextArea input_desc;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
+    @FXML
+    private Button edit_profile;
+    @FXML
+    private Button add_user;
+    @FXML
+    private Button modify_user;
+    @FXML
+    private Button list_users;
+    @FXML
+    private Button btn_room;
+    @FXML
+    private Button btn_artwork;
 
     /**
      * Initializes the controller class.
@@ -93,6 +112,10 @@ public class Add_artworkController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        combobox();
+       
+      btn_artwork.setStyle("-fx-background-color: #470011 ");
+      btn_room.setStyle("-fx-background-color: #BD2A2E ");
+       
     }    
 
     @FXML
@@ -165,6 +188,30 @@ public class Add_artworkController implements Initializable {
     @FXML
     private void btn_cancel_clicked(ActionEvent event) {
         go_Display(event);
+    }
+
+    @FXML
+    private void edit_profile_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void add_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void modify_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void list_users_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void btn_room_clicked(ActionEvent event) {
+    }
+
+    @FXML
+    private void btn_artwork_clicked(ActionEvent event) {
     }
     
 }

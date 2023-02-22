@@ -27,6 +27,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -69,11 +70,25 @@ public class Display_roomController implements Initializable {
 
      private ArrayList<Room> RoomList;
     @FXML
-    private Button btn_dashboard;
-    @FXML
-    private Button btn_artworkM;
-    @FXML
     private TextField room_search;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
+    @FXML
+    private Button edit_profile;
+    @FXML
+    private Button add_user;
+    @FXML
+    private Button modify_user;
+    @FXML
+    private Button list_users;
+    @FXML
+    private Button btn_room;
+    @FXML
+    private Button btn_artwork;
 
     public void ShowRoom() {
 
@@ -202,6 +217,9 @@ public class Display_roomController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         ShowRoom();
+        
+       btn_room.setStyle("-fx-background-color: #470011 ");
+       btn_artwork.setStyle("-fx-background-color: #BD2A2E ");
     }   
 
    
@@ -214,9 +232,6 @@ public class Display_roomController implements Initializable {
         
     }
 
-    @FXML
-    private void switchForm(ActionEvent event) {
-    }
 
   
     @FXML
@@ -233,6 +248,26 @@ public class Display_roomController implements Initializable {
             // Cast room_tableview to TableView<Room> and set its items
             ((TableView<Room>) table_room).setItems(FXCollections.observableArrayList(RoomList));
         }
+    }
+
+    @FXML
+    private void edit_profile_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void add_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void modify_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void list_users_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void btn_room_clicked(ActionEvent event) {
     }
     
 }
