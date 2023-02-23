@@ -70,12 +70,6 @@ public class TicketController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    private Button Close;
-
-    @FXML
-    private Button Minimize;
-
-    @FXML
     private AnchorPane addticket_anchor;
 
     @FXML
@@ -217,17 +211,6 @@ public class TicketController implements Initializable {
     @FXML
     private TableColumn<?, ?> payment_tv_total;
 
-    @FXML
-    public void Close() {
-        System.exit(0);
-    }
-
-    @FXML
-    public void Minimize() {
-        Stage stage = (Stage) main_anchor.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
     public void combobox() {
         List<String> options = new ArrayList<>();
         options.add("Adult");
@@ -287,9 +270,10 @@ public class TicketController implements Initializable {
             });
         } else if (i == 0) {
             // If no message has been set yet
-            date_warning.setVisible(true);
-            date_warning.setText("Please select another date!");
-            afterdate_anchor.setVisible(false);
+            date_warning.setVisible(false);
+            //date_warning.setText("Please select another date!");
+            afterdate_anchor.setVisible(true);
+            SpinnerReset();
             payment_date.valueProperty().addListener((observable, oldValue, newValue) -> {
                 checkDate();
             });
@@ -313,7 +297,31 @@ public class TicketController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        // If no price is found for the given ticketType and selectedDate,
+        // set the price to a default value of 0
+        if (price == 0 && !selectedDate.equals(LocalDate.now()) || selectedDate.equals(LocalDate.now())) {
+            price = getDefaultPrice(ticketType);
+        }
+       
+
         return price;
+    }
+
+    private int getDefaultPrice(String ticketType) {
+        int defaultPrice = 0;
+        switch (ticketType) {
+            case "Adult":
+                defaultPrice = 8;
+                break;
+            case "Teen":
+                defaultPrice = 4;
+                break;
+            case "Student":
+                defaultPrice = 6;
+                break;
+        }
+        return defaultPrice;
     }
 
     private int qty1;
@@ -514,7 +522,7 @@ public class TicketController implements Initializable {
         Alert alert;
 
         // CHECK IF THE FIELDS ARE EMPTY
-        if (ticket_type == null || ticket_date == null || ticket_edate == null) {
+        if (ticketType == null || ticketDate == null || ticketEDate == null) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
@@ -586,6 +594,12 @@ public class TicketController implements Initializable {
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
                 alert.setContentText("Please enter a valid ticket price");
+                alert.showAndWait();
+            } else if (ticket_date.getValue() == null || ticket_edate.getValue() == null) {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please choose a date");
                 alert.showAndWait();
             } else if (ticket_date.getValue().isBefore(LocalDate.now())) {
                 alert = new Alert(AlertType.ERROR);
@@ -728,7 +742,7 @@ public class TicketController implements Initializable {
         ticket_date.setValue(null);
         ticket_edate.setValue(null);
         ticket_type.getSelectionModel().clearSelection();
-        ticket_price.setText("");
+        ticket_price.setText("0");
 
     }
 

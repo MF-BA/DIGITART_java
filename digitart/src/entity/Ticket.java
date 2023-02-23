@@ -10,6 +10,7 @@ package entity;
  *
  * @author User
  */
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -34,6 +35,7 @@ public class Ticket {
     this.price = price;
     this.ticket_type = type;
 }
+
 
 
     public int getTicket_id() {
