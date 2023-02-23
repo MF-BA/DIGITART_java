@@ -57,7 +57,7 @@ public class main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Data.user = new users("firstname", "lastname", "email", " pwd", "address", " gender", "role", 1, 12, 45, LocalDate.of(2023, Month.FEBRUARY, 15));
+        Data.user = new users(1, 12,"firstname", "lastname", "email", " pwd", "address",  45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
         launch(args);
         
 
