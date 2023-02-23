@@ -211,8 +211,6 @@ public class TicketController implements Initializable {
     @FXML
     private TableColumn<?, ?> payment_tv_teen;
     @FXML
-    private TextField payment_search;
-    @FXML
     private Button payment_delete_button;
     @FXML
     private TableColumn<?, ?> payment_tv_student;
@@ -669,6 +667,7 @@ public class TicketController implements Initializable {
         }
     }
 
+    @FXML
     public void searchTicket() {
         ObservableList<Ticket> ticketObservableList = FXCollections.observableList(ticketList);
         FilteredList<Ticket> filteredData = new FilteredList<>(ticketObservableList, p -> true);
