@@ -265,6 +265,7 @@ else if (yesartist.isSelected() && noartist.isSelected())
   }
     
  public void clear(){
+     
         fname.setText("");
         lname.setText("");
         email.setText("");

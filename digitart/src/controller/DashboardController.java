@@ -9,6 +9,7 @@ import Services.users_Services;
 import entity.Data;
 import entity.users;
 import java.awt.Color;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,7 +25,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -37,7 +42,9 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import utils.Conn;
 
 /**
@@ -235,6 +242,20 @@ public class DashboardController implements Initializable {
     private Label errormsgbirthdate_edit;
     @FXML
     private Label errormsgphonenum_edit;
+    @FXML
+    private Label labeladminname21;
+    @FXML
+    private Label labeladminname22;
+    @FXML
+    private Label labeladminname23;
+    @FXML
+    private Label labeladminname24;
+    @FXML
+    private Label labeladminname25;
+    @FXML
+    private Button deconnect;
+    private Button eye_on;
+    private Button eye_off;
     /**
      * Initializes the controller class.
      */
@@ -740,5 +761,48 @@ public void comboboxedit()
          errormsgfiiledit.setText("your profile is successfully modified!!");  
         }
     }
+
+    @FXML
+    private void deconnect_btn(ActionEvent event) {
+        
+        deconnect.setStyle("-fx-background-color: #470011 ");
+        edit_profile.setStyle("-fx-background-color: transparent ");
+        add_user.setStyle("-fx-background-color: transparent ");
+        list_users.setStyle("-fx-background-color:  transparent ");
+        modify_user.setStyle("-fx-background-color: transparent ");
+        
+        
+        default_anchor.setVisible(false);
+        listusers_btn.setVisible(false);
+        adduser_dash_btn.setVisible(false);
+        update_page.setVisible(false);  
+        editprofile_page.setVisible(false);
+        
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/signin_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    private void eye_on_btn(ActionEvent event) {
+      
+       eye_off.setVisible(false); 
+        eye_on.setVisible(true); 
+        
+        
+    }
+
+    
+
     
 }
