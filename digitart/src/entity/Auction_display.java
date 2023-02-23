@@ -5,23 +5,26 @@
  */
 package entity;
 
+import Services.Auction_Services;
 import java.time.LocalDate;
 
 /**
  *
  * @author fedi1
  */
-public class auction_display {
+public class Auction_display {
 
     LocalDate Date;
     String desc;
     int increment, starting_price;
     String name;
     int bid;
+    String img;
+    String name_artist;
 
     int id_auction, id_artwork;
 
-    public auction_display(Auction auction, String name, int bid) {
+    public Auction_display(Auction auction, String name, int bid) {
         this.id_auction = auction.getId_auction();
         this.id_artwork = auction.getId_artwork();
         this.desc = auction.getDescription();
@@ -31,6 +34,24 @@ public class auction_display {
         this.Date = auction.getDate();
         this.name = name;
         this.bid = bid;
+        img = Auction_Services.get_img(id_artwork);
+        name_artist = Auction_Services.find_artist_name(Auction_Services.find_artist_id(name));
+    }
+
+    public String getName_artist() {
+        return name_artist;
+    }
+
+    public void setName_artist(String name_artist) {
+        this.name_artist = name_artist;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public Auction auc() {
@@ -101,12 +122,20 @@ public class auction_display {
         this.bid = bid;
     }
 
+    @Override
     public String toString() {
-        return "Auction: " + desc + "\n"
-                + "Date: " + Date.toString() + "\n"
-                + "Starting Price: " + starting_price + "\n"
-                + "Increment: " + increment + "\n"
-                + "Bidder: " + name + "\n"
-                + "Current Bid: " + bid;
+        return "Auction{"
+                + "Date=" + Date
+                + ", desc='" + desc + '\''
+                + ", increment=" + increment
+                + ", starting_price=" + starting_price
+                + ", name='" + name + '\''
+                + ", bid=" + bid
+                + ", img='" + img + '\''
+                + ", name_artist='" + name_artist + '\''
+                + ", id_auction=" + id_auction
+                + ", id_artwork=" + id_artwork
+                + '}';
     }
+
 }

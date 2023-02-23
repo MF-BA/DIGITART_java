@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Auction;
-import entity.auction_display;
+import entity.Auction_display;
 import main.main;
 
 /**
@@ -72,15 +72,16 @@ public class Auction_Services {
 
     }
 
-    public static ArrayList<auction_display> Display_auction_details() {
-        ArrayList<auction_display> displayList = new ArrayList<auction_display>(); // initialize displayList
+    public static ArrayList<Auction_display> Display_auction_details() {
+        ArrayList<Auction_display> displayList = new ArrayList<Auction_display>(); // initialize displayList
         for (Auction auction : Display()) {
             System.out.println(auction.getId_artwork());
-            auction_display display = new auction_display(auction, Auction_Services.find_artwork_name(auction.getId_artwork()), Bid_Services.highest_offer(auction.getId_auction()));
+            Auction_display display = new Auction_display(auction, Auction_Services.find_artwork_name(auction.getId_artwork()), Bid_Services.highest_offer(auction.getId_auction()));
             displayList.add(display);
         }
         return displayList;
     }
+    
 
     public static void delete(int ID) {
 
@@ -160,6 +161,53 @@ public class Auction_Services {
                 return resultSet.getString(1);
             } else {
                 throw new SQLException("No artwork found with id: " + id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static String get_img(int id) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT image_art FROM artwork WHERE id_art= ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            } else {
+                throw new SQLException("No image_art found with id: " + id);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static int find_artist_id(String artwork_name) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT id_artist FROM artwork WHERE artwork_name = ?");
+            statement.setString(1, artwork_name);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                throw new SQLException("No artwork found with name: " + artwork_name);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+     public static String find_artist_name(int id) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT CONCAT(firstname,' ',lastname) AS name FROM users WHERE id= ?");
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            } else {
+                throw new SQLException("No user found with id: " + id);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);

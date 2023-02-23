@@ -5,6 +5,7 @@
  */
 package main;
 
+import java.time.LocalDate;
 import entity.Ticket;
 import Services.ServiceTicket;
 import entity.Auction;
@@ -12,10 +13,12 @@ import Services.Auction_Services;
 import Services.Bid_Services;
 import controller.Signup_pageController;
 import entity.Bid;
-import entity.auction_display;
+import entity.Auction_display;
+import entity.Data;
+import entity.users;
 import java.io.IOException;
 import java.sql.Connection;
-import java.time.*;
+import java.time.Month;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,41 +42,13 @@ public class main extends Application {
     private double y = 0;
 
     @Override
-     public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DIGITART");
-        
-        
-        
-        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/display_room.fxml"));
+
+        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/add_ticket.fxml"));
         Scene scene = new Scene(DisplayROOM_Page);
-        
- /*
-       Parent ADDROOM_Page = FXMLLoader.load(getClass().getResource("/view/add_room.fxml"));
-        Scene scene = new Scene(ADDROOM_Page);
-       Parent ADDATICKET_Page = FXMLLoader.load(getClass().getResource("/view/add_ticket.fxml"));
-       // Scene scene = new Scene(ADDAUCTION_Page);
-       Scene scene = new Scene(ADDATICKET_Page);
-       
-        ADDATICKET_Page.setOnMousePressed((MouseEvent event) -> {
-            x = event.getSceneX();
-            y = event.getSceneY();
-        });
 
-        root.setOnMouseDragged((MouseEvent event) -> {
-
-            primaryStage.setX(event.getScreenX() - x);
-            primaryStage.setY(event.getScreenY() - y);
-
-            primaryStage.setOpacity(.8);
-        });
-        root.setOnMouseReleased((MouseEvent event) -> {
-            primaryStage.setOpacity(1);
-        });
-
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-       */
-       
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
@@ -82,12 +57,12 @@ public class main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Data.user = new users(1, 12,"firstname", "lastname", "email", " pwd", "address",  45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
         launch(args);
         /*
          ArrayList<auction_display> AuctionList;
        AuctionList = Auction_Services.Display_auction_details();
 
-        System.out.println(AuctionList);
         
         // TODO code application logic here
         
@@ -140,11 +115,8 @@ public class main extends Application {
 
         System.exit(0);
         
-   */     
-        
-        
-        
-        /* MOHAMED -----------------------------------------------------------
+         */
+ /* MOHAMED -----------------------------------------------------------
         
         
           ArrayList<Room> data ;
@@ -160,19 +132,16 @@ public class main extends Application {
     
              data = Room_Services.Display() ;
              System.out.println(data);
-        */
-         
-        /* delete and display room 
+         */
+ /* delete and display room 
         
             Room room2 = data.get(0);
             Room_Services.delete(room2.getId_room());
         
             data = Room_Services.Display() ;
             System.out.println(data);
-        */
-        
-       
-        /* add  and display artwork
+         */
+ /* add  and display artwork
         
           Artwork artwork1 = new Artwork("La Jaconde",1,"Leonard de Vinci",LocalDate.of(1517, Month.MARCH, 10),"qdqzdqzd","url",2);
              Artwork_Services.add(artwork1);
@@ -181,11 +150,8 @@ public class main extends Application {
              data2 = Artwork_Services.Display() ;
              System.out.println(data2);
              
-        */
-        
-      
-        
-        /* delete and display artwork 
+         */
+ /* delete and display artwork 
         
             Artwork artwork2 = data2.get(0);
             Artwork_Services.delete(artwork2.getId_art());
@@ -193,11 +159,8 @@ public class main extends Application {
             data2 = Artwork_Services.Display() ;
             System.out.println(data2);
    
-        */
-        
-        
-        
-       /* 
+         */
+ /* 
 
        System.out.println(ServiceTicket.displayTicket());
         
@@ -209,9 +172,10 @@ public class main extends Application {
         ServiceTicket.updateTicket(updatedTicket);
         
        System.out.println(ServiceTicket.displayTicket());
-        */
-       // Amine---------------------------------------------------------------------------------------------------- 
-        System.exit(0);
+         */
+        // Amine---------------------------------------------------------------------------------------------------- 
+        System.exit(
+                0);
 
     }
 

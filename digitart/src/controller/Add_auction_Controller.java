@@ -131,8 +131,6 @@ public class Add_auction_Controller implements Initializable {
         } else {
             LocalDate date = in_ED.getValue();
             /*date */
-            System.out.println(in_I.getValue());
-
             Auction auction = new Auction(Integer.parseInt(in_SB.textProperty().getValue()),
                     in_BI.getValue(), Auction_Services.find_artwork_id(in_I.getValue()),
                     date, in_Desc.textProperty().getValue());
@@ -172,7 +170,7 @@ public class Add_auction_Controller implements Initializable {
 
     @FXML
     private void btn_Add_Auction_click(ActionEvent event) {
-        
+
     }
 
 }

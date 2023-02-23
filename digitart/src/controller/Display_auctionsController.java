@@ -10,11 +10,13 @@ import Services.ServiceTicket;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entity.Auction;
 import entity.Ticket;
-import entity.auction_display;
+import entity.Auction_display;
+import entity.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +32,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -45,10 +49,10 @@ import javafx.util.Callback;
  */
 public class Display_auctionsController implements Initializable {
 
-    @FXML
-    private Button Close;
-    @FXML
-    private Button Minimize;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     @FXML
     private Button Dslay_update_button;
     @FXML
@@ -56,29 +60,27 @@ public class Display_auctionsController implements Initializable {
     @FXML
     private Button display_show_bid_btn;
     @FXML
-    private TableView<auction_display> table_auction;
+    private TableView<Auction_display> table_auction;
     @FXML
-    private TableColumn<auction_display, String> artwork_Name;
+    private TableColumn<Auction_display, String> artwork_Name;
     @FXML
-    private TableColumn<auction_display, Integer> Starting_price;
+    private TableColumn<Auction_display, Integer> Starting_price;
     @FXML
-    private TableColumn<auction_display, LocalDate> Ending_Date;
+    private TableColumn<Auction_display, LocalDate> Ending_Date;
     @FXML
-    private TableColumn<auction_display, String> Description;
+    private TableColumn<Auction_display, String> Description;
     @FXML
-    private TableColumn<auction_display, Integer> Increment;
+    private TableColumn<Auction_display, Integer> Increment;
     @FXML
-    private TableColumn<auction_display, String> Current_bid;
-    @FXML
-    private AnchorPane main_anchor;
-
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
+    private TableColumn<Auction_display, String> Current_bid;
     @FXML
     private Button btn_Add_Auction;
     @FXML
     private Button btn_Artworks_Auction;
+    @FXML
+    private Button search_btn;
+    @FXML
+    private TextField search_in;
 
     /**
      * Initializes the controller class.
@@ -90,18 +92,7 @@ public class Display_auctionsController implements Initializable {
         Dslay_delete_button.setOnAction(this::AuctonDelete);
     }
 
-    @FXML
-    private void Close(ActionEvent event) {
-        System.exit(0);
-    }
-
-    @FXML
-    private void Minimize(ActionEvent event) {
-        Stage stage = (Stage) main_anchor.getScene().getWindow();
-        stage.setIconified(true);
-    }
-
-    private ArrayList<auction_display> AuctionList;
+    private ArrayList<Auction_display> AuctionList;
 
     public void Showauction() {
 
@@ -112,53 +103,60 @@ public class Display_auctionsController implements Initializable {
         Ending_Date.setCellValueFactory(new PropertyValueFactory<>("Date"));
         Description.setCellValueFactory(new PropertyValueFactory<>("desc"));
         Increment.setCellValueFactory(new PropertyValueFactory<>("increment"));
-        Current_bid.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<auction_display, String>, ObservableValue<String>>() {
+        Current_bid.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Auction_display, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<auction_display, String> cellData) {
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Auction_display, String> cellData) {
                 int bid = cellData.getValue().getBid();
                 if (bid == 0) {
                     return new SimpleStringProperty("None");
                 } else {
                     return new SimpleStringProperty(String.valueOf(bid));
-                }       }
+                }
+            }
         });
-
 
         if (table_auction != null && table_auction instanceof TableView) {
             // Cast ticket_tableview to TableView<Ticket> and set its items     
-            ((TableView<auction_display>) table_auction).setItems(FXCollections.observableArrayList(AuctionList));
+            ((TableView<Auction_display>) table_auction).setItems(FXCollections.observableArrayList(AuctionList));
         }
     }
 
-
+    @FXML
     private void AuctonDelete(ActionEvent event) {
-        int t = select_auction(null);
-        System.out.println(t);
-        if (((t - 1) < -1)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+        Auction_display t = select_auction(null);
+        int x = t.getId_auction();
+        Alert alert;
+        if (((x - 1) < -1)) {
+            alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR !!!!");
             alert.setContentText("SELECT A ROW TO BE ABLE TO DELETE!!!");
             alert.showAndWait();
         } else {
-            Auction_Services.delete(t);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("SUCCESS!!!!");
-            alert.setContentText("DELETION ACCOMPLISHED SUCCESSFULLY!!!");
-            alert.showAndWait();
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete the auction?");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get().equals(ButtonType.OK)) {
+                Auction_Services.delete(x);
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("SUCCESS!!!!");
+                alert.setContentText("DELETION ACCOMPLISHED SUCCESSFULLY!!!");
+                alert.showAndWait();
+            }
+            Showauction();
         }
-        Showauction();
-
     }
 
-
-    private int select_auction(MouseEvent event) {
-        auction_display t = ((TableView<auction_display>) table_auction).getSelectionModel().getSelectedItem();
+    @FXML
+    private Auction_display select_auction(MouseEvent event) {
+        Auction_display t = ((TableView<Auction_display>) table_auction).getSelectionModel().getSelectedItem();
         int num = table_auction.getSelectionModel().getSelectedIndex();
         if (((num - 1) < -1)) {
-            return num;
+            return null;
         }
-        return t.getId_auction();
-
+        Data.auction_display = t;
+        return t;
     }
 
     @FXML
@@ -166,10 +164,22 @@ public class Display_auctionsController implements Initializable {
         go_ADD_auction(event);
     }
 
-
     private void go_ADD_auction(ActionEvent event) {
         try {
             root = FXMLLoader.load(getClass().getResource("/view/add_auction.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void go_modify_auction(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/modify_auction.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -185,11 +195,57 @@ public class Display_auctionsController implements Initializable {
     }
 
     @FXML
-    private void TicketUpdate(ActionEvent event) {
+    private void Auctonupdate(ActionEvent event) {
+
+        go_modify_auction(event);
     }
 
     @FXML
-    private void TicketDelete(ActionEvent event) {
+    private void search_btn_clicked(ActionEvent event) {
+        if (search_in.textProperty().getValue().isEmpty()) {
+            Showauction();
+        } else {
+            artwork_Name.setCellValueFactory(new PropertyValueFactory<>("name"));
+            Starting_price.setCellValueFactory(new PropertyValueFactory<>("starting_price"));
+            Ending_Date.setCellValueFactory(new PropertyValueFactory<>("Date"));
+            Description.setCellValueFactory(new PropertyValueFactory<>("desc"));
+            Increment.setCellValueFactory(new PropertyValueFactory<>("increment"));
+            Current_bid.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Auction_display, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<Auction_display, String> cellData) {
+                    int bid = cellData.getValue().getBid();
+                    if (bid == 0) {
+                        return new SimpleStringProperty("None");
+                    } else {
+                        return new SimpleStringProperty(String.valueOf(bid));
+                    }
+                }
+            });
+
+            if (table_auction != null && table_auction instanceof TableView) {
+                // Cast ticket_tableview to TableView<Ticket> and set its items     
+                ((TableView<Auction_display>) table_auction).setItems(FXCollections.observableArrayList(searchAuctions(AuctionList, search_in.textProperty().getValue())));
+            }
+        }
+
+    }
+
+    private ArrayList<Auction_display> searchAuctions(ArrayList<Auction_display> auctions, String searchStr) {
+        ArrayList<Auction_display> results = new ArrayList<>();
+
+        // Convert search string to lowercase for case-insensitive search
+        searchStr = searchStr.toLowerCase();
+
+        // Loop through each auction and check if it contains the search string
+        for (Auction_display auction : auctions) {
+            if (auction.getName().toLowerCase().contains(searchStr)
+                    || auction.getDesc().toLowerCase().contains(searchStr)
+                    || auction.getName_artist().toLowerCase().contains(searchStr)) {
+                results.add(auction);
+            }
+        }
+
+        return results;
     }
 
 }

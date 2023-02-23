@@ -13,6 +13,10 @@ public class Data {
   
    public static Room room;
    public static Artwork artwork;
+   public static users user ;
+   public static Bid bid ;
+   public static Auction auction ;
+   public static Auction_display auction_display ;
 
     public static Room getRoom() {
         return room;
