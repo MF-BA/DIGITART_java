@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="919.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controller.Add_artworkController">
+   <children>
+      <Text layoutX="179.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add artwork" textAlignment="CENTER" wrappingWidth="241.13671875">
+         <font>
+            <Font name="Impact" size="46.0" />
+         </font>
+      </Text>
+      <Label layoutX="94.0" layoutY="132.0" prefHeight="32.0" prefWidth="158.0" text="Name Artwork:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="200.0" prefHeight="32.0" prefWidth="91.0" text="Id artist:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="263.0" prefHeight="32.0" prefWidth="132.0" text="Name Artist:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="323.0" prefHeight="32.0" prefWidth="132.0" text="Date:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="395.0" text="Description:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="551.0" prefHeight="32.0" prefWidth="91.0" text="Image:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="94.0" layoutY="626.0" prefHeight="32.0" prefWidth="132.0" text="Id room:">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <TextField fx:id="Input_name_artwork" layoutX="300.0" layoutY="135.0" prefHeight="25.0" prefWidth="203.0" />
+      <TextField fx:id="input_name_artist" layoutX="300.0" layoutY="266.0" prefHeight="25.0" prefWidth="203.0" />
+      <ComboBox fx:id="input_id_artist" layoutX="327.0" layoutY="203.0" prefWidth="150.0" />
+      <ComboBox fx:id="input_idroom" layoutX="310.0" layoutY="630.0" prefHeight="25.0" prefWidth="185.0" />
+      <DatePicker fx:id="input_date" layoutX="315.0" layoutY="326.0" />
+      <TextArea fx:id="input_desc" layoutX="300.0" layoutY="395.0" prefHeight="120.0" prefWidth="203.0" />
+      <Button fx:id="btn_addimage" layoutX="370.0" layoutY="551.0" mnemonicParsing="false" onAction="#btn_addimage_clicked" text="add a file">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_add" layoutX="350.0" layoutY="770.0" mnemonicParsing="false" onAction="#btn_add_clicked" text="Confirm adding" textFill="#1aae21">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="btn_cancel" layoutX="137.0" layoutY="770.0" mnemonicParsing="false" onAction="#btn_cancel_clicked" text="Cancel" textFill="#ae1515">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
