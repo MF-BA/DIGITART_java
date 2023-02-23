@@ -10,7 +10,7 @@
 
 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="695.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Artwork_frontController">
    <children>
-      <ImageView fx:id="wining" fitHeight="20.0" fitWidth="18.0">
+      <ImageView fx:id="wining" fitHeight="20.0" fitWidth="20.0">
          <image>
             <Image url="@pngegg.png" />
          </image>
@@ -54,6 +54,6 @@
             </Label>
          </children>
       </VBox>
-      <Button fx:id="add_bid" mnemonicParsing="false" onAction="#add_bid_clicked" prefHeight="39.0" prefWidth="252.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add Bid" />
+      <Button fx:id="add_bid" mnemonicParsing="false" onAction="#add_bid_clicked" prefHeight="39.0" prefWidth="293.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add Bid" />
    </children>
 </HBox>
