@@ -82,7 +82,7 @@
                               <Font name="Berlin Sans FB Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dashboard_totalincome" layoutX="118.0" layoutY="23.0" prefHeight="51.0" prefWidth="153.0" text="\$0.0" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label fx:id="dashboard_totalincome" layoutX="118.0" layoutY="23.0" prefHeight="51.0" prefWidth="226.0" text="\$0.0" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
                               <Font name="Tahoma Bold" size="40.0" />
                            </font>
@@ -101,7 +101,7 @@
                               <Font name="Berlin Sans FB Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dashboard_todayincome" layoutX="145.0" layoutY="22.0" prefHeight="51.0" prefWidth="141.0" text="\$0.0" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label fx:id="dashboard_todayincome" layoutX="145.0" layoutY="22.0" prefHeight="51.0" prefWidth="194.0" text="\$0" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
                               <Font name="Tahoma Bold" size="40.0" />
                            </font>
@@ -110,7 +110,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="12.0" layoutY="21.0" prefHeight="180.0" prefWidth="350.0" styleClass="card1" stylesheets="@auctionDesign.css">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="TICKET" layoutX="3.0" layoutY="88.0" size="4em" wrappingWidth="126.0">
+                        <FontAwesomeIconView fill="WHITE" glyphName="TICKET" layoutX="4.0" layoutY="85.0" size="4em" wrappingWidth="115.20000000000016">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -120,7 +120,7 @@
                               <Font name="Berlin Sans FB Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dashboard_availabletickets" layoutX="143.0" layoutY="26.0" prefHeight="51.0" prefWidth="110.0" text="0" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label fx:id="dashboard_availabletickets" layoutX="145.0" layoutY="22.0" prefHeight="51.0" prefWidth="194.0" text="0" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
                               <Font name="Tahoma Bold" size="40.0" />
                            </font>

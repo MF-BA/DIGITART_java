@@ -25,8 +25,8 @@
          <children>
             <Pane prefHeight="299.0" prefWidth="250.0">
                <children>
-                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="81.0" layoutY="122.0" size="130" />
-                  <Label layoutX="1.0" layoutY="149.0" prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
+                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="78.0" layoutY="125.0" size="130" />
+                  <Label layoutX="-4.0" layoutY="149.0" prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
                      <padding>
                         <Insets left="70.0" />
                      </padding>
@@ -82,7 +82,7 @@
                               <Font name="Berlin Sans FB Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dashboard_totalincome" layoutX="118.0" layoutY="23.0" prefHeight="51.0" prefWidth="153.0" text="\$0.0" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label fx:id="dashboard_totalincome" layoutX="145.0" layoutY="22.0" prefHeight="51.0" prefWidth="226.0" text="\$0.0" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
                               <Font name="Tahoma Bold" size="40.0" />
                            </font>
@@ -101,7 +101,7 @@
                               <Font name="Berlin Sans FB Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dashboard_todayincome" layoutX="145.0" layoutY="22.0" prefHeight="51.0" prefWidth="141.0" text="\$0.0" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label fx:id="dashboard_todayincome" layoutX="145.0" layoutY="22.0" prefHeight="51.0" prefWidth="194.0" text="\$0" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
                               <Font name="Tahoma Bold" size="40.0" />
                            </font>
@@ -110,7 +110,7 @@
                   </AnchorPane>
                   <AnchorPane layoutX="12.0" layoutY="21.0" prefHeight="180.0" prefWidth="350.0" styleClass="card1" stylesheets="@auctionDesign.css">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="TICKET" layoutX="3.0" layoutY="88.0" size="4em" wrappingWidth="126.0">
+                        <FontAwesomeIconView fill="WHITE" glyphName="TICKET" layoutX="4.0" layoutY="85.0" size="4em" wrappingWidth="115.20000000000016">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -120,11 +120,12 @@
                               <Font name="Berlin Sans FB Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dashboard_availabletickets" layoutX="143.0" layoutY="26.0" prefHeight="51.0" prefWidth="110.0" text="0" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label fx:id="dashboard_availabletickets" layoutX="145.0" layoutY="22.0" prefHeight="51.0" prefWidth="110.0" text="0" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
                               <Font name="Tahoma Bold" size="40.0" />
                            </font>
                         </Label>
+                        <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="240.0" layoutY="147.0" size="130" />
                      </children>
                   </AnchorPane>
                </children>

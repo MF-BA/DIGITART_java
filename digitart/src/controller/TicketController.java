@@ -38,7 +38,10 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -246,7 +249,7 @@ public class TicketController implements Initializable {
             ResultSet result = prepare.executeQuery();
 
             if (result.next()) {
-                int count = result.getInt(1);
+                int count = result.getInt(1); //number of rows >0
                 if (count > 0) {
                     // If the selected date is between ticket_date and ticket_edate
                     afterdate_anchor.setVisible(true);
@@ -303,7 +306,6 @@ public class TicketController implements Initializable {
         if (price == 0 && !selectedDate.equals(LocalDate.now()) || selectedDate.equals(LocalDate.now())) {
             price = getDefaultPrice(ticketType);
         }
-       
 
         return price;
     }
@@ -424,8 +426,7 @@ public class TicketController implements Initializable {
         payment_tv_total.setCellValueFactory(new PropertyValueFactory<>("totalPayment"));
 
         if (payment_tableview != null && payment_tableview instanceof TableView) {
-            // Cast payment_tableview to TableView<Payment> and set its items
-            ((TableView<Payment>) payment_tableview).setItems(FXCollections.observableArrayList(paymentList));
+            ((TableView<Payment>) payment_tableview).setItems(FXCollections.observableArrayList(paymentList)); // Cast payment_tableview to TableView<Payment> and set its items
         }
     }
 
@@ -735,6 +736,44 @@ public class TicketController implements Initializable {
         }
     }
 
+    public void dashboardDisplayTodayIncome() {
+        // Get the current date
+        LocalDate currentDate = LocalDate.now();
+        // Build the SQL query to sum the total_payment column for the current day
+        String sql = "SELECT SUM(total_payment) FROM payment WHERE purchase_date = ?";
+        // Initialize the total payment to 0
+        double totalPayment = 0;
+        try {
+            PreparedStatement stmt = Conn.getCon().prepareStatement(sql);
+            // Set the query parameter to the current date
+            stmt.setDate(1, java.sql.Date.valueOf(currentDate));
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                // Get the sum of total_payment for the current day
+                totalPayment = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Set the text of the dashboard_todayincome TextField to the total payment
+        dashboard_todayincome.setText(String.format("$%.1f", totalPayment / 10).replace(',', '.'));
+    }
+
+    public void dashboardDisplayTotalIncome() {
+        String sql = "SELECT SUM(total_payment) FROM payment";
+        double totalIncome = 0;
+        try {
+            Statement stmt = Conn.getCon().createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                totalIncome = rs.getDouble(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        dashboard_totalincome.setText(String.format("$%.1f", totalIncome / 10).replace(',', '.'));
+    }
+    
 //////// DISPLAY  //////////////////////////////////////////////// DISPLAY /////////////////////////////////////////////////////
     @FXML
     public void TicketReset() {
@@ -776,6 +815,8 @@ public class TicketController implements Initializable {
             btn_addticket.setStyle("-fx-background-color:transparent");
             btn_buyticket.setStyle("-fx-background-color:transparent");
             dashboardDisplayAvailableTickets();
+            dashboardDisplayTodayIncome();
+            dashboardDisplayTotalIncome();
         } else if (event.getSource() == btn_addticket) {
             addticket_anchor.setVisible(true);
             buyticket_anchor.setVisible(false);
@@ -792,6 +833,7 @@ public class TicketController implements Initializable {
             dashboard_anchor.setVisible(false);
             payment_anchor.setVisible(false);
             SpinnerReset();
+            TicketReset();
             btn_buyticket.setStyle("-fx-background-color:linear-gradient(to bottom right, #a73f4a, #9c8585)");
             btn_dashboard.setStyle("-fx-background-color:transparent");
             btn_addticket.setStyle("-fx-background-color:transparent");
@@ -816,6 +858,8 @@ public class TicketController implements Initializable {
         afterdate_anchor.setVisible(false);
         payment_anchor.setVisible(false);
         dashboardDisplayAvailableTickets();
+        dashboardDisplayTodayIncome();
+        dashboardDisplayTotalIncome();
         defaultBtn();
         ShowTicket();
         combobox();
