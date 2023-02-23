@@ -14,70 +14,70 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_artworkController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_artworkController">
    <children>
-      <Text layoutX="547.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add artwork" textAlignment="CENTER" wrappingWidth="241.13671875">
+      <Text fill="#bd2a2e" layoutX="475.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add artwork" textAlignment="CENTER" wrappingWidth="476.13671875">
          <font>
-            <Font name="Impact" size="46.0" />
+            <Font name="Berlin Sans FB" size="71.0" />
          </font>
       </Text>
-      <Label layoutX="462.0" layoutY="112.0" prefHeight="32.0" prefWidth="158.0" text="Name Artwork:">
+      <Label layoutX="342.0" layoutY="155.0" prefHeight="32.0" prefWidth="158.0" stylesheets="@auctionDesign.css" text="Name Artwork:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="462.0" layoutY="180.0" prefHeight="32.0" prefWidth="91.0" text="Id artist:">
+      <Label layoutX="818.0" layoutY="156.0" prefHeight="32.0" prefWidth="91.0" stylesheets="@auctionDesign.css" text="Id artist:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="462.0" layoutY="243.0" prefHeight="32.0" prefWidth="132.0" text="Name Artist:">
+      <Label layoutX="345.0" layoutY="239.0" prefHeight="32.0" prefWidth="132.0" stylesheets="@auctionDesign.css" text="Name Artist:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="462.0" layoutY="303.0" prefHeight="32.0" prefWidth="132.0" text="Date:">
+      <Label layoutX="345.0" layoutY="330.0" prefHeight="32.0" prefWidth="62.0" stylesheets="@auctionDesign.css" text="Date:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="462.0" layoutY="375.0" text="Description:">
+      <Label layoutX="810.0" layoutY="243.0" stylesheets="@auctionDesign.css" text="Description:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="462.0" layoutY="531.0" prefHeight="32.0" prefWidth="91.0" text="Image:">
+      <Label layoutX="349.0" layoutY="425.0" prefHeight="32.0" prefWidth="91.0" stylesheets="@auctionDesign.css" text="Image:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="462.0" layoutY="606.0" prefHeight="32.0" prefWidth="132.0" text="Id room:">
+      <Label layoutX="817.0" layoutY="426.0" prefHeight="32.0" prefWidth="132.0" stylesheets="@auctionDesign.css" text="Id room:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <TextField fx:id="Input_name_artwork" layoutX="668.0" layoutY="115.0" prefHeight="25.0" prefWidth="203.0" />
-      <TextField fx:id="input_name_artist" layoutX="668.0" layoutY="246.0" prefHeight="25.0" prefWidth="203.0" />
-      <ComboBox fx:id="input_id_artist" layoutX="695.0" layoutY="183.0" prefWidth="150.0" />
-      <ComboBox fx:id="input_idroom" layoutX="678.0" layoutY="610.0" prefHeight="25.0" prefWidth="185.0" />
-      <DatePicker fx:id="input_date" layoutX="683.0" layoutY="306.0" />
-      <TextArea fx:id="input_desc" layoutX="668.0" layoutY="375.0" prefHeight="120.0" prefWidth="203.0" />
-      <Button fx:id="btn_addimage" layoutX="738.0" layoutY="531.0" mnemonicParsing="false" onAction="#btn_addimage_clicked" text="add a file">
+      <TextField fx:id="Input_name_artwork" layoutX="512.0" layoutY="158.0" prefHeight="25.0" prefWidth="203.0" promptText="Name Artwork" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <TextField fx:id="input_name_artist" layoutX="512.0" layoutY="242.0" prefHeight="25.0" prefWidth="203.0" promptText="Name Artist" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <ComboBox fx:id="input_id_artist" layoutX="957.0" layoutY="159.0" prefHeight="25.0" prefWidth="185.0" promptText="choose the id artist" styleClass="combobox" stylesheets="@auctionDesign.css" />
+      <ComboBox fx:id="input_idroom" layoutX="965.0" layoutY="430.0" prefHeight="25.0" prefWidth="185.0" promptText="choose id room" styleClass="combobox" stylesheets="@auctionDesign.css" />
+      <DatePicker fx:id="input_date" layoutX="510.0" layoutY="340.0" prefHeight="25.0" prefWidth="203.0" promptText="Date creation of artwork" />
+      <TextArea fx:id="input_desc" layoutX="956.0" layoutY="239.0" prefHeight="146.0" prefWidth="185.0" promptText="Describe the artwork" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Button fx:id="btn_addimage" layoutX="520.0" layoutY="425.0" mnemonicParsing="false" onAction="#btn_addimage_clicked" prefHeight="33.0" prefWidth="203.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="add a file">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="btn_add" layoutX="688.0" layoutY="675.0" mnemonicParsing="false" onAction="#btn_add_clicked" text="Confirm adding" textFill="#1aae21">
+      <Button fx:id="btn_add" layoutX="775.0" layoutY="580.0" mnemonicParsing="false" onAction="#btn_add_clicked" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Confirm adding" textFill="#1aae21">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="btn_cancel" layoutX="475.0" layoutY="675.0" mnemonicParsing="false" onAction="#btn_cancel_clicked" text="Cancel" textFill="#ae1515">
+      <Button fx:id="btn_cancel" layoutX="577.0" layoutY="580.0" mnemonicParsing="false" onAction="#btn_cancel_clicked" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Cancel" textFill="#ae1515">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <VBox prefHeight="720.0" prefWidth="250.0" style="-fx-background-color: #93341A;">
+      <VBox prefHeight="720.0" prefWidth="250.0" style="-fx-background-color: #BD2A2E;" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
             <Pane prefHeight="171.0" prefWidth="269.0">
                <children>
@@ -119,53 +119,21 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Button fx:id="edit_profile" mnemonicParsing="false" onAction="#edit_profile_btn" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" text="Edit profile" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="USER" size="20" text="" />
-               </graphic>
+            <Button fx:id="btn_room" mnemonicParsing="false" onAction="#btn_room_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #BD2A2E;" stylesheets="@auctionDesign.css" text="List of Rooms" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CUBE" size="30" />
+               </graphic>
             </Button>
-            <Button fx:id="add_user" mnemonicParsing="false" onAction="#add_user_btn" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" stylesheets="@auctionDesign.css" text="Add user" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="USER_PLUS" size="20" />
-               </graphic>
+            <Button fx:id="btn_artwork" mnemonicParsing="false" onAction="#btn_artwork_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #BD2A2E;" stylesheets="@auctionDesign.css" text="List of Artworks" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
-            </Button>
-            <Button fx:id="modify_user" mnemonicParsing="false" onAction="#modify_user_btn" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" text="Modify user" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="COGS" size="20" text="" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="IMAGE" size="30" />
                </graphic>
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="list_users" mnemonicParsing="false" onAction="#list_users_btn" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" stylesheets="@auctionDesign.css" text="List of users" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
-               </graphic>
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="btn_room" mnemonicParsing="false" onAction="#btn_room_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" stylesheets="@auctionDesign.css" text="List of Rooms" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="CUBE" size="20" text="" />
-               </graphic>
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="btn_artwork" mnemonicParsing="false" onAction="#btn_artwork_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" stylesheets="@auctionDesign.css" text="List of Artworks" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="iImage" size="20" />
-               </graphic>
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font>
             </Button>
          </children>
       </VBox>

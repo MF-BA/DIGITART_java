@@ -56,20 +56,6 @@ public class Add_roomController implements Initializable {
     @FXML
     private TextField INPUT_area;
     @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
-    private Button edit_profile;
-    @FXML
-    private Button add_user;
-    @FXML
-    private Button modify_user;
-    @FXML
-    private Button list_users;
-    @FXML
     private Button btn_room;
     @FXML
     private Button btn_artwork;
@@ -78,7 +64,18 @@ public class Add_roomController implements Initializable {
      * Initializes the controller class.
      */
       
-    
+      private void go_artwork(ActionEvent event) {
+        try {
+             root = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
       private void go_Display(ActionEvent event) {
         try {
              root = FXMLLoader.load(getClass().getResource("/view/display_room.fxml"));
@@ -154,27 +151,14 @@ public class Add_roomController implements Initializable {
         combobox();
     } 
 
-    @FXML
-    private void edit_profile_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void add_user_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void modify_user_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void list_users_btn(ActionEvent event) {
-    }
 
     @FXML
     private void btn_room_clicked(ActionEvent event) {
+        go_Display(event);
     }
 
     @FXML
     private void btn_artwork_clicked(ActionEvent event) {
+        go_artwork(event);
     }
 }

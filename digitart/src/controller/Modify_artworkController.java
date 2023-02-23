@@ -34,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -71,6 +72,10 @@ public class Modify_artworkController implements Initializable {
     
     @FXML
     private Button btn_addimage;
+    @FXML
+    private Button btn_room;
+    @FXML
+    private Button btn_artwork;
 
     /**
      * Initializes the controller class.
@@ -79,7 +84,23 @@ public class Modify_artworkController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         showvalues();
-    }    
+        
+       btn_room.setStyle("-fx-background-color: #BD2A2E ");
+       btn_artwork.setStyle("-fx-background-color: #470011 ");
+    }   
+    
+    
+     private void go_room(ActionEvent event) {
+        try {
+             root = FXMLLoader.load(getClass().getResource("/view/display_room.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @FXML
     private void btn_addimage_clicked(ActionEvent event) {
@@ -178,6 +199,16 @@ public class Modify_artworkController implements Initializable {
             e.printStackTrace();
         }
         
+    }
+
+    @FXML
+    private void btn_room_clicked(ActionEvent event) {
+        go_room(event);
+    }
+
+    @FXML
+    private void btn_artwork_clicked(ActionEvent event) {
+          go_Display(event);
     }
     
 }

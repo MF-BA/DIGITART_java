@@ -72,20 +72,6 @@ public class Display_roomController implements Initializable {
     @FXML
     private TextField room_search;
     @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
-    private Button edit_profile;
-    @FXML
-    private Button add_user;
-    @FXML
-    private Button modify_user;
-    @FXML
-    private Button list_users;
-    @FXML
     private Button btn_room;
     @FXML
     private Button btn_artwork;
@@ -154,12 +140,21 @@ public class Display_roomController implements Initializable {
     }
      
        private void go_modify_room(ActionEvent event) {
-        try {
+        try {  
+            Alert alert;
+         Room r= SelectRoom();
+            if (table_room.getSelectionModel().getSelectedIndex()== -1) {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select the item first");
+                alert.showAndWait();
+            }else{
              root = FXMLLoader.load(getClass().getResource("/view/modify_room.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
-            stage.show();
+            stage.show();}
         } catch (IOException ex) {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -250,21 +245,6 @@ public class Display_roomController implements Initializable {
         }
     }
 
-    @FXML
-    private void edit_profile_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void add_user_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void modify_user_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void list_users_btn(ActionEvent event) {
-    }
 
     @FXML
     private void btn_room_clicked(ActionEvent event) {

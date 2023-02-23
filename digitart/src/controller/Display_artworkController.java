@@ -81,20 +81,6 @@ public class Display_artworkController implements Initializable {
     @FXML
     private TextField artwork_search;
     @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
-    private Button edit_profile;
-    @FXML
-    private Button add_user;
-    @FXML
-    private Button modify_user;
-    @FXML
-    private Button list_users;
-    @FXML
     private Button btn_room;
     @FXML
     private Button btn_artwork;
@@ -208,10 +194,19 @@ public Artwork SelectArtwork() {
 
     @FXML
     private void btn_modify_clicked(ActionEvent event) {
+            Alert alert;
+         Artwork a= SelectArtwork();
+        if (table_Artwork.getSelectionModel().getSelectedIndex()== -1) {
+                alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Please select the item first");
+                alert.showAndWait();
+            } else {
         
         Data.setArtwork(SelectArtwork());
         go_modify_artwork(event);
-        
+        }
         
         
     }
@@ -286,20 +281,4 @@ public Artwork SelectArtwork() {
         
     }
 
-    @FXML
-    private void edit_profile_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void add_user_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void modify_user_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void list_users_btn(ActionEvent event) {
-    }
-    
 }

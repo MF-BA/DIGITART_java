@@ -16,12 +16,12 @@
 
 <AnchorPane id="AnchorPane" prefHeight="714.0" prefWidth="1218.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_artworkController">
    <children>
-      <Text layoutX="585.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of artworks" textAlignment="CENTER" wrappingWidth="296.64453125">
+      <Text fill="#bd2a2e" layoutX="486.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of artworks" textAlignment="CENTER" wrappingWidth="498.64453125">
          <font>
-            <Font name="Impact" size="46.0" />
+            <Font name="Berlin Sans FB" size="66.0" />
          </font>
       </Text>
-      <TableView fx:id="table_Artwork" layoutX="279.0" layoutY="184.0" onMouseClicked="#showimage" prefHeight="371.0" prefWidth="546.0">
+      <TableView fx:id="table_Artwork" layoutX="279.0" layoutY="184.0" onMouseClicked="#showimage" prefHeight="371.0" prefWidth="546.0" stylesheets="@auctionDesign.css">
          <columns>
             <TableColumn fx:id="col_id" prefWidth="19.0" text="ID" />
             <TableColumn fx:id="col_name" prefWidth="115.0" text="Name" />
@@ -32,30 +32,29 @@
             <TableColumn fx:id="col_idroom" prefWidth="51.0" text="id_room" />
          </columns>
       </TableView>
-      <Button fx:id="BTN_add" layoutX="397.0" layoutY="592.0" mnemonicParsing="false" onAction="#btn_add_clicked" prefHeight="38.0" prefWidth="194.0" text="Add new artwork">
+      <Button fx:id="BTN_add" layoutX="397.0" layoutY="592.0" mnemonicParsing="false" onAction="#btn_add_clicked" prefHeight="38.0" prefWidth="194.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add new artwork">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_statistics" layoutX="847.0" layoutY="592.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="194.0" text="Show statistics">
+      <Button fx:id="BTN_statistics" layoutX="847.0" layoutY="592.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="194.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show statistics">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_modify" layoutX="1098.0" layoutY="283.0" mnemonicParsing="false" onAction="#btn_modify_clicked" prefHeight="38.0" prefWidth="98.0" text="modify ">
+      <Button fx:id="BTN_modify" layoutX="1098.0" layoutY="293.0" mnemonicParsing="false" onAction="#btn_modify_clicked" prefHeight="38.0" prefWidth="98.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="modify ">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_delete" layoutX="1098.0" layoutY="374.0" mnemonicParsing="false" onAction="#btn_delete_clicked" prefHeight="38.0" prefWidth="98.0" text="delete">
+      <Button fx:id="BTN_delete" layoutX="1098.0" layoutY="454.0" mnemonicParsing="false" onAction="#btn_delete_clicked" prefHeight="38.0" prefWidth="98.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="delete">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <ImageView fx:id="image" fitHeight="237.0" fitWidth="245.0" layoutX="836.0" layoutY="226.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="artwork_search" layoutX="273.0" layoutY="140.0" onKeyTyped="#serach_keytyped" prefHeight="30.0" prefWidth="245.0" promptText="Search" styleClass="search" stylesheets="@auctionDesign.css" />
+      <TextField fx:id="artwork_search" layoutX="273.0" layoutY="140.0" onKeyTyped="#serach_keytyped" prefHeight="30.0" prefWidth="552.0" promptText="Search" styleClass="search" stylesheets="@auctionDesign.css" />
       <FontAwesomeIconView glyphName="SEARCH" layoutX="289.0" layoutY="160.0" />
-      <VBox prefHeight="720.0" prefWidth="250.0" style="-fx-background-color: #93341A;">
+      <VBox prefHeight="720.0" prefWidth="250.0" style="-fx-background-color: #BD2A2E;">
          <children>
             <Pane prefHeight="171.0" prefWidth="269.0">
                <children>
@@ -97,55 +96,25 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Button fx:id="edit_profile" mnemonicParsing="false" onAction="#edit_profile_btn" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" text="Edit profile" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="USER" size="20" text="" />
-               </graphic>
+            <Button fx:id="btn_room" mnemonicParsing="false" onAction="#btn_room_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #BD2A2E;" stylesheets="@auctionDesign.css" text="List of Rooms" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CUBE" size="30" />
+               </graphic>
             </Button>
-            <Button fx:id="add_user" mnemonicParsing="false" onAction="#add_user_btn" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" stylesheets="@auctionDesign.css" text="Add user" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="USER_PLUS" size="20" />
-               </graphic>
+            <Button fx:id="btn_artwork" mnemonicParsing="false" onAction="#btn_artwork_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #BD2A2E;" stylesheets="@auctionDesign.css" text="List of Artworks" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
-            </Button>
-            <Button fx:id="modify_user" mnemonicParsing="false" onAction="#modify_user_btn" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" text="Modify user" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="COGS" size="20" text="" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="IMAGE" size="30" />
                </graphic>
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="list_users" mnemonicParsing="false" onAction="#list_users_btn" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" stylesheets="@auctionDesign.css" text="List of users" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
-               </graphic>
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="btn_room" mnemonicParsing="false" onAction="#btn_room_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" stylesheets="@auctionDesign.css" text="List of Rooms" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
-               </graphic>
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="btn_artwork" mnemonicParsing="false" onAction="#btn_artwork_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #93341A;" stylesheets="@auctionDesign.css" text="List of Artworks" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
-               </graphic>
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font>
             </Button>
          </children>
       </VBox>
+      <Pane layoutX="829.0" layoutY="264.0" prefHeight="263.0" prefWidth="263.0" style="-fx-background-color: #3B3936;" />
+      <ImageView fx:id="image" fitHeight="237.0" fitWidth="245.0" layoutX="836.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
