@@ -174,7 +174,12 @@ public class users {
         this.birth_date = birth_date;
     }
    
-   
+    @Override
+   public String toString() {
+       return "users [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
+               + ", pwd=" + pwd + ", address=" + address + ", gender=" + gender + ", cin=" + cin
+               + ", phone_number=" + phone_number + ", birth_date=" + birth_date + ", role=" + role + "]";
+   }
     
     
 }

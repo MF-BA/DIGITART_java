@@ -6,6 +6,7 @@
 package controller;
 
 import Services.users_Services;
+import entity.Data;
 import entity.users;
 import java.awt.Color;
 import java.net.URL;
@@ -195,7 +196,7 @@ public class DashboardController implements Initializable {
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
         update_page.setVisible(false);
-        
+        labeladminname.setText(Data.user.getFirstname());
         comboboxup(); 
         combobox();
     }    

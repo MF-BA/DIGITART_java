@@ -49,7 +49,8 @@ public class main extends Application {
        Parent ADDATICKET_Page = FXMLLoader.load(getClass().getResource("/view/signin_page.fxml"));
        // Scene scene = new Scene(ADDAUCTION_Page);
        Scene scene = new Scene(ADDATICKET_Page);
-       
+       this.primaryStage.setScene(scene);
+        this.primaryStage.show();
         /*ADDATICKET_Page.setOnMousePressed((MouseEvent event) -> {
             x = event.getSceneX();
             y = event.getSceneY();
@@ -62,6 +63,7 @@ public class main extends Application {
     /**
      * @param args the command line arguments
      */
+    }
     public static void main(String[] args) {
         Data.user = new users(1, 12,"firstname", "lastname", "email", " pwd", "address",  45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
         launch(args);
