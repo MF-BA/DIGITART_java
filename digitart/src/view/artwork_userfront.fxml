@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Artwork_userfrontController">
+   <children>
+      <VBox prefHeight="349.0" prefWidth="339.0">
+         <children>
+            <HBox prefHeight="49.0" prefWidth="360.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artwork Name:" textAlignment="CENTER">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_nameartwork" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="360.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name:">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_nameartist" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="54.0" prefWidth="360.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_date" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="62.0" prefWidth="360.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_room" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="81.0" prefWidth="360.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_desc" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox prefHeight="361.0" prefWidth="320.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image of the artwork">
+               <font>
+                  <Font name="Berlin Sans FB" size="22.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="imagev" fitHeight="300.0" fitWidth="291.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
+   </children>
+</HBox>

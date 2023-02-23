@@ -33,6 +33,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -111,7 +112,7 @@ public class Add_artworkController implements Initializable {
        combobox();
        
       btn_artwork.setStyle("-fx-background-color: #470011 ");
-      btn_room.setStyle("-fx-background-color: #BD2A2E ");
+      btn_room.setStyle("-fx-background-color: transparent ");
        
     }    
 
@@ -131,41 +132,49 @@ public class Add_artworkController implements Initializable {
     }
 
     @FXML
-    private void btn_add_clicked(ActionEvent event) {
-          String name = this.Input_name_artwork.getText();
-        String nameartist = this.input_name_artist.getText(); 
-        int id_artist;
-        if(this.input_id_artist.getSelectionModel().getSelectedItem()== null){
+private void btn_add_clicked(ActionEvent event) {
+    TextInputControl nameControl = this.Input_name_artwork;
+    TextInputControl nameArtistControl = this.input_name_artist;
+  
+    ComboBox<Integer> idRoomControl = this.input_idroom;
+    TextInputControl descControl = this.input_desc;
+    DatePicker dateControl = this.input_date;
+
+    String name = nameControl.getText();
+    String nameartist = nameArtistControl.getText();
+    
+    int id_room;
+    String desc = descControl.getText();
+    LocalDate date = dateControl.getValue();
+    int id_artist;
+      if(this.input_id_artist.getSelectionModel().getSelectedItem()== null){
             id_artist=-1;
         }else
         {id_artist = this.input_id_artist.getSelectionModel().getSelectedItem();}
-        int id_room = this.input_idroom.getSelectionModel().getSelectedItem();
-        String desc = this.input_desc.getText();
-         LocalDate date = this.input_date.getValue();
-         
-        
 
-        Alert alert;
+    Alert alert;
 
-        // CHECK IF THE FIELDS ARE EMPTY
-        if (name.isEmpty() ||nameartist.isEmpty() || desc.isEmpty() || date == null ) {
-            alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Error Message");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill all blank fields");
-            alert.showAndWait();
-        } else {
-           Artwork artwork= new Artwork(name,id_artist,nameartist,date,desc,imageUrl,id_room);
-                    Artwork_Services.add(artwork);
-                    alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
-                    alert.showAndWait();
-                    // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
-                    go_Display(event);
-        }
+    // CHECK IF THE FIELDS ARE EMPTY
+    if (name.isEmpty() || nameartist.isEmpty() || desc.isEmpty() || date == null ||this.input_idroom.getSelectionModel().getSelectedItem()==null ) {
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill all fields");
+        alert.showAndWait();
+    } else {
+        id_room = idRoomControl.getSelectionModel().getSelectedItem();
+        Artwork artwork = new Artwork(name, id_artist, nameartist, date, desc, imageUrl, id_room);
+        Artwork_Services.add(artwork);
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Successfully Added!");
+        alert.showAndWait();
+        // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+        go_Display(event);
     }
+}
+
     
     
         public void combobox() {

@@ -51,7 +51,7 @@
       </Button>
       <TextField fx:id="room_search" layoutX="280.0" layoutY="137.0" onKeyTyped="#search_room_Keytyped" prefHeight="30.0" prefWidth="752.0" promptText="Search" styleClass="search" stylesheets="@auctionDesign.css" />
       <FontAwesomeIconView glyphName="SEARCH" layoutX="296.0" layoutY="157.0" />
-      <VBox prefHeight="720.0" prefWidth="250.0" style="-fx-background-color: #BD2A2E;">
+      <VBox prefHeight="720.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
             <Pane prefHeight="171.0" prefWidth="269.0">
                <children>
@@ -93,7 +93,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Button fx:id="btn_room" mnemonicParsing="false" onAction="#btn_room_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #BD2A2E;" stylesheets="@auctionDesign.css" text="List of Rooms" textFill="WHITE">
+            <Button fx:id="btn_room" mnemonicParsing="false" onAction="#btn_room_clicked" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="List of Rooms" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
@@ -101,7 +101,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="CUBE" size="30" />
                </graphic>
             </Button>
-            <Button fx:id="btn_artwork" mnemonicParsing="false" onAction="#btn_artwork_clicked" prefHeight="51.0" prefWidth="271.0" style="-fx-background-color: #BD2A2E;" stylesheets="@auctionDesign.css" text="List of Artworks" textFill="WHITE">
+            <Button fx:id="btn_artwork" mnemonicParsing="false" onAction="#btn_artwork_clicked" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="List of Artworks" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>

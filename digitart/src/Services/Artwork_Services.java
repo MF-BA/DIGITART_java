@@ -139,6 +139,26 @@ public class Artwork_Services {
     }
     
     
+    
+        public static ArrayList<String> find_nameroom(int id) {
+        ArrayList<String> list = new ArrayList<>();
+
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT name_room FROM room where id_room="+id+"");
+
+            while (resultSet.next()) {
+                list.add(resultSet.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
     public static ArrayList<Integer> find_idroom() {
         ArrayList<Integer> list = new ArrayList<>();
 

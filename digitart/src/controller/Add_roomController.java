@@ -106,30 +106,44 @@ public class Add_roomController implements Initializable {
     private void btn_add_clicked(ActionEvent event) {
         
         String name = this.INPUT_name.getText();
-        int area = Integer.parseInt(this.INPUT_area.getText()); 
-        String state = (String) this.INPUT_state.getSelectionModel().getSelectedItem();
-        String desc = this.INPUT_description.getText();
+    String areaStr = this.INPUT_area.getText();
+    String state = (String) this.INPUT_state.getSelectionModel().getSelectedItem();
+    String desc = this.INPUT_description.getText();
 
-        Alert alert;
+    Alert alert;
 
-        // CHECK IF THE FIELDS ARE EMPTY
-        if (name.isEmpty() || desc.isEmpty() || state == null || INPUT_area.getText().isEmpty() ) {
+    // CHECK IF THE FIELDS ARE EMPTY
+    if (name.isEmpty() || desc.isEmpty() || state == null || areaStr.isEmpty()) {
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill all blank fields");
+        alert.showAndWait();
+    } else {
+        // Parse the area string to an int
+        int area = 0;
+        try {
+            area = Integer.parseInt(areaStr);
+        } catch (NumberFormatException e) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
-            alert.setContentText("Please fill all blank fields");
+            alert.setContentText("Area must be a number");
             alert.showAndWait();
-        } else {
-           Room room= new Room(name,area,state,desc);
-                    Room_Services.add(room);
-                    alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
-                    alert.showAndWait();
-                    // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
-                    go_Display(event);
+            return;
         }
+
+        Room room = new Room(name, area, state, desc);
+        Room_Services.add(room);
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Successfully Added!");
+        alert.showAndWait();
+        
+        // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+        go_Display(event);
+    }
     }
     
     
@@ -139,7 +153,7 @@ public class Add_roomController implements Initializable {
         // TODO
         
        btn_room.setStyle("-fx-background-color: #470011 ");
-       btn_artwork.setStyle("-fx-background-color: #BD2A2E ");
+       btn_artwork.setStyle("-fx-background-color: transparent ");
         
         
         INPUT_area.textProperty().addListener((observable, oldValue, newValue) -> {

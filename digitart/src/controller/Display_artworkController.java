@@ -180,7 +180,7 @@ public Artwork SelectArtwork() {
         ShowArtwork();
         
 
-       btn_room.setStyle("-fx-background-color: #BD2A2E ");
+       btn_room.setStyle("-fx-background-color: transparent ");
        btn_artwork.setStyle("-fx-background-color: #470011 ");
         
     

@@ -214,7 +214,7 @@ public class Display_roomController implements Initializable {
         ShowRoom();
         
        btn_room.setStyle("-fx-background-color: #470011 ");
-       btn_artwork.setStyle("-fx-background-color: #BD2A2E ");
+       btn_artwork.setStyle("-fx-background-color: transparent ");
     }   
 
    
