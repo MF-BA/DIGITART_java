@@ -10,7 +10,7 @@
    <children>
       <ScrollPane layoutX="22.0" layoutY="23.0" prefHeight="449.0" prefWidth="987.0">
          <content>
-            <HBox fx:id="auction_view" prefHeight="186.0" prefWidth="219.0">
+            <HBox fx:id="auction_view" onMouseClicked="#view_clicked" prefHeight="186.0" prefWidth="219.0">
                <children>
                   <GridPane fx:id="auction_container" prefHeight="186.0" prefWidth="220.0">
                     <rowConstraints>
