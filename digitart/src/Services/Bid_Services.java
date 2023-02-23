@@ -131,10 +131,9 @@ public class Bid_Services {
         } else {
             System.err.println("offer must be more than " + next_offer(bid.getId_auction()));
         }
-
     }
 
-    public static ArrayList<Bid> Display() {
+    public static ArrayList<Bid> Display(int id_auction) {
 
         ArrayList<Bid> list = new ArrayList<>();
 
@@ -142,12 +141,12 @@ public class Bid_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM bid");
+            resultSet = statement.executeQuery("SELECT * FROM bid where id_auction ="+id_auction);
 
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(2).toLocalDate();
-                Bid data = new Bid(resultSet.getInt(1), resultSet.getInt(4),
-                        resultSet.getInt(5), resultSet.getInt(3), D);
+                Bid data = new Bid(resultSet.getInt(1),  resultSet.getInt(5),resultSet.getInt(4),
+                        resultSet.getInt(3), D);
 
                 list.add(data);
             }

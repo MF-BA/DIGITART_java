@@ -31,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
@@ -63,6 +64,12 @@ public class Modify_auction_Controller implements Initializable {
     private Button submit_add_auction;
     @FXML
     private Button cancel_add_auction;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
 
     /**
      * Initializes the controller class.
@@ -141,6 +148,7 @@ public class Modify_auction_Controller implements Initializable {
     private void cancel_add_auction_clicked(ActionEvent event) {
         go_Home(event);
     }
+
 
 
 }

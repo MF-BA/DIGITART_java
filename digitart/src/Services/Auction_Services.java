@@ -43,7 +43,7 @@ public class Auction_Services {
         }
     }
 
-    public static ArrayList<Auction> Display() {
+    public static ArrayList<Auction> Display(int id_artist) {
 
         ArrayList<Auction> list = new ArrayList<>();
 
@@ -51,7 +51,7 @@ public class Auction_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction");
+            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE artwork.id_artist ="+ id_artist);
 
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(4).toLocalDate();
@@ -72,10 +72,10 @@ public class Auction_Services {
 
     }
 
-    public static ArrayList<Auction_display> Display_auction_details() {
-        ArrayList<Auction_display> displayList = new ArrayList<Auction_display>(); // initialize displayList
-        for (Auction auction : Display()) {
-            System.out.println(auction.getId_artwork());
+    public static ArrayList<Auction_display> Display_auction_details(int id_artist) {
+        ArrayList<Auction_display> displayList; // initialize displayList
+        displayList = new ArrayList<>();
+        for (Auction auction : Display(id_artist)) {
             Auction_display display = new Auction_display(auction, Auction_Services.find_artwork_name(auction.getId_artwork()), Bid_Services.highest_offer(auction.getId_auction()));
             displayList.add(display);
         }

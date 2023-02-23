@@ -5,6 +5,9 @@
  */
 package entity;
 
+import javafx.event.ActionEvent;
+import javafx.stage.Stage;
+
 /**
  *
  * @author fedi1
