@@ -177,10 +177,11 @@ public class Signup_pageController implements Initializable {
           
         errorquestionartist.setText("Please answer the question!"); 
         }
+   
      if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
     errormsgemail.setText("Invalid email format!");
     }
-if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null || (!male_gender.isSelected() && !female_gender.isSelected())) {
+if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null || (!male_gender.isSelected() && !female_gender.isSelected())|| (!yesartist.isSelected() && !noartist.isSelected())) {
          
        errormsgelements.setText("Please fill all elements!!");  
     
@@ -298,55 +299,7 @@ else if (yesartist.isSelected() && noartist.isSelected())
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        /* confirm_sign.setOnAction(event->{
-         /* String birth_date = birth_d.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date BDate = null;
-
-        try {
-            BDate = sdf.parse(birth_date); // deal with ParseException
-        } catch (ParseException ex) {
-            Logger.getLogger(Signup_pageController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-       //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //java.sql.Date BirthDate = java.sql.Date.valueOf(sdf.format(birth_d));
-        /*LocalDate BirthDate = birth_d.getValue();
-        if( male_gender.isSelected() ){
-        String gender = male_gender.getText();
-        user1 = new users (fname.getText(),lname.getText(),email.getText(),pwd.getText(),address.getText(),gender,Integer.parseInt(cin.getText().trim()),Integer.parseInt(phone_num.getText().trim()),BirthDate);
-    }
-        if( female_gender.isSelected() ){
-        String gender = female_gender.getText();
-        user1 = new users (fname.getText(),lname.getText(),email.getText(),pwd.getText(),address.getText(),gender,Integer.parseInt(cin.getText().trim()),Integer.parseInt(phone_num.getText().trim()),BirthDate);
-    }
        
-      
-      user.adduser(user1);
-       try {
-                Parent parent2=FXMLLoader
-                        .load(getClass().getResource("/view/add_auction.fxml"));
-                
-                Scene scene=new Scene(parent2);
-                Stage stage=(Stage) ((Node) event.getSource())
-                        .getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Interface 2");
-                stage.show();
-
-            } catch (IOException ex) {
-                Logger.getLogger(Signup_pageController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-     });*/
-      /*fname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-      lname.
-      email.
-      pwd.
-      address.
-      gender.
-      cin.
-      phone_num.
-      BirthDate.*/
         
         
     }    

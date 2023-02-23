@@ -50,17 +50,15 @@ public class Signin_pageController implements Initializable {
     @FXML
     private PasswordField pwdlogin;
     @FXML
-    private Button return_btn_login;
-    @FXML
     private Button register_btn;
-    @FXML
-    private Button signin_btn;
 
     private users_Services user;
     private users user1;
     static Connection conn = Conn.getCon();
 
     PreparedStatement pst;
+    @FXML
+    private Button login_btn;
 
     /**
      * Initializes the controller class.
@@ -70,9 +68,6 @@ public class Signin_pageController implements Initializable {
         // TODO
     }
 
-    @FXML
-    private void return_btn_login(ActionEvent event) {
-    }
 
     @FXML
     private void register_clicked(ActionEvent event) {

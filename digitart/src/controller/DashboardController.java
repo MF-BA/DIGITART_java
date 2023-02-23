@@ -185,6 +185,56 @@ public class DashboardController implements Initializable {
     private Button delete_fromlist;
     @FXML
     private AnchorPane update_page;
+    @FXML
+    private AnchorPane editprofile_page;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private PasswordField pwd_editprof;
+    @FXML
+    private TextField fname_editprof;
+    @FXML
+    private TextField lname_editprof;
+    @FXML
+    private TextField email_editprof;
+    @FXML
+    private DatePicker birth_d_editprof;
+    @FXML
+    private TextField cin_editprof;
+    @FXML
+    private TextField phone_num_editprof;
+    @FXML
+    private RadioButton male_gender_editprof;
+    @FXML
+    private RadioButton female_gender_editprof;
+    @FXML
+    private Button clear_fields_editprof;
+    @FXML
+    private ComboBox<String> Rolebox_editprof;
+    @FXML
+    private Label errormsgfiiledit;
+    @FXML
+    private TextField address_editprof;
+    @FXML
+    private Label errormsglname_edit;
+    @FXML
+    private Label errormsgfname_edit;
+    @FXML
+    private Label errormsgemail_edit;
+    @FXML
+    private Label errormsglname_edit3;
+    @FXML
+    private Label errormsgpwd_edit;
+    @FXML
+    private Label errormsggender_edit;
+    @FXML
+    private Label errormsgcin_edit;
+    @FXML
+    private Label errormsglname_edit7;
+    @FXML
+    private Label errormsgbirthdate_edit;
+    @FXML
+    private Label errormsgphonenum_edit;
     /**
      * Initializes the controller class.
      */
@@ -196,9 +246,11 @@ public class DashboardController implements Initializable {
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
         update_page.setVisible(false);
+        editprofile_page.setVisible(false);
         labeladminname.setText(Data.user.getFirstname());
         comboboxup(); 
         combobox();
+        comboboxedit();
     }    
 
     
@@ -208,11 +260,13 @@ public class DashboardController implements Initializable {
         default_anchor.setVisible(false);
         listusers_btn.setVisible(false);
         update_page.setVisible(false);
+        editprofile_page.setVisible(false);
         adduser_dash_btn.setVisible(true);
+        
          add_user.setStyle("-fx-background-color: #470011 ");
         list_users.setStyle("-fx-background-color:  transparent ");
         modify_user.setStyle("-fx-background-color: transparent ");
-        
+        edit_profile.setStyle("-fx-background-color: transparent ");
         
     }
 
@@ -224,13 +278,24 @@ public void combobox()
         options.add("Subscriber");
         Rolebox.getItems().addAll(options);
 }
+public void comboboxedit()
+{
+    List<String> options = new ArrayList<>();
+        options.add("Admin");
+        options.add("Artist");
+        options.add("Subscriber");
+        Rolebox_editprof.getItems().addAll(options);
+}
     @FXML
     private void modify_user_btn(ActionEvent event) {
       default_anchor.setVisible(false);
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
+        editprofile_page.setVisible(false);
         update_page.setVisible(true);
+        
         list_users.setStyle("-fx-background-color:   transparent ");
+        edit_profile.setStyle("-fx-background-color: transparent ");
         add_user.setStyle("-fx-background-color:  transparent ");
         modify_user.setStyle("-fx-background-color: #470011 ");  
         
@@ -241,11 +306,14 @@ public void combobox()
         default_anchor.setVisible(false);
         adduser_dash_btn.setVisible(false);
         update_page.setVisible(false);
+        editprofile_page.setVisible(false);
         listusers_btn.setVisible(true);
         
        list_users.setStyle("-fx-background-color: #470011 ");
        add_user.setStyle("-fx-background-color: transparent ");
        modify_user.setStyle("-fx-background-color:  transparent ");
+       edit_profile.setStyle("-fx-background-color: transparent ");
+       
        showusers();
        
       
@@ -447,13 +515,41 @@ public void combobox()
 
     @FXML
     private void edit_profile_btn(ActionEvent event) {
+      edit_profile.setStyle("-fx-background-color: #470011 ");
+        add_user.setStyle("-fx-background-color: transparent ");
+        list_users.setStyle("-fx-background-color:  transparent ");
+        modify_user.setStyle("-fx-background-color: transparent ");
         
+        default_anchor.setVisible(false);
+        listusers_btn.setVisible(false);
+        adduser_dash_btn.setVisible(false);
+        update_page.setVisible(false);  
+        editprofile_page.setVisible(true);
+        
+        fname_editprof.setText(Data.user.getFirstname());
+        lname_editprof.setText(Data.user.getLastname());
+        email_editprof.setText(Data.user.getEmail());
+        pwd_editprof.setText(Data.user.getPwd());
+        cin_editprof.setText(Integer.toString(Data.user.getCin()));
+        address_editprof.setText(Data.user.getAddress());
+        birth_d_editprof.setValue(Data.user.getBirth_date());
+        phone_num_editprof.setText(Integer.toString(Data.user.getPhone_number()));
+        ((ComboBox<String>) Rolebox_editprof).setValue(Data.user.getRole());
+        
+        if (Data.user.getGender().equals("Male"))
+        {
+         male_gender_editprof.setSelected(true); 
+        }
+        else if (Data.user.getGender().equals("Female"))
+        {
+              female_gender_editprof.setSelected(true);
+        }
+      
     }
 
     @FXML
     private void update_btn_dash(ActionEvent event) {
         
-        //int id = ;
         int Cin = Integer.parseInt(cin_up.getText().trim());
         int phone_number = Integer.parseInt(phone_num_up.getText().trim());
         LocalDate BirthDate = birth_d_up.getValue();
@@ -483,6 +579,7 @@ public void combobox()
         );
         users_Services user = new users_Services();
         user.modifyuser(u);
+        clearupd();
     }
 
     public int getidupdate(int id){
@@ -494,10 +591,12 @@ public void combobox()
         modify_user.setStyle("-fx-background-color: #470011 ");
        list_users.setStyle("-fx-background-color: transparent ");
        add_user.setStyle("-fx-background-color: transparent ");
+       edit_profile.setStyle("-fx-background-color: transparent ");
        
         default_anchor.setVisible(false);
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
+        editprofile_page.setVisible(false);
         update_page.setVisible(true);
     }
     @FXML
@@ -560,6 +659,86 @@ public void combobox()
     }
    
         showusers();
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+        
+       int Cin = Integer.parseInt(cin_editprof.getText().trim());
+        int phone_number = Integer.parseInt(phone_num_editprof.getText().trim());
+        LocalDate BirthDate = birth_d_editprof.getValue();
+        String firstname = fname_editprof.getText();
+        String lastname = lname_editprof.getText();
+        String Email = email_editprof.getText();
+        String passwd = pwd_editprof.getText();
+        String Address = address_editprof.getText();
+        String gender = null;
+        if (male_gender_editprof.isSelected()) {
+        gender = male_gender_editprof.getText();  
+    } else if (female_gender_editprof.isSelected()) {
+        gender = female_gender_editprof.getText();
+    }
+        String role = (String) Rolebox_editprof.getSelectionModel().getSelectedItem();
+        
+        
+        if (!phone_num_editprof.getText().isEmpty())
+    {               
+    if (!phone_num_editprof.getText().matches("\\d+")) {
+        errormsgphonenum_edit.setText("Phone number should be a number!");
+    } else if (phone_num_editprof.getText().toString().length()<8)
+    {
+        errormsgphonenum_edit.setText("Phone number should contain 8 digits!");
+    }
+    else {
+        phone_number = Integer.parseInt(phone_num_editprof.getText().trim());
+    }
+            }
+       if (!cin_editprof.getText().isEmpty())
+    {
+     if (!cin_editprof.getText().matches("\\d+")) {
+        errormsgcin_edit.setText("CIN should be a number!");
+    } else if (cin_editprof.getText().toString().length()<8)
+    {
+        errormsgcin_edit.setText("CIN should contain 8 digits!");
+    }
+    else
+    {
+        Cin = Integer.parseInt(cin_editprof.getText().trim());  
+    }   
+    }
+     if (!male_gender_editprof.isSelected() && !female_gender_editprof.isSelected()) {
+          
+        errormsggender_edit.setText("Please specify your gender!"); 
+        }  
+     
+     if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+    errormsgemail_edit.setText("Invalid email format!");
+    }
+        if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num_editprof.getText().isEmpty() || cin_editprof.getText().isEmpty() || BirthDate == null || (!male_gender_editprof.isSelected() && !female_gender_editprof.isSelected())) {
+         
+       errormsgfiiledit.setText("Please fill all elements!!");  
+       
+        }
+        else
+        {
+        users u = new users (idup,
+             Cin,
+             firstname,
+                lastname,
+                Email,
+                passwd,
+                Address,
+             phone_number,   
+             BirthDate,
+                gender,
+                role
+        );
+        
+        users_Services user = new users_Services();
+        user.modifyuser(u);
+         showusers();
+         errormsgfiiledit.setText("your profile is successfully modified!!");  
+        }
     }
     
 }

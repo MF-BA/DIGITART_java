@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="565.0" prefWidth="832.0" style="-fx-background-color: #FAF8F1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Signup_pageController">
+<AnchorPane id="AnchorPane" prefHeight="565.0" prefWidth="832.0" style="-fx-background-color: #E5E7E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Signup_pageController">
    <children>
-      <Pane layoutY="-5.0" prefHeight="575.0" prefWidth="272.0" style="-fx-background-color: #C58940;">
+      <Pane layoutY="-5.0" prefHeight="575.0" prefWidth="259.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
             <Label layoutX="34.0" layoutY="213.0" text="Digitart" textFill="WHITE">
                <font>
@@ -22,59 +22,59 @@
             </Label>
          </children>
       </Pane>
-      <Button fx:id="confirm_sign" cache="true" layoutX="495.0" layoutY="505.0" mnemonicParsing="false" onAction="#confirm_btn" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;" text="Confirm" textFill="WHITE">
+      <Button fx:id="confirm_sign" cache="true" layoutX="493.0" layoutY="507.0" mnemonicParsing="false" onAction="#confirm_btn" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Confirm" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="17.0" />
          </font>
       </Button>
-      <Label layoutX="320.0" layoutY="136.0" text="First Name" textFill="#c58940">
+      <Label layoutX="320.0" layoutY="136.0" text="First Name" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <PasswordField fx:id="pwd" layoutX="322.0" layoutY="392.0" prefHeight="25.0" prefWidth="164.0" />
-      <TextField fx:id="fname" layoutX="322.0" layoutY="159.0" prefHeight="25.0" prefWidth="164.0" />
-      <Label layoutX="321.0" layoutY="215.0" text="Last Name" textFill="#c58940">
+      <PasswordField fx:id="pwd" layoutX="322.0" layoutY="392.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <TextField fx:id="fname" layoutX="322.0" layoutY="159.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Label layoutX="321.0" layoutY="215.0" text="Last Name" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="lname" layoutX="320.0" layoutY="238.0" prefHeight="25.0" prefWidth="164.0" />
-      <Label layoutX="321.0" layoutY="291.0" text="Email" textFill="#c58940">
+      <TextField fx:id="lname" layoutX="320.0" layoutY="238.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Label layoutX="321.0" layoutY="291.0" text="Email" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="email" layoutX="320.0" layoutY="314.0" prefHeight="25.0" prefWidth="164.0" />
-      <Label layoutX="321.0" layoutY="369.0" text="Password" textFill="#c58940">
+      <TextField fx:id="email" layoutX="320.0" layoutY="314.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Label layoutX="321.0" layoutY="369.0" text="Password" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="583.0" layoutY="136.0" text="Cin" textFill="#c58940">
+      <Label layoutX="583.0" layoutY="136.0" text="Cin" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="586.0" layoutY="215.0" text="Address" textFill="#c58940">
+      <Label layoutX="586.0" layoutY="215.0" text="Address" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="586.0" layoutY="291.0" text="Birth date" textFill="#c58940">
+      <Label layoutX="586.0" layoutY="291.0" text="Birth date" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="586.0" layoutY="369.0" text="Phone number" textFill="#c58940">
+      <Label layoutX="586.0" layoutY="369.0" text="Phone number" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <DatePicker fx:id="birth_d" layoutX="586.0" layoutY="314.0" prefHeight="23.0" prefWidth="164.0" />
-      <TextField fx:id="cin" layoutX="584.0" layoutY="159.0" prefHeight="25.0" prefWidth="164.0" />
-      <TextField fx:id="address" layoutX="584.0" layoutY="238.0" prefHeight="25.0" prefWidth="164.0" />
-      <Pane layoutX="432.0" layoutY="44.0" prefHeight="58.0" prefWidth="205.0" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;">
+      <DatePicker fx:id="birth_d" layoutX="586.0" layoutY="314.0" prefHeight="23.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <TextField fx:id="cin" layoutX="584.0" layoutY="159.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <TextField fx:id="address" layoutX="584.0" layoutY="238.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Pane layoutX="432.0" layoutY="44.0" prefHeight="58.0" prefWidth="205.0" style="-fx-background-color: #3B3936; -fx-background-radius: 20;">
          <children>
             <Label layoutX="26.0" layoutY="-5.0" prefHeight="69.0" prefWidth="154.0" text="Sign Up" textFill="WHITE">
                <font>
@@ -83,7 +83,7 @@
             </Label>
          </children>
       </Pane>
-      <Button fx:id="return_btn" layoutX="281.0" layoutY="14.0" mnemonicParsing="false" onAction="#return_btn_clicked" style="-fx-background-radius: 11; -fx-background-color: #E5BA73;" text="return" textFill="WHITE">
+      <Button fx:id="return_btn" layoutX="281.0" layoutY="14.0" mnemonicParsing="false" onAction="#return_btn_clicked" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="return" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
@@ -91,18 +91,18 @@
             <FontAwesomeIconView fill="WHITE" glyphName="ARROW_CIRCLE_LEFT" />
          </graphic>
       </Button>
-      <TextField fx:id="phone_num" layoutX="586.0" layoutY="392.0" prefHeight="25.0" prefWidth="164.0" />
-      <Label layoutX="321.0" layoutY="435.0" text="Gender" textFill="#c58940">
+      <TextField fx:id="phone_num" layoutX="586.0" layoutY="392.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Label layoutX="322.0" layoutY="444.0" text="Gender" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <RadioButton fx:id="male_gender" layoutX="320.0" layoutY="463.0" mnemonicParsing="false" text="Male" textFill="#c58940">
+      <RadioButton fx:id="male_gender" layoutX="321.0" layoutY="471.0" mnemonicParsing="false" text="Male" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="13.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="female_gender" layoutX="388.0" layoutY="463.0" mnemonicParsing="false" text="Female" textFill="#c58940">
+      <RadioButton fx:id="female_gender" layoutX="419.0" layoutY="471.0" mnemonicParsing="false" text="Female" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="13.0" />
          </font>
@@ -115,23 +115,23 @@
       <Label fx:id="errormsgaddress" layoutX="584.0" layoutY="274.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
       <Label fx:id="errormsgbirthdate" layoutX="586.0" layoutY="352.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
       <Label fx:id="errormsgphonenum" layoutX="586.0" layoutY="426.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-      <Label fx:id="errormsggender" layoutX="320.0" layoutY="488.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-      <Label fx:id="errormsgelements" layoutX="453.0" layoutY="537.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-      <Label layoutX="589.0" layoutY="435.0" text="Are you an artist" textFill="#c58940">
+      <Label fx:id="errormsggender" layoutX="320.0" layoutY="490.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+      <Label fx:id="errormsgelements" layoutX="453.0" layoutY="548.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+      <Label layoutX="587.0" layoutY="444.0" text="Are you an artist ?" textFill="#3b3936">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <RadioButton fx:id="yesartist" layoutX="586.0" layoutY="464.0" mnemonicParsing="false" text="Yes">
+      <RadioButton fx:id="yesartist" layoutX="587.0" layoutY="471.0" mnemonicParsing="false" text="Yes" textFill="#3b3936">
          <font>
-            <Font name="System Bold" size="13.0" />
+            <Font name="Microsoft New Tai Lue Bold" size="13.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="noartist" layoutX="666.0" layoutY="464.0" mnemonicParsing="false" text="No">
+      <RadioButton fx:id="noartist" layoutX="705.0" layoutY="471.0" mnemonicParsing="false" text="No" textFill="#3b3936">
          <font>
-            <Font size="13.0" />
+            <Font name="Microsoft New Tai Lue Bold" size="13.0" />
          </font>
       </RadioButton>
-      <Label fx:id="errorquestionartist" layoutX="584.0" layoutY="488.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+      <Label fx:id="errorquestionartist" layoutX="584.0" layoutY="490.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
    </children>
 </AnchorPane>
