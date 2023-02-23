@@ -6,6 +6,7 @@
 package controller;
 
 import Services.Auction_Services;
+import Services.Bid_Services;
 import entity.Auction_display;
 import entity.Data;
 import java.io.IOException;
@@ -62,6 +63,8 @@ public class Artwork_frontController implements Initializable {
     Auction_display auction_display;
     @FXML
     private Button add_bid;
+    @FXML
+    private ImageView wining;
 
     /**
      * Initializes the controller class.
@@ -86,7 +89,7 @@ public class Artwork_frontController implements Initializable {
         ArrayList<Auction_display> auctions = Auction_Services.Display_auction_details(Data.user.getId());
         for (Auction_display auction : auctions) {
             if (auction.getName().equals(auction_display.getName())) {
-                this.auction_display= auction;
+                this.auction_display = auction;
                 set_artwork(auction_display);
             }
         }
@@ -103,6 +106,11 @@ public class Artwork_frontController implements Initializable {
         int next_bid = auction_display.getBid() + auction_display.getIncrement();
         this.next_bid.setText("Next Bid:" + String.valueOf(next_bid));
         LocalDate localDate = auction_display.getDate();
+        if (Data.user.getId() == Bid_Services.highest_offer_user(auction_display.getId_auction())) {
+            wining.setVisible(true);
+        } else {
+            wining.setVisible(false);
+        }
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zonedDateTime = localDate.atStartOfDay(zoneId);
 

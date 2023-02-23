@@ -10,6 +10,11 @@
 
 <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="695.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Artwork_frontController">
    <children>
+      <ImageView fx:id="wining" fitHeight="20.0" fitWidth="18.0">
+         <image>
+            <Image url="@pngegg.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="photo" fitHeight="158.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../../wallpapers/pexels-sam-kolder-2387873.jpg" />
