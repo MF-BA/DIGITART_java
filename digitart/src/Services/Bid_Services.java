@@ -29,6 +29,40 @@ public class Bid_Services {
 
     static Connection conn = Conn.getCon();
 
+    public static int highest_offer(int ID_auction) {
+        String latest_bid_sql = "SELECT MAX(offer) FROM bid WHERE id_auction = ?";
+        int latest_bid = 0;
+        PreparedStatement latest_bid_stmt;
+        ResultSet resultLatest_bidt;
+        try {
+            latest_bid_stmt = conn.prepareStatement(latest_bid_sql);
+
+            latest_bid_stmt.setInt(1, ID_auction);
+
+            resultLatest_bidt = latest_bid_stmt.executeQuery();
+            if (resultLatest_bidt.next()) {
+                latest_bid = resultLatest_bidt.getInt(1);
+            }
+            /*if (latest_bid == 0) {
+                String starting_price = "SELECT starting_price FROM auction WHERE id_auction = ?";
+                PreparedStatement starting_price_stmt;
+                ResultSet resultstarting_price;
+                starting_price_stmt = conn.prepareStatement(starting_price);
+                starting_price_stmt.setInt(1, ID_auction);
+
+                resultstarting_price = starting_price_stmt.executeQuery();
+                if (resultstarting_price.next()) {
+                    return resultstarting_price.getInt(1);
+                }
+            }*/
+        } catch (SQLException ex) {
+            Logger.getLogger(Bid_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return latest_bid;
+
+    }
+
     public static int next_offer(int ID_auction) {
         String latest_bid_sql = "SELECT MAX(offer) FROM bid WHERE id_auction = ?";
         String increment_sql = "SELECT increment FROM auction WHERE id_auction = ?";
@@ -64,7 +98,7 @@ public class Bid_Services {
                 ResultSet resultstarting_price;
                 starting_price_stmt = conn.prepareStatement(starting_price);
                 starting_price_stmt.setInt(1, ID_auction);
-                
+
                 resultstarting_price = starting_price_stmt.executeQuery();
                 if (resultstarting_price.next()) {
                     return resultstarting_price.getInt(1);

@@ -216,6 +216,31 @@ ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `payment`
+--
+
+CREATE TABLE `payment` (
+  `payment_id` int(255) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `purchase_date` date NOT NULL,
+  `nb_adult` int(20) DEFAULT NULL,
+  `nb_teenager` int(20) DEFAULT NULL,
+  `nb_student` int(20) DEFAULT NULL,
+  `total_payment` int(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `payment`
+--
+
+INSERT INTO `payment` (`payment_id`, `user_id`, `purchase_date`, `nb_adult`, `nb_teenager`, `nb_student`, `total_payment`) VALUES
+(17, NULL, '2023-02-23', 4, 4, 4, 360),
+(21, NULL, '2023-02-22', 2, 4, 5, 300);
+
 -- --------------------------------------------------------
 
 --
@@ -224,16 +249,34 @@ COMMIT;
 
 CREATE TABLE `ticket` (
   `ticket_id` int(50) NOT NULL,
-  `ticket_date` date NOT NULL DEFAULT current_timestamp(),
-  `ticket_type` varchar(50) NOT NULL,
+  `ticket_date` date DEFAULT NULL,
+  `ticket_edate` date DEFAULT NULL,
   `price` int(50) NOT NULL,
-  `ticket_nb` int(50) NOT NULL,
-  `ticket_desc` varchar(50) NOT NULL
+  `ticket_type` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `ticket`
+--
+
+INSERT INTO `ticket` (`ticket_id`, `ticket_date`, `ticket_edate`, `price`, `ticket_type`) VALUES
+(1, '2023-02-22', '2023-02-28', 20, 'Student'),
+(2, '2023-02-22', '2023-02-28', 30, 'Teen'),
+(3, '2023-02-22', '2023-02-28', 40, 'Adult'),
+(5555565, '2023-03-01', '2023-03-31', 100, 'Adult'),
+(5555566, '2023-03-01', '2023-03-31', 200, 'Teen'),
+(5555568, '2023-03-01', '2023-03-31', 300, 'Student');
 
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `payment`
+--
+ALTER TABLE `payment`
+  ADD PRIMARY KEY (`payment_id`),
+  ADD KEY `pk` (`user_id`);
 
 --
 -- Index pour la table `ticket`
@@ -246,10 +289,26 @@ ALTER TABLE `ticket`
 --
 
 --
+-- AUTO_INCREMENT pour la table `payment`
+--
+ALTER TABLE `payment`
+  MODIFY `payment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
 -- AUTO_INCREMENT pour la table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `ticket_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1235;
+  MODIFY `ticket_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5555569;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `payment`
+--
+ALTER TABLE `payment`
+  ADD CONSTRAINT `pk` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 -- --------------------------------------------------------
