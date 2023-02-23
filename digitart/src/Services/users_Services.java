@@ -31,7 +31,7 @@ public class users_Services {
     public users_Services() {
     }
     
-    public void adminadduser(users u){
+    public void adduser(users u){
        
             String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role) values (? ,?, ?, ?, ?, ?, ?, ?, ?, ?)";
              try {
@@ -56,31 +56,7 @@ public class users_Services {
             }
     
     }
-     public void adduser(users u){
-       
-            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender) values (? ,?, ?, ?, ?, ?, ?, ?, ?)";
-             try {
-            pst = conn.prepareStatement(sql);
-            pst.setInt(1,u.getCin());
-            pst.setString(2,u.getFirstname());
-            pst.setString(3,u.getLastname());
-            pst.setString(4,u.getEmail());
-            pst.setString(5,u.getPwd());
-            pst.setString(6,u.getAddress());
-            pst.setInt(7,u.getPhone_number());
-            pst.setDate(8,Date.valueOf(u.getBirth_date()));
-            pst.setString(9,u.getGender());
-           
-            
-             pst.executeUpdate();
-            System.out.println("success!!");
-                
-            } catch (SQLException ex) {
-                System.err.println("error!!");
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    
-    }
+     
      public static ArrayList<users> Displayusers() {
 
         ArrayList<users> list = new ArrayList<>();

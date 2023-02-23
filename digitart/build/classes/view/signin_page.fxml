@@ -43,24 +43,24 @@
                   <Font name="Berlin Sans FB" size="20.0" />
                </font>
             </Label>
-            <Label fx:id="loginerrormsg" layoutX="61.0" layoutY="216.0" prefHeight="17.0" prefWidth="204.0">
+            <Label fx:id="loginerrormsg" alignment="CENTER" layoutX="16.0" layoutY="216.0" prefHeight="27.0" prefWidth="294.0" textFill="RED">
+               <font>
+                  <Font name="Berlin Sans FB" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="pwderrormsg" layoutX="24.0" layoutY="175.0" prefHeight="25.0" prefWidth="278.0" textFill="RED">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label fx:id="pwderrormsg" layoutX="24.0" layoutY="175.0" prefHeight="17.0" prefWidth="204.0">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="emailerrormsg" layoutX="24.0" layoutY="90.0" prefHeight="17.0" prefWidth="204.0">
+            <Label fx:id="emailerrormsg" layoutX="24.0" layoutY="90.0" prefHeight="25.0" prefWidth="278.0" textFill="RED">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
          </children>
       </Pane>
-      <Button layoutX="432.0" layoutY="488.0" mnemonicParsing="false" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;" text="Sign In" textFill="#fffefe">
+      <Button fx:id="signin_btn" layoutX="432.0" layoutY="488.0" mnemonicParsing="false" onAction="#login_btn" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;" text="Sign In" textFill="#fffefe">
          <font>
             <Font size="17.0" />
          </font>

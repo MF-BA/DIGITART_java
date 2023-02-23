@@ -326,7 +326,11 @@ public void combobox()
     {               
     if (!phone_num.getText().matches("\\d+")) {
         errormsgphonenum.setText("Phone number should be a number!");
-    } else {
+    } else if (phone_num.getText().toString().length()<8)
+    {
+        errormsgphonenum.setText("Phone number should contain 8 digits!");
+    }
+    else {
         phone_number = Integer.parseInt(phone_num.getText().trim());
     }
             }
@@ -404,7 +408,7 @@ public void combobox()
    
     user1 = new users(Cin ,firstname, lastname, Email, passwd, Address, phone_number, BirthDate, gender, role);
     user = new users_Services();
-    user.adminadduser(user1); 
+    user.adduser(user1); 
      
     errormsgfname.setText("");
     errormsglname.setText("");

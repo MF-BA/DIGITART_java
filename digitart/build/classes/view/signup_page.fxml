@@ -22,7 +22,7 @@
             </Label>
          </children>
       </Pane>
-      <Button fx:id="confirm_sign" cache="true" layoutX="495.0" layoutY="498.0" mnemonicParsing="false" onAction="#confirm_btn" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;" text="Confirm" textFill="WHITE">
+      <Button fx:id="confirm_sign" cache="true" layoutX="495.0" layoutY="505.0" mnemonicParsing="false" onAction="#confirm_btn" style="-fx-background-color: #E5BA73; -fx-background-radius: 11;" text="Confirm" textFill="WHITE">
          <font>
             <Font name="Berlin Sans FB" size="17.0" />
          </font>
@@ -92,17 +92,17 @@
          </graphic>
       </Button>
       <TextField fx:id="phone_num" layoutX="586.0" layoutY="392.0" prefHeight="25.0" prefWidth="164.0" />
-      <Label layoutX="416.0" layoutY="443.0" text="Gender" textFill="#c58940">
+      <Label layoutX="321.0" layoutY="435.0" text="Gender" textFill="#c58940">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="15.0" />
          </font>
       </Label>
-      <RadioButton fx:id="male_gender" layoutX="493.0" layoutY="446.0" mnemonicParsing="false" text="Male" textFill="#c58940">
+      <RadioButton fx:id="male_gender" layoutX="320.0" layoutY="463.0" mnemonicParsing="false" text="Male" textFill="#c58940">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="13.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="female_gender" layoutX="572.0" layoutY="446.0" mnemonicParsing="false" text="Female" textFill="#c58940">
+      <RadioButton fx:id="female_gender" layoutX="388.0" layoutY="463.0" mnemonicParsing="false" text="Female" textFill="#c58940">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="13.0" />
          </font>
@@ -115,7 +115,23 @@
       <Label fx:id="errormsgaddress" layoutX="584.0" layoutY="274.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
       <Label fx:id="errormsgbirthdate" layoutX="586.0" layoutY="352.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
       <Label fx:id="errormsgphonenum" layoutX="586.0" layoutY="426.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-      <Label fx:id="errormsggender" layoutX="453.0" layoutY="472.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+      <Label fx:id="errormsggender" layoutX="320.0" layoutY="488.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
       <Label fx:id="errormsgelements" layoutX="453.0" layoutY="537.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+      <Label layoutX="589.0" layoutY="435.0" text="Are you an artist" textFill="#c58940">
+         <font>
+            <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="yesartist" layoutX="586.0" layoutY="464.0" mnemonicParsing="false" text="Yes">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="noartist" layoutX="666.0" layoutY="464.0" mnemonicParsing="false" text="No">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </RadioButton>
+      <Label fx:id="errorquestionartist" layoutX="584.0" layoutY="488.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
    </children>
 </AnchorPane>
