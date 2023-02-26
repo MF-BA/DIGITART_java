@@ -5,6 +5,7 @@
  */
 package Services;
 
+import static Services.users_Services.conn;
 import utils.Conn;
 import java.time.*;
 import java.sql.*;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import entity.Auction;
 import entity.Auction_display;
+import entity.users;
 import main.main;
 
 /**
@@ -44,9 +46,7 @@ public class Auction_Services {
     }
 
     public static ArrayList<Auction> Display(int id_artist) {
-
         ArrayList<Auction> list = new ArrayList<>();
-
         Statement statement;
         ResultSet resultSet;
         try {
@@ -67,15 +67,38 @@ public class Auction_Services {
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return list;
-
     }
 
-    public static ArrayList<Auction_display> Display_auction_details(int id_artist) {
+    public static ArrayList<Auction> Display_front(int id_artist) {
+        ArrayList<Auction> list = new ArrayList<>();
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE ending_date > CURDATE() and artwork.id_artist =" + id_artist);
+
+            while (resultSet.next()) {
+                LocalDate D = resultSet.getDate(4).toLocalDate();
+                Auction data = new Auction(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getInt(3),
+                        resultSet.getInt(6),
+                        D,
+                        resultSet.getString(5)
+                );
+                list.add(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public static ArrayList<Auction_display> Display_auction_details(ArrayList<Auction> Display) {
         ArrayList<Auction_display> displayList; // initialize displayList
         displayList = new ArrayList<>();
-        for (Auction auction : Display(id_artist)) {
+        for (Auction auction : Display) {
             Auction_display display = new Auction_display(auction, Auction_Services.find_artwork_name(auction.getId_artwork()), Bid_Services.highest_offer(auction.getId_auction()));
             displayList.add(display);
         }
@@ -150,16 +173,16 @@ public class Auction_Services {
             return -1;
         }
     }
-
-    public static String find_artwork_name(int id) {
+    
+    public static String find_artwork_name_from_auctionID(int id_auction) {
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT artwork_name FROM artwork WHERE id_art= ?");
-            statement.setInt(1, id);
+            PreparedStatement statement = conn.prepareStatement("SELECT artwork_name FROM artwork WHERE id_art = (select id_artwork from auction where id_auction= ?) ");
+            statement.setInt(1, id_auction);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString(1);
             } else {
-                throw new SQLException("No artwork found with id: " + id);
+                throw new SQLException("No auction found with id: " + id_auction);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
@@ -167,6 +190,23 @@ public class Auction_Services {
         }
     }
 
+    public static String find_artwork_name(int id_artwork) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT artwork_name FROM artwork WHERE id_art= ?");
+            statement.setInt(1, id_artwork);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString(1);
+            } else {
+                throw new SQLException("No artwork found with id: " + id_artwork);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    
     public static String get_img(int id) {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT image_art FROM artwork WHERE id_art= ?");
@@ -215,30 +255,52 @@ public class Auction_Services {
         }
     }
 
-    public static ArrayList<Auction> verif_winners() {
-        ArrayList<Auction> list = new ArrayList<>();
+    public static ArrayList<users> verif_winners( ArrayList<Integer> id_auction) {
+        ArrayList<users> list = new ArrayList<>();
 
         Statement statement;
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE artwork.id_artist =");
+            resultSet = statement.executeQuery("SELECT b.id_user,a.id_auction "
+                    + "FROM bid b "
+                    + "INNER JOIN auction a ON b.id_auction = a.id_auction "
+                    + "WHERE b.offer = (SELECT MAX(b2.offer)"
+                    + "  FROM bid b2"
+                    + "  WHERE b2.id_auction = a.id_auction) "
+                    + "AND a.ending_date < CURDATE() AND a.state IS NULL");
 
             while (resultSet.next()) {
-                LocalDate D = resultSet.getDate(4).toLocalDate();
-                Auction data = new Auction(resultSet.getInt(1),
-                        resultSet.getInt(2),
-                        resultSet.getInt(3),
-                        resultSet.getInt(6),
-                        D,
-                        resultSet.getString(5)
-                );
-                list.add(data);
+                id_auction.add(resultSet.getInt(2));
+
+                ResultSet res;
+
+                Statement statement2 = conn.createStatement();
+                res = statement2.executeQuery("SELECT * FROM users where id=" + resultSet.getInt(1));
+
+                if (res.next()) {
+                    LocalDate D = res.getDate(9).toLocalDate();
+                    users data = new users(
+                            res.getInt(1),
+                            res.getInt(2),
+                            res.getString(3),
+                            res.getString(4),
+                            res.getString(5),
+                            res.getString(6),
+                            res.getString(7),
+                            res.getInt(8),
+                            D,
+                            res.getString(10),
+                            res.getString(11)
+                    );
+                    list.add(data);
+                }
+                Statement statement3 = conn.createStatement();
+                statement3.executeUpdate("UPDATE auction SET state='informed' where id_auction =" + resultSet.getInt(2));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return list;
     }
 }

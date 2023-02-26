@@ -38,14 +38,14 @@ import javafx.stage.Stage;
  * @author fedi1
  */
 public class Auction_frontController implements Initializable {
-
+    
     private Stage stage;
     private Scene scene;
     private Parent root;
     /**
      * Initializes the controller class.
      */
-
+    
     ArrayList<Auction_display> auction_array_detailed;
     @FXML
     private HBox auction_view;
@@ -64,32 +64,32 @@ public class Auction_frontController implements Initializable {
     private Button btn_Add_Auction;
     @FXML
     private Button auction_btn;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         btn_Add_Auction.setStyle("-fx-background-color: transparent");
         btn_Artworks_Auction.setStyle("-fx-background-color:transparent  ");
         auction_btn.setStyle("-fx-background-color: #470011");
         display_auction();
-
+        
     }
-
+    
     public void display_auction() {
-        auction_array_detailed = Auction_Services.Display_auction_details(Data.user.getId());
+        auction_array_detailed = Auction_Services.Display_auction_details(Auction_Services.Display_front(Data.user.getId()));
         int column = 0;
         int row = 1;
         for (int i = 0; i < auction_array_detailed.size(); i++) {
-
+            
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/view/artwork_front.fxml"));
-
+            
             try {
                 cardBox = fxmlLoader.load();
                 Artwork_frontController cardController = fxmlLoader.getController();
                 //System.out.println(auction_array_detailed.get(0));
                 cardController.set_artwork(auction_array_detailed.get(i));
                 ImageView cardPane = (ImageView) cardBox.getChildren().get(0);
-
+                
                 cardPane.setOnMouseClicked(event -> {
                     // Pass the selected artwork to the detail view
                     showArtworkDetails(cardController.getArtwork());
@@ -106,25 +106,25 @@ public class Auction_frontController implements Initializable {
                 Logger.getLogger("heeerrreeeee" + Auction_frontController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
+        
     }
-
+    
     private void showArtworkDetails(Auction_display artwork) {
         System.out.println(artwork);
     }
-
+    
     @FXML
     private void view_clicked(MouseEvent event) {
     }
-
+    
     @FXML
     private void auction_btn_clicked(ActionEvent event) {
     }
-
+    
     @FXML
     private void btn_Add_Auction_click(ActionEvent event) {
         ArrayList<String> arr = Auction_Services.find_artworks(Data.user.getId());
-
+        
         if (arr.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING !!!!");
@@ -142,7 +142,7 @@ public class Auction_frontController implements Initializable {
             }
         }
     }
-
+    
     private void go_Home(ActionEvent event) {
         try {
             // Get the current stage
@@ -162,10 +162,10 @@ public class Auction_frontController implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @FXML
     private void Artworks__Auction_cicked(ActionEvent event) {
         go_Home(event);
     }
-
+    
 }

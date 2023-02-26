@@ -13,15 +13,17 @@ import java.time.LocalDate;
  * @author Islem
  */
 public class users {
-    
-   String firstname,lastname,email,pwd,address,gender;
-   String role;
-   int id,cin,phone_number;
-   LocalDate birth_date;
- public users() {
-       
+
+    String firstname, lastname, email, pwd, address, gender;
+    String role;
+    int id, cin, phone_number;
+    LocalDate birth_date;
+
+    public users() {
+
     }
-    public users(String firstname, String lastname, String email, String address, String gender, int id, int cin, int phone_number,  LocalDate birth_date) {
+
+    public users(String firstname, String lastname, String email, String address, String gender, int id, int cin, int phone_number, LocalDate birth_date) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -32,8 +34,8 @@ public class users {
         this.phone_number = phone_number;
         this.birth_date = birth_date;
     }
-    
-    public users(String firstname, String lastname, String email, String pwd, String address, String gender, int cin, int phone_number,  LocalDate birth_date) {
+
+    public users(String firstname, String lastname, String email, String pwd, String address, String gender, int cin, int phone_number, LocalDate birth_date) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -44,7 +46,8 @@ public class users {
         this.phone_number = phone_number;
         this.birth_date = birth_date;
     }
-  public users(String firstname, String lastname, String email, String pwd, String address, String gender, int cin, int phone_number) {
+
+    public users(String firstname, String lastname, String email, String pwd, String address, String gender, int cin, int phone_number) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -53,9 +56,10 @@ public class users {
         this.gender = gender;
         this.cin = cin;
         this.phone_number = phone_number;
-        
+
     }
-    public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role) {
+
+    public users(int id, int cin, String firstname, String lastname, String email, String pwd, String address, int phone_number, LocalDate birth_date, String gender, String role) {
         this.id = id;
         this.cin = cin;
         this.firstname = firstname;
@@ -67,11 +71,11 @@ public class users {
         this.birth_date = birth_date;
         this.gender = gender;
         this.role = role;
-        
-        
+
     }
-    public users(int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role) {
-        
+
+    public users(int cin, String firstname, String lastname, String email, String pwd, String address, int phone_number, LocalDate birth_date, String gender, String role) {
+
         this.cin = cin;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -82,8 +86,7 @@ public class users {
         this.birth_date = birth_date;
         this.gender = gender;
         this.role = role;
-        
-        
+
     }
 
     public String getFirstname() {
@@ -166,15 +169,29 @@ public class users {
         this.phone_number = phone_number;
     }
 
-    public  LocalDate getBirth_date() {
+    public LocalDate getBirth_date() {
         return birth_date;
     }
 
-    public void setBirth_date( LocalDate birth_date) {
+    public void setBirth_date(LocalDate birth_date) {
         this.birth_date = birth_date;
     }
-   
-   
-    
-    
+
+    @Override
+    public String toString() {
+        return "User{"
+                + "firstname='" + firstname + '\''
+                + ", lastname='" + lastname + '\''
+                + ", email='" + email + '\''
+                + ", pwd='" + pwd + '\''
+                + ", address='" + address + '\''
+                + ", gender='" + gender + '\''
+                + ", role='" + role + '\''
+                + ", id=" + id
+                + ", cin=" + cin
+                + ", phone_number=" + phone_number
+                + ", birth_date=" + birth_date
+                + '}';
+    }
+
 }

@@ -8,17 +8,14 @@ package controller;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import Services.Auction_Services;
-import Services.Bid_Services;
 import entity.Auction;
 import entity.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javafx.application.Application.launch;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -112,7 +109,7 @@ public class Add_auction_Controller implements Initializable {
             ObservableList<String> myObservableList = FXCollections.observableArrayList(arr);
             in_I.setItems(myObservableList);
         }*/
-        ObservableList<String> myObservableList = FXCollections.observableArrayList(Auction_Services.find_artworks(1));
+        ObservableList<String> myObservableList = FXCollections.observableArrayList(Auction_Services.find_artworks(Data.user.getId()));
 
         in_I.setItems(myObservableList);
 

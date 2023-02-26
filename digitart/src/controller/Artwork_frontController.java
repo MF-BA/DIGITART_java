@@ -86,7 +86,7 @@ public class Artwork_frontController implements Initializable {
     }
 
     void update() {
-        ArrayList<Auction_display> auctions = Auction_Services.Display_auction_details(Data.user.getId());
+        ArrayList<Auction_display> auctions = Auction_Services.Display_auction_details(Auction_Services.Display_front(Data.user.getId()));
         for (Auction_display auction : auctions) {
             if (auction.getName().equals(auction_display.getName())) {
                 this.auction_display = auction;

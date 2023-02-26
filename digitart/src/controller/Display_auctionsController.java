@@ -107,7 +107,7 @@ public class Display_auctionsController implements Initializable {
 
     public void Showauction() {
 
-        AuctionList = Auction_Services.Display_auction_details(Data.user.getId());
+        AuctionList = Auction_Services.Display_auction_details(Auction_Services.Display(Data.user.getId()));
 
         artwork_Name.setCellValueFactory(new PropertyValueFactory<>("name"));
         Starting_price.setCellValueFactory(new PropertyValueFactory<>("starting_price"));
@@ -168,8 +168,9 @@ public class Display_auctionsController implements Initializable {
                 alert.setTitle("SUCCESS!!!!");
                 alert.setContentText("DELETION ACCOMPLISHED SUCCESSFULLY!!!");
                 alert.showAndWait();
-            }   alert = new Alert(Alert.AlertType.INFORMATION);
-             
+            }
+            alert = new Alert(Alert.AlertType.INFORMATION);
+
             Showauction();
 
         }

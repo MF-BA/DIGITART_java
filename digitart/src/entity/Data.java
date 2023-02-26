@@ -19,7 +19,7 @@ public class Data {
     public static Auction auction;
     public static Auction_display auction_display;
     public static final String username = "digitart.primes@gmail.com";
-    public static final String password = "DIGITART1234";
+    public static final String password = "nymlnfadanfvlctb";
 
     
     
