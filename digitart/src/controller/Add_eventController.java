@@ -51,6 +51,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -109,13 +110,38 @@ public class Add_eventController implements Initializable {
     @FXML
     private Label labeladminname2;
     @FXML
-    private Button add_user;
+    private Button add_event;
     @FXML
-    private Button modify_user;
+    private Button modify_event;
     @FXML
-    private Button list_users;
+    private Button list_events;
     @FXML
-    private TextField event_search;
+    private AnchorPane event_add_anc;
+    private AnchorPane list_of_users;
+    @FXML
+    private AnchorPane list_of_events;
+    @FXML
+    private Label add_event_txt_field;
+    @FXML
+    private Label modify_event_field;
+    @FXML
+    private Label errormsgeventid;
+    @FXML
+    private Label errormsgdetails;
+    @FXML
+    private Label errormsgeventname;
+    @FXML
+    private Label errormsgstarttime;
+    @FXML
+    private Label errormsgroomid;
+    @FXML
+    private Label errormsgstartdate;
+    @FXML
+    private Label errormsgenddate;
+    @FXML
+    private Label errormsgnbparticipants;
+    @FXML
+    private TextField ticket_search;
  
     
 
@@ -125,6 +151,9 @@ public class Add_eventController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        event_add_anc.setVisible(true);
+        list_of_events.setVisible(false);
+         
      showevent();
      combobox();
     }    
@@ -355,16 +384,58 @@ public class Add_eventController implements Initializable {
         }
     }
 
+
     @FXML
-    private void add_user_btn(ActionEvent event) {
+    private void modify_event_btn(ActionEvent event) {
+        btnadd.setVisible(false);
+        btnupdate.setVisible(true);
+        add_event_txt_field.setVisible(false);
+        modify_event_field.setVisible(true);
+         event_add_anc.setVisible(true);
+        list_of_events.setVisible(false);
+        add_event.setStyle("-fx-background-color:   transparent ");
+        modify_event.setStyle("-fx-background-color:  #470011 ");
+        list_events.setStyle("-fx-background-color: transparent "); 
+        
     }
 
     @FXML
-    private void modify_user_btn(ActionEvent event) {
+    private void add_event_btn(ActionEvent event) {
+        btnadd.setVisible(true);
+        btnupdate.setVisible(false);
+        add_event_txt_field.setVisible(true);
+        modify_event_field.setVisible(false);
+        event_add_anc.setVisible(true);
+        list_of_events.setVisible(false);
+        add_event.setStyle("-fx-background-color:   #470011 ");
+        modify_event.setStyle("-fx-background-color:  transparent ");
+        list_events.setStyle("-fx-background-color: transparent "); 
+        txt_event_id.setText("");
+        txt_event_name.setText("");
+        txt_start_time.setText("");
+        txt_end_date.setValue(null);
+        txt_start_date.setValue(null);
+       txt_nb_participants.setText("");
+        txt_room.getSelectionModel().clearSelection(); 
+        txt_desc.setText("");
+        
     }
 
     @FXML
-    private void list_users_btn(ActionEvent event) {
+    private void list_event_btn(ActionEvent event) {
+        btnadd.setVisible(false);
+        btnupdate.setVisible(false);
+        add_event_txt_field.setVisible(false);
+        modify_event_field.setVisible(false);
+        event_add_anc.setVisible(false);
+        list_of_events.setVisible(true);
+        add_event.setStyle("-fx-background-color:   transparent ");
+        modify_event.setStyle("-fx-background-color:  transparent ");
+        list_events.setStyle("-fx-background-color: #470011 "); 
+    }
+
+    @FXML
+    private void searchTicket(KeyEvent event) {
     }
 
     
