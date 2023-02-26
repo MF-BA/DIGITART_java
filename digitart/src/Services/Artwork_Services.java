@@ -58,6 +58,7 @@ public class Artwork_Services {
 
             while (resultSet.next()) {
                     LocalDate D = resultSet.getDate(5).toLocalDate();
+                    int idroom = resultSet.getInt(8);
                 Artwork data = new Artwork(resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getInt(3),
@@ -65,7 +66,8 @@ public class Artwork_Services {
                         D,
                         resultSet.getString(6), 
                         resultSet.getString(7),
-                        resultSet.getInt(8)
+                        idroom
+                        
                 );
                 list.add(data);
          
@@ -140,8 +142,8 @@ public class Artwork_Services {
     
     
     
-        public static ArrayList<String> find_nameroom(int id) {
-        ArrayList<String> list = new ArrayList<>();
+        public static String find_nameroom(int id) {
+       String list=null ;
 
         Statement statement;
         ResultSet resultSet;
@@ -150,7 +152,7 @@ public class Artwork_Services {
             resultSet = statement.executeQuery("SELECT name_room FROM room where id_room="+id+"");
 
             while (resultSet.next()) {
-                list.add(resultSet.getString(1));
+                list=(resultSet.getString(1));
             }
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);

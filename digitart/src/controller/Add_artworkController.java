@@ -8,10 +8,19 @@ package controller;
 import Services.Artwork_Services;
 import entity.Artwork;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -39,6 +48,9 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javax.net.ssl.HttpsURLConnection;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * FXML Controller class
@@ -115,21 +127,44 @@ public class Add_artworkController implements Initializable {
       btn_room.setStyle("-fx-background-color: transparent ");
        
     }    
+/*
+     
+       // Create a FileChooser dialog to let the user choose the file to upload
+FileChooser fileChooser = new FileChooser();
+fileChooser.setTitle("Select a file to upload");
+File selectedFile = fileChooser.showOpenDialog(null);
 
+// Call the uploadFile method with the selected file and the upload URL
+if (selectedFile != null) {
+    String uploadUrl = "http://localhost/images/upload";
+    uploadFile(selectedFile, uploadUrl);
+}
+    */
     @FXML
     private void btn_addimage_clicked(ActionEvent event) {
-         FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Select Image File");
-    fileChooser.getExtensionFilters().addAll(
-        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
-    );
-   selectedFile = fileChooser.showOpenDialog(btn_addimage.getScene().getWindow());
-    if (selectedFile != null) {
-       
-        imageUrl = selectedFile.toURI().toString();
-        System.out.println(imageUrl);
-    }
-    }
+//        FileChooser fileChooser = new FileChooser();
+//    fileChooser.setTitle("Select Image File");
+//    fileChooser.getExtensionFilters().addAll(
+//        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
+//    );
+//   selectedFile = fileChooser.showOpenDialog(btn_addimage.getScene().getWindow());
+//    if (selectedFile != null) {
+//       
+//        imageUrl = selectedFile.toURI().toString();
+//        System.out.println(imageUrl);
+//    }
+//
+FileChooser fileChooser = new FileChooser();
+fileChooser.setTitle("Select a file to upload");
+File selectedFile = fileChooser.showOpenDialog(null);
+        System.out.println(selectedFile);
+
+// Call the uploadFile method with the selected file and the upload URL
+if (selectedFile != null) {
+    String uploadUrl = "http://localhost/images";
+    uploadFile(selectedFile, uploadUrl);
+}
+  }
 
     @FXML
 private void btn_add_clicked(ActionEvent event) {
@@ -190,6 +225,48 @@ private void btn_add_clicked(ActionEvent event) {
       
         
     }
+        
+
+
+public void uploadFile(File file, String uploadUrl) {
+    try {
+        // Set up the HTTP connection
+        URL url = new URL(uploadUrl);
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        httpConn.setDoOutput(true);
+        httpConn.setRequestMethod("POST");
+
+        // Set the request headers
+        httpConn.setRequestProperty("Content-Type", "multipart/form-data; boundary=boundary");
+
+        // Create the multipart request body
+        OutputStream outputStream = httpConn.getOutputStream();
+        String boundary = "--boundary\r\n";
+        outputStream.write(boundary.getBytes("UTF-8"));
+        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n").getBytes("UTF-8"));
+        outputStream.write(("Content-Type: " + HttpURLConnection.guessContentTypeFromName(file.getName()) + "\r\n\r\n").getBytes("UTF-8"));
+        FileInputStream fileInputStream = new FileInputStream(file);
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        outputStream.write(("\r\n" + boundary + "--\r\n").getBytes("UTF-8"));
+        fileInputStream.close();
+
+        // Check the response status code
+        int responseCode = httpConn.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            System.out.println("File uploaded successfully.");
+        } else {
+            System.out.println("File upload failed. Error code: " + responseCode);
+        }
+    } catch (Exception ex) {
+        ex.printStackTrace();
+    }
+}
+
+
 
     @FXML
     private void btn_cancel_clicked(ActionEvent event) {

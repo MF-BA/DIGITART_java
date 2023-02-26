@@ -22,11 +22,10 @@
       </Text>
       <TableView fx:id="table_room" layoutX="280.0" layoutY="180.0" prefHeight="350.0" prefWidth="752.0" stylesheets="@auctionDesign.css">
         <columns>
-          <TableColumn fx:id="col_id" prefWidth="40.0" text="ID" />
           <TableColumn fx:id="col_name" prefWidth="110.0" text="Name" />
             <TableColumn fx:id="col_area" prefWidth="75.0" text="Area" />
-            <TableColumn fx:id="col_state" prefWidth="75.0" text="State" />
-            <TableColumn fx:id="col_desc" prefWidth="450.0" text="Description" />
+            <TableColumn fx:id="col_state" prefWidth="143.0" text="State" />
+            <TableColumn fx:id="col_desc" prefWidth="418.0" text="Description" />
         </columns>
       </TableView>
       <Button fx:id="BTN_add" layoutX="341.0" layoutY="582.0" mnemonicParsing="false" onAction="#btn_add_clicked" prefHeight="38.0" prefWidth="194.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add new room">

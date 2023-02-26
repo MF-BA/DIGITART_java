@@ -53,7 +53,6 @@ public class Display_roomController implements Initializable {
     private Button BTN_statistics;
     @FXML
     private TableView<?> table_room;
-    @FXML
     private TableColumn<?, ?> col_id;
     @FXML
     private TableColumn<?, ?> col_name;
@@ -75,12 +74,18 @@ public class Display_roomController implements Initializable {
     private Button btn_room;
     @FXML
     private Button btn_artwork;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
 
     public void ShowRoom() {
 
        RoomList = Room_Services.Display();
 
-        col_id.setCellValueFactory(new PropertyValueFactory<>("id_room"));
+       
         col_name.setCellValueFactory(new PropertyValueFactory<>("name_room"));
         col_area.setCellValueFactory(new PropertyValueFactory<>("area"));
         col_state.setCellValueFactory(new PropertyValueFactory<>("state"));

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import Services.Artwork_Services;
 import static Services.Artwork_Services.find_artwork;
 import entity.Artwork;
+import entity.Artwork_display;
+import entity.Auction_display;
 import entity.Data;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +18,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +34,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -37,6 +42,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -45,12 +51,9 @@ import javafx.stage.Stage;
  */
 public class Display_artworkController implements Initializable {
 
-    
-    @FXML
     private TableColumn<?, ?> col_id;
     @FXML
     private TableColumn<?, ?> col_name;
-    @FXML
     private TableColumn<?, ?> col_idartist;
     @FXML
     private TableColumn<?, ?> col_nameartist;
@@ -66,14 +69,14 @@ public class Display_artworkController implements Initializable {
     private Button BTN_modify;
     @FXML
     private Button BTN_delete;
-    
+
     private ArrayList<Artwork> ArtworkList;
     private Stage stage;
     private Scene scene;
     private Parent root;
-     private Image image1;
+    private Image image1;
     @FXML
-    private TableColumn<?, ?> col_idroom;
+    private TableColumn<Artwork, String> col_idroom;
     @FXML
     private ImageView image;
     @FXML
@@ -84,13 +87,20 @@ public class Display_artworkController implements Initializable {
     private Button btn_room;
     @FXML
     private Button btn_artwork;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
+
     /**
      * Initializes the controller class.
      */
-    
-        private void go_room(ActionEvent event) {
+
+    private void go_room(ActionEvent event) {
         try {
-             root = FXMLLoader.load(getClass().getResource("/view/display_room.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/display_room.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -99,10 +109,10 @@ public class Display_artworkController implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
-           private void go_add_artwork(ActionEvent event) {
+
+    private void go_add_artwork(ActionEvent event) {
         try {
-             root = FXMLLoader.load(getClass().getResource("/view/add_artwork.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/add_artwork.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -111,10 +121,10 @@ public class Display_artworkController implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
-                   private void go_modify_artwork(ActionEvent event) {
+
+    private void go_modify_artwork(ActionEvent event) {
         try {
-             root = FXMLLoader.load(getClass().getResource("/view/modify_artwork.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/modify_artwork.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -123,102 +133,95 @@ public class Display_artworkController implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        
-        
-        
-         public void ShowArtwork() {
+
+    public void ShowArtwork() {
 
         ArtworkList = Artwork_Services.Display();
 
-        col_id.setCellValueFactory(new PropertyValueFactory<>("id_art"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("artwork_name"));
-        col_idartist.setCellValueFactory(new PropertyValueFactory<>("id_artist"));
         col_nameartist.setCellValueFactory(new PropertyValueFactory<>("artist_name"));
         col_date.setCellValueFactory(new PropertyValueFactory<>("date_art"));
         col_desc.setCellValueFactory(new PropertyValueFactory<>("description"));
-        col_idroom.setCellValueFactory(new PropertyValueFactory<>("id_room"));
+        col_idroom.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Artwork, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Artwork, String> cellData) {
+                int id = cellData.getValue().getId_room();
+                return new SimpleStringProperty(Artwork_Services.find_nameroom(id));
+            }
+
+        });
 
         if (table_Artwork != null && table_Artwork instanceof TableView) {
             // Cast room_tableview to TableView<Room> and set its items
             ((TableView<Artwork>) table_Artwork).setItems(FXCollections.observableArrayList(ArtworkList));
         }
     }
-         
-         
-    
-            
-            
+
     @FXML
-            public void showimage() {
-                 selectedArtwork = ((TableView<Artwork>) table_Artwork).getSelectionModel().getSelectedItem();
+    public void showimage() {
+        selectedArtwork = ((TableView<Artwork>) table_Artwork).getSelectionModel().getSelectedItem();
         int num = table_Artwork.getSelectionModel().getFocusedIndex();
-     if ((num - 1) < -1) {
-            return ;
+        if ((num - 1) < -1) {
+            return;
         }
-      String url =  selectedArtwork.getImage_art();
+        String url = selectedArtwork.getImage_art();
 
         image1 = new Image(url, 245, 237, false, true);
 
         image.setImage(image1);
-    
-             
-            }
-            
-            private Artwork selectedArtwork;
 
-public Artwork SelectArtwork() {
-    selectedArtwork = ((TableView<Artwork>) table_Artwork).getSelectionModel().getSelectedItem();
-    
-    
-    return selectedArtwork;
-}
-        
-        
+    }
+
+    private Artwork selectedArtwork;
+
+    public Artwork SelectArtwork() {
+        selectedArtwork = ((TableView<Artwork>) table_Artwork).getSelectionModel().getSelectedItem();
+
+        return selectedArtwork;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         ShowArtwork();
-        
 
-       btn_room.setStyle("-fx-background-color: transparent ");
-       btn_artwork.setStyle("-fx-background-color: #470011 ");
-        
-    
-    }    
+        btn_room.setStyle("-fx-background-color: transparent ");
+        btn_artwork.setStyle("-fx-background-color: #470011 ");
+
+    }
 
     @FXML
     private void btn_add_clicked(ActionEvent event) {
-        
+
         go_add_artwork(event);
     }
 
     @FXML
     private void btn_modify_clicked(ActionEvent event) {
-            Alert alert;
-         Artwork a= SelectArtwork();
-        if (table_Artwork.getSelectionModel().getSelectedIndex()== -1) {
-                alert = new Alert(AlertType.ERROR);
-                alert.setTitle("Error Message");
-                alert.setHeaderText(null);
-                alert.setContentText("Please select the item first");
-                alert.showAndWait();
-            } else {
-        
-        Data.setArtwork(SelectArtwork());
-        go_modify_artwork(event);
+        Alert alert;
+        Artwork a = SelectArtwork();
+        if (table_Artwork.getSelectionModel().getSelectedIndex() == -1) {
+            alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please select the item first");
+            alert.showAndWait();
+        } else {
+
+            Data.setArtwork(SelectArtwork());
+            go_modify_artwork(event);
         }
-        
-        
+
     }
 
     @FXML
     private void btn_delete_clicked(ActionEvent event) {
-        
+
         Alert alert;
-         Artwork a= SelectArtwork();
-       
+        Artwork a = SelectArtwork();
+
         try {
-            if (table_Artwork.getSelectionModel().getSelectedIndex()== -1) {
+            if (table_Artwork.getSelectionModel().getSelectedIndex() == -1) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
@@ -228,10 +231,10 @@ public Artwork SelectArtwork() {
                 alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to delete the artwork with ID: " + a.getId_art()+ "?");
+                alert.setContentText("Are you sure you want to delete the artwork with ID: " + a.getId_art() + "?");
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get().equals(ButtonType.OK)) {
-                    
+
                     Artwork_Services.delete(a.getId_art());
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
@@ -246,11 +249,8 @@ public Artwork SelectArtwork() {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        
-    }
 
-   
+    }
 
     @FXML
     private void btn_artwork_clicked(ActionEvent event) {
@@ -263,7 +263,7 @@ public Artwork SelectArtwork() {
 
     @FXML
     private void serach_keytyped(KeyEvent event) {
-         ArtworkList = Artwork_Services.search(artwork_search.getText());
+        ArtworkList = Artwork_Services.search(artwork_search.getText());
 
         col_id.setCellValueFactory(new PropertyValueFactory<>("id_art"));
         col_name.setCellValueFactory(new PropertyValueFactory<>("artwork_name"));
@@ -277,8 +277,7 @@ public Artwork SelectArtwork() {
             // Cast room_tableview to TableView<Room> and set its items
             ((TableView<Artwork>) table_Artwork).setItems(FXCollections.observableArrayList(ArtworkList));
         }
-        
-        
+
     }
 
 }
