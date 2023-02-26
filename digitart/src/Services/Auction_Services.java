@@ -51,7 +51,7 @@ public class Auction_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE artwork.id_artist ="+ id_artist);
+            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE artwork.id_artist =" + id_artist);
 
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(4).toLocalDate();
@@ -81,7 +81,6 @@ public class Auction_Services {
         }
         return displayList;
     }
-    
 
     public static void delete(int ID) {
 
@@ -167,7 +166,7 @@ public class Auction_Services {
             return null;
         }
     }
-    
+
     public static String get_img(int id) {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT image_art FROM artwork WHERE id_art= ?");
@@ -183,7 +182,7 @@ public class Auction_Services {
             return null;
         }
     }
-    
+
     public static int find_artist_id(String artwork_name) {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT id_artist FROM artwork WHERE artwork_name = ?");
@@ -199,7 +198,8 @@ public class Auction_Services {
             return -1;
         }
     }
-     public static String find_artist_name(int id) {
+
+    public static String find_artist_name(int id) {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT CONCAT(firstname,' ',lastname) AS name FROM users WHERE id= ?");
             statement.setInt(1, id);
@@ -215,4 +215,30 @@ public class Auction_Services {
         }
     }
 
+    public static ArrayList<Auction> verif_winners() {
+        ArrayList<Auction> list = new ArrayList<>();
+
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE artwork.id_artist =");
+
+            while (resultSet.next()) {
+                LocalDate D = resultSet.getDate(4).toLocalDate();
+                Auction data = new Auction(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getInt(3),
+                        resultSet.getInt(6),
+                        D,
+                        resultSet.getString(5)
+                );
+                list.add(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
 }

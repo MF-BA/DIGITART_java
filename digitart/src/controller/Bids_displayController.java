@@ -99,7 +99,7 @@ public class Bids_displayController implements Initializable {
         contentStream.setFont(font, 12);
 
         // Define the column headers
-        String[] columnHeaders = {"Offer", "date", "bidder`s name"};
+        String[] columnHeaders = {"Offer", "date", "bidder"};
         float[] columnWidths = {100, 200, 200};
 
         // Draw the column headers

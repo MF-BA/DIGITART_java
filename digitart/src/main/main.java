@@ -5,29 +5,23 @@
  */
 package main;
 
+import javax.mail.PasswordAuthentication;
 import java.time.LocalDate;
-import entity.Ticket;
-import Services.ServiceTicket;
-import entity.Auction;
-import Services.Auction_Services;
-import Services.Bid_Services;
-import controller.Signup_pageController;
-import entity.Bid;
-import entity.Auction_display;
 import entity.Data;
 import entity.users;
-import java.io.IOException;
-import java.sql.Connection;
 import java.time.Month;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.StageStyle;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -53,15 +47,47 @@ public class main extends Application {
         this.primaryStage.show();
     }
 
+    public void envoyer() {
+        //Session Creation
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(Data.username, Data.password);
+            }
+        });
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("votre_mail@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse("destinataire@gmail.com"));
+            message.setSubject("Test email");
+            message.setText("Bonjour, ce message est un test ...");
+            Transport.send(message);
+            System.out.println("Message_envoye");
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /* public static void main(String[] args) {
+            EnvoyerEmail test = new EnvoyerEmail();
+            test.envoyer();
+        }*/
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Data.user = new users(1, 12,"firstname", "lastname", "email", " pwd", "address",  45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
+        
+        Data.user = new users(1, 12, "firstname", "lastname", "email", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
         launch(args);
-        
 
-        
         //Amine---------------------------------------------------------------------------------------------------- 
         /*
         java.sql.Date ticketDate = java.sql.Date.valueOf("1990-03-12");
