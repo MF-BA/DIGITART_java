@@ -28,12 +28,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 /**
  * FXML Controller class
@@ -107,7 +105,20 @@ public class Bids_displayController implements Initializable {
         // Draw the column headers
         float x = 50;
         float y = tableTopY;
+
+        contentStream.beginText();
+        contentStream.newLineAtOffset(x, y);
+        contentStream.showText("Artwork name:" + Data.auction_display.getName().toUpperCase() + "             Starting Price:" + Data.auction_display.getStarting_price()) ;
+        contentStream.endText();
+        y-=20;
+        
+        contentStream.beginText();
+        contentStream.newLineAtOffset(x, y);
+        contentStream.showText(" Artist name:" + Data.auction_display.getName_artist() + "             Ending Date:" + Data.auction_display.getDate());
+        contentStream.endText();
+        y-=30;
         for (int i = 0; i < columnHeaders.length; i++) {
+           
             contentStream.beginText();
             contentStream.newLineAtOffset(x, y);
             contentStream.showText(columnHeaders[i]);
@@ -116,7 +127,7 @@ public class Bids_displayController implements Initializable {
         }
 
         // Draw the table cells
-        y -= rowHeight; // move the y-coordinate up one row
+        y -= 10; // move the y-coordinate up one row
         for (int i = 0; i < table_view.getItems().size(); i++) {
             String[] rowData = table_view.getItems().get(i).toString().split(", ");
             x = 50;
