@@ -12,6 +12,7 @@ import entity.Artwork;
 import entity.Artwork_display;
 import entity.Auction_display;
 import entity.Data;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -41,8 +42,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 /**
  * FXML Controller class
@@ -93,6 +99,8 @@ public class Display_artworkController implements Initializable {
     private Label labeladminname1;
     @FXML
     private Label labeladminname2;
+    @FXML
+    private Button BTN_PDF;
 
     /**
      * Initializes the controller class.
@@ -279,5 +287,81 @@ public class Display_artworkController implements Initializable {
         }
 
     }
+
+//    @FXML
+//    private void btn_PDF_clicked(ActionEvent event) throws IOException {
+//        
+//        
+//        PDDocument document = new PDDocument();
+//        PDPage page = new PDPage();
+//        document.addPage(page);
+//        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+//        float tableTopY = 700; // Set the initial y-coordinate of the table
+//        float rowHeight = 20; // Set the height of each row in the table
+//        float tableWidth = 500; // Set the width of the table
+//        PDType1Font font = PDType1Font.HELVETICA_BOLD;
+//        contentStream.setFont(font, 12);
+//
+//        // Define the column headers
+//        String[] columnHeaders = {"Offer", "date", "bidder"};
+//        float[] columnWidths = {100, 200, 200};
+//
+//        // Draw the column headers
+//        float x = 50;
+//        float y = tableTopY;
+//
+//        contentStream.beginText();
+//        contentStream.newLineAtOffset(x, y);
+//        contentStream.showText("Artwork name:" + Data.auction_display.getName().toUpperCase() + "             Starting Price:" + Data.auction_display.getStarting_price()) ;
+//        contentStream.endText();
+//        y-=20;
+//        
+//        contentStream.beginText();
+//        contentStream.newLineAtOffset(x, y);
+//        contentStream.showText(" Artist name:" + Data.auction_display.getName_artist() + "             Ending Date:" + Data.auction_display.getDate());
+//        contentStream.endText();
+//        y-=30;
+//        for (int i = 0; i < columnHeaders.length; i++) {
+//           
+//            contentStream.beginText();
+//            contentStream.newLineAtOffset(x, y);
+//            contentStream.showText(columnHeaders[i]);
+//            contentStream.endText();
+//            x += columnWidths[i];
+//        }
+//
+//        // Draw the table cells
+//        y -= 10; // move the y-coordinate up one row
+//        for (int i = 0; i < table_view.getItems().size(); i++) {
+//            String[] rowData = table_view.getItems().get(i).toString().split(", ");
+//            x = 50;
+//            for (int j = 0; j < rowData.length; j++) {
+//                contentStream.addRect(x, y - rowHeight, columnWidths[j], rowHeight); // draw cell border
+//                contentStream.stroke();
+//                contentStream.beginText();
+//                contentStream.newLineAtOffset(x + 2, y - rowHeight + 2);
+//                contentStream.showText(rowData[j]);
+//                contentStream.endText();
+//                x += columnWidths[j];
+//            }
+//            y -= rowHeight;
+//        }
+//
+//        contentStream.close();
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Save PDF File");
+//        fileChooser.setInitialFileName("table_data.pdf");
+//        File file = fileChooser.showSaveDialog((Stage) Export_table.getScene().getWindow());
+//        if (file != null) {
+//            try {
+//                document.save(file);
+//            } catch (IOException ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//        document.close();
+//
+//
+//    }
 
 }
