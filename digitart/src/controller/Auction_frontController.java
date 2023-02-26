@@ -66,17 +66,15 @@ public class Auction_frontController implements Initializable {
     private Button auction_btn;
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {   
-        
+    public void initialize(URL url, ResourceBundle rb) {
+        btn_Add_Auction.setStyle("-fx-background-color: transparent");
+        btn_Artworks_Auction.setStyle("-fx-background-color:transparent  ");
+        auction_btn.setStyle("-fx-background-color: #470011");
         display_auction();
-        
-        
-        
+
     }
-   
-    
-    public void display_auction()
-    {
+
+    public void display_auction() {
         auction_array_detailed = Auction_Services.Display_auction_details(Data.user.getId());
         int column = 0;
         int row = 1;
@@ -108,7 +106,7 @@ public class Auction_frontController implements Initializable {
                 Logger.getLogger("heeerrreeeee" + Auction_frontController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
 
     private void showArtworkDetails(Auction_display artwork) {

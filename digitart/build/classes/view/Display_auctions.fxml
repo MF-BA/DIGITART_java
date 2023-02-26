@@ -32,15 +32,7 @@
       <Button fx:id="display_show_bid_btn" layoutX="779.0" layoutY="581.0" mnemonicParsing="false" onAction="#display_show_bid_btn_click" prefHeight="41.0" prefWidth="119.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show Bids" />
       <Button fx:id="Dslay_update_button" layoutX="919.0" layoutY="581.0" mnemonicParsing="false" onAction="#Auctonupdate" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Update" />
       <Button fx:id="Dslay_delete_button" layoutX="1041.0" layoutY="581.0" mnemonicParsing="false" onAction="#AuctonDelete" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Delete" />
-      <Button fx:id="search_btn" layoutX="1060.0" layoutY="157.0" minHeight="20.0" mnemonicParsing="false" onAction="#search_btn_clicked" prefHeight="27.0" prefWidth="107.0" text="Search">
-         <graphic>
-            <FontAwesomeIconView glyphName="SEARCH" wrappingWidth="22.350000381469727" />
-         </graphic>
-         <font>
-            <Font name="Berlin Sans FB Demi Bold" size="15.0" />
-         </font>
-      </Button>
-      <TextField fx:id="search_in" layoutX="898.0" layoutY="157.0" prefHeight="27.0" prefWidth="152.0" />
+      <TextField fx:id="search_in" layoutX="1013.0" layoutY="156.0" onKeyTyped="#search_in_clck" prefHeight="27.0" prefWidth="152.0" style="-fx-background-radius: 20;" styleClass="search" stylesheets="@auctionDesign.css" />
       <VBox prefHeight="729.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
             <Pane prefHeight="171.0" prefWidth="269.0">
@@ -109,6 +101,6 @@
             </Button>
          </children>
       </VBox>
-      <FontAwesomeIconView fx:id="clear" glyphName="CLOSE" layoutX="1035.0" layoutY="176.0" onMouseClicked="#clear_search" size="15.0" />
+      <FontAwesomeIconView fx:id="clear" glyphName="CLOSE" layoutX="1150.0" layoutY="175.0" onMouseClicked="#clear_search" size="15.0" />
    </children>
 </AnchorPane>

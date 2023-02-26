@@ -5,6 +5,7 @@
  */
 package entity;
 
+import Services.Auction_Services;
 import java.time.LocalDate;
 
 /**
@@ -77,8 +78,7 @@ public class Bid {
 
     @Override
     public String toString() {
-        return "Bid{" + "id_bid=" + id_bid + ", id_user=" + id_user + ", id_auction=" + id_auction
-                + ", offer=" + offer + ", date=" + date + '}';
+        return String.valueOf(offer) +", " + date +", " + Auction_Services.find_artist_name(id_user);
     }
 
 }
