@@ -66,6 +66,11 @@ public class Add_auction_Controller implements Initializable {
     private Button btn_Add_Auction;
     @FXML
     private Button btn_Artworks_Auction;
+    @FXML
+    private Button Close;
+    @FXML
+    private Button Minimize;
+    @FXML
     private AnchorPane main_anchor;
 
     /**
@@ -152,10 +157,12 @@ public class Add_auction_Controller implements Initializable {
         go_Home(event);
     }
 
+    @FXML
     private void Close(ActionEvent event) {
         System.exit(0);
     }
 
+    @FXML
     private void Minimize(ActionEvent event) {
         Stage stage = (Stage) main_anchor.getScene().getWindow();
         stage.setIconified(true);

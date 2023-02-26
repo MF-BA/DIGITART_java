@@ -100,6 +100,8 @@ public class ServiceTicket {
             Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "error in update!!", e);
         }
     }
+    
+    //public static void fetchUser(String email, String )
 
     
 }

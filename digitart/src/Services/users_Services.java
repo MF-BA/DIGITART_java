@@ -31,7 +31,7 @@ public class users_Services {
     public users_Services() {
     }
     
-    public void adminadduser(users u){
+    public void adduser(users u){
        
             String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role) values (? ,?, ?, ?, ?, ?, ?, ?, ?, ?)";
              try {
@@ -56,31 +56,7 @@ public class users_Services {
             }
     
     }
-     public void adduser(users u){
-       
-            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender) values (? ,?, ?, ?, ?, ?, ?, ?, ?)";
-             try {
-            pst = conn.prepareStatement(sql);
-            pst.setInt(1,u.getCin());
-            pst.setString(2,u.getFirstname());
-            pst.setString(3,u.getLastname());
-            pst.setString(4,u.getEmail());
-            pst.setString(5,u.getPwd());
-            pst.setString(6,u.getAddress());
-            pst.setInt(7,u.getPhone_number());
-            pst.setDate(8,Date.valueOf(u.getBirth_date()));
-            pst.setString(9,u.getGender());
-           
-            
-             pst.executeUpdate();
-            System.out.println("success!!");
-                
-            } catch (SQLException ex) {
-                System.err.println("error!!");
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    
-    }
+     
      public static ArrayList<users> Displayusers() {
 
         ArrayList<users> list = new ArrayList<>();
@@ -161,7 +137,44 @@ public class users_Services {
     
     }
     
-    
+    public users getuserdata(String email, String pwd) {
+    users data = null;
+    ResultSet res = null;
+    String sql = "SELECT * FROM users WHERE email=? AND password=?";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, email);
+        stmt.setString(2, pwd);
+        res = stmt.executeQuery();
+        if (res.next()) {
+            LocalDate D = res.getDate(9).toLocalDate();
+            data = new users(
+                res.getInt(1),
+                res.getInt(2),
+                res.getString(3),
+                res.getString(4),
+                res.getString(5),
+                res.getString(6),
+                res.getString(7),
+                res.getInt(8),
+                D,
+                res.getString(10),
+                res.getString(11)
+            );
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(users_Services.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        try {
+            if (res != null) {
+                res.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(users_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    return data;
+}
+
     
     
     

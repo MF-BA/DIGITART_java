@@ -110,6 +110,12 @@ public class Signup_pageController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent pt;
+    @FXML
+    private RadioButton yesartist;
+    @FXML
+    private RadioButton noartist;
+    @FXML
+    private Label errorquestionartist;
     
     @FXML
     void confirm_btn(ActionEvent event) {
@@ -122,53 +128,156 @@ public class Signup_pageController implements Initializable {
         String passwd = pwd.getText();
         String Address = address.getText();
         String gender = null;
-        
+        String role = null;
     int Cin = 0;
     int phone_number = 0;
-       
-       if (!phone_num.getText().isEmpty()) {
+       errormsgfname.setText("");
+    errormsglname.setText("");
+    errormsgemail.setText("");
+    errormsgpwd.setText("");
+    errormsgcin.setText("");
+    errormsgaddress.setText("");
+     errormsgphonenum.setText("");
+   errormsggender.setText("");
+   errormsgelements.setText("");
+   errormsgbirthdate.setText("");
+   errorquestionartist.setText("");
+   
+   
+   if (!phone_num.getText().isEmpty())
+    {               
     if (!phone_num.getText().matches("\\d+")) {
         errormsgphonenum.setText("Phone number should be a number!");
-    } else {
+    } else if (phone_num.getText().toString().length()<8)
+    {
+        errormsgphonenum.setText("Phone number should contain 8 digits!");
+    }
+    else {
         phone_number = Integer.parseInt(phone_num.getText().trim());
     }
-}
-
-if (!cin.getText().isEmpty()) {
-    if (!cin.getText().matches("\\d+")) {
+            }
+       if (!cin.getText().isEmpty())
+    {
+     if (!cin.getText().matches("\\d+")) {
         errormsgcin.setText("CIN should be a number!");
-    } else {
-        Cin = Integer.parseInt(cin.getText().trim());  
+    } else if (cin.getText().toString().length()<8)
+    {
+        errormsgcin.setText("CIN should contain 8 digits!");
     }
-}
-
-   if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null) {
-    errormsgelements.setText("Please fill all elements!!");  
-    } else if (!male_gender.isSelected() && !female_gender.isSelected()) {
-    errormsggender.setText("Please specify your gender!"); 
-    }  else {
+    else
+    {
+        Cin = Integer.parseInt(cin.getText().trim());  
+    }   
+    }
+     if (!male_gender.isSelected() && !female_gender.isSelected()) {
+          
+        errormsggender.setText("Please specify your gender!"); 
+        }  
+     if (!yesartist.isSelected() && !noartist.isSelected()) {
+          
+        errorquestionartist.setText("Please answer the question!"); 
+        }
+   
+     if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+    errormsgemail.setText("Invalid email format!");
+    }
+if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null || (!male_gender.isSelected() && !female_gender.isSelected())|| (!yesartist.isSelected() && !noartist.isSelected())) {
+         
+       errormsgelements.setText("Please fill all elements!!");  
+    
+    if (passwd.isEmpty())   {
+     
+     errormsgpwd.setText("fill paswword !!");   
+    }
+    if (Address.isEmpty())  {
+     
+     errormsgaddress.setText("fill Address !!");   
+    }
+    if ( Email.isEmpty())
+    {
+     
+     errormsgemail.setText("Fill Email !!");   
+    }
+    if ( firstname.isEmpty())
+    {
+     errormsgfname.setText("Fill first name !!");   
+    }
+    if ( lastname.isEmpty())
+    {
+       errormsglname.setText("Fill last name !!");
+    }
+    if (phone_num.getText().isEmpty())
+    {
+     errormsgphonenum.setText("Fill phone number !!");  
+    }
+    if (BirthDate == null)
+    {
+        errormsgbirthdate.setText("Fill birth date !!"); 
+    }
+    if ( cin.getText().isEmpty() )
+    {
+     errormsgcin.setText("Fill Cin !!");   
+    }
+    } 
+else if (yesartist.isSelected() && noartist.isSelected())
+    {
+     errorquestionartist.setText("Please select only one answer!");    
+    }
+   else if (male_gender.isSelected() && female_gender.isSelected())
+    {
+     errormsggender.setText("Please specify your gender!");    
+    }
+    else {
     if (male_gender.isSelected()) {
         gender = male_gender.getText();  
-    } else if (female_gender.isSelected()) {
+    } 
+    if (female_gender.isSelected()) {
         gender = female_gender.getText();
     }
-    user1 = new users(firstname, lastname, Email, passwd, Address, gender, Cin, phone_number, BirthDate);
+   if (yesartist.isSelected()) {
+        role = "Artist";
+    }
+   if (noartist.isSelected()) {
+        role = "Subscriber";
+    }
+    user1 = new users(Cin ,firstname, lastname, Email, passwd, Address, phone_number, BirthDate, gender, role);
     user = new users_Services();
     user.adduser(user1); 
+     
+    errormsgfname.setText("");
+    errormsglname.setText("");
+    errormsgemail.setText("");
+    errormsgpwd.setText("");
+    errormsgcin.setText("");
+    errormsgaddress.setText("");
+     errormsgphonenum.setText("");
+   errormsggender.setText("");
+   errormsgelements.setText("");
+   errormsgbirthdate.setText("");
+   errorquestionartist.setText("");
+   
+   clear();
+   loginswitch(event);
+   
+        
+    }
+
+  }
     
+ public void clear(){
+     
         fname.setText("");
         lname.setText("");
         email.setText("");
         pwd.setText("");
         address.setText("");
-        loginswitch(event);
+        cin.setText("");
+        phone_num.setText("");
+        birth_d.setValue(null);
+        female_gender.setSelected(false);
+        male_gender.setSelected(false);
+        
     }
-       
-   
-       
-   
-    }
-
     private void loginswitch(ActionEvent event) {
         try {
             pt = FXMLLoader.load(getClass().getResource("/view/signin_page.fxml"));
@@ -191,55 +300,7 @@ if (!cin.getText().isEmpty()) {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        /* confirm_sign.setOnAction(event->{
-         /* String birth_date = birth_d.getText();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date BDate = null;
-
-        try {
-            BDate = sdf.parse(birth_date); // deal with ParseException
-        } catch (ParseException ex) {
-            Logger.getLogger(Signup_pageController.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-       //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        //java.sql.Date BirthDate = java.sql.Date.valueOf(sdf.format(birth_d));
-        /*LocalDate BirthDate = birth_d.getValue();
-        if( male_gender.isSelected() ){
-        String gender = male_gender.getText();
-        user1 = new users (fname.getText(),lname.getText(),email.getText(),pwd.getText(),address.getText(),gender,Integer.parseInt(cin.getText().trim()),Integer.parseInt(phone_num.getText().trim()),BirthDate);
-    }
-        if( female_gender.isSelected() ){
-        String gender = female_gender.getText();
-        user1 = new users (fname.getText(),lname.getText(),email.getText(),pwd.getText(),address.getText(),gender,Integer.parseInt(cin.getText().trim()),Integer.parseInt(phone_num.getText().trim()),BirthDate);
-    }
        
-      
-      user.adduser(user1);
-       try {
-                Parent parent2=FXMLLoader
-                        .load(getClass().getResource("/view/add_auction.fxml"));
-                
-                Scene scene=new Scene(parent2);
-                Stage stage=(Stage) ((Node) event.getSource())
-                        .getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle("Interface 2");
-                stage.show();
-
-            } catch (IOException ex) {
-                Logger.getLogger(Signup_pageController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-     });*/
-      /*fname.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-      lname.
-      email.
-      pwd.
-      address.
-      gender.
-      cin.
-      phone_num.
-      BirthDate.*/
         
         
     }    

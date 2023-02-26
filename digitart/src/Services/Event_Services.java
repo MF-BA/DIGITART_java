@@ -6,7 +6,9 @@
 package Services;
 
 import controller.Add_eventController;
+import entity.Data;
 import entity.Event;
+import entity.Participants;
 import entity.Ticket;
 import java.sql.Connection;
 import java.sql.Date;
@@ -49,6 +51,29 @@ public class Event_Services {
         }
     }
     
+    public static void insertuser(int id_user,String first_name,String last_name,String adress,String gender,int id_event) {
+        Connection connection;
+        PreparedStatement statement;
+        
+        
+        
+        
+        
+        try {
+            connection = Conn.getCon();
+            statement = connection.prepareStatement("INSERT INTO participants (id_user,id_event, first_name,last_name, adress, gender) VALUES (?,?,?,?,?,?)");
+            statement.setInt(1, id_user);
+            statement.setInt(2, id_event);
+            statement.setString(3, first_name);
+            statement.setString(4,last_name);
+            statement.setString(5,adress);
+            statement.setString(6, gender);
+
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "error in add!!", e);
+        }
+    }
     
        public static ArrayList<Event> displayEvent() {
 
@@ -71,6 +96,29 @@ public class Event_Services {
 
         return list;
     }
+       
+        public static ArrayList<Participants> displayPart() {
+
+        ArrayList<Participants> list = new ArrayList<>();
+        Connection connection;
+        Statement statement;
+        ResultSet result;
+        try {
+            connection = Conn.getCon();
+            statement = connection.createStatement();
+            result = statement.executeQuery("SELECT * FROM participants");
+
+            while (result.next()) {
+                Participants data = new Participants(result.getString("first_name"),result.getString("last_name"),result.getInt("id_user"),result.getInt("id_event"),result.getString("adress"),result.getString("gender"));
+                list.add(data);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "error in display!!", e);
+        }
+
+        return list;
+    }
+       
         public static void deleteEvent(int id) {
         Connection connection = Conn.getCon();
         Statement statement = null;
@@ -123,6 +171,25 @@ public class Event_Services {
         try {
               statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT id_room FROM room");
+
+            while (resultSet.next()) {
+                list.add(resultSet.getInt(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+ 
+  public static ArrayList<Integer> find_idevent() {
+        ArrayList<Integer> list = new ArrayList<>();
+        Connection connection = Conn.getCon();
+        Statement statement;
+        ResultSet resultSet;
+        try {
+              statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT id FROM event");
 
             while (resultSet.next()) {
                 list.add(resultSet.getInt(1));

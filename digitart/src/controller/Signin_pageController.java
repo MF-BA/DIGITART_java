@@ -5,8 +5,15 @@
  */
 package controller;
 
+import Services.users_Services;
+import entity.Data;
+import entity.users;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +29,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
+import utils.Conn;
 
 /**
  * FXML Controller class
@@ -41,9 +50,15 @@ public class Signin_pageController implements Initializable {
     @FXML
     private PasswordField pwdlogin;
     @FXML
-    private Button return_btn_login;
-    @FXML
     private Button register_btn;
+
+    private users_Services user;
+    private users user1;
+    static Connection conn = Conn.getCon();
+
+    PreparedStatement pst;
+    @FXML
+    private Button login_btn;
 
     /**
      * Initializes the controller class.
@@ -51,21 +66,18 @@ public class Signin_pageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-
-    @FXML
-    private void return_btn_login(ActionEvent event) {
     }
+
 
     @FXML
     private void register_clicked(ActionEvent event) {
-        
+
         try {
-            Parent parent2=FXMLLoader
+            Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/signup_page.fxml"));
-            
-            Scene scene=new Scene(parent2);
-            Stage stage=(Stage) ((Node) event.getSource())
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
                     .getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Register");
@@ -74,5 +86,90 @@ public class Signin_pageController implements Initializable {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    @FXML
+    private void login_btn(ActionEvent event) {
+
+        users_Services user = new users_Services();
+        String role = null;
+
+        if (emaillogin.getText().trim().isEmpty() && pwdlogin.getText().trim().isEmpty()) {
+            emailerrormsg.setText("Email is Empty !! ");
+            pwderrormsg.setText("Password is Empty !! ");
+        } else if (emaillogin.getText().trim().isEmpty()) {
+            emailerrormsg.setText("Email is Empty !! ");
+        } else if (pwdlogin.getText().trim().isEmpty()) {
+            pwderrormsg.setText("Password is Empty !! ");
+        } else {
+            try {
+                String sql = "Select * from users where email=? and password=?";
+
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, emaillogin.getText());
+                pst.setString(2, pwdlogin.getText());
+
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    loginerrormsg.setText("Email and Password are correct!! ");
+                    Data.user
+                            = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
+
+                    System.out.println(Data.user);
+                    role = rs.getString("role");
+
+                } else {
+                    loginerrormsg.setText("Email or Password incorrect !! ");
+                    emaillogin.setText("");
+                    pwdlogin.setText("");
+
+                }
+                //conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            if (role != null) {
+                if (role.equals("Admin")) {
+                    gotoDash(event);
+                } else {
+                    gotoHome(event);
+                }
+            }
+
+        }
+
+    }
+
+    public void gotoHome(ActionEvent event) {
+
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/participate_event.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Home");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void gotoDash(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_event.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

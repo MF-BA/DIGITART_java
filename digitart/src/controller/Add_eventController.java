@@ -14,6 +14,8 @@ import Services.Event_Services;
 import static Services.Event_Services.displayEvent;
 import utils.Conn;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import entity.Data;
+import entity.Participants;
 import entity.Ticket;
 import java.net.URL;
 import java.sql.Connection;
@@ -142,6 +144,28 @@ public class Add_eventController implements Initializable {
     private Label errormsgnbparticipants;
     @FXML
     private TextField ticket_search;
+    @FXML
+    private Label welcome;
+    @FXML
+    private TableView<Participants> tabpart;
+    @FXML
+    private TableColumn<Participants, Integer> colid_part;
+    @FXML
+    private TableColumn<Participants, String> colpart_fname;
+    @FXML
+    private TableColumn<Participants, String> colpart_lname;
+    @FXML
+    private TableColumn<Participants, String> colpart_adress;
+    @FXML
+    private TableColumn<Participants, String> colpart_gender;
+    @FXML
+    private ComboBox<Integer> id_event_combobox;
+    @FXML
+    private AnchorPane part_anc;
+    @FXML
+    private Button list_participants;
+    @FXML
+    private Button deconnect;
  
     
 
@@ -153,8 +177,11 @@ public class Add_eventController implements Initializable {
         
         event_add_anc.setVisible(true);
         list_of_events.setVisible(false);
+        part_anc.setVisible(false);
+        welcome.setText(Data.user.getFirstname());
          
      showevent();
+     showparticipants();
      combobox();
     }    
 
@@ -189,6 +216,23 @@ public class Add_eventController implements Initializable {
         if (tabevent != null && tabevent instanceof TableView) {
             // Cast ticket_tableview to TableView<Ticket> and set its items
             ((TableView<Event>) tabevent).setItems(FXCollections.observableArrayList(eventList));
+        }
+    }
+    
+     private ArrayList<Participants> partlist;
+    public void showparticipants() {
+
+        partlist = Event_Services.displayPart();
+        colid_part.setCellValueFactory(new PropertyValueFactory<>("id_user"));
+        colpart_adress.setCellValueFactory(new PropertyValueFactory<>("adress") );
+        colpart_fname.setCellValueFactory(new PropertyValueFactory<>("first_name") );
+        colpart_lname.setCellValueFactory(new PropertyValueFactory<>("last_name") );
+        colpart_gender.setCellValueFactory(new PropertyValueFactory<>("gender") );
+    
+
+        if (tabpart != null && tabpart instanceof TableView) {
+            // Cast ticket_tableview to TableView<Ticket> and set its items
+            ((TableView<Participants>) tabpart).setItems(FXCollections.observableArrayList(partlist));
         }
     }
     
@@ -232,9 +276,7 @@ public class Add_eventController implements Initializable {
         String event_desc = this.txt_desc.getText();
         int start_time = Integer.parseInt(this.txt_start_time.getText());
         int id_room;
-        id_room = this.txt_room.getSelectionModel().getSelectedItem();
-        
-        
+        id_room = this.txt_room.getSelectionModel().getSelectedItem();  
 
         Alert alert;
 
@@ -328,13 +370,14 @@ public class Add_eventController implements Initializable {
         txt_start_time.setText(String.valueOf(eventt.getStart_time()));
         txt_event_name.setText(String.valueOf(eventt.getEvent_name()));
         ((ComboBox<Integer>) txt_room).setValue(eventt.getId_room());
-        
-        
             
     }
       public void combobox() {
         ObservableList<Integer> myObservableList = FXCollections.observableArrayList(Event_Services.find_idroom());
         txt_room.setItems(myObservableList);
+        
+        ObservableList<Integer> myObservableList1 = FXCollections.observableArrayList(Event_Services.find_idevent());
+        id_event_combobox.setItems(myObservableList1);
         }
       
     public void EventUpdate() {
@@ -393,6 +436,8 @@ public class Add_eventController implements Initializable {
         modify_event_field.setVisible(true);
          event_add_anc.setVisible(true);
         list_of_events.setVisible(false);
+        part_anc.setVisible(false);
+        list_participants.setStyle("-fx-background-color: transparent "); 
         add_event.setStyle("-fx-background-color:   transparent ");
         modify_event.setStyle("-fx-background-color:  #470011 ");
         list_events.setStyle("-fx-background-color: transparent "); 
@@ -407,9 +452,11 @@ public class Add_eventController implements Initializable {
         modify_event_field.setVisible(false);
         event_add_anc.setVisible(true);
         list_of_events.setVisible(false);
+        part_anc.setVisible(false);
         add_event.setStyle("-fx-background-color:   #470011 ");
         modify_event.setStyle("-fx-background-color:  transparent ");
         list_events.setStyle("-fx-background-color: transparent "); 
+        list_participants.setStyle("-fx-background-color: transparent "); 
         txt_event_id.setText("");
         txt_event_name.setText("");
         txt_start_time.setText("");
@@ -429,13 +476,34 @@ public class Add_eventController implements Initializable {
         modify_event_field.setVisible(false);
         event_add_anc.setVisible(false);
         list_of_events.setVisible(true);
+        part_anc.setVisible(false);
         add_event.setStyle("-fx-background-color:   transparent ");
         modify_event.setStyle("-fx-background-color:  transparent ");
         list_events.setStyle("-fx-background-color: #470011 "); 
+        list_participants.setStyle("-fx-background-color: transparent "); 
     }
 
     @FXML
     private void searchTicket(KeyEvent event) {
+    }
+
+    @FXML
+    private void list_part_btn(ActionEvent event) {
+        btnadd.setVisible(false);
+        btnupdate.setVisible(false);
+        add_event_txt_field.setVisible(false);
+        modify_event_field.setVisible(false);
+        part_anc.setVisible(true);
+        event_add_anc.setVisible(false);
+        list_of_events.setVisible(false);
+        add_event.setStyle("-fx-background-color:   transparent ");
+        modify_event.setStyle("-fx-background-color:  transparent ");
+        list_events.setStyle("-fx-background-color: transparent "); 
+        list_participants.setStyle("-fx-background-color: #470011 "); 
+    }
+
+    @FXML
+    private void deconnect_btn(ActionEvent event) {
     }
 
     
