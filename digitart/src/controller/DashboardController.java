@@ -11,6 +11,8 @@ import entity.users;
 import java.awt.Color;
 import java.io.IOException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -274,8 +276,25 @@ public class DashboardController implements Initializable {
         comboboxup(); 
         combobox();
         comboboxedit();
+        
+        
+     search_userfield.textProperty().addListener((observable, oldValue, newValue) -> {
+    // Retrieve the search query from the text field
+    String searchQuery = newValue.toLowerCase();
+    users_Services u = new users_Services();
+    // Query the database to retrieve the matching records
+    List<users> matchingUsers = u.getUsersMatchingSearchQuery(searchQuery);
+
+    // Clear the table view
+    user_table.getItems().clear();
+
+    // Update the table view to display the matching records
+    user_table.getItems().addAll(matchingUsers);
+    });
+      
     }    
 
+    
     
     
     @FXML
@@ -391,13 +410,15 @@ public void comboboxedit()
     }
  
      @FXML
-    private void add_dash_btn(ActionEvent event) {
+    private void add_dash_btn(ActionEvent event) throws NoSuchAlgorithmException {
         
         LocalDate BirthDate = birth_d.getValue();
         String firstname = fname.getText();
         String lastname = lname.getText();
         String Email = email.getText();
         String passwd = pwd.getText();
+        
+        
         String Address = address.getText();
         String gender=null;
         String role = (String) Rolebox.getSelectionModel().getSelectedItem();
@@ -500,7 +521,9 @@ public void comboboxedit()
         gender = female_gender.getText();
     }
    
-    user1 = new users(Cin ,firstname, lastname, Email, passwd, Address, phone_number, BirthDate, gender, role);
+    String hashedPassword = users_Services.hashPassword(passwd);
+        
+    user1 = new users(Cin ,firstname, lastname, Email, hashedPassword, Address, phone_number, BirthDate, gender, role);
     user = new users_Services();
     user.adduser(user1); 
      
@@ -629,6 +652,7 @@ public void comboboxedit()
         clearupd();
         
     }
+    
  public void comboboxup()
  {
      List<String> options = new ArrayList<>();

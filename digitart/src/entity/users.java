@@ -101,6 +101,22 @@ public class users {
         
         
     }
+    public users(int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role, String status) {
+        
+        this.cin = cin;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.pwd = pwd;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.birth_date = birth_date;
+        this.gender = gender;
+        this.role = role;
+        this.status = status;
+        
+        
+    }
 
     public String getFirstname() {
         return firstname;

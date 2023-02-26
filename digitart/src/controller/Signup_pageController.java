@@ -9,6 +9,7 @@ import Services.users_Services;
 import entity.users;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -118,7 +119,7 @@ public class Signup_pageController implements Initializable {
     private Label errorquestionartist;
     
     @FXML
-    void confirm_btn(ActionEvent event) {
+    void confirm_btn(ActionEvent event) throws NoSuchAlgorithmException {
        
         
         LocalDate BirthDate = birth_d.getValue();
@@ -240,7 +241,9 @@ else if (yesartist.isSelected() && noartist.isSelected())
    if (noartist.isSelected()) {
         role = "Subscriber";
     }
-    user1 = new users(Cin ,firstname, lastname, Email, passwd, Address, phone_number, BirthDate, gender, role);
+   
+    String hashedPassword = users_Services.hashPassword(passwd);
+    user1 = new users(Cin ,firstname, lastname, Email, hashedPassword, Address, phone_number, BirthDate, gender, role);
     user = new users_Services();
     user.adduser(user1); 
      

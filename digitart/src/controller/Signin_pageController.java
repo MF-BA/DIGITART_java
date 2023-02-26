@@ -10,6 +10,7 @@ import entity.Data;
 import entity.users;
 import java.io.IOException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -92,7 +93,7 @@ public class Signin_pageController implements Initializable {
     }
 
     @FXML
-    private void login_btn(ActionEvent event) {
+    private void login_btn(ActionEvent event) throws NoSuchAlgorithmException {
 
         users_Services user = new users_Services();
         String role = null;
@@ -110,7 +111,7 @@ public class Signin_pageController implements Initializable {
 
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, emaillogin.getText());
-                pst.setString(2, pwdlogin.getText());
+                pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
 
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {

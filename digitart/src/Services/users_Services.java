@@ -6,14 +6,18 @@
 package Services;
 
 import entity.users;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.main;
@@ -154,13 +158,13 @@ public class users_Services {
     
     }
     
-    public users getuserdata(String email, String pwd) {
+    public users getuserdata(String email, String pwd) throws NoSuchAlgorithmException {
     users data = null;
     ResultSet res = null;
     String sql = "SELECT * FROM users WHERE email=? AND password=?";
     try (PreparedStatement stmt = conn.prepareStatement(sql)) {
         stmt.setString(1, email);
-        stmt.setString(2, pwd);
+        stmt.setString(2, hashPassword(pwd));
         res = stmt.executeQuery();
         if (res.next()) {
             LocalDate D = res.getDate(9).toLocalDate();
@@ -211,9 +215,77 @@ public class users_Services {
     
     }
     
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        md.update(password.getBytes());
+        byte[] bytes = md.digest();
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i< bytes.length ;i++){
+            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        return sb.toString();
+    } 
     
     
+   public List<users> getUsersMatchingSearchQuery(String searchQuery) {
     
+       List<users> matchingUsers = new ArrayList<>();
     
+    try {
+        boolean isInteger = false;
+        try {
+            int searchInt = Integer.parseInt(searchQuery);
+            isInteger = true;
+        } catch (NumberFormatException e) {
+            // Ignore the exception and continue with the search
+        }
+        PreparedStatement stmt;
+        if (isInteger){
+           
+        stmt = conn.prepareStatement("SELECT * FROM users WHERE phone_num = ? or cin = ?");
+        int searchInt = Integer.parseInt(searchQuery);
+        
+        stmt.setInt(1, searchInt);
+        stmt.setInt(2, searchInt);
+        
+        }
+        else
+        {
+         stmt = conn.prepareStatement("SELECT * FROM users WHERE lower(firstname) LIKE ? or lower(lastname) LIKE ? or lower(email) like ? or lower(address) like ? or lower(gender) like ? or lower(role) like ?");
+            String wildcardQuery = "%" + searchQuery + "%";
+        stmt.setString(1, wildcardQuery);
+        stmt.setString(2, wildcardQuery);
+        stmt.setString(3, wildcardQuery);
+        stmt.setString(4, wildcardQuery);
+        stmt.setString(5, wildcardQuery);
+        stmt.setString(6, wildcardQuery);
+        }
+        // Execute the prepared statement and retrieve the result set
+         ResultSet res = stmt.executeQuery();
+
+        // Iterate over the result set and create User objects for each row
+        while (res.next()) {
+            int cin = res.getInt(2);
+            String fname = res.getString(3);
+            String lname = res.getString(4);
+            String email = res.getString(5);
+            String password = res.getString(6);
+            String address = res.getString(7);          
+            int phone_num = res.getInt(8);
+            LocalDate birth_d = res.getDate(9).toLocalDate();
+            String gender = res.getString(10);
+            String role = res.getString(11);
+            String Status = res.getString(12);
+
+            users user = new users(cin, fname, lname, email, password, address, phone_num, birth_d, gender, role, Status);
+            matchingUsers.add(user);
+        }
+        
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return matchingUsers;
+}
     
 }
