@@ -33,7 +33,7 @@ public class users_Services {
     
     public void adduser(users u){
        
-            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role) values (? ,?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role,status) values (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
              try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1,u.getCin());
@@ -46,6 +46,7 @@ public class users_Services {
             pst.setDate(8,Date.valueOf(u.getBirth_date()));
             pst.setString(9,u.getGender());
             pst.setString(10,u.getRole());
+            pst.setString(11,"unblocked");
             
              pst.executeUpdate();
             System.out.println("success!!");
@@ -80,7 +81,8 @@ public class users_Services {
                         res.getInt(8),
                            D,
                         res.getString(10),
-                        res.getString(11)
+                        res.getString(11),
+                        res.getString(12)
                         
                 );
                 list.add(data);
@@ -137,6 +139,21 @@ public class users_Services {
     
     }
     
+     public static void blockuser(int id){
+       
+             Statement statement;
+             try {
+            statement = conn.createStatement();
+            statement.executeUpdate("update users set status='blocked' WHERE id =" + id);
+            System.out.println("success!!");
+                
+            } catch (SQLException ex) {
+                System.err.println("error!!");
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    
+    }
+    
     public users getuserdata(String email, String pwd) {
     users data = null;
     ResultSet res = null;
@@ -158,7 +175,8 @@ public class users_Services {
                 res.getInt(8),
                 D,
                 res.getString(10),
-                res.getString(11)
+                res.getString(11),
+                res.getString(12)
             );
         }
     } catch (SQLException ex) {
@@ -178,7 +196,20 @@ public class users_Services {
     
     
     
+   public static void unblockuser(int id){
+       
+             Statement statement;
+             try {
+            statement = conn.createStatement();
+            statement.executeUpdate("update users set status='unblocked' WHERE id =" + id);
+            System.out.println("success!!");
+                
+            } catch (SQLException ex) {
+                System.err.println("error!!");
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
     
+    }
     
     
     

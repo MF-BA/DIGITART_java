@@ -241,11 +241,10 @@
             <Label fx:id="errormsgrole" layoutX="542.0" layoutY="524.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="listusers_btn" layoutX="250.0" layoutY="7.0" prefHeight="709.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;" visible="false">
+      <AnchorPane fx:id="listusers_btn" layoutX="250.0" layoutY="7.0" prefHeight="709.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;">
          <children>
             <TableView fx:id="user_table" layoutX="17.0" layoutY="197.0" prefHeight="445.0" prefWidth="913.0" style="-fx-alignement: center;" stylesheets="@auctionDesign.css">
               <columns>
-                <TableColumn fx:id="id_tb" prefWidth="63.0" text="Id" />
                 <TableColumn fx:id="cin_tb" prefWidth="64.0" text="Cin" />
                   <TableColumn fx:id="fname_tb" prefWidth="86.0" text="First name" />
                   <TableColumn fx:id="lname_tb" prefWidth="94.0" text="Last name" />
@@ -256,6 +255,7 @@
                   <TableColumn fx:id="birth_d_tb" prefWidth="85.0" text="Birth date" />
                   <TableColumn fx:id="gender_tb" text="Gender" />
                   <TableColumn fx:id="role_tb" prefWidth="71.0" text="Role" />
+                  <TableColumn fx:id="status_tb" prefWidth="71.0" text="Status" />
               </columns>
             </TableView>
             <TextField fx:id="search_userfield" layoutX="20.0" layoutY="154.0" prefHeight="32.0" prefWidth="784.0" promptText="search for users" />
@@ -275,9 +275,17 @@
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Button>
-            <Button fx:id="delete_fromlist" layoutX="133.0" layoutY="660.0" mnemonicParsing="false" onAction="#delete_fromlist_btn" prefHeight="32.0" prefWidth="105.0" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Delete" textFill="WHITE">
+            <Button fx:id="block_fromlist" layoutX="133.0" layoutY="660.0" mnemonicParsing="false" onAction="#block_fromlist_btn" prefHeight="32.0" prefWidth="105.0" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Block" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="USER_TIMES" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="LOCK" />
+               </graphic>
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button fx:id="unblock_fromlist" layoutX="254.0" layoutY="660.0" mnemonicParsing="false" onAction="#unblock_fromlist_btn" prefHeight="33.0" prefWidth="105.0" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Unblock" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="UNLOCK_ALT" />
                </graphic>
                <font>
                   <Font name="Arial Bold" size="15.0" />
@@ -286,7 +294,7 @@
          </children>
       </AnchorPane>
       <AnchorPane fx:id="default_anchor" layoutX="254.0" layoutY="-1.0" prefHeight="722.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;" visible="false" />
-      <AnchorPane fx:id="update_page" layoutX="255.0" layoutY="2.0" prefHeight="709.0" prefWidth="936.0">
+      <AnchorPane fx:id="update_page" layoutX="255.0" layoutY="2.0" prefHeight="709.0" prefWidth="936.0" visible="false">
          <children>
             <Label layoutX="323.0" layoutY="44.0" prefHeight="67.0" prefWidth="290.0" text="Modify user" textFill="#bd2a2e">
                <font>

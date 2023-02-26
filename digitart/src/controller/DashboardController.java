@@ -104,8 +104,6 @@ public class DashboardController implements Initializable {
     
     private ArrayList<users> userslist;
     @FXML
-    private TableColumn<?, ?> id_tb;
-    @FXML
     private TableColumn<?, ?> cin_tb;
     @FXML
     private TableColumn<?, ?> fname_tb;
@@ -189,8 +187,6 @@ public class DashboardController implements Initializable {
     @FXML
     private Button modify_fromlist;
     @FXML
-    private Button delete_fromlist;
-    @FXML
     private AnchorPane update_page;
     @FXML
     private AnchorPane editprofile_page;
@@ -256,6 +252,12 @@ public class DashboardController implements Initializable {
     private Button deconnect;
     private Button eye_on;
     private Button eye_off;
+    @FXML
+    private Button block_fromlist;
+    @FXML
+    private TableColumn<?, ?> status_tb;
+    @FXML
+    private Button unblock_fromlist;
     /**
      * Initializes the controller class.
      */
@@ -342,7 +344,7 @@ public void comboboxedit()
     public void showusers()
     {
        userslist = users_Services.Displayusers();
-       id_tb.setCellValueFactory(new PropertyValueFactory<>("id"));
+     
         cin_tb.setCellValueFactory(new PropertyValueFactory<>("cin"));
         fname_tb.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         lname_tb.setCellValueFactory(new PropertyValueFactory<>("lastname"));
@@ -353,6 +355,8 @@ public void comboboxedit()
        birth_d_tb.setCellValueFactory(new PropertyValueFactory<>("birth_date"));
       gender_tb.setCellValueFactory(new PropertyValueFactory<>("gender"));
        role_tb.setCellValueFactory(new PropertyValueFactory<>("role"));
+       status_tb.setCellValueFactory(new PropertyValueFactory<>("status"));
+       
         if (user_table != null && user_table instanceof TableView) {
             // Cast user_table to TableView<users> and set its items
             ((TableView<users>) user_table).setItems(FXCollections.observableArrayList(userslist));
@@ -667,10 +671,9 @@ public void comboboxedit()
         
     }
 
-    @FXML
-    private void delete_fromlist_btn(ActionEvent event) {
+    /*private void delete_fromlist_btn(ActionEvent event) {
         
-        users selectedUser = user_table.getSelectionModel().getSelectedItem();
+        /*users selectedUser = user_table.getSelectionModel().getSelectedItem();
     if (selectedUser != null) {
         // Remove the selected item from the table's data list
         
@@ -679,8 +682,8 @@ public void comboboxedit()
         
     }
    
-        showusers();
-    }
+        
+    }*/
 
     @FXML
     private void editprof_btn(ActionEvent event) {
@@ -799,6 +802,43 @@ public void comboboxedit()
        eye_off.setVisible(false); 
         eye_on.setVisible(true); 
         
+        
+    }
+
+    @FXML
+    private void block_fromlist_btn(ActionEvent event) {
+        
+        users selectedUser = user_table.getSelectionModel().getSelectedItem();
+         if (selectedUser != null) {
+        // Remove the selected item from the table's data list
+        
+        
+        users_Services.blockuser(selectedUser.getId());
+        
+        
+    }
+        
+        
+        
+        showusers();
+    }
+
+    @FXML
+    private void unblock_fromlist_btn(ActionEvent event) {
+        
+         users selectedUser = user_table.getSelectionModel().getSelectedItem();
+         if (selectedUser != null) {
+        // Remove the selected item from the table's data list
+        
+        
+        users_Services.unblockuser(selectedUser.getId());
+        
+        
+    }
+        
+        
+        
+        showusers(); 
         
     }
 

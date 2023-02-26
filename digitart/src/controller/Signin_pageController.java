@@ -110,12 +110,21 @@ public class Signin_pageController implements Initializable {
 
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
+                    if(rs.getString("status").equals("unblocked"))
+                    {
                     loginerrormsg.setText("Email and Password are correct!! ");
                     Data.user
                             = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
 
                     System.out.println(Data.user);
-                    role = rs.getString("role");
+                    role = rs.getString("role");    
+                    }
+                    else
+                    {
+                      loginerrormsg.setText("Your account is blocked !! ");
+                    emaillogin.setText("");
+                    pwdlogin.setText("");  
+                    }
 
                 } else {
                     loginerrormsg.setText("Email or Password incorrect !! ");

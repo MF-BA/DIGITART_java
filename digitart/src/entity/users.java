@@ -18,6 +18,8 @@ public class users {
    String role;
    int id,cin,phone_number;
    LocalDate birth_date;
+   String status;
+   
  public users() {
        
     }
@@ -55,7 +57,7 @@ public class users {
         this.phone_number = phone_number;
         
     }
-    public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role) {
+    public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role, String status) {
         this.id = id;
         this.cin = cin;
         this.firstname = firstname;
@@ -67,8 +69,22 @@ public class users {
         this.birth_date = birth_date;
         this.gender = gender;
         this.role = role;
-        
-        
+        this.status = status;
+   
+    }
+      public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role) {
+        this.id = id;
+        this.cin = cin;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.pwd = pwd;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.birth_date = birth_date;
+        this.gender = gender;
+        this.role = role;
+   
     }
     public users(int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role) {
         
@@ -173,12 +189,20 @@ public class users {
     public void setBirth_date( LocalDate birth_date) {
         this.birth_date = birth_date;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
    
     @Override
    public String toString() {
        return "users [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
                + ", pwd=" + pwd + ", address=" + address + ", gender=" + gender + ", cin=" + cin
-               + ", phone_number=" + phone_number + ", birth_date=" + birth_date + ", role=" + role + "]";
+               + ", phone_number=" + phone_number + ", birth_date=" + birth_date + ", role=" + role + ", status=" + status + "]";
    }
     
     
