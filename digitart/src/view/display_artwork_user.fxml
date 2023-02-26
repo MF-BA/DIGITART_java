@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_artwork_userController">
    <children>
@@ -21,5 +27,49 @@
             </HBox>
          </content>
       </ScrollPane>
+      <VBox prefHeight="720.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
+         <children>
+            <Pane prefHeight="171.0" prefWidth="269.0">
+               <children>
+                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="79.0" layoutY="131.0" size="130" />
+               </children>
+            </Pane>
+            <Label prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
+               <padding>
+                  <Insets left="70.0" />
+               </padding>
+               <font>
+                  <Font name="Berlin Sans FB" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="labeladminname" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label />
+            <Label />
+            <Label />
+            <Label fx:id="labeladminname1" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labeladminname2" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
