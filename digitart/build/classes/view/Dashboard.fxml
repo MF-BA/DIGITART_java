@@ -291,6 +291,11 @@
                   <Font name="Arial Bold" size="15.0" />
                </font>
             </Button>
+            <Label layoutX="333.0" layoutY="39.0" prefHeight="67.0" prefWidth="280.0" text="List of users" textFill="#bd2a2e">
+               <font>
+                  <Font name="Berlin Sans FB" size="60.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="default_anchor" layoutX="254.0" layoutY="-1.0" prefHeight="722.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;" visible="false" />

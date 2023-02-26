@@ -25,6 +25,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -59,6 +60,8 @@ public class Signin_pageController implements Initializable {
     PreparedStatement pst;
     @FXML
     private Button login_btn;
+    @FXML
+    private CheckBox showpwd;
 
     /**
      * Initializes the controller class.
@@ -66,6 +69,7 @@ public class Signin_pageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
     }
 
 
@@ -180,5 +184,18 @@ public class Signin_pageController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void showpwd(ActionEvent event) {
+        
+        if (showpwd.isSelected()) {
+                pwdlogin.setPromptText(pwdlogin.getText());
+                pwdlogin.setText("");
+            } else {
+                pwdlogin.setText(pwdlogin.getPromptText());
+                pwdlogin.setPromptText("");
+            }
+        
     }
 }
