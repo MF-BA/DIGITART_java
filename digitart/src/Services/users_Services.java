@@ -37,7 +37,7 @@ public class users_Services {
     
     public void adduser(users u){
        
-            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role,status) values (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role,status, image) values (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
              try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1,u.getCin());
@@ -51,7 +51,7 @@ public class users_Services {
             pst.setString(9,u.getGender());
             pst.setString(10,u.getRole());
             pst.setString(11,"unblocked");
-            
+            pst.setString(12,"");
              pst.executeUpdate();
             System.out.println("success!!");
                 

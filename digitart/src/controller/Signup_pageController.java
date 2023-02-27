@@ -243,7 +243,7 @@ else if (yesartist.isSelected() && noartist.isSelected())
     }
    
     String hashedPassword = users_Services.hashPassword(passwd);
-    user1 = new users(Cin ,firstname, lastname, Email, hashedPassword, Address, phone_number, BirthDate, gender, role);
+    user1 = new users(Cin ,firstname, lastname, Email, hashedPassword, Address, phone_number, BirthDate, gender, role,"unblocked");
     user = new users_Services();
     user.adduser(user1); 
      
