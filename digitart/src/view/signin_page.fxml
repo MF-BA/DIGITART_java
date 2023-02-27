@@ -84,5 +84,6 @@
             <Font name="Berlin Sans FB" size="16.0" />
          </font>
       </Label>
+      <Button layoutX="460.0" layoutY="529.0" mnemonicParsing="false" onAction="#forgotPasswordButton" style="-fx-background-color: transparent;" styleClass="forget-btn" stylesheets="@auctionDesign.css" text="Forget your password?" underline="true" />
    </children>
 </AnchorPane>

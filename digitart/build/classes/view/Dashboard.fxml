@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -141,7 +142,7 @@
       </VBox>
       <AnchorPane fx:id="adduser_dash_btn" layoutX="257.0" layoutY="10.0" prefHeight="699.0" prefWidth="936.0" stylesheets="@auctionDesign.css" visible="false">
          <children>
-            <Button fx:id="add_dash" cache="true" layoutX="324.0" layoutY="592.0" mnemonicParsing="false" onAction="#add_dash_btn" prefHeight="41.0" prefWidth="93.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Confirm" textFill="WHITE">
+            <Button fx:id="add_dash" cache="true" layoutX="324.0" layoutY="613.0" mnemonicParsing="false" onAction="#add_dash_btn" prefHeight="41.0" prefWidth="93.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Confirm" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />
                </font>
@@ -214,7 +215,7 @@
                   <Font name="Microsoft New Tai Lue Bold" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="clear_fields" cache="true" layoutX="501.0" layoutY="592.0" mnemonicParsing="false" onAction="#clear_fields_btn" prefHeight="41.0" prefWidth="93.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Clear" textFill="WHITE">
+            <Button fx:id="clear_fields" cache="true" layoutX="501.0" layoutY="613.0" mnemonicParsing="false" onAction="#clear_fields_btn" prefHeight="41.0" prefWidth="93.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Clear" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />
                </font>
@@ -241,7 +242,7 @@
             <Label fx:id="errormsgrole" layoutX="542.0" layoutY="524.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="listusers_btn" layoutX="250.0" layoutY="7.0" prefHeight="709.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;">
+      <AnchorPane fx:id="listusers_btn" layoutX="250.0" layoutY="7.0" prefHeight="709.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;" visible="false">
          <children>
             <TableView fx:id="user_table" layoutX="17.0" layoutY="197.0" prefHeight="445.0" prefWidth="913.0" style="-fx-alignement: center;" stylesheets="@auctionDesign.css">
               <columns>
@@ -390,9 +391,9 @@
             <ComboBox fx:id="Rolebox_up" layoutX="542.0" layoutY="490.0" prefHeight="25.0" prefWidth="164.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="editprofile_page" layoutX="255.0" layoutY="7.0" prefHeight="709.0" prefWidth="936.0" visible="false">
+      <AnchorPane fx:id="editprofile_page" layoutX="255.0" layoutY="7.0" prefHeight="709.0" prefWidth="936.0">
          <children>
-            <Button fx:id="editprof_btn" cache="true" layoutX="323.0" layoutY="621.0" mnemonicParsing="false" onAction="#editprof_btn" prefHeight="41.0" prefWidth="93.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Edit" textFill="WHITE">
+            <Button fx:id="editprof_btn" cache="true" layoutX="307.0" layoutY="632.0" mnemonicParsing="false" onAction="#editprof_btn" prefHeight="41.0" prefWidth="93.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Edit" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />
                </font>
@@ -465,7 +466,7 @@
                   <Font name="Microsoft New Tai Lue Bold" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="clear_fields_editprof" cache="true" layoutX="524.0" layoutY="621.0" mnemonicParsing="false" onAction="#clear_fields_update_btn" prefHeight="41.0" prefWidth="86.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Clear" textFill="WHITE">
+            <Button fx:id="clear_fields_editprof" cache="true" layoutX="530.0" layoutY="632.0" mnemonicParsing="false" onAction="#clear_fields_update_btn" prefHeight="41.0" prefWidth="86.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Clear" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />
                </font>
@@ -490,6 +491,8 @@
             <Label fx:id="errormsglname_edit7" layoutX="581.0" layoutY="287.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgbirthdate_edit" layoutX="581.0" layoutY="374.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgphonenum_edit" layoutX="581.0" layoutY="463.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Button layoutX="383.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleSelectImage" prefHeight="33.0" prefWidth="171.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Upload your image" />
+            <ImageView fx:id="imageprof" fitHeight="150.0" fitWidth="200.0" layoutX="368.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </children>

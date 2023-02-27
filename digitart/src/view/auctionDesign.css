@@ -143,16 +143,17 @@ and open the template in the editor.
     -fx-background-color:#BD2A2E;
 }
 
-.update-btn{
-    -fx-background-color:#a94747;
-    -fx-background-radius:8px;
+.forget-btn{
+    -fx-background-color: transparent;
     -fx-cursor:hand;
-    -fx-text-fill:#fff;
+    -fx-text-fill:#00000;
     -fx-font-size:14px;
-    -fx-font-family:"Arial";
+    border-radius:15px 0 15px;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
 }
-.update-btn:hover{
-    -fx-background-color:#ff9e0c;
+.forget-btn:hover{
+    -fx-text-fill:#BD2A2E;
 }
 
 .reset-btn{

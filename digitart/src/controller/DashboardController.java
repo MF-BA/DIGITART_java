@@ -9,8 +9,13 @@ import Services.users_Services;
 import entity.Data;
 import entity.users;
 import java.awt.Color;
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -19,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -44,8 +50,11 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import utils.Conn;
 
@@ -260,6 +269,10 @@ public class DashboardController implements Initializable {
     private TableColumn<?, ?> status_tb;
     @FXML
     private Button unblock_fromlist;
+    
+    private File imageFile;
+    @FXML
+    private ImageView imageprof;
     /**
      * Initializes the controller class.
      */
@@ -784,6 +797,10 @@ public void comboboxedit()
         
         users_Services user = new users_Services();
         user.modifyuser(u);
+         // Upload the image file if one was selected
+        if (imageFile != null) {
+            uploadImage();
+        }  
          showusers();
          errormsgfiiledit.setText("your profile is successfully modified!!");  
         }
@@ -866,7 +883,60 @@ public void comboboxedit()
         
     }
 
-    
+    @FXML
+    private void handleSelectImage(ActionEvent event) {
+     FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Image");
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File selectedFile = fileChooser.showOpenDialog(imageprof.getScene().getWindow());
+        if (selectedFile != null) {
+            imageFile = selectedFile;
+            Image image = new Image(selectedFile.toURI().toString());
+            imageprof.setImage(image);
+        }
+        
+    }
+
+    private void uploadImage() {
+        try {
+            // Read the image file into a byte array
+            byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+            
+            // Encode the image bytes as a base64 string
+            String imageData = Base64.getEncoder().encodeToString(imageBytes);
+            
+            // Create a HTTP connection to the servlet
+            URL url = new URL("http://localhost:8080/uploadImage");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            
+            // Construct the request body
+            String userId = String.valueOf(Data.user.getId());
+            String filename = imageFile.getName();
+            String body = String.format("userId=%s&filename=%s&imageData=%s",
+                                        userId, filename, imageData);
+            
+            // Write the request body to the connection output stream
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = body.getBytes(StandardCharsets.UTF_8);
+                os.write(input, 0, input.length);
+            }
+            
+            // Check the response code
+            int responseCode = connection.getResponseCode();
+            if (responseCode != 200) {
+                throw new RuntimeException("Failed to upload image: HTTP error code " + responseCode);
+            }
+            
+            // Close the connection
+            connection.disconnect();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     
 }

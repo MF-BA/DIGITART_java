@@ -18,7 +18,7 @@ public class users {
    String role;
    int id,cin,phone_number;
    LocalDate birth_date;
-   String status;
+   String status,image;
    
  public users() {
        
@@ -213,7 +213,16 @@ public class users {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
    
+    
     @Override
    public String toString() {
        return "users [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
