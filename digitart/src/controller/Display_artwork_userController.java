@@ -15,13 +15,20 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -36,6 +43,29 @@ public class Display_artwork_userController implements Initializable {
     @FXML
     private GridPane auction_container;
     HBox cardBox;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
+    @FXML
+    private Button btn_artwork;
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    
+    private void go_add_artwork(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/add_artwork_user.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,5 +106,10 @@ public class Display_artwork_userController implements Initializable {
 
     @FXML
     private void view_clicked(MouseEvent event) {
+    }
+
+    @FXML
+    private void btn_artwork_clicked(ActionEvent event) {
+        go_add_artwork(event);
     }
 }

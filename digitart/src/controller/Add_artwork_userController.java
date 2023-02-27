@@ -7,25 +7,18 @@ package controller;
 
 import Services.Artwork_Services;
 import entity.Artwork;
+import entity.Data;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +32,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -47,30 +39,24 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import javax.net.ssl.HttpsURLConnection;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * FXML Controller class
  *
  * @author mohamed
  */
-public class Add_artworkController implements Initializable {
+public class Add_artwork_userController implements Initializable {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-    private ImageView imageView;
-    private File selectedFile;
-    private String imageUrl;
-    
-    
+    @FXML
+    private TextField Input_name_artwork;
+    @FXML
+    private ComboBox<String> input_idroom;
+    @FXML
+    private DatePicker input_date;
+    @FXML
+    private TextArea input_desc;
     @FXML
     private Button btn_addimage;
     @FXML
@@ -78,38 +64,25 @@ public class Add_artworkController implements Initializable {
     @FXML
     private Button btn_cancel;
     @FXML
-    private TextField Input_name_artwork;
+    private Label labeladminname;
     @FXML
-    private TextField input_name_artist;
+    private Label labeladminname1;
     @FXML
-    private ComboBox<Integer> input_id_artist;
-    @FXML
-    private ComboBox<Integer> input_idroom;
-    @FXML
-    private DatePicker input_date;
-    @FXML
-    private TextArea input_desc;
-    @FXML
-    private Button btn_room;
+    private Label labeladminname2;
     @FXML
     private Button btn_artwork;
 
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+    private String imageUrl;
+    private String nameRoom ;
     /**
      * Initializes the controller class.
      */
     
-      private void go_room(ActionEvent event) {
-        try {
-             root = FXMLLoader.load(getClass().getResource("/view/display_room.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-      private void go_Display(ActionEvent event) {
+    
+     private void go_Display(ActionEvent event) {
         try {
              root = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -121,32 +94,25 @@ public class Add_artworkController implements Initializable {
         }
 
     }
-    
-    
+     
+       public void combobox() {
+      ObservableList<String> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_nameroom());
+        input_idroom.setItems(myObservableList1);
+
+    }
+       
+       
+       
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       combobox();
-       
-      btn_artwork.setStyle("-fx-background-color: #470011 ");
-      btn_room.setStyle("-fx-background-color: transparent ");
-       
+        // TODO
+        combobox();
     }    
-/*
-     
-       // Create a FileChooser dialog to let the user choose the file to upload
-FileChooser fileChooser = new FileChooser();
-fileChooser.setTitle("Select a file to upload");
-File selectedFile = fileChooser.showOpenDialog(null);
 
-// Call the uploadFile method with the selected file and the upload URL
-if (selectedFile != null) {
-    String uploadUrl = "http://localhost/images/upload";
-    uploadFile(selectedFile, uploadUrl);
-}
-    */
     @FXML
     private void btn_addimage_clicked(ActionEvent event) {
-//        FileChooser fileChooser = new FileChooser();
+        
+        //        FileChooser fileChooser = new FileChooser();
 //    fileChooser.setTitle("Select Image File");
 //    fileChooser.getExtensionFilters().addAll(
 //        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
@@ -162,6 +128,8 @@ if (selectedFile != null) {
     FileChooser fileChooser = new FileChooser();
 fileChooser.setTitle("Select an image file");
 File file = fileChooser.showOpenDialog(new Stage());
+ imageUrl = file.toURI().toString();
+  System.out.println(imageUrl);
 
 if (file != null) {
     try {
@@ -175,7 +143,7 @@ if (file != null) {
         }
         fis.close();
         String base64EncodedImage = java.util.Base64.getEncoder().encodeToString(baos.toByteArray());
-        System.out.println(base64EncodedImage);
+       
 
         // Set up the cURL request to send the encoded image data to the server
         String url = "http://localhost/images/upload.php"; // Replace with the URL of your server-side script
@@ -218,44 +186,42 @@ if (file != null) {
         e.printStackTrace();
     }
 }
-
-  }
+    }
 
     @FXML
-private void btn_add_clicked(ActionEvent event) {
-    TextInputControl nameControl = this.Input_name_artwork;
-    TextInputControl nameArtistControl = this.input_name_artist;
+    private void btn_add_clicked(ActionEvent event) {
+        TextInputControl nameControl = this.Input_name_artwork;
+   
   
-    ComboBox<Integer> idRoomControl = this.input_idroom;
+    ComboBox<String> idRoomControl = this.input_idroom;
     TextInputControl descControl = this.input_desc;
     DatePicker dateControl = this.input_date;
 
     String name = nameControl.getText();
-    String nameartist = nameArtistControl.getText();
+    String nameartist = Data.user.getLastname();
     
     int id_room;
     String desc = descControl.getText();
     LocalDate date = dateControl.getValue();
-    int id_artist;
-      if(this.input_id_artist.getSelectionModel().getSelectedItem()== null){
-            id_artist=-1;
-        }else
-        {id_artist = this.input_id_artist.getSelectionModel().getSelectedItem();}
+    int id_artist = Data.user.getId();
+      
 
     Alert alert;
 
     // CHECK IF THE FIELDS ARE EMPTY
     if (name.isEmpty() || nameartist.isEmpty() || desc.isEmpty() || date == null ||this.input_idroom.getSelectionModel().getSelectedItem()==null ) {
-        alert = new Alert(AlertType.ERROR);
+        alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error Message");
         alert.setHeaderText(null);
         alert.setContentText("Please fill all fields");
         alert.showAndWait();
     } else {
-        id_room = idRoomControl.getSelectionModel().getSelectedItem();
+       nameRoom = idRoomControl.getSelectionModel().getSelectedItem();
+        
+        id_room = Artwork_Services.find_idroom(nameRoom) ;
         Artwork artwork = new Artwork(name, id_artist, nameartist, date, desc, imageUrl, id_room);
         Artwork_Services.add(artwork);
-        alert = new Alert(AlertType.INFORMATION);
+        alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Message");
         alert.setHeaderText(null);
         alert.setContentText("Successfully Added!");
@@ -263,80 +229,15 @@ private void btn_add_clicked(ActionEvent event) {
         // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
         go_Display(event);
     }
-}
-
-    
-    
-        public void combobox() {
-        ObservableList<Integer> myObservableList = FXCollections.observableArrayList(Artwork_Services.find_idartist());
-        input_id_artist.setItems(myObservableList);
-        
-       
-      ObservableList<Integer> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_idroom());
-        input_idroom.setItems(myObservableList1);
-        
-          
-
-      
         
     }
-        
-
-
-public void uploadFile(File file, String uploadUrl) {
-    try {
-        // Set up the HTTP connection
-        URL url = new URL(uploadUrl);
-        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-        httpConn.setDoOutput(true);
-        httpConn.setRequestMethod("POST");
-
-        // Set the request headers
-        httpConn.setRequestProperty("Content-Type", "multipart/form-data; boundary=boundary");
-
-        // Create the multipart request body
-        OutputStream outputStream = httpConn.getOutputStream();
-        String boundary = "--boundary\r\n";
-        outputStream.write(boundary.getBytes("UTF-8"));
-        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n").getBytes("UTF-8"));
-        outputStream.write(("Content-Type: " + HttpURLConnection.guessContentTypeFromName(file.getName()) + "\r\n\r\n").getBytes("UTF-8"));
-        FileInputStream fileInputStream = new FileInputStream(file);
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = fileInputStream.read(buffer)) != -1) {
-            outputStream.write(buffer, 0, bytesRead);
-        }
-        outputStream.write(("\r\n" + boundary + "--\r\n").getBytes("UTF-8"));
-        fileInputStream.close();
-
-        // Check the response status code
-        int responseCode = httpConn.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            System.out.println("File uploaded successfully.");
-        } else {
-            System.out.println("File upload failed. Error code: " + responseCode);
-        }
-    } catch (Exception ex) {
-        ex.printStackTrace();
-    }
-}
-
-
 
     @FXML
     private void btn_cancel_clicked(ActionEvent event) {
-        go_Display(event);
-    }
-
-
-    @FXML
-    private void btn_room_clicked(ActionEvent event) {
-        go_room(event);
     }
 
     @FXML
     private void btn_artwork_clicked(ActionEvent event) {
-        go_Display(event);
     }
     
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package entity;
+import Services.Artwork_Services;
 import java.time.*;
 /**
  *
@@ -28,6 +29,11 @@ public class Artwork {
         this.description = description;
         this.image_art = image_art;
         this.id_room = id_room;
+    }
+
+    @Override
+    public String toString() {
+        return artwork_name + ", " + artist_name + ", " + date_art + ", " + description + ", " + Artwork_Services.find_nameroom(id_room);
     }
 
     public Artwork(String artwork_name, int id_artist, String artist_name, LocalDate date_art, String description, String image_art, int id_room) {

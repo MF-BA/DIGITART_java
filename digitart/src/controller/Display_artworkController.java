@@ -288,9 +288,9 @@ public class Display_artworkController implements Initializable {
 
     }
 
-//    @FXML
-//    private void btn_PDF_clicked(ActionEvent event) throws IOException {
-//        
+    @FXML
+    private void btn_PDF_clicked(ActionEvent event) throws IOException {
+        
 //        
 //        PDDocument document = new PDDocument();
 //        PDPage page = new PDPage();
@@ -303,24 +303,14 @@ public class Display_artworkController implements Initializable {
 //        contentStream.setFont(font, 12);
 //
 //        // Define the column headers
-//        String[] columnHeaders = {"Offer", "date", "bidder"};
-//        float[] columnWidths = {100, 200, 200};
+//        String[] columnHeaders = {"Artwork_name", "Artist_name", "Date","Description","name_room"};
+//        float[] columnWidths = {100, 100, 100,100,100};
 //
 //        // Draw the column headers
 //        float x = 50;
 //        float y = tableTopY;
 //
-//        contentStream.beginText();
-//        contentStream.newLineAtOffset(x, y);
-//        contentStream.showText("Artwork name:" + Data.auction_display.getName().toUpperCase() + "             Starting Price:" + Data.auction_display.getStarting_price()) ;
-//        contentStream.endText();
-//        y-=20;
-//        
-//        contentStream.beginText();
-//        contentStream.newLineAtOffset(x, y);
-//        contentStream.showText(" Artist name:" + Data.auction_display.getName_artist() + "             Ending Date:" + Data.auction_display.getDate());
-//        contentStream.endText();
-//        y-=30;
+//       
 //        for (int i = 0; i < columnHeaders.length; i++) {
 //           
 //            contentStream.beginText();
@@ -332,8 +322,8 @@ public class Display_artworkController implements Initializable {
 //
 //        // Draw the table cells
 //        y -= 10; // move the y-coordinate up one row
-//        for (int i = 0; i < table_view.getItems().size(); i++) {
-//            String[] rowData = table_view.getItems().get(i).toString().split(", ");
+//        for (int i = 0; i < table_Artwork.getItems().size(); i++) {
+//            String[] rowData = table_Artwork.getItems().get(i).toString().split(", ");
 //            x = 50;
 //            for (int j = 0; j < rowData.length; j++) {
 //                contentStream.addRect(x, y - rowHeight, columnWidths[j], rowHeight); // draw cell border
@@ -351,7 +341,7 @@ public class Display_artworkController implements Initializable {
 //        FileChooser fileChooser = new FileChooser();
 //        fileChooser.setTitle("Save PDF File");
 //        fileChooser.setInitialFileName("table_data.pdf");
-//        File file = fileChooser.showSaveDialog((Stage) Export_table.getScene().getWindow());
+//        File file = fileChooser.showSaveDialog((Stage) table_Artwork.getScene().getWindow());
 //        if (file != null) {
 //            try {
 //                document.save(file);
@@ -361,7 +351,7 @@ public class Display_artworkController implements Initializable {
 //        }
 //        document.close();
 //
-//
-//    }
+
+    }
 
 }

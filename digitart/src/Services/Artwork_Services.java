@@ -140,7 +140,24 @@ public class Artwork_Services {
         return list;
     }
     
-    
+     public static ArrayList<String> find_nameroom() {
+        ArrayList<String> list = new ArrayList<>();
+
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT name_room FROM room");
+
+            while (resultSet.next()) {
+                list.add(resultSet.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
     
         public static String find_nameroom(int id) {
        String list=null ;
@@ -179,6 +196,28 @@ public class Artwork_Services {
 
         return list;
     }
+    
+       public static Integer find_idroom(String ID_artwork) {
+    Integer result = null;
+
+    PreparedStatement statement;
+    ResultSet resultSet;
+    try {
+       
+        String sql = "SELECT id_room FROM room WHERE name_room like  ? ";
+         statement = conn.prepareStatement(sql);
+         statement.setString(1, ID_artwork);
+//        resultSet = statement.executeQuery("SELECT id_room FROM room WHERE name_room like " + ID_artwork);
+            resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            result = resultSet.getInt(1);
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    return result;
+}
     
       public static String find_artwork(int ID_artwork) {
     String result = null;
