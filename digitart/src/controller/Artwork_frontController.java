@@ -59,7 +59,7 @@ public class Artwork_frontController implements Initializable {
     private Label Date;
     @FXML
     private Label artist;
-    ZonedDateTime endDateTime;
+
     Auction_display auction_display;
     @FXML
     private Button add_bid;
@@ -71,7 +71,6 @@ public class Artwork_frontController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        endDateTime = ZonedDateTime.of(2023, 2, 28, 12, 0, 0, 0, ZoneId.systemDefault());
 
         artwork_name.setTextFill(Color.BROWN);
         Date.setTextFill(Color.RED);
@@ -102,7 +101,7 @@ public class Artwork_frontController implements Initializable {
 
         artwork_name.setText(auction_display.getName().toUpperCase());
         artist.setText("Artist: " + auction_display.getName_artist());
-        current_bid.setText("Current Bid:" + String.valueOf(auction_display.getBid()));
+        current_bid.setText("Staring Bid:" + String.valueOf(auction_display.getStarting_price()));
         int next_bid = auction_display.getBid() + auction_display.getIncrement();
         this.next_bid.setText("Next Bid:" + String.valueOf(next_bid));
         LocalDate localDate = auction_display.getDate();

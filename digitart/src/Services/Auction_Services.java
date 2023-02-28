@@ -45,13 +45,38 @@ public class Auction_Services {
         }
     }
 
-    public static ArrayList<Auction> Display(int id_artist) {
+    public static ArrayList<Auction> Display_back_archive_artist(int id_artist) {
         ArrayList<Auction> list = new ArrayList<>();
         Statement statement;
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE artwork.id_artist =" + id_artist);
+            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date <= CURDATE() and artwork.id_artist =" + id_artist);
+
+            while (resultSet.next()) {
+                LocalDate D = resultSet.getDate(4).toLocalDate();
+                Auction data = new Auction(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getInt(3),
+                        resultSet.getInt(6),
+                        D,
+                        resultSet.getString(5)
+                );
+                list.add(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public static ArrayList<Auction> Display_back_artist(int id_artist) {
+        ArrayList<Auction> list = new ArrayList<>();
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date > CURDATE() and artwork.id_artist =" + id_artist);
 
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(4).toLocalDate();
@@ -173,7 +198,7 @@ public class Auction_Services {
             return -1;
         }
     }
-    
+
     public static String find_artwork_name_from_auctionID(int id_auction) {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT artwork_name FROM artwork WHERE id_art = (select id_artwork from auction where id_auction= ?) ");
@@ -206,7 +231,6 @@ public class Auction_Services {
         }
     }
 
-    
     public static String get_img(int id) {
         try {
             PreparedStatement statement = conn.prepareStatement("SELECT image_art FROM artwork WHERE id_art= ?");
@@ -255,20 +279,15 @@ public class Auction_Services {
         }
     }
 
-    public static ArrayList<users> verif_winners( ArrayList<Integer> id_auction) {
+    public static ArrayList<users> verif_winners(ArrayList<Integer> id_auction) {
         ArrayList<users> list = new ArrayList<>();
 
         Statement statement;
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT b.id_user,a.id_auction "
-                    + "FROM bid b "
-                    + "INNER JOIN auction a ON b.id_auction = a.id_auction "
-                    + "WHERE b.offer = (SELECT MAX(b2.offer)"
-                    + "  FROM bid b2"
-                    + "  WHERE b2.id_auction = a.id_auction) "
-                    + "AND a.ending_date < CURDATE() AND a.state IS NULL");
+            resultSet = statement.executeQuery("SELECT b.id_user,a.id_auction FROM bid b INNER JOIN auction a ON b.id_auction = a.id_auction WHERE b.offer = (SELECT MAX(b2.offer)"
+                    + "  FROM bid b2 WHERE b2.id_auction = a.id_auction) AND a.ending_date <= CURDATE() AND a.state IS NULL");
 
             while (resultSet.next()) {
                 id_auction.add(resultSet.getInt(2));

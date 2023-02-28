@@ -5,16 +5,16 @@
  */
 package Services;
 
-import static Services.Auction_Services.conn;
-import entity.Auction;
 import entity.Bid;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -63,7 +63,7 @@ public class Bid_Services {
         return latest_bid;
 
     }
-    
+
     public static int highest_offer(int ID_auction) {
         String latest_bid_sql = "SELECT MAX(offer) FROM bid WHERE id_auction = ?";
         int latest_bid = 0;
@@ -152,7 +152,8 @@ public class Bid_Services {
             String add_to_auction = "insert into bid (date,offer,id_auction , id_user ) values (?,?,?,?) ";
             try {
                 PreparedStatement st = conn.prepareStatement(add_to_auction);
-                st.setDate(1, Date.valueOf(bid.getDate()));
+
+                st.setTimestamp(1, Timestamp.from(bid.getDate().toInstant()));
                 st.setInt(2, bid.getOffer());
                 st.setInt(3, bid.getId_auction());
                 st.setInt(4, bid.getId_user());
@@ -172,15 +173,19 @@ public class Bid_Services {
 
         ArrayList<Bid> list = new ArrayList<>();
 
+        ZoneId zoneId = ZoneId.of("Africa/Tunis"); // or any other time zone you want to use
+
         Statement statement;
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM bid where id_auction ="+id_auction);
+            resultSet = statement.executeQuery("SELECT * FROM bid where id_auction =" + id_auction);
 
             while (resultSet.next()) {
-                LocalDate D = resultSet.getDate(2).toLocalDate();
-                Bid data = new Bid(resultSet.getInt(1),  resultSet.getInt(5),resultSet.getInt(4),
+                Timestamp jdbcTimestamp = resultSet.getTimestamp(2);
+                Instant instant = jdbcTimestamp.toInstant();
+                ZonedDateTime D = instant.atZone(zoneId);
+                Bid data = new Bid(resultSet.getInt(1), resultSet.getInt(5), resultSet.getInt(4),
                         resultSet.getInt(3), D);
 
                 list.add(data);
@@ -213,7 +218,7 @@ public class Bid_Services {
 
         try {
             PreparedStatement st = conn.prepareStatement(modify_bid);
-            st.setDate(1, Date.valueOf(bid.getDate()));
+            st.setTimestamp(1, Timestamp.from(bid.getDate().toInstant()));
             st.setInt(2, bid.getOffer());
             st.setInt(3, bid.getId_auction());
             st.setInt(4, bid.getId_user());

@@ -82,9 +82,6 @@ public class Bids_displayController implements Initializable {
         }
     }
 
-    @FXML
-    private void table_view(MouseEvent event) {
-    }
 
     @FXML
     private void Export_table_clicked(ActionEvent event) throws IOException {
@@ -100,7 +97,7 @@ public class Bids_displayController implements Initializable {
 
         // Define the column headers
         String[] columnHeaders = {"Offer", "date", "bidder"};
-        float[] columnWidths = {100, 200, 200};
+        float[] columnWidths = {100, 250, 150};
 
         // Draw the column headers
         float x = 50;
@@ -157,5 +154,10 @@ public class Bids_displayController implements Initializable {
         }
         document.close();
     }
+
+    @FXML
+    private void table_view(MouseEvent event) {
+    }
+
 
 }

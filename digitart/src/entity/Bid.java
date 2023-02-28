@@ -7,6 +7,7 @@ package entity;
 
 import Services.Auction_Services;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 /**
  *
@@ -15,9 +16,9 @@ import java.time.LocalDate;
 public class Bid {
 
     int id_bid, id_user, id_auction, offer;
-    LocalDate date;
+    ZonedDateTime date;
 
-    public Bid(int id_bid, int id_user, int id_auction, int offer, LocalDate date) {
+    public Bid(int id_bid, int id_user, int id_auction, int offer, ZonedDateTime date) {
         this.id_bid = id_bid;
         this.id_user = id_user;
         this.id_auction = id_auction;
@@ -30,14 +31,14 @@ public class Bid {
         this.id_user = id_user;
         this.id_auction = id_auction;
         this.offer = offer;
-        this.date = LocalDate.now();
+        this.date = ZonedDateTime.now();
     }
 
     public Bid(int id_user, int id_auction, int offer) {
         this.id_user = id_user;
         this.id_auction = id_auction;
         this.offer = offer;
-        this.date = LocalDate.now();
+        this.date = ZonedDateTime.now();
     }
 
     public Bid(int aInt, LocalDate D, int aInt0, int aInt1, LocalDate D0, String string) {
@@ -72,7 +73,7 @@ public class Bid {
         this.offer = offer;
     }
 
-    public LocalDate getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 

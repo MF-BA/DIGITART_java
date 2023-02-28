@@ -89,6 +89,8 @@ public class Display_auctionsController implements Initializable {
     private Button auction_btn;
     @FXML
     private FontAwesomeIconView clear;
+    @FXML
+    private Button display_archive;
 
     /**
      * Initializes the controller class.
@@ -107,7 +109,7 @@ public class Display_auctionsController implements Initializable {
 
     public void Showauction() {
 
-        AuctionList = Auction_Services.Display_auction_details(Auction_Services.Display(Data.user.getId()));
+        AuctionList = Auction_Services.Display_auction_details(Auction_Services.Display_back_artist(Data.user.getId()));
 
         artwork_Name.setCellValueFactory(new PropertyValueFactory<>("name"));
         Starting_price.setCellValueFactory(new PropertyValueFactory<>("starting_price"));
@@ -327,7 +329,7 @@ public class Display_auctionsController implements Initializable {
 
                 // Create a new stage and set the FXML file as its scene
                 Stage newWindow = new Stage();
-                newWindow.setTitle("My Window");
+                newWindow.setTitle(t.getName()+" Bids");
                 newWindow.setScene(new Scene(root));
 
                 // Set the new window's owner and modality
@@ -346,6 +348,35 @@ public class Display_auctionsController implements Initializable {
     @FXML
     private void search_in_clck(KeyEvent event) {
         search_btn_clicked();
+    }
+
+    @FXML
+    private void display_archive_click(ActionEvent event) {
+        //ArchiveController
+        
+
+            try {
+                // Load the FXML file
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Archive.fxml"));
+                root = loader.load();
+
+                // Create a new stage and set the FXML file as its scene
+                Stage newWindow = new Stage();
+                newWindow.setTitle(" Archive");
+                newWindow.setScene(new Scene(root));
+
+                // Set the new window's owner and modality
+                newWindow.initOwner((Stage) Dslay_update_button.getScene().getWindow());
+                newWindow.initModality(Modality.WINDOW_MODAL);
+
+                // Show the new window
+                newWindow.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        
     }
 
 }

@@ -7,7 +7,7 @@ package main;
 
 import Services.Auction_Services;
 import Services.Bid_Services;
-import javax.mail.PasswordAuthentication;
+
 import java.time.LocalDate;
 import entity.Data;
 import entity.users;
@@ -25,7 +25,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
+import javax.mail.PasswordAuthentication;
 /**
  *
  * @author fedi1
@@ -61,12 +61,12 @@ public class main extends Application {
                 new javax.mail.Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("digitart.primes@gmail.com", "nymlnfadanfvlctb");
+                return new PasswordAuthentication(Data.username, Data.password);
             }
         });
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("digitart.primes@gmail.com"));
+            message.setFrom(new InternetAddress(Data.username));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(user.getEmail()));
             message.setSubject("YOU WON!!!!!");
@@ -102,18 +102,6 @@ public class main extends Application {
 
         int i = 0;
         for (users user : users) {
-
-            /*
-            System.out.println("Dear " + user.getLastname() + ",\n"
-                    + "Congratulations! We're excited to inform you that you've won the auction for " + Auction_Services.find_artwork_name_from_auctionID(id_auction.get(i)).toUpperCase() + ". "
-                    + "Your winning bid was " + Bid_Services.highest_offer(id_auction.get(i)) + "."
-                    + "\n"
-                    + "We'll be in touch with you shortly to arrange payment and delivery of the artwork. If you have any questions or concerns, please don't hesitate to contact us."
-                    + "\n"
-                    + "Thank you for participating in our auction, and we hope you enjoy your new artwork!"
-                    + "\n"
-                    + "Best regards,\n"
-                    + "DIGITART");*/
             main test = new main();
             test.send_mail(user, id_auction.get(i));
             i++;

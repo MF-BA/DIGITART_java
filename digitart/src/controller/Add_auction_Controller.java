@@ -97,18 +97,6 @@ public class Add_auction_Controller implements Initializable {
         valueFactory.setValue(10);
         in_BI.setValueFactory(valueFactory);
 
-        /*ArrayList<String> arr = Auction_Services.find_artworks(Data.user.getId());
-        
-        if (arr.isEmpty()) {
-            Alert alert = new Alert(AlertType.WARNING);
-            alert.setTitle("WARNING !!!!");
-            alert.setContentText("You don't have any artwork to add!!!");
-            alert.showAndWait();
-            go_Home();
-        } else {
-            ObservableList<String> myObservableList = FXCollections.observableArrayList(arr);
-            in_I.setItems(myObservableList);
-        }*/
         ObservableList<String> myObservableList = FXCollections.observableArrayList(Auction_Services.find_artworks(Data.user.getId()));
 
         in_I.setItems(myObservableList);
