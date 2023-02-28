@@ -31,10 +31,11 @@ public class Artwork {
         this.id_room = id_room;
     }
 
-    @Override
-    public String toString() {
-        return artwork_name + ", " + artist_name + ", " + date_art + ", " + description + ", " + Artwork_Services.find_nameroom(id_room);
-    }
+      @Override
+public String toString() {
+    return String.format("%s, %s, %s, %s, %s", 
+            artwork_name, artist_name, date_art, description, id_room);
+}
 
     public Artwork(String artwork_name, int id_artist, String artist_name, LocalDate date_art, String description, String image_art, int id_room) {
         this.artwork_name = artwork_name;

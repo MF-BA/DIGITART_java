@@ -4,6 +4,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -13,7 +14,7 @@
          <children>
             <HBox prefHeight="49.0" prefWidth="360.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artwork Name:" textAlignment="CENTER">
+                  <Text fill="#bd2a2e" strokeType="OUTSIDE" strokeWidth="0.0" text="Artwork Name:" wrappingWidth="167.935546875">
                      <font>
                         <Font name="Berlin Sans FB" size="22.0" />
                      </font>
@@ -27,7 +28,7 @@
             </HBox>
             <HBox prefHeight="47.0" prefWidth="360.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name:">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name:" wrappingWidth="169.2314453125">
                      <font>
                         <Font name="Berlin Sans FB" size="22.0" />
                      </font>
@@ -41,7 +42,7 @@
             </HBox>
             <HBox prefHeight="54.0" prefWidth="360.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date:">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="170.6826171875">
                      <font>
                         <Font name="Berlin Sans FB" size="22.0" />
                      </font>
@@ -55,7 +56,7 @@
             </HBox>
             <HBox prefHeight="62.0" prefWidth="360.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room:" wrappingWidth="169.4267578125">
                      <font>
                         <Font name="Berlin Sans FB" size="22.0" />
                      </font>
@@ -67,9 +68,9 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="81.0" prefWidth="360.0">
+            <HBox prefHeight="113.0" prefWidth="305.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="169.080078125">
                      <font>
                         <Font name="Berlin Sans FB" size="22.0" />
                      </font>
@@ -81,16 +82,18 @@
                   </Label>
                </children>
             </HBox>
+            <Line endX="204.2928924560547" endY="-0.4137834310531616" startX="-100.0" />
          </children>
       </VBox>
       <VBox prefHeight="361.0" prefWidth="320.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image of the artwork">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Image of the artwork:" wrappingWidth="208.357421875">
                <font>
                   <Font name="Berlin Sans FB" size="22.0" />
                </font>
             </Text>
             <ImageView fx:id="imagev" fitHeight="300.0" fitWidth="291.0" pickOnBounds="true" preserveRatio="true" />
+            <Line endX="192.2928924560547" endY="-1.2071068286895752" startX="-100.89950561523438" startY="-1.207310438156128" />
          </children>
       </VBox>
    </children>

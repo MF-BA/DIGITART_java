@@ -69,6 +69,7 @@ public class Add_artworkController implements Initializable {
     private ImageView imageView;
     private File selectedFile;
     private String imageUrl;
+     private String nameRoom ;
     
     
     @FXML
@@ -84,7 +85,7 @@ public class Add_artworkController implements Initializable {
     @FXML
     private ComboBox<Integer> input_id_artist;
     @FXML
-    private ComboBox<Integer> input_idroom;
+    ComboBox<String> input_idroom;
     @FXML
     private DatePicker input_date;
     @FXML
@@ -162,6 +163,8 @@ if (selectedFile != null) {
     FileChooser fileChooser = new FileChooser();
 fileChooser.setTitle("Select an image file");
 File file = fileChooser.showOpenDialog(new Stage());
+ imageUrl = file.toURI().toString();
+  System.out.println(imageUrl);
 
 if (file != null) {
     try {
@@ -226,7 +229,7 @@ private void btn_add_clicked(ActionEvent event) {
     TextInputControl nameControl = this.Input_name_artwork;
     TextInputControl nameArtistControl = this.input_name_artist;
   
-    ComboBox<Integer> idRoomControl = this.input_idroom;
+    ComboBox<String> idRoomControl = this.input_idroom;
     TextInputControl descControl = this.input_desc;
     DatePicker dateControl = this.input_date;
 
@@ -252,7 +255,9 @@ private void btn_add_clicked(ActionEvent event) {
         alert.setContentText("Please fill all fields");
         alert.showAndWait();
     } else {
-        id_room = idRoomControl.getSelectionModel().getSelectedItem();
+         nameRoom = idRoomControl.getSelectionModel().getSelectedItem();
+        
+        id_room = Artwork_Services.find_idroom(nameRoom) ;
         Artwork artwork = new Artwork(name, id_artist, nameartist, date, desc, imageUrl, id_room);
         Artwork_Services.add(artwork);
         alert = new Alert(AlertType.INFORMATION);
@@ -272,7 +277,7 @@ private void btn_add_clicked(ActionEvent event) {
         input_id_artist.setItems(myObservableList);
         
        
-      ObservableList<Integer> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_idroom());
+       ObservableList<String> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_nameroom());
         input_idroom.setItems(myObservableList1);
         
           

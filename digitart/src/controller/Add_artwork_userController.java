@@ -41,6 +41,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  * FXML Controller class
@@ -84,7 +93,7 @@ public class Add_artwork_userController implements Initializable {
     
      private void go_Display(ActionEvent event) {
         try {
-             root = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
+             root = FXMLLoader.load(getClass().getResource("/view/display_artwork_user.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -99,6 +108,35 @@ public class Add_artwork_userController implements Initializable {
       ObservableList<String> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_nameroom());
         input_idroom.setItems(myObservableList1);
 
+    }
+       
+       
+       public static void sendEmail(String recipient, String subject, String body) throws MessagingException {
+        
+        // Set the mail properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        
+        // Create the session
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("digitart.primes@gmail.com", "crpyprterxegkjes");
+            }
+        });
+        
+        // Create the message
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress("digitart.primes@gmail.com"));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+        message.setSubject(subject);
+        message.setText(body);
+        
+        // Send the message
+        Transport.send(message);
     }
        
        
@@ -226,6 +264,13 @@ if (file != null) {
         alert.setHeaderText(null);
         alert.setContentText("Successfully Added!");
         alert.showAndWait();
+        
+        try {
+        sendEmail("laatarmomo@gmail.com", "ADD ARTWORK IN DIGITART", "Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n Thank you for trusting our application, \n You have successfully added the artwork "+name);
+    } catch (MessagingException e) {
+        e.printStackTrace();
+    }
+        
         // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
         go_Display(event);
     }
@@ -234,10 +279,13 @@ if (file != null) {
 
     @FXML
     private void btn_cancel_clicked(ActionEvent event) {
+        go_Display(event);
     }
 
     @FXML
     private void btn_artwork_clicked(ActionEvent event) {
     }
+    
+    
     
 }

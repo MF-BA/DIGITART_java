@@ -110,5 +110,10 @@
             </Button>
          </children>
       </VBox>
+      <Button fx:id="BTN_PDF" layoutX="1049.0" layoutY="579.0" mnemonicParsing="false" onAction="#btn_PDF_clicked" prefHeight="38.0" prefWidth="98.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="PDF">
+         <font>
+            <Font name="Impact" size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

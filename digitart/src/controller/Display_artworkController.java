@@ -15,6 +15,7 @@ import entity.Data;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -99,8 +100,6 @@ public class Display_artworkController implements Initializable {
     private Label labeladminname1;
     @FXML
     private Label labeladminname2;
-    @FXML
-    private Button BTN_PDF;
 
     /**
      * Initializes the controller class.
@@ -288,11 +287,9 @@ public class Display_artworkController implements Initializable {
 
     }
 
-    @FXML
-    private void btn_PDF_clicked(ActionEvent event) throws IOException {
-        
+//    private void btn_PDF_clicked(ActionEvent event) throws IOException {
 //        
-//        PDDocument document = new PDDocument();
+//       PDDocument document = new PDDocument();
 //        PDPage page = new PDPage();
 //        document.addPage(page);
 //        PDPageContentStream contentStream = new PDPageContentStream(document, page);
@@ -303,8 +300,8 @@ public class Display_artworkController implements Initializable {
 //        contentStream.setFont(font, 12);
 //
 //        // Define the column headers
-//        String[] columnHeaders = {"Artwork_name", "Artist_name", "Date","Description","name_room"};
-//        float[] columnWidths = {100, 100, 100,100,100};
+//        String[] columnHeaders = {"Artwork_name", "Artist_name", "Date", "Description", "Room"};
+//        float[] columnWidths = {100, 100, 100,200,50};
 //
 //        // Draw the column headers
 //        float x = 50;
@@ -322,26 +319,28 @@ public class Display_artworkController implements Initializable {
 //
 //        // Draw the table cells
 //        y -= 10; // move the y-coordinate up one row
-//        for (int i = 0; i < table_Artwork.getItems().size(); i++) {
-//            String[] rowData = table_Artwork.getItems().get(i).toString().split(", ");
-//            x = 50;
-//            for (int j = 0; j < rowData.length; j++) {
-//                contentStream.addRect(x, y - rowHeight, columnWidths[j], rowHeight); // draw cell border
-//                contentStream.stroke();
-//                contentStream.beginText();
-//                contentStream.newLineAtOffset(x + 2, y - rowHeight + 2);
-//                contentStream.showText(rowData[j]);
-//                contentStream.endText();
-//                x += columnWidths[j];
-//            }
-//            y -= rowHeight;
-//        }
+//      for (int i = 0; i < table_Artwork.getItems().size(); i++) {
+//    String[] rowData = table_Artwork.getItems().get(i).toString().split(", ");
+//    System.out.println(Arrays.toString(rowData));
+//    x = 50;
+//    for (int j = 0; j < rowData.length; j++) {
+//        contentStream.addRect(x, y - rowHeight, columnWidths[j], rowHeight); // draw cell border
+//        contentStream.stroke();
+//        contentStream.beginText();
+//        contentStream.newLineAtOffset(x + 2, y - rowHeight + 2);
+//        contentStream.showText(rowData[j]); // use the rowData array to draw the cell content
+//        contentStream.endText();
+//        x += columnWidths[j];
+//    }
+//    y -= rowHeight;
+//}
+//
 //
 //        contentStream.close();
 //        FileChooser fileChooser = new FileChooser();
 //        fileChooser.setTitle("Save PDF File");
 //        fileChooser.setInitialFileName("table_data.pdf");
-//        File file = fileChooser.showSaveDialog((Stage) table_Artwork.getScene().getWindow());
+//        File file = fileChooser.showSaveDialog((Stage) table_Artwork.getScene().getWindow()); // test
 //        if (file != null) {
 //            try {
 //                document.save(file);
@@ -351,7 +350,8 @@ public class Display_artworkController implements Initializable {
 //        }
 //        document.close();
 //
-
-    }
+//
+//    }
+//    
 
 }

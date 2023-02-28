@@ -51,7 +51,7 @@
             <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="817.0" layoutY="426.0" prefHeight="32.0" prefWidth="132.0" stylesheets="@auctionDesign.css" text="Id room:">
+      <Label layoutX="817.0" layoutY="426.0" prefHeight="32.0" prefWidth="132.0" stylesheets="@auctionDesign.css" text="room:">
          <font>
             <Font name="Berlin Sans FB" size="22.0" />
          </font>
@@ -59,7 +59,7 @@
       <TextField fx:id="Input_name_artwork" layoutX="512.0" layoutY="158.0" prefHeight="25.0" prefWidth="203.0" promptText="Name Artwork" styleClass="textfield" stylesheets="@auctionDesign.css" />
       <TextField fx:id="input_name_artist" layoutX="512.0" layoutY="242.0" prefHeight="25.0" prefWidth="203.0" promptText="Name Artist" styleClass="textfield" stylesheets="@auctionDesign.css" />
       <ComboBox fx:id="input_id_artist" layoutX="957.0" layoutY="159.0" prefHeight="25.0" prefWidth="185.0" promptText="choose the id artist" styleClass="combobox" stylesheets="@auctionDesign.css" />
-      <ComboBox fx:id="input_idroom" layoutX="965.0" layoutY="430.0" prefHeight="25.0" prefWidth="185.0" promptText="choose id room" styleClass="combobox" stylesheets="@auctionDesign.css" />
+      <ComboBox fx:id="input_idroom" layoutX="965.0" layoutY="430.0" prefHeight="25.0" prefWidth="185.0" promptText="choose room" styleClass="combobox" stylesheets="@auctionDesign.css" />
       <DatePicker fx:id="input_date" layoutX="510.0" layoutY="340.0" prefHeight="25.0" prefWidth="203.0" promptText="Date creation of artwork" />
       <TextArea fx:id="input_desc" layoutX="956.0" layoutY="239.0" prefHeight="146.0" prefWidth="185.0" promptText="Describe the artwork" styleClass="textfield" stylesheets="@auctionDesign.css" />
       <Button fx:id="btn_addimage" layoutX="520.0" layoutY="425.0" mnemonicParsing="false" onAction="#btn_addimage_clicked" prefHeight="33.0" prefWidth="203.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="add a file">

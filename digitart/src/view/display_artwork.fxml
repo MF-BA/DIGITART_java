@@ -114,10 +114,5 @@
       </VBox>
       <Pane layoutX="829.0" layoutY="264.0" prefHeight="263.0" prefWidth="263.0" style="-fx-background-color: #3B3936;" />
       <ImageView fx:id="image" fitHeight="237.0" fitWidth="245.0" layoutX="836.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="BTN_PDF" layoutX="1025.0" layoutY="135.0" mnemonicParsing="false" onAction="#btn_PDF_clicked" prefHeight="41.0" prefWidth="134.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="PDF">
-         <font>
-            <Font name="Impact" size="18.0" />
-         </font>
-      </Button>
    </children>
 </AnchorPane>
