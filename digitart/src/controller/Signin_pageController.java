@@ -9,6 +9,7 @@ import Services.users_Services;
 //import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 //import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 
+
 import entity.Data;
 import entity.users;
 import java.io.IOException;
@@ -85,7 +86,7 @@ public class Signin_pageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+       
     }
 
 
@@ -233,13 +234,14 @@ public class Signin_pageController implements Initializable {
       props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");  
     props.put("mail.smtp.socketFactory.fallback", "false");  
     
-      Session session = Session.getInstance(props,
+      /*Session session = Session.getInstance(props,
          new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                return new PasswordAuthentication(Data.username, Data.password);
             }
-         });
-      final String recipientEmail = result.get();
+         });*/
+      Session session = Session.getDefaultInstance(props);
+      String recipientEmail = result.get();
      try{
       String sql = "Select * from users where email = ?";
          pst = conn.prepareStatement(sql);
@@ -261,7 +263,10 @@ public class Signin_pageController implements Initializable {
          message.setSubject("Reset Password");
          message.setText(emailContent);
 
-         Transport.send(message);
+         Transport t = session.getTransport("smtp");
+          t.connect(Data.username, Data.password);
+          t.sendMessage(message, message.getAllRecipients());
+          t.close();
 
          System.out.println("Email sent successfully!");
          
@@ -294,7 +299,8 @@ public class Signin_pageController implements Initializable {
          
 
       } catch (MessagingException e) {
-         throw new RuntimeException(e);
+         //throw new RuntimeException(e);
+          e.printStackTrace();
       }  
              
          }
@@ -302,7 +308,8 @@ public class Signin_pageController implements Initializable {
          conn.close();
          
          } catch (SQLException ex) {
-                Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+                 ex.printStackTrace();
             }
       
 
@@ -311,36 +318,7 @@ public class Signin_pageController implements Initializable {
         
     }
     
-    private String generateNewPassword() {
-    // TODO: Implement password generation logic
-    
-     
-     TextInputDialog dialog = new TextInputDialog();
-    dialog.setTitle("Forgot Password");
-    dialog.setHeaderText("Enter your email address");
-    dialog.setContentText("Email :");
-    
-    
-    
-    
-    
-    
-    
-    
-    return "newpassword123";
-    }
-
-public void storeNewPassword(String emailOrUsername, String newPassword) {
-    // TODO: Implement password storage logic
-}
-
-public void sendPasswordEmail(String emailOrUsername, String newPassword) {
-    // TODO: Implement email sending logic using JavaMail or another Java email API
-    
-
-      
-}
-    
+ 
     
     
     
