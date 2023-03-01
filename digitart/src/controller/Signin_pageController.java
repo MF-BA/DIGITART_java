@@ -9,7 +9,6 @@ import Services.users_Services;
 //import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 //import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 
-
 import entity.Data;
 import entity.users;
 import java.io.IOException;
@@ -42,12 +41,12 @@ import utils.Conn;
 import java.util.Properties;
 import java.util.Random;
 import javafx.scene.control.Alert;
-import javax.mail.Message; 
-import javax.mail.MessagingException; 
-import javax.mail.Session; 
-import javax.mail.Transport; 
-import javax.mail.internet.InternetAddress; 
-import javax.mail.internet.MimeMessage; 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.mail.PasswordAuthentication;
 
 /**
@@ -86,9 +85,8 @@ public class Signin_pageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       
-    }
 
+    }
 
     @FXML
     private void register_clicked(ActionEvent event) {
@@ -131,20 +129,17 @@ public class Signin_pageController implements Initializable {
 
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
-                    if(rs.getString("status").equals("unblocked"))
-                    {
-                    loginerrormsg.setText("Email and Password are correct!! ");
-                    Data.user
-                            = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
+                    if (rs.getString("status").equals("unblocked")) {
+                        loginerrormsg.setText("Email and Password are correct!! ");
+                        Data.user
+                                = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
 
-                    System.out.println(Data.user);
-                    role = rs.getString("role");    
-                    }
-                    else
-                    {
-                      loginerrormsg.setText("Your account is blocked !! ");
-                    emaillogin.setText("");
-                    pwdlogin.setText("");  
+                        System.out.println(Data.user);
+                        role = rs.getString("role");
+                    } else {
+                        loginerrormsg.setText("Your account is blocked !! ");
+                        emaillogin.setText("");
+                        pwdlogin.setText("");
                     }
 
                 } else {
@@ -205,132 +200,113 @@ public class Signin_pageController implements Initializable {
 
     @FXML
     private void showpwd(ActionEvent event) {
-        
+
         if (showpwd.isSelected()) {
-                pwdlogin.setPromptText(pwdlogin.getText());
-                pwdlogin.setText("");
-            } else {
-                pwdlogin.setText(pwdlogin.getPromptText());
-                pwdlogin.setPromptText("");
-            }
-        
+            pwdlogin.setPromptText(pwdlogin.getText());
+            pwdlogin.setText("");
+        } else {
+            pwdlogin.setText(pwdlogin.getPromptText());
+            pwdlogin.setPromptText("");
+        }
+
     }
 
     @FXML
-    private void forgotPasswordButton(ActionEvent event)  {
-       
-    TextInputDialog dialog = new TextInputDialog();
-    dialog.setTitle("Forgot Password");
-    dialog.setHeaderText("Enter your email address");
-    dialog.setContentText("Email :");
-    
-    Optional<String> result = dialog.showAndWait();
-      Properties props = new Properties();
-      props.setProperty("mail.transport.protocol", "smtp"); 
-      props.put("mail.smtp.auth", "true");
-      props.put("mail.smtp.starttls.enable", "true");
-      props.setProperty("mail.host", "smtp.gmail.com");  
-      props.put("mail.smtp.port", "587");
-      props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");  
-    props.put("mail.smtp.socketFactory.fallback", "false");  
-    
-      /*Session session = Session.getInstance(props,
-         new javax.mail.Authenticator() {
+    private void forgotPasswordButton(ActionEvent event) {
+
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Forgot Password");
+        dialog.setHeaderText("Enter your email address");
+        dialog.setContentText("Email :");
+
+        Optional<String> result = dialog.showAndWait();
+        Properties props = new Properties();
+        //props.setProperty("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.setProperty("mail.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        //props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        //props.put("mail.smtp.socketFactory.fallback", "false");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-               return new PasswordAuthentication(Data.username, Data.password);
+                return new PasswordAuthentication(Data.username, Data.password);
             }
-         });*/
-      Session session = Session.getDefaultInstance(props);
-      String recipientEmail = result.get();
-     try{
-      String sql = "Select * from users where email = ?";
-         pst = conn.prepareStatement(sql);
-         pst.setString(1, recipientEmail);
-         
-         ResultSet rs = pst.executeQuery();
-         if (rs.next()){ 
-             int id = rs.getInt(1);
-           try {
-         Random random = new Random();
-         int resetCode = random.nextInt(1000000); // Generate a random 6-digit code
-         String emailContent = "Your reset code is: " + resetCode;
+        });
+        String recipientEmail = result.get();
+        System.out.println(recipientEmail);
+        try {
+            String sql = "Select * from users where email = ?";
+            pst = conn.prepareStatement(sql);
+            pst.setString(1, recipientEmail);
 
-         Message message = new MimeMessage(session);  
-         message.setFrom(new InternetAddress(Data.username));
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                try {
+                    Random random = new Random();
+                    int resetCode = random.nextInt(1000000); // Generate a random 6-digit code
+                    String emailContent = "Your reset code is: " + resetCode;
 
-         message.setRecipients(Message.RecipientType.TO,
-            InternetAddress.parse(recipientEmail));
-         message.setSubject("Reset Password");
-         message.setText(emailContent);
+                    Message message = new MimeMessage(session);
+                    message.setFrom(new InternetAddress(Data.username));
 
-         Transport t = session.getTransport("smtp");
-          t.connect(Data.username, Data.password);
-          t.sendMessage(message, message.getAllRecipients());
-          t.close();
+                    message.setRecipients(Message.RecipientType.TO,
+                            InternetAddress.parse(recipientEmail));
+                    message.setSubject("Reset Password");
+                    message.setText(emailContent);
+                    Transport.send(message);
+                    /* Transport t = session.getTransport("smtp");
+                    t.connect(Data.username, Data.password);
+                    t.sendMessage(message, message.getAllRecipients());
+                    t.close();
+                     */
+                    System.out.println("Email sent successfully!");
 
-         System.out.println("Email sent successfully!");
-         
-         TextInputDialog dialog1 = new TextInputDialog();
-        dialog1.setTitle("Forgot Password");
-        dialog1.setHeaderText("Enter the code sent by mail");
-        dialog1.setContentText("CODE :");
-        Optional<String> result1 = dialog1.showAndWait();
-        final int code = Integer.parseInt(result1.get());
-        if (resetCode == code)
-        {
-            TextInputDialog dialog2 = new TextInputDialog();
-        dialog2.setTitle("Forgot Password");
-        dialog2.setHeaderText("Enter your new password");
-        dialog2.setContentText("New password :");   
-        Optional<String> result2 = dialog2.showAndWait();
-        String sql1 = "update users set password = ? where id = ?";
-         pst = conn.prepareStatement(sql1);
-         pst.setString(1, result2.get());
-         pst.setInt(2, id);
-        }
-        else 
-        {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Forgot Password");
-        alert.setHeaderText(null);
-        alert.setContentText("the code you entered is incorrect!! ");
-        alert.showAndWait();   
-        }
-         
+                    TextInputDialog dialog1 = new TextInputDialog();
+                    dialog1.setTitle("Forgot Password");
+                    dialog1.setHeaderText("Enter the code sent by mail");
+                    dialog1.setContentText("CODE :");
+                    Optional<String> result1 = dialog1.showAndWait();
+                    final int code = Integer.parseInt(result1.get());
+                    if (resetCode == code) {
+                        TextInputDialog dialog2 = new TextInputDialog();
+                        dialog2.setTitle("Forgot Password");
+                        dialog2.setHeaderText("Enter your new password");
+                        dialog2.setContentText("New password :");
+                        Optional<String> result2 = dialog2.showAndWait();
+                        String sql1 = "update users set password = ? where id = ?";
+                        System.out.println(result2.get());
+                        System.out.println(id);
 
-      } catch (MessagingException e) {
-         //throw new RuntimeException(e);
-          e.printStackTrace();
-      }  
-             
-         }
-         
-         conn.close();
-         
-         } catch (SQLException ex) {
-                //Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
-                 ex.printStackTrace();
+                        pst = conn.prepareStatement(sql1);
+                        pst.setString(1, result2.get());
+                        pst.setInt(2, id);
+                        pst.executeUpdate();
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Forgot Password");
+                        alert.setHeaderText(null);
+                        alert.setContentText("the code you entered is incorrect!! ");
+                        alert.showAndWait();
+                    }
+
+                } catch (MessagingException e) {
+                    //throw new RuntimeException(e);
+                    e.printStackTrace();
+                }
+
             }
-      
 
-       
-      
-        
+            conn.close();
+
+        } catch (SQLException ex) {
+            //Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+
     }
-    
- 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
 }

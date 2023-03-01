@@ -10,11 +10,12 @@ package entity;
  * @author fedi1
  */
 public class Data {
-    public static users user ;
-    public static Bid bid ;
-    public static Auction auction ;
-    public static Auction_display auction_display ;
-    public static final String username = "primes.digitart@gmail.com";     
-    public static final String password = "primes.digitart123";
-    
+
+    public static users user;
+    public static Bid bid;
+    public static Auction auction;
+    public static Auction_display auction_display;
+    public static final String username = "digitart.primes@gmail.com";
+    public static final String password = "ktknrunncnveaidz";
+
 }
