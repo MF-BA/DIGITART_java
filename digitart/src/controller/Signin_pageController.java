@@ -6,18 +6,28 @@
 package controller;
 
 import Services.users_Services;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
 //import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
 //import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 
 import entity.Data;
 import entity.users;
+import java.awt.Desktop;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -40,7 +50,9 @@ import javafx.stage.Stage;
 import utils.Conn;
 import java.util.Properties;
 import java.util.Random;
+import java.util.UUID;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.AnchorPane;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -48,6 +60,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.PasswordAuthentication;
+import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -78,14 +91,26 @@ public class Signin_pageController implements Initializable {
     private Button login_btn;
     @FXML
     private CheckBox showpwd;
-
+    @FXML
+    private AnchorPane loginpage;
+    @FXML
+    private Button confirm_code_google_btn;
+    @FXML
+    private TextField codegoogle;
+    @FXML
+    private Button return_fromcode_login_btn;
+    @FXML
+    private AnchorPane codepage;
+   
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        codepage.setVisible(false);
+        loginpage.setVisible(true);
     }
 
     @FXML
@@ -307,6 +332,90 @@ public class Signin_pageController implements Initializable {
             ex.printStackTrace();
         }
 
+    }
+
+    @FXML
+    private void google_signin_btn(ActionEvent event) throws IOException {
+        
+    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+        new NetHttpTransport(),
+        new JacksonFactory(),
+        "120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com",
+        "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",
+        Arrays.asList("email", "profile"))
+        .setAccessType("offline")
+        .build();
+
+    String authorizationUrl = flow.newAuthorizationUrl()
+        .setRedirectUri("urn:ietf:wg:oauth:2.0:oob")
+        .build();
+
+    try {
+        Desktop.getDesktop().browse(new URI(authorizationUrl));
+    } catch (URISyntaxException ex) {
+        Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    codepage.setVisible(true);
+    loginpage.setVisible(false);
+     
+    }
+
+    @FXML
+    private void confirm_code_google_btn(ActionEvent event) {
+        String code = codegoogle.getText();
+    
+    if (!code.isEmpty()) {
+    
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+            new NetHttpTransport(),
+            new JacksonFactory(),
+            "120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com",
+            "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",
+            Arrays.asList("email", "profile"))
+            .setAccessType("offline")
+            .build();
+
+        try {
+            GoogleTokenResponse tokenResponse = flow.newTokenRequest(code)
+                .setRedirectUri("urn:ietf:wg:oauth:2.0:oob")
+                .execute();
+
+            GoogleCredential credential = new GoogleCredential.Builder()
+                .setTransport(new NetHttpTransport())
+                .setJsonFactory(new JacksonFactory())
+                .setClientSecrets("120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com", "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")
+                .build()
+                .setFromTokenResponse(tokenResponse);
+
+            GoogleIdToken idToken = tokenResponse.parseIdToken();
+            GoogleIdToken.Payload payload = idToken.getPayload();
+            String email = payload.getEmail();
+            String password = UUID.randomUUID().toString();
+
+            String query = "INSERT INTO users (email, password) VALUES (?, ?)";
+            PreparedStatement stmt;
+
+            try {
+                stmt = conn.prepareStatement(query);
+                stmt.setString(1, email);
+                stmt.setString(2, password);
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    }
+
+    @FXML
+    private void return_fromcode_login_btn(ActionEvent event) {
+
+      codepage.setVisible(false);
+        loginpage.setVisible(true);
     }
 
 }
