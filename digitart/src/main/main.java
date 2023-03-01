@@ -11,6 +11,12 @@ import Services.ServiceTicket;
 import entity.Auction;
 import Services.Auction_Services;
 import Services.Bid_Services;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Card;
+import com.stripe.model.Charge;
+import com.stripe.model.Customer;
+import com.stripe.model.Token;
 import controller.Signup_pageController;
 import entity.Bid;
 import entity.Auction_display;
@@ -20,6 +26,8 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -56,12 +64,26 @@ public class main extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        Data.user = new users(1, 12,"firstname", "lastname", "email", " pwd", "address",  45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
+    public static void main(String[] args) throws StripeException {
+        Data.user = new users(1, 12, "firstname", "lastname", "email", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
         launch(args);
-        
 
-        
+        // Create a new customer
+        /* Customer customer;
+        try {
+            customer = Customer.create(
+                    // Set the customer parameters
+                    new CustomerCreateParams.Builder()
+                            .setName("ali")
+                            .setEmail("ali@example.com")
+                            .build()
+            );
+   
+        } catch (StripeException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } */
+    
+
         //Amine---------------------------------------------------------------------------------------------------- 
         /*
         java.sql.Date ticketDate = java.sql.Date.valueOf("1990-03-12");
@@ -129,8 +151,7 @@ public class main extends Application {
        System.out.println(ServiceTicket.displayTicket());
          */
         // Amine---------------------------------------------------------------------------------------------------- 
-        System.exit(
-                0);
+        System.exit(0);
 
     }
 

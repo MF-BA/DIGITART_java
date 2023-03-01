@@ -14,6 +14,7 @@ public class Data {
     public static Bid bid ;
     public static Auction auction ;
     public static Auction_display auction_display ;
-    
+    public static Payment payment;
+    public static String totalp;
     
 }

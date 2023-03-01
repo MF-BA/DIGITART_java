@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="446.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PaymentController">
+   <children>
+      <Label layoutX="30.0" layoutY="34.0" text="Billing">
+         <font>
+            <Font name="System Bold Italic" size="32.0" />
+         </font>
+      </Label>
+      <TextField fx:id="cardNumberTextField" layoutX="148.0" layoutY="105.0" promptText="Card Number" />
+      <TextField fx:id="expirymTextField" layoutX="148.0" layoutY="131.0" promptText="MM" />
+      <TextField fx:id="cvcTextField" layoutX="148.0" layoutY="183.0" promptText="CVC" />
+      <Label layoutX="279.0" layoutY="300.0" prefHeight="27.0" prefWidth="92.0" text="Sub-Total:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="279.0" layoutY="328.0" text="Tax :">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="taxLabel" layoutX="391.0" layoutY="328.0" text="0%">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="subtotalLabel" layoutX="391.0" layoutY="300.0" text="0">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="totalLabel" layoutX="391.0" layoutY="355.0" text="5000">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="279.0" layoutY="355.0" prefHeight="27.0" prefWidth="54.0" text="Total:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="pay_button" layoutX="205.0" layoutY="223.0" mnemonicParsing="false" onAction="#handlePayButtonAction" text="pay" />
+      <TextField fx:id="expiryyTextField" layoutX="148.0" layoutY="157.0" promptText="YY" />
+   </children>
+</AnchorPane>
