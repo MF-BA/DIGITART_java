@@ -332,25 +332,25 @@ public class TicketController implements Initializable {
         price_4.setText(String.valueOf(total));
 
         // Disable spinners if the price is 0 for the respective ticket type
-        /*
-        if (price1 == 0) {
+        
+        if (getTicketPrice("Adult", selectedDate) == 0) {
             spinner_adult.setDisable(true);
         } else {
             spinner_adult.setDisable(false);
         }
 
-        if (price2 == 0) {
+        if (getTicketPrice("Teen", selectedDate) == 0) {
             spinner_teen.setDisable(true);
         } else {
             spinner_teen.setDisable(false);
         }
 
-        if (price3 == 0) {
+        if (getTicketPrice("Student", selectedDate) == 0) {
             spinner_student.setDisable(true);
         } else {
             spinner_student.setDisable(false);
         }
-        */
+       
     }
 
     public void ShowPayment() {
