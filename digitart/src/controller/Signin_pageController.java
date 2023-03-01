@@ -300,7 +300,7 @@ public class Signin_pageController implements Initializable {
 
             }
 
-            conn.close();
+            
 
         } catch (SQLException ex) {
             //Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
