@@ -246,8 +246,7 @@
                   </Label>
                   <AnchorPane fx:id="afterdate_anchor" layoutX="38.0" layoutY="201.0" prefHeight="462.0" prefWidth="1088.0">
                      <children>
-                        <Button fx:id="ticketbuy_pdf_button" layoutX="739.0" layoutY="361.0" mnemonicParsing="false" onAction="#generateTicketPDF" prefHeight="50.0" prefWidth="146.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="PDF Receipt" />
-                        <Button fx:id="ticketbuy_reset_button" layoutX="19.0" layoutY="361.0" mnemonicParsing="false" onAction="#SpinnerReset" prefHeight="50.0" prefWidth="115.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Reset" />
+                        <Button fx:id="ticketbuy_reset_button" layoutX="83.0" layoutY="362.0" mnemonicParsing="false" onAction="#SpinnerReset" prefHeight="50.0" prefWidth="134.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Reset" />
                         <Label layoutX="86.0" layoutY="85.0" text="Adult">
                            <font>
                               <Font name="Microsoft New Tai Lue Bold" size="30.0" />
@@ -301,8 +300,7 @@
                         </Label>
                         <Spinner fx:id="spinner_teen" layoutX="421.0" layoutY="168.0" onMouseClicked="#getSpinner" prefHeight="40.0" prefWidth="80.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
                         <Spinner fx:id="spinner_student" layoutX="423.0" layoutY="249.0" onMouseClicked="#getSpinner" prefHeight="40.0" prefWidth="80.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                        <Button fx:id="ticketbuy_qr_code" layoutX="146.0" layoutY="361.0" mnemonicParsing="false" onAction="#ticketbuy_qr_code" prefHeight="50.0" prefWidth="162.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Generate Qr Code" />
-                        <Button fx:id="ticketbuy_buy_button" layoutX="926.0" layoutY="361.0" mnemonicParsing="false" onAction="#displayPaymentStripe" prefHeight="50.0" prefWidth="134.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Buyee">
+                        <Button fx:id="ticketbuy_buy_button" layoutX="905.0" layoutY="359.0" mnemonicParsing="false" onAction="#displayPaymentStripe" prefHeight="50.0" prefWidth="134.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Buy">
                            <font>
                               <Font name="Microsoft New Tai Lue Bold" size="30.0" />
                            </font>

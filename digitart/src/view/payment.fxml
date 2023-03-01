@@ -1,57 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="446.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PaymentController">
+<AnchorPane id="AnchorPane" prefHeight="457.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PaymentController">
    <children>
-      <Label layoutX="30.0" layoutY="34.0" text="Billing">
-         <font>
-            <Font name="System Bold Italic" size="32.0" />
-         </font>
-      </Label>
-      <TextField fx:id="cardNumberTextField" layoutX="148.0" layoutY="105.0" promptText="Card Number" />
-      <TextField fx:id="expirymTextField" layoutX="148.0" layoutY="131.0" promptText="MM" />
-      <TextField fx:id="cvcTextField" layoutX="148.0" layoutY="183.0" promptText="CVC" />
-      <Label layoutX="279.0" layoutY="300.0" prefHeight="27.0" prefWidth="92.0" text="Sub-Total:">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="279.0" layoutY="328.0" text="Tax :">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="taxLabel" layoutX="391.0" layoutY="328.0" text="0%">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="subtotalLabel" layoutX="391.0" layoutY="300.0" text="0">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="totalLabel" layoutX="380.0" layoutY="355.0" text="5000">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="279.0" layoutY="355.0" prefHeight="27.0" prefWidth="54.0" text="Total:">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
-      <Button fx:id="pay_button" layoutX="205.0" layoutY="223.0" mnemonicParsing="false" onAction="#handlePayButtonAction" text="pay" />
-      <TextField fx:id="expiryyTextField" layoutX="148.0" layoutY="157.0" promptText="YY" />
-      <Label fx:id="totalLabel1" layoutX="365.0" layoutY="355.0" prefHeight="27.0" prefWidth="10.0" text="\$">
-         <font>
-            <Font name="System Bold Italic" size="18.0" />
-         </font>
-      </Label>
+      <AnchorPane fx:id="anchor_2" prefHeight="457.0" prefWidth="549.0" styleClass="left-form" stylesheets="@auctionDesign.css" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="ticketbuy_qr_code" layoutX="309.0" layoutY="240.0" mnemonicParsing="false" onAction="#ticketbuy_qr_code" prefHeight="50.0" prefWidth="162.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Generate Qr Code" />
+            <Button fx:id="ticketbuy_pdf_button" layoutX="82.0" layoutY="240.0" mnemonicParsing="false" onAction="#generateTicketPDF" prefHeight="50.0" prefWidth="146.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="PDF Receipt" />
+            <Label layoutX="-37.0" layoutY="79.0" prefHeight="67.0" prefWidth="571.0" text="Thanks for you're purchase !" textAlignment="CENTER" textFill="WHITE">
+               <padding>
+                  <Insets left="100.0" />
+               </padding>
+               <font>
+                  <Font name="Berlin Sans FB" size="37.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="anchor_1" prefHeight="457.0" prefWidth="549.0" styleClass="right-form" stylesheets="@auctionDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="totalLabel1" layoutX="269.0" layoutY="335.0" prefHeight="27.0" prefWidth="11.0" text="\$">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="expiryyTextField" layoutX="230.0" layoutY="203.0" prefHeight="34.0" prefWidth="62.0" promptText="YY" styleClass="payment-text-field" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="cvcTextField" layoutX="292.0" layoutY="203.0" prefHeight="34.0" prefWidth="94.0" promptText="CVC" styleClass="payment-text-field" stylesheets="@auctionDesign.css" />
+            <Label layoutX="36.0" layoutY="14.0" text="Payment">
+               <font>
+                  <Font name="System Bold Italic" size="33.0" />
+               </font>
+            </Label>
+            <TextField fx:id="expirymTextField" layoutX="168.0" layoutY="203.0" prefHeight="34.0" prefWidth="62.0" promptText="MM" styleClass="payment-text-field" stylesheets="@auctionDesign.css" />
+            <Label fx:id="totalLabel" layoutX="286.0" layoutY="335.0" text="5000">
+               <font>
+                  <Font name="System Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="210.0" layoutY="335.0" prefHeight="27.0" prefWidth="54.0" text="Total:">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="pay_button" layoutX="192.0" layoutY="372.0" mnemonicParsing="false" onAction="#handlePayButtonAction" prefHeight="34.0" prefWidth="177.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Pay" />
+            <TextField fx:id="cardNumberTextField" layoutX="167.0" layoutY="169.0" prefHeight="34.0" prefWidth="219.0" promptText="Card Number" styleClass="payment-text-field" stylesheets="@auctionDesign.css" />
+            <Label layoutX="167.0" layoutY="142.0" text="Card Information">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="168.0" layoutY="81.0" text="Email">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="payment_email" layoutX="168.0" layoutY="105.0" prefHeight="34.0" prefWidth="219.0" promptText="exemple@test.com      (Optional)" styleClass="payment-text-field" stylesheets="@auctionDesign.css" />
+            <Label layoutX="167.0" layoutY="241.0" text="Name on card">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="payment_name" layoutX="167.0" layoutY="267.0" prefHeight="34.0" prefWidth="219.0" styleClass="payment-text-field" stylesheets="@auctionDesign.css" />
+            <FontAwesomeIconView glyphName="CC_VISA" layoutX="388.0" layoutY="194.0" size="2em" />
+            <FontAwesomeIconView glyphName="CC_MASTERCARD" layoutX="420.0" layoutY="194.0" size="2em" />
+            <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="299.0" layoutY="398.0" size="2em" />
+            <FontAwesomeIconView glyphName="CC_STRIPE" layoutX="452.0" layoutY="194.0" size="2em" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

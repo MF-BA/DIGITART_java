@@ -18,9 +18,9 @@ public class Code128BarcodeGenerator {
         Code128Bean bean = new Code128Bean();
 
         // Configure the barcode generator
-        bean.setModuleWidth(0.2); // Adjust this value to change the width of the bars
+        bean.setModuleWidth(0.5); // Increase the width of the bars
         bean.setBarHeight(BAR_HEIGHT);
-        bean.doQuietZone(false);
+        bean.doQuietZone(true); // Add a quiet zone
 
         // Output the barcode as PNG image
         BitmapCanvasProvider canvas = new BitmapCanvasProvider(outputStream, FORMAT, DPI,
@@ -32,4 +32,5 @@ public class Code128BarcodeGenerator {
         // Signal end of generation
         canvas.finish();
     }
+
 }

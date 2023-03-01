@@ -5,36 +5,18 @@
  */
 package controller;
 
-import entity.Code128BarcodeGenerator;
 import Services.ServicePayment;
 import Services.ServiceTicket;
 import com.google.zxing.WriterException;
-
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.codec.Base64;
 import entity.Data;
 import utils.Conn;
 import entity.Ticket;
 import entity.Payment;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -59,7 +41,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -82,13 +63,9 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javax.xml.bind.DatatypeConverter;
-import org.krysalis.barcode4j.BarcodeGenerator;
-import org.krysalis.barcode4j.output.bitmap.BitmapCanvasProvider;
 
 /**
  * FXML Controller class
@@ -193,7 +170,6 @@ public class TicketController implements Initializable {
     @FXML
     private Button ticket_update_button;
 
-
     @FXML
     private Button ticketbuy_reset_button;
 
@@ -238,10 +214,6 @@ public class TicketController implements Initializable {
     @FXML
     private PieChart dashboard_pie;
     @FXML
-    private Button ticketbuy_pdf_button;
-    @FXML
-    private Button ticketbuy_qr_code;
-    @FXML
     private Button ticketbuy_buy_button;
 
     public void combobox() {
@@ -263,7 +235,7 @@ public class TicketController implements Initializable {
 //////// STOP  //////////////////////////////////////////////// STOP /////////////////////////////////////////////////////
     @FXML
     public void checkDate() {
-      
+
         // Disable all dates that are not between ticket_date and ticket_edate for each ticket
         String sql = "SELECT ticket_date, ticket_edate FROM ticket";
         try {
@@ -279,6 +251,12 @@ public class TicketController implements Initializable {
                 }
             }
             enableDates(enabledDates);
+            // Set the anchor to be visible only if a date is selected
+            if (payment_date.getValue() != null) {
+                afterdate_anchor.setVisible(true);
+            } else {
+                afterdate_anchor.setVisible(false);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -336,6 +314,11 @@ public class TicketController implements Initializable {
         qty3 = spinner_student.getValue();
 
         LocalDate selectedDate = payment_date.getValue();
+        /*
+            spinner_adult.setDisable(false);
+            spinner_teen.setDisable(false);
+            spinner_student.setDisable(false);
+         */
 
         int price1 = getTicketPrice("Adult", selectedDate) * qty1;
         int price2 = getTicketPrice("Teen", selectedDate) * qty2;
@@ -347,6 +330,27 @@ public class TicketController implements Initializable {
         price_2.setText("$" + String.valueOf(price2));
         price_3.setText("$" + String.valueOf(price3));
         price_4.setText(String.valueOf(total));
+
+        // Disable spinners if the price is 0 for the respective ticket type
+        /*
+        if (price1 == 0) {
+            spinner_adult.setDisable(true);
+        } else {
+            spinner_adult.setDisable(false);
+        }
+
+        if (price2 == 0) {
+            spinner_teen.setDisable(true);
+        } else {
+            spinner_teen.setDisable(false);
+        }
+
+        if (price3 == 0) {
+            spinner_student.setDisable(true);
+        } else {
+            spinner_student.setDisable(false);
+        }
+        */
     }
 
     public void ShowPayment() {
@@ -412,177 +416,20 @@ public class TicketController implements Initializable {
         }
     }
 
-    @FXML
-    public void generateTicketPDF() throws FileNotFoundException, DocumentException, IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save Ticket");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF Files", "test.pdf"));
-        File file = fileChooser.showSaveDialog(null);
-
-        if (file != null) {
-            Document document = new Document();
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file));
-            document.open();
-
-            PdfContentByte canvas = writer.getDirectContent();
-            canvas.saveState();
-            canvas.setColorFill(new BaseColor(239, 34, 40)); // #FFC8C8
-            canvas.rectangle(0, 800, 700, 40);
-            canvas.fill();
-            canvas.restoreState();
-
-            document.add(new Paragraph("\n")); // add a line break
-
-            String firstName = "Amine";
-            String lastName = "Tlili";
-            int qtyAdult = spinner_adult.getValue();
-            int qtyTeen = spinner_teen.getValue();
-            int qtyStudent = spinner_student.getValue();
-
-            // Create greeting paragraph
-            // Add a title
-            Paragraph title = new Paragraph();
-            title.add(new Chunk("Museum Ticket Receipt", FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18)));
-            title.setAlignment(Element.ALIGN_CENTER);
-            document.add(title);
-
-            document.add(new Paragraph("\n"));
-            Paragraph greeting = new Paragraph();
-            greeting.add(new Chunk("Hi ", FontFactory.getFont(FontFactory.HELVETICA, 14)));
-            greeting.add(new Chunk("Mr. " + firstName + " " + lastName + ", ", FontFactory.getFont(FontFactory.HELVETICA, 14, Font.BOLD)));
-            greeting.add(new Chunk("thanks for your reservation, enjoy your tour!", FontFactory.getFont(FontFactory.HELVETICA, 14)));
-            greeting.setAlignment(Element.ALIGN_CENTER);
-            PdfPCell greetingCell = new PdfPCell(greeting);
-            greetingCell.setBackgroundColor(new BaseColor(229, 231, 230));
-            greetingCell.setPadding(10);
-            greetingCell.setBorder(Rectangle.NO_BORDER);
-            greetingCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-
-            // Create a table with two columns
-            PdfPTable table1 = new PdfPTable(2);
-            // Add the greeting cell to the first row
-            table1.addCell(greetingCell);
-            // Add the reservation details cell to the second row
-            // Add the date picker cell to the third row
-            PdfPCell datePickerCell = new PdfPCell();
-            datePickerCell.addElement(new Paragraph("Payment Date: " + payment_date.getValue()));
-            table1.addCell(datePickerCell);
-            // Add the table to the document
-            document.add(table1);
-
-            // Create reservation details table
-            PdfPTable reservationDetails = new PdfPTable(2);
-            reservationDetails.addCell(new PdfPCell(new Phrase("Number of Adult Tickets:")));
-            reservationDetails.addCell(new PdfPCell(new Phrase(Integer.toString(qtyAdult))));
-            reservationDetails.addCell(new PdfPCell(new Phrase("Number of Teenager Tickets:")));
-            reservationDetails.addCell(new PdfPCell(new Phrase(Integer.toString(qtyTeen))));
-            reservationDetails.addCell(new PdfPCell(new Phrase("Number of Student Tickets:")));
-            reservationDetails.addCell(new PdfPCell(new Phrase(Integer.toString(qtyStudent))));
-
-            PdfPCell reservationCell = new PdfPCell(reservationDetails);
-            reservationCell.setPadding(10);
-            reservationCell.setBackgroundColor(new BaseColor(229, 231, 230)); // #E5E7E6
-            reservationCell.setBorder(Rectangle.NO_BORDER);
-
-            // Create details table
-            PdfPTable detailsTable = new PdfPTable(1);
-            //detailsTable.addCell(greetingCell);
-            detailsTable.addCell(reservationCell);
-            document.add(detailsTable);
-
-            // Create a cell for the date picker and add it to the second row
-            // Create total payment paragraph
-            PdfPTable table = new PdfPTable(1);
-            Paragraph totalPayment = new Paragraph();
-            totalPayment.add(new Chunk("Total Payment: ", FontFactory.getFont(FontFactory.HELVETICA, 14, Font.BOLD)));
-            totalPayment.add(new Chunk(price_4.getText(), FontFactory.getFont(FontFactory.HELVETICA, 14)));
-            totalPayment.setAlignment(Element.ALIGN_RIGHT);
-            PdfPCell totalPaymentCell = new PdfPCell(totalPayment);
-            totalPaymentCell.setBorder(Rectangle.NO_BORDER);
-            document.add(new Paragraph("\n"));
-            table.addCell(totalPaymentCell);
-            document.add(table);
-
-            // Add a date
-            Paragraph date = new Paragraph();
-            date.add(new Chunk("Date of the payment: " + LocalDate.now().toString(), FontFactory.getFont(FontFactory.HELVETICA, 12)));
-            date.setAlignment(Element.ALIGN_RIGHT);
-            document.add(date);
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-
-            // Add a thank you message
-            Paragraph thankYou = new Paragraph();
-            thankYou.add(new Chunk("Thank you for your purchase!", FontFactory.getFont(FontFactory.HELVETICA, 14)));
-            thankYou.setAlignment(Element.ALIGN_CENTER);
-            document.add(thankYou);
-            document.add(new Paragraph("\n"));
-
-            // Create a new instance of the Code128BarcodeGenerator class
-            Code128BarcodeGenerator gen = new Code128BarcodeGenerator();
-
-            // Generate the barcode image
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            gen.generateBarcode("", out); // Replace "1234567890" with your actual barcode data
-
-            // Add the barcode image to the PDF
-            Image img = Image.getInstance(out.toByteArray());
-            img.scalePercent(50); // Adjust this value to change the scale of the barcode image
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-            document.add(new Paragraph("\n"));
-            document.add(img);
-
-            document.close();
-        }
-    }
-
-    @FXML
-    private void ticketbuy_qr_code(ActionEvent event) throws WriterException, DocumentException {
-
-        displayQRCode(event);
-    }
-
-    private void displayQRCode(ActionEvent event) throws WriterException {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/displayQr.fxml"));
-            Parent root = loader.load();
-
-            DisplayQrController controller = loader.getController();
-            // Generate the content for the QR code
-            String qrContent = "Payment Date: " + payment_date.getValue() + "\n"
-                    + "Number of Adult Tickets: " + spinner_adult.getValue() + "\n"
-                    + "Number of Teen Tickets: " + spinner_teen.getValue() + "\n"
-                    + "Number of Student Tickets: " + spinner_student.getValue() + "\n"
-                    + "Total Ticket Price: " + price_4.getText();
-            controller.setQrCodeContent(qrContent);
-
-            Scene scene = new Scene(root);
-            Stage newStage = new Stage();
-            newStage.setScene(scene);
-            newStage.show();
-
-        } catch (IOException ex) {
-            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     private void ticketbuy_buy_button(ActionEvent event) throws WriterException, DocumentException {
         displayPaymentStripe(event);
-        
+
     }
 
     @FXML
     private void displayPaymentStripe(ActionEvent event) throws WriterException {
         try {
-            Data.totalp=price_4.getText();
+            Data.totalp = price_4.getText();
             Data.purchaseDate = payment_date.getValue();
             Data.nbAdult = spinner_adult.getValue();
             Data.nbTeenager = spinner_teen.getValue();
             Data.nbStudent = spinner_student.getValue();
-            
-            
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/payment.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -590,7 +437,6 @@ public class TicketController implements Initializable {
             newStage.setScene(scene);
             newStage.initModality(Modality.APPLICATION_MODAL); // Set the modality to APPLICATION_MODAL to block other stages
             newStage.showAndWait(); // Use showAndWait() instead of show()
-
 
         } catch (IOException ex) {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -1025,8 +871,8 @@ public class TicketController implements Initializable {
         dashboard_anchor.setVisible(true);
         addticket_anchor.setVisible(false);
         buyticket_anchor.setVisible(false);
-        ticket_id.setVisible(false);
-        //afterdate_anchor.setVisible(false);
+        //ticket_id.setVisible(false);
+        afterdate_anchor.setVisible(false);
         payment_anchor.setVisible(false);
 
         //here to delete
@@ -1034,9 +880,8 @@ public class TicketController implements Initializable {
         ticketbuy_qr_code.setVisible(false);
         dashboard_chart.setVisible(false);
         dashboard_pie.setVisible(false);
-        */
+         */
         /////////////////
-        
         dashboardDisplayAvailableTickets();
         dashboardDisplayTodayIncome();
         dashboardDisplayTotalIncome();
@@ -1075,6 +920,5 @@ public class TicketController implements Initializable {
     private Element generateGreyRectangle(Document document, PdfPTable ticketTable) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
 
 }
