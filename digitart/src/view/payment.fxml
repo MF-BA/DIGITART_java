@@ -36,7 +36,7 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="totalLabel" layoutX="391.0" layoutY="355.0" text="5000">
+      <Label fx:id="totalLabel" layoutX="380.0" layoutY="355.0" text="5000">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
@@ -48,5 +48,10 @@
       </Label>
       <Button fx:id="pay_button" layoutX="205.0" layoutY="223.0" mnemonicParsing="false" onAction="#handlePayButtonAction" text="pay" />
       <TextField fx:id="expiryyTextField" layoutX="148.0" layoutY="157.0" promptText="YY" />
+      <Label fx:id="totalLabel1" layoutX="365.0" layoutY="355.0" prefHeight="27.0" prefWidth="10.0" text="\$">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -17,9 +17,17 @@ import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.CustomerUpdateParams;
 import com.stripe.param.SourceCreateParams;
 import entity.Data;
+import entity.Payment;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,9 +37,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.main;
+import utils.Conn;
 
 /**
  * FXML Controller class
@@ -56,6 +66,8 @@ public class PaymentController implements Initializable {
     private TextField expirymTextField;
     @FXML
     private TextField expiryyTextField;
+    @FXML
+    private Label totalLabel1;
 
     @FXML
     private void handlePayButtonAction(ActionEvent event) {
@@ -81,40 +93,96 @@ public class PaymentController implements Initializable {
         } catch (StripeException ex) {
             // Handle the exception
             Logger.getLogger(PaymentController.class.getName()).log(Level.SEVERE, null, ex);
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Payment Error");
+            alert.setHeaderText(null);
+            alert.setContentText("There was an error processing your payment. Please check your payment information and try again.");
+            alert.showAndWait();
             return;
         }
 
-        // Charge the user's card for the total amount
-        int amount = Integer.parseInt(totalLabel.getText());
-        String currency = "usd";
+        // Confirm the payment with the user
+        Alert confirmAlert = new Alert(AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirm Payment");
+        confirmAlert.setHeaderText(null);
+        confirmAlert.setContentText("Are you sure you want to make this payment?");
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Charge the user's card for the total amount
+            int amount = Integer.parseInt(totalLabel.getText()) * 100;
+            String currency = "usd";
 
-        Map<String, Object> chargeParams = new HashMap<>();
-        chargeParams.put("amount", amount);
-        chargeParams.put("currency", currency);
-        chargeParams.put("source", token.getId());
+            Map<String, Object> chargeParams = new HashMap<>();
+            chargeParams.put("amount", amount);
+            chargeParams.put("currency", currency);
+            chargeParams.put("source", token.getId());
 
-        try {
-            Charge.create(chargeParams);
-        } catch (StripeException ex) {
-            // Handle the exception
-            Logger.getLogger(PaymentController.class.getName()).log(Level.SEVERE, null, ex);
-            return;
+            try {
+                Charge.create(chargeParams);
+            } catch (StripeException ex) {
+                // Handle the exception
+                Logger.getLogger(PaymentController.class.getName()).log(Level.SEVERE, null, ex);
+                Alert alert = new Alert(AlertType.ERROR);
+                alert.setTitle("Payment Error");
+                alert.setHeaderText(null);
+                alert.setContentText("There was an error processing your payment. Please check your payment information and try again.");
+                alert.showAndWait();
+                return;
+            }
+
+            // Get the user ID (assuming the user ID is 1)
+            int userId = 1;
+
+            // Get the selected date from the date picker
+            LocalDate purchaseDate = Data.purchaseDate;
+
+            // Get the quantities from the spinners
+            int nbAdult = Data.nbAdult;
+            int nbTeenager = Data.nbTeenager;
+            int nbStudent = Data.nbStudent;
+            int totalPayment =Integer.parseInt(totalLabel.getText());
+       
+            // Create a new Payment object with the collected data
+            Payment payment = new Payment(userId, purchaseDate, nbAdult, nbTeenager, nbStudent, totalPayment);
+
+            try {
+                Connection conn = Conn.getCon();
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO payment (purchase_date, nb_adult, nb_teenager, nb_student, total_payment) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                stmt.setDate(1, java.sql.Date.valueOf(payment.getPurchaseDate()));
+                stmt.setInt(2, payment.getNbAdult());
+                stmt.setInt(3, payment.getNbTeenager());
+                stmt.setInt(4, payment.getNbStudent());
+                stmt.setInt(5, payment.getTotalPayment());
+                //data.user.getUserId();
+                int affectedRows = stmt.executeUpdate();
+
+                if (affectedRows == 0) {
+                    throw new SQLException("Creating payment failed, no rows affected.");
+                }
+
+                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                    if (generatedKeys.next()) {
+                        payment.setId(generatedKeys.getInt(1));
+                    } else {
+                        throw new SQLException("Creating payment failed, no ID obtained.");
+                    }
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            // Display a message to the user indicating that the payment was successful
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Payment Successful");
+            alert.setHeaderText(null);
+            alert.setContentText("Your payment was successful.");
+            alert.showAndWait();
         }
-
-        // Display a message to the user indicating that the payment was successful
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Payment Successful");
-        alert.setHeaderText(null);
-        alert.setContentText("Your payment was successful.");
-        alert.showAndWait();
     }
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         totalLabel.setText(Data.totalp);
 
         Stripe.apiKey = "sk_test_51MfRIsHcaMLPP7A1X3INIItKLbEljzGYdpTujtvwb4mrggNEJtwS1SG2C6MyxYdz8T2uPVh219jsg7LBZRWSh2Ye00QEgBJZmW";
@@ -138,7 +206,7 @@ public class PaymentController implements Initializable {
         Card card = (Card) customer.getSources().create(source); // add the customer details to which card is need to link
         String cardDetails = card.toJson();
         System.out.println("Card Details : " + cardDetails);*/
-       /* Map<String, Object> params = new HashMap<>();
+ /* Map<String, Object> params = new HashMap<>();
         params.put("amount", 3000);
         params.put("currency", "usd");
         params.put("customer", "cus_NRSxsv14a22Ich");
@@ -150,7 +218,7 @@ public class PaymentController implements Initializable {
         } catch (StripeException ex) {
             Logger.getLogger(PaymentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
+         */
     }
 
 }

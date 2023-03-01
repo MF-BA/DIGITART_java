@@ -193,8 +193,6 @@ public class TicketController implements Initializable {
     @FXML
     private Button ticket_update_button;
 
-    @FXML
-    private Button ticketbuy_add_button;
 
     @FXML
     private Button ticketbuy_reset_button;
@@ -348,70 +346,7 @@ public class TicketController implements Initializable {
         price_1.setText("$" + String.valueOf(price1));
         price_2.setText("$" + String.valueOf(price2));
         price_3.setText("$" + String.valueOf(price3));
-        price_4.setText("$" + String.valueOf(total));
-    }
-
-    @FXML
-    public void addPayment() {
-        // Get the user ID (assuming the user ID is 1)
-        int userId = 1;
-
-        // Get the selected date from the date picker
-        LocalDate purchaseDate = payment_date.getValue();
-
-        // Get the quantities from the spinners
-        int nbAdult = spinner_adult.getValue();
-        int nbTeenager = spinner_teen.getValue();
-        int nbStudent = spinner_student.getValue();
-
-        // Calculate the total payment from the labels
-        int totalPayment = Integer.parseInt(price_4.getText().substring(1));
-
-        // Create a new Payment object with the collected data
-        Payment payment = new Payment(userId, purchaseDate, nbAdult, nbTeenager, nbStudent, totalPayment);
-
-        // Create an alert dialog to confirm the payment
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation");
-        alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to make this payment?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK) {
-            // Insert the new Payment into the database
-            try {
-                Connection conn = Conn.getCon();
-                PreparedStatement stmt = conn.prepareStatement("INSERT INTO payment (purchase_date, nb_adult, nb_teenager, nb_student, total_payment) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                stmt.setDate(1, java.sql.Date.valueOf(payment.getPurchaseDate()));
-                stmt.setInt(2, payment.getNbAdult());
-                stmt.setInt(3, payment.getNbTeenager());
-                stmt.setInt(4, payment.getNbStudent());
-                stmt.setInt(5, payment.getTotalPayment());
-                //data.user.getUserId();
-                int affectedRows = stmt.executeUpdate();
-
-                if (affectedRows == 0) {
-                    throw new SQLException("Creating payment failed, no rows affected.");
-                }
-
-                try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                    if (generatedKeys.next()) {
-                        payment.setId(generatedKeys.getInt(1));
-                    } else {
-                        throw new SQLException("Creating payment failed, no ID obtained.");
-                    }
-                }
-
-                // Show a success alert
-                Alert successAlert = new Alert(AlertType.INFORMATION);
-                successAlert.setTitle("Payment Success");
-                successAlert.setHeaderText(null);
-                successAlert.setContentText("Payment made successfully!");
-                successAlert.showAndWait();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        price_4.setText(String.valueOf(total));
     }
 
     public void ShowPayment() {
@@ -642,6 +577,12 @@ public class TicketController implements Initializable {
     private void displayPaymentStripe(ActionEvent event) throws WriterException {
         try {
             Data.totalp=price_4.getText();
+            Data.purchaseDate = payment_date.getValue();
+            Data.nbAdult = spinner_adult.getValue();
+            Data.nbTeenager = spinner_teen.getValue();
+            Data.nbStudent = spinner_student.getValue();
+            
+            
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/payment.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
@@ -1089,9 +1030,11 @@ public class TicketController implements Initializable {
         payment_anchor.setVisible(false);
 
         //here to delete
+        /*
         ticketbuy_qr_code.setVisible(false);
         dashboard_chart.setVisible(false);
         dashboard_pie.setVisible(false);
+        */
         /////////////////
         
         dashboardDisplayAvailableTickets();
@@ -1132,5 +1075,6 @@ public class TicketController implements Initializable {
     private Element generateGreyRectangle(Document document, PdfPTable ticketTable) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
 
 }

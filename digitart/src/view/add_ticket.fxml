@@ -274,17 +274,17 @@
                            </font>
                         </Label>
                         <Spinner fx:id="spinner_adult" layoutX="418.0" layoutY="85.0" onMouseClicked="#getSpinner" prefHeight="40.0" prefWidth="80.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                        <Label fx:id="price_1" layoutX="689.0" layoutY="76.0" text="\$0.0">
+                        <Label fx:id="price_1" layoutX="689.0" layoutY="76.0" text="0.0">
                            <font>
                               <Font name="Microsoft New Tai Lue Bold" size="35.0" />
                            </font>
                         </Label>
-                        <Label fx:id="price_2" layoutX="688.0" layoutY="158.0" text="\$0.0">
+                        <Label fx:id="price_2" layoutX="688.0" layoutY="158.0" text="0.0">
                            <font>
                               <Font name="Microsoft New Tai Lue Bold" size="35.0" />
                            </font>
                         </Label>
-                        <Label fx:id="price_3" layoutX="689.0" layoutY="241.0" text="\$0.0">
+                        <Label fx:id="price_3" layoutX="689.0" layoutY="241.0" text="0.0">
                            <font>
                               <Font name="Microsoft New Tai Lue Bold" size="35.0" />
                            </font>
@@ -294,7 +294,7 @@
                               <Font name="Microsoft New Tai Lue Bold" size="35.0" />
                            </font>
                         </Label>
-                        <Label fx:id="price_4" layoutX="923.0" layoutY="294.0" text="\$0.0">
+                        <Label fx:id="price_4" layoutX="923.0" layoutY="294.0" text="0.0">
                            <font>
                               <Font name="Microsoft New Tai Lue Bold" size="35.0" />
                            </font>
@@ -303,11 +303,6 @@
                         <Spinner fx:id="spinner_student" layoutX="423.0" layoutY="249.0" onMouseClicked="#getSpinner" prefHeight="40.0" prefWidth="80.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
                         <Button fx:id="ticketbuy_qr_code" layoutX="146.0" layoutY="361.0" mnemonicParsing="false" onAction="#ticketbuy_qr_code" prefHeight="50.0" prefWidth="162.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Generate Qr Code" />
                         <Button fx:id="ticketbuy_buy_button" layoutX="926.0" layoutY="361.0" mnemonicParsing="false" onAction="#displayPaymentStripe" prefHeight="50.0" prefWidth="134.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Buyee">
-                           <font>
-                              <Font name="Microsoft New Tai Lue Bold" size="30.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="ticketbuy_add_button" layoutX="591.0" layoutY="369.0" mnemonicParsing="false" onAction="#addPayment" prefHeight="50.0" prefWidth="134.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Buy">
                            <font>
                               <Font name="Microsoft New Tai Lue Bold" size="30.0" />
                            </font>
