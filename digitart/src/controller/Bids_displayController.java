@@ -105,13 +105,13 @@ public class Bids_displayController implements Initializable {
 
         contentStream.beginText();
         contentStream.newLineAtOffset(x, y);
-        contentStream.showText("Artwork name:" + Data.auction_display.getName().toUpperCase() + "             Starting Price:" + Data.auction_display.getStarting_price()) ;
+        contentStream.showText("Artwork name:" + Data.auction_display.getName().toUpperCase() + "                       Starting Price:" + Data.auction_display.getStarting_price()) ;
         contentStream.endText();
         y-=20;
         
         contentStream.beginText();
         contentStream.newLineAtOffset(x, y);
-        contentStream.showText(" Artist name:" + Data.auction_display.getName_artist() + "             Ending Date:" + Data.auction_display.getDate());
+        contentStream.showText("Artist name:" + Data.auction_display.getName_artist() + "               Ending Date:" + Data.auction_display.getDate());
         contentStream.endText();
         y-=30;
         for (int i = 0; i < columnHeaders.length; i++) {
