@@ -116,6 +116,18 @@ public class Display_artworkController implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     private void go_chart(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/ArtworkChart.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void go_add_artwork(ActionEvent event) {
         try {
@@ -353,5 +365,12 @@ public class Display_artworkController implements Initializable {
 //
 //    }
 //    
+
+    @FXML
+    private void BTN_statistics_clicked(ActionEvent event) {
+        
+        go_chart(event);
+        
+    }
 
 }

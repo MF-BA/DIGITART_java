@@ -6,6 +6,8 @@
 package controller;
 
 import Services.Room_Services;
+import static Services.Room_Services.nbRooms;
+import static Services.Room_Services.nbRoomsAvailable;
 import entity.Data;
 import entity.Room;
 import java.io.File;
@@ -25,6 +27,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -36,6 +39,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -140,8 +144,20 @@ public class Display_roomController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
+    
+      private void go_RoomChart(ActionEvent event) {
+        try {
+             root = FXMLLoader.load(getClass().getResource("/view/RoomChart.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
      private void go_artwork(ActionEvent event) {
         try {
              root = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
@@ -357,6 +373,12 @@ public class Display_roomController implements Initializable {
         document.close();
 
 
+    }
+
+    @FXML
+    private void BTN_statistics_clicked(ActionEvent event) {
+        
+        go_RoomChart(event);
     }
     
 }

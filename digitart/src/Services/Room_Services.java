@@ -128,4 +128,93 @@ public class Room_Services {
         return list;
 
     }
+          
+          
+          
+     public static int nbRooms() {
+
+    int count = 0;
+
+    Statement statement;
+    ResultSet resultSet;
+    try {
+        statement = conn.createStatement();
+        resultSet = statement.executeQuery("SELECT COUNT(*) AS total FROM room");
+
+        if (resultSet.next()) {
+            count = resultSet.getInt("total");
+        }
+    } catch (SQLException ex) {
+        System.err.println("Error getting number of rooms");
+    }
+
+    return count;
+
+}
+     
+     
+     public static int nbRoomsAvailable() {
+
+    int count = 0;
+
+    Statement statement;
+    ResultSet resultSet;
+    try {
+        statement = conn.createStatement();
+        resultSet = statement.executeQuery("SELECT COUNT(*) AS availble FROM room where state like 'Available' ");
+
+        if (resultSet.next()) {
+            count = resultSet.getInt("availble");
+        }
+    } catch (SQLException ex) {
+        System.err.println("Error getting number of rooms");
+    }
+
+    return count;
+
+}
+     
+     public static int nbArtworks() {
+
+    int count = 0;
+
+    Statement statement;
+    ResultSet resultSet;
+    try {
+        statement = conn.createStatement();
+        resultSet = statement.executeQuery("SELECT COUNT(*) AS totalA FROM artwork");
+
+        if (resultSet.next()) {
+            count = resultSet.getInt("totalA");
+        }
+    } catch (SQLException ex) {
+        System.err.println("Error getting number of rooms");
+    }
+
+    return count;
+
+}
+     
+       public static int nbartbyroom(int id) {
+
+    int count = 0;
+
+    Statement statement;
+    ResultSet resultSet;
+    try {
+        statement = conn.createStatement();
+        resultSet = statement.executeQuery("SELECT COUNT(*) AS nbartbyroom FROM room where id_room ="+id);
+
+        if (resultSet.next()) {
+            count = resultSet.getInt("nbartbyroom");
+        }
+    } catch (SQLException ex) {
+        System.err.println("Error getting number of rooms");
+    }
+
+    return count;
+
+}
+     
+
 }
