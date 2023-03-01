@@ -6,6 +6,7 @@
 package controller;
 
 import Services.users_Services;
+import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -101,6 +102,8 @@ public class Signin_pageController implements Initializable {
     private Button return_fromcode_login_btn;
     @FXML
     private AnchorPane codepage;
+    @FXML
+    private Label codeerrormsg;
    
     
     /**
@@ -362,9 +365,9 @@ public class Signin_pageController implements Initializable {
     }
 
     @FXML
-    private void confirm_code_google_btn(ActionEvent event) {
+    private void confirm_code_google_btn(ActionEvent event) throws IOException, NoSuchAlgorithmException {
         String code = codegoogle.getText();
-    
+        users_Services user = new users_Services();
     if (!code.isEmpty()) {
     
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
@@ -375,40 +378,62 @@ public class Signin_pageController implements Initializable {
             Arrays.asList("email", "profile"))
             .setAccessType("offline")
             .build();
-
         try {
-            GoogleTokenResponse tokenResponse = flow.newTokenRequest(code)
-                .setRedirectUri("urn:ietf:wg:oauth:2.0:oob")
-                .execute();
+         
+             GoogleTokenResponse tokenResponse = flow.newTokenRequest(code)
+                     .setRedirectUri("urn:ietf:wg:oauth:2.0:oob")
+                     .execute();
+             
+             GoogleCredential credential = new GoogleCredential.Builder()
+                     .setTransport(new NetHttpTransport())
+                     .setJsonFactory(new JacksonFactory())
+                     .setClientSecrets("120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com", "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")
+                     .build()
+                     .setFromTokenResponse(tokenResponse);
+             
+             GoogleIdToken idToken = tokenResponse.parseIdToken();
+             GoogleIdToken.Payload payload = idToken.getPayload();
+             String email = payload.getEmail();
+             String password = UUID.randomUUID().toString();
+             
+             String sql = "SELECT * FROM users WHERE email=?";
+             
+             String query = "INSERT INTO users (email, password) VALUES (?, ?)";
+             PreparedStatement stmt;
+             PreparedStatement st;
+             ResultSet res = null;
+             try {
+                st = conn.prepareStatement(sql);
+                st.setString(1, email);
+                res = st.executeQuery();
+                
+        if (res.next()) {
+           
+          Data.user = user.getgoogleuserdata(email);
 
-            GoogleCredential credential = new GoogleCredential.Builder()
-                .setTransport(new NetHttpTransport())
-                .setJsonFactory(new JacksonFactory())
-                .setClientSecrets("120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com", "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")
-                .build()
-                .setFromTokenResponse(tokenResponse);
-
-            GoogleIdToken idToken = tokenResponse.parseIdToken();
-            GoogleIdToken.Payload payload = idToken.getPayload();
-            String email = payload.getEmail();
-            String password = UUID.randomUUID().toString();
-
-            String query = "INSERT INTO users (email, password) VALUES (?, ?)";
-            PreparedStatement stmt;
-
-            try {
-                stmt = conn.prepareStatement(query);
-                stmt.setString(1, email);
-                stmt.setString(2, password);
-                stmt.executeUpdate();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+          else
+        {
+            stmt = conn.prepareStatement(query);
+                 stmt.setString(1, email);
+                 stmt.setString(2, password);
+                 stmt.executeUpdate();
+                    
+        }
+           
+             } catch (SQLException ex) {
+                 Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             Data.user = user.getgoogleuserdata(email);
+             gotoHome(event);
+             
+         
+        } catch (TokenResponseException ex) {
+        // Display an error message to the user
+        codeerrormsg.setText("the code is wrong !! ");
     }
+            
+                }
     }
 
     @FXML

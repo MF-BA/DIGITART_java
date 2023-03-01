@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="655.0" prefWidth="970.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="controller.Home_pageController">
+<AnchorPane id="AnchorPane" prefHeight="655.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Home_pageController">
    <children>
       <TabPane layoutX="14.0" layoutY="67.0" prefHeight="577.0" prefWidth="947.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
@@ -41,6 +40,11 @@
       <Label layoutX="421.0" layoutY="14.0" text="DigitArt" textFill="#c58940">
          <font>
             <Font name="Berlin Sans FB" size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelusername" alignment="CENTER" contentDisplay="CENTER" layoutX="608.0" layoutY="16.0" prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#bd2a2e">
+         <font>
+            <Font name="Berlin Sans FB" size="30.0" />
          </font>
       </Label>
    </children>

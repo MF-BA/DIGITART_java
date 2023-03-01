@@ -198,7 +198,44 @@ public class users_Services {
 }
 
     
-    
+   public users getgoogleuserdata(String email) throws NoSuchAlgorithmException {
+    users data = null;
+    ResultSet res = null;
+    String sql = "SELECT * FROM users WHERE email=?";
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, email);
+        
+        res = stmt.executeQuery();
+        if (res.next()) {
+            LocalDate D = res.getDate(9).toLocalDate();
+            data = new users(
+                res.getInt(1),
+                res.getInt(2),
+                res.getString(3),
+                res.getString(4),
+                res.getString(5),
+                res.getString(6),
+                res.getString(7),
+                res.getInt(8),
+                D,
+                res.getString(10),
+                res.getString(11),
+                res.getString(12)
+            );
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(users_Services.class.getName()).log(Level.SEVERE, null, ex);
+    } finally {
+        try {
+            if (res != null) {
+                res.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(users_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    return data;
+} 
     
    public static void unblockuser(int id){
        

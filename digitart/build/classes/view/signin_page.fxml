@@ -98,22 +98,27 @@
       </Pane>
       <AnchorPane fx:id="codepage" layoutX="276.0" layoutY="9.0" prefHeight="554.0" prefWidth="550.0">
          <children>
-            <Pane layoutX="113.0" layoutY="148.0" prefHeight="221.0" prefWidth="325.0" style="-fx-background-color: transparent; -fx-border-radius: 25; -fx-border-color: #3B3936; -fx-border-width: 2;">
+            <Pane layoutX="113.0" layoutY="104.0" prefHeight="303.0" prefWidth="325.0" style="-fx-background-color: transparent; -fx-border-radius: 25; -fx-border-color: #3B3936; -fx-border-width: 2;">
                <children>
                   <Label layoutX="97.0" layoutY="34.0" text="Enter your code" textFill="#3b3936">
                      <font>
                         <Font name="Berlin Sans FB" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="confirm_code_google_btn" layoutX="60.0" layoutY="145.0" mnemonicParsing="false" onAction="#confirm_code_google_btn" prefHeight="44.0" prefWidth="205.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="confirm code" />
-                  <TextField fx:id="codegoogle" alignment="CENTER" layoutX="24.0" layoutY="82.0" prefHeight="25.0" prefWidth="278.0" promptText="code" styleClass="textfieldmbar9ech" stylesheets="@auctionDesign.css">
+                  <Button fx:id="confirm_code_google_btn" layoutX="60.0" layoutY="175.0" mnemonicParsing="false" onAction="#confirm_code_google_btn" prefHeight="44.0" prefWidth="205.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="confirm code" />
+                  <TextField fx:id="codegoogle" alignment="CENTER" layoutX="24.0" layoutY="99.0" prefHeight="25.0" prefWidth="278.0" promptText="code" styleClass="textfieldmbar9ech" stylesheets="@auctionDesign.css">
                      <font>
                         <Font name="Berlin Sans FB" size="18.0" />
                      </font>
                   </TextField>
+                  <Label fx:id="codeerrormsg" alignment="CENTER" layoutX="18.0" layoutY="225.0" prefHeight="69.0" prefWidth="289.0" textFill="#bd2a2e">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
-            <Button fx:id="return_fromcode_login_btn" layoutX="238.0" layoutY="397.0" mnemonicParsing="false" onAction="#return_fromcode_login_btn" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Return" textFill="WHITE">
+            <Button fx:id="return_fromcode_login_btn" layoutX="238.0" layoutY="447.0" mnemonicParsing="false" onAction="#return_fromcode_login_btn" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Return" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>

@@ -5,9 +5,13 @@
  */
 package controller;
 
+import Services.users_Services;
+import entity.Data;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 /**
  * FXML Controller class
@@ -16,12 +20,21 @@ import javafx.fxml.Initializable;
  */
 public class Home_pageController implements Initializable {
 
+    @FXML
+    private Label labelusername;
+
+    
+    
+  
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        labelusername.setText(Data.user.getEmail());
+        
+        
     }    
     
 }
