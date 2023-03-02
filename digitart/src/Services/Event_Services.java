@@ -97,6 +97,28 @@ public class Event_Services {
         return list;
     }
        
+         public static ArrayList<Event> displayEvents(int id) {
+
+        ArrayList<Event> list = new ArrayList<>();
+        Connection connection;
+        Statement statement;
+        ResultSet result;
+        try {
+            connection = Conn.getCon();
+            statement = connection.createStatement();
+            result = statement.executeQuery("SELECT * FROM event where event_id=id");
+
+            while (result.next()) {
+                Event data = new Event(result.getInt("id"),result.getDate("start_date"),result.getDate("end_date"),result.getInt("start_time"),result.getString("event_name"),result.getString("detail"),result.getInt("nb_participants"),result.getInt("id_room"));
+                list.add(data);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "error in display!!", e);
+        }
+
+        return list;
+    }
+       
         public static ArrayList<Participants> displayPart() {
 
         ArrayList<Participants> list = new ArrayList<>();

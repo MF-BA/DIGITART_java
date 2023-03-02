@@ -16,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_eventController">
+<AnchorPane id="AnchorPane" prefHeight="701.0" prefWidth="1221.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_eventController">
    <children>
-      <VBox prefHeight="729.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
+      <VBox prefHeight="732.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
             <Pane prefHeight="171.0" prefWidth="269.0">
                <children>
@@ -99,7 +99,7 @@
             </Button>
             <Label prefHeight="18.0" prefWidth="249.0" />
             <Label prefHeight="65.0" prefWidth="250.0" />
-            <Button fx:id="deconnect" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
+            <Button fx:id="deconnect" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="60.0" prefWidth="250.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="20" />
                </graphic>
@@ -187,9 +187,10 @@
             <Label fx:id="errormsgstartdate" layoutX="644.0" layoutY="186.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgenddate" layoutX="642.0" layoutY="271.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgnbparticipants" layoutX="648.0" layoutY="361.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgelements" layoutX="352.0" layoutY="646.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="list_of_events" layoutX="250.0" layoutY="-1.0" prefHeight="731.0" prefWidth="971.0" visible="false">
+      <AnchorPane fx:id="list_of_events" layoutX="250.0" layoutY="-1.0" prefHeight="731.0" prefWidth="971.0">
          <children>
             <TableView fx:id="tabevent" layoutX="17.0" layoutY="152.0" onMouseClicked="#handleMouseAction" prefHeight="471.0" prefWidth="939.0" stylesheets="@auctionDesign.css">
                <columns>
@@ -210,9 +211,10 @@
             </Label>
             <Button fx:id="btndelete" layoutX="31.0" layoutY="633.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="123.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete" />
             <TextField fx:id="ticket_search" layoutX="26.0" layoutY="112.0" onKeyTyped="#searchTicket" prefHeight="30.0" prefWidth="916.0" promptText="Search" styleClass="search" stylesheets="@auctionDesign.css" />
+            <Button fx:id="pdf_print" layoutX="253.0" layoutY="636.0" mnemonicParsing="false" onAction="#handleSaveButtonAction" prefHeight="26.0" prefWidth="100.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Print PDF" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="part_anc" layoutX="254.0" layoutY="-1.0" prefHeight="727.0" prefWidth="959.0">
+      <AnchorPane fx:id="part_anc" layoutX="254.0" layoutY="-1.0" prefHeight="727.0" prefWidth="959.0" visible="false">
          <children>
             <TableView fx:id="tabpart" layoutX="41.0" layoutY="97.0" prefHeight="467.0" prefWidth="883.0" stylesheets="@auctionDesign.css">
                <columns>
@@ -224,6 +226,7 @@
                </columns>
             </TableView>
             <ComboBox fx:id="id_event_combobox" layoutX="131.0" layoutY="41.0" prefWidth="150.0" />
+            <TextField fx:id="ticket_search1" layoutX="41.0" layoutY="589.0" onKeyTyped="#searchpart" prefHeight="30.0" prefWidth="916.0" promptText="Search" styleClass="search" stylesheets="@auctionDesign.css" />
          </children>
       </AnchorPane>
    </children>

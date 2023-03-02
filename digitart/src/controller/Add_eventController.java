@@ -17,6 +17,9 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entity.Data;
 import entity.Participants;
 import entity.Ticket;
+import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.Date;
@@ -24,6 +27,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -56,8 +61,22 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import static javax.management.remote.JMXConnectorFactory.connect;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.PDPageContentStream.AppendMode;
+//import org.apache.pdfbox.pdmodel.PDPageContentStream.MarkupException;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 /**
  * FXML Controller class
  *
@@ -142,8 +161,7 @@ public class Add_eventController implements Initializable {
     private Label errormsgenddate;
     @FXML
     private Label errormsgnbparticipants;
-    @FXML
-    private TextField ticket_search;
+  
     @FXML
     private Label welcome;
     @FXML
@@ -166,7 +184,63 @@ public class Add_eventController implements Initializable {
     private Button list_participants;
     @FXML
     private Button deconnect;
- 
+    @FXML
+    private Label errormsgelements;
+    @FXML
+    private TextField ticket_search;
+    @FXML
+    private TextField ticket_search1;
+    @FXML
+    private Button pdf_print;
+    @FXML
+    private void searchTicket() {
+        ObservableList<Event> ticketObservableList = FXCollections.observableList(eventList);
+        FilteredList<Event> filteredData = new FilteredList<>(ticketObservableList, p -> true);
+        ticket_search.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(event -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(event.getEvent_id()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches ticket id.
+                } else if (event.getEvent_name().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches ticket type.
+                } 
+                return false; // Does not match.
+            });
+        });
+        
+        SortedList<Event> sortedData = new SortedList<>(filteredData);
+        ((TableView<Event>) tabevent).setItems(sortedData);
+    }
+    
+    @FXML
+    private void searchpart() {
+        
+          ObservableList<Participants> ticketObservableList = FXCollections.observableList(partlist);
+        FilteredList<Participants> filteredData = new FilteredList<>(ticketObservableList, p -> true);
+        ticket_search1.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(participants -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (String.valueOf(participants.getId_event()).toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches ticket id.
+                }  
+                return false; // Does not match.
+            });
+        });
+        
+        SortedList<Participants> sortedData = new SortedList<>(filteredData);
+        ((TableView<Participants>) tabpart).setItems(sortedData);
+    }
+
+
+  
     
 
     /**
@@ -183,13 +257,85 @@ public class Add_eventController implements Initializable {
      showevent();
      showparticipants();
      combobox();
+     searchTicket();
     }    
+
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me");
+                String event_id = this.txt_event_id.getText();
+        LocalDate start_date = this.txt_start_date.getValue();
+        LocalDate end_date = this.txt_end_date.getValue();
+        String event_name = this.txt_event_name.getText();
+                LocalDate selectedDate = txt_start_date.getValue();
+                        LocalDate today = LocalDate.now();
+
+
+//        int nb_participants = Integer.parseInt(this.txt_nb_participants.getText());
+        String event_desc = this.txt_desc.getText();
+//        int start_time = Integer.parseInt(this.txt_start_time.getText());
+       /* int id_room;
+        id_room = this.txt_room.getSelectionModel().getSelectedItem(); */ 
         if(event.getSource()==btnadd){
-           EventAdd();
+            
+            errormsgeventid.setText("");
+            errormsgeventname.setText("");
+            errormsgstarttime.setText("");
+            errormsgroomid.setText("");
+            errormsgstartdate.setText("");
+            errormsgenddate.setText("");
+            errormsgnbparticipants.setText("");
+            errormsgdetails.setText("");
+            
+             if (!txt_start_time.getText().isEmpty())
+    {               
+    if (!txt_start_time.getText().matches("\\d+")) {
+        errormsgstarttime.setText("Phone number should be a number!");
+    } else if (txt_start_time.getText().toString().length()<2)
+    {
+        errormsgstarttime.setText("Time shouldn't pass 24!");
+    }
+ if (start_date == null) {
+    errormsgstartdate.setText("Fill start date !!");
+} else if (start_date.isAfter(today)) {
+    errormsgstartdate.setText("Start date cannot be in the future!!");
+}
+   
+            }
+  
+     
+   if (event_name.isEmpty() || event_desc.isEmpty() || txt_nb_participants.getText().isEmpty() || end_date == null  || start_date == null || txt_start_time.getText().isEmpty()) {
+         
+       errormsgelements.setText("Please fill all elements!!");  
+    
+    if (event_name.isEmpty())   {
+     
+     errormsgeventname.setText("fill event name !!");   
+    }
+    if (event_desc.isEmpty())  {
+     
+     errormsgdetails.setText("fill event details !!");   
+    }
+    if ( start_date == null)
+    {
+     
+     errormsgstartdate.setText("Fill start date !!");   
+    }
+    if ( end_date == null)
+    {
+     errormsgenddate.setText("Fill end date!!");   
+    }
+   
+    } else {
+       
+       EventAdd();
+   }
+           
+            
+            
+            
+           
         }
         if(event.getSource()==btndelete){
            EventDelete();
@@ -218,6 +364,7 @@ public class Add_eventController implements Initializable {
             ((TableView<Event>) tabevent).setItems(FXCollections.observableArrayList(eventList));
         }
     }
+    
     
      private ArrayList<Participants> partlist;
     public void showparticipants() {
@@ -277,6 +424,7 @@ public class Add_eventController implements Initializable {
         int start_time = Integer.parseInt(this.txt_start_time.getText());
         int id_room;
         id_room = this.txt_room.getSelectionModel().getSelectedItem();  
+        
 
         Alert alert;
 
@@ -483,9 +631,6 @@ public class Add_eventController implements Initializable {
         list_participants.setStyle("-fx-background-color: transparent "); 
     }
 
-    @FXML
-    private void searchTicket(KeyEvent event) {
-    }
 
     @FXML
     private void list_part_btn(ActionEvent event) {
@@ -506,6 +651,90 @@ public class Add_eventController implements Initializable {
     private void deconnect_btn(ActionEvent event) {
     }
 
+    @FXML
+    private void handleSaveButtonAction(ActionEvent event) {
+    // Get the selected event from the database
+    Event selectedEvent = tabevent.getSelectionModel().getSelectedItem();
+    
+    if (selectedEvent == null) {
+        // If no event is selected, show an error message and return
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("No event selected");
+        alert.setContentText("Please select an event from the table.");
+        alert.showAndWait();
+        return;
+    }
+    
+    // Get the selected file path using a file chooser dialog
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Save PDF");
+    fileChooser.setInitialFileName(selectedEvent.getEvent_name() + ".pdf");
+    File selectedFile = fileChooser.showSaveDialog(pdf_print.getScene().getWindow());
+    
+    if (selectedFile == null) {
+        // If no file is selected, show a message and return
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("No file selected");
+        alert.setContentText("The PDF was not saved.");
+        alert.showAndWait();
+        return;
+    }
+    
+    try (PDDocument document = new PDDocument()) {
+        // Create a new page with A4 size and add it to the document
+        PDPage page = new PDPage(PDRectangle.A4);
+        document.addPage(page);
+        
+        // Get the content stream for the page
+        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+        
+        // Set the font and font size for the text
+        PDFont font = PDType1Font.HELVETICA_BOLD;
+        float fontSize = 12;
+         contentStream.setNonStrokingColor(Color.RED);
+         contentStream.fillRect(0, page.getMediaBox().getHeight() - 50, page.getMediaBox().getWidth(), 50);
+        // Write the event details to the PDF
+        contentStream.setNonStrokingColor(Color.BLACK);
+        contentStream.beginText();
+   
+        contentStream.setFont(font, fontSize);
+        contentStream.newLineAtOffset(50, 700);
+        contentStream.showText("Event Name: " + selectedEvent.getEvent_name());
+        contentStream.newLineAtOffset(0, -20);
+        contentStream.showText("Event Start Date: " + selectedEvent.getStart_date());
+        contentStream.newLineAtOffset(0, -20);
+        contentStream.showText("Event End Date: " + selectedEvent.getEnd_date());
+        contentStream.newLineAtOffset(0, -20);
+        contentStream.showText("Event Location: " + selectedEvent.getDetail());
+        contentStream.newLineAtOffset(0, -20);
+        contentStream.showText("Event ID: " + selectedEvent.getEvent_id());
+              contentStream.newLineAtOffset(0, -20);
+        contentStream.showText("Max number of participants: " + selectedEvent.getNb_participants());
+        contentStream.endText();
+        
+        // Close the content stream
+        contentStream.close();
+        
+        // Save the document to the selected file path
+        document.save(selectedFile);
+        
+        // Show a success message
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("PDF saved");
+        alert.setContentText("The PDF was saved to: " + selectedFile.getAbsolutePath());
+        alert.showAndWait();
+    } catch (IOException ex) {
+        // If an error occurs during PDF generation or saving, show an error message
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("PDF generation or saving error");
+        alert.setContentText("An error occurred while generating or saving the PDF: " + ex.getMessage());
+        alert.showAndWait();
+    }
+}
     
     
 }
