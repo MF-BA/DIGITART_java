@@ -172,7 +172,7 @@ public class Participate_eventController implements Initializable {
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Message");
                     alert.setHeaderText(null);
-                    alert.setContentText("User ID: " + id_user + " already exists!");
+                    alert.setContentText("User ID: " + id_user + " can only participate in one event at a time!");
                     alert.showAndWait();
                 } else {
                     Event_Services.insertuser(id_user,first_name, last_name,adress,gender,event_id);

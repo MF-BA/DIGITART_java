@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +45,11 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -64,7 +69,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import static javax.management.remote.JMXConnectorFactory.connect;
+import javax.swing.JOptionPane;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -268,6 +282,7 @@ public class Add_eventController implements Initializable {
         LocalDate start_date = this.txt_start_date.getValue();
         LocalDate end_date = this.txt_end_date.getValue();
         String event_name = this.txt_event_name.getText();
+        
                 LocalDate selectedDate = txt_start_date.getValue();
                         LocalDate today = LocalDate.now();
 
@@ -291,27 +306,42 @@ public class Add_eventController implements Initializable {
              if (!txt_start_time.getText().isEmpty())
     {               
     if (!txt_start_time.getText().matches("\\d+")) {
-        errormsgstarttime.setText("Phone number should be a number!");
+        errormsgstarttime.setText("Start Time should be a number!");
     } else if (txt_start_time.getText().toString().length()<2)
     {
         errormsgstarttime.setText("Time shouldn't pass 24!");
     }
  if (start_date == null) {
     errormsgstartdate.setText("Fill start date !!");
-} else if (start_date.isAfter(today)) {
-    errormsgstartdate.setText("Start date cannot be in the future!!");
+} else if (start_date.isBefore(today)) {
+    errormsgstartdate.setText("Start date cannot be in the past!!");
 }
    
             }
+             try {
+    int number = Integer.parseInt(txt_start_time.getText());
+    if(number >= 24){
+        errormsgstarttime.setText("Start Time shouldn't pass 24");
+    }
+} catch (NumberFormatException e) {
+    // handle the case where the input is not a valid integer
+    JOptionPane.showMessageDialog(null, "Please enter a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
+    txt_start_time.setText(""); // clear the input field
+    txt_start_time.requestFocus(); // set focus back to the input field
+}
   
      
-   if (event_name.isEmpty() || event_desc.isEmpty() || txt_nb_participants.getText().isEmpty() || end_date == null  || start_date == null || txt_start_time.getText().isEmpty()) {
+   if (event_name.isEmpty() || event_desc.isEmpty() || txt_room == null || txt_nb_participants.getText().isEmpty() || end_date == null  || start_date == null || txt_start_time.getText().isEmpty()) {
          
        errormsgelements.setText("Please fill all elements!!");  
     
     if (event_name.isEmpty())   {
      
      errormsgeventname.setText("fill event name !!");   
+    }
+    if(txt_room == null)
+    {
+        errormsgroomid.setText("Fill Room id");
     }
     if (event_desc.isEmpty())  {
      
@@ -326,10 +356,20 @@ public class Add_eventController implements Initializable {
     {
      errormsgenddate.setText("Fill end date!!");   
     }
+    if(txt_nb_participants.getText().isEmpty())
+    {
+        errormsgnbparticipants.setText("Fill the number of participants");
+    }
+    if(txt_start_time.getText().isEmpty())
+    {
+        errormsgstarttime.setText("Fill the start time");
+    }
+   
    
     } else {
        
        EventAdd();
+       
    }
            
             
@@ -412,6 +452,33 @@ public class Add_eventController implements Initializable {
         ((TableView<Event>) tabevent).setItems(sortedData);
     }
     */
+     public static void sendEmail(String recipient, String subject, String body) throws MessagingException {
+        
+        // Set the mail properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        
+        // Create the session
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication("digitart.primes@gmail.com", "crpyprterxegkjes");
+            }
+        });
+        
+        // Create the message
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress("digitart.primes@gmail.com"));
+        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
+        message.setSubject(subject);
+        message.setText(body);
+        
+        // Send the message
+        Transport.send(message);
+    }
       
       public void EventAdd() {
 
@@ -458,6 +525,11 @@ public class Add_eventController implements Initializable {
                     alert.setContentText("Successfully Added!");
                     alert.showAndWait();
                     // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+                    try {
+        sendEmail("bedhiefkoussay2015@gmail.com", "Event Added", "Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n Thank you for trusting our application, \n You have successfully added the event "+event_name);
+    } catch (MessagingException e) {
+        e.printStackTrace();
+    }
                     showevent();
                     
                 }
@@ -649,6 +721,26 @@ public class Add_eventController implements Initializable {
 
     @FXML
     private void deconnect_btn(ActionEvent event) {
+         deconnect.setStyle("-fx-background-color: #470011 ");
+        
+        
+        event_add_anc.setVisible(false);
+        list_of_events.setVisible(false);
+        part_anc.setVisible(false);
+
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/signin_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -712,6 +804,8 @@ public class Add_eventController implements Initializable {
         contentStream.showText("Event ID: " + selectedEvent.getEvent_id());
               contentStream.newLineAtOffset(0, -20);
         contentStream.showText("Max number of participants: " + selectedEvent.getNb_participants());
+        contentStream.newLineAtOffset(0, -20);
+        contentStream.showText("The Event details are: " + selectedEvent.getDetail());
         contentStream.endText();
         
         // Close the content stream
