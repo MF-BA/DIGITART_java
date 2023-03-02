@@ -3,126 +3,242 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="565.0" prefWidth="832.0" style="-fx-background-color: #E5E7E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Signin_pageController">
+<AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #E5E7E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Signin_pageController">
    <children>
-      <Pane layoutY="-6.0" prefHeight="575.0" prefWidth="272.0" styleClass="left-form" stylesheets="@auctionDesign.css">
+      <Pane layoutY="-6.0" prefHeight="706.0" prefWidth="272.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
-            <Label layoutX="34.0" layoutY="213.0" text="Digitart" textFill="WHITE">
+            <Label layoutX="34.0" layoutY="304.0" text="Digitart" textFill="WHITE">
                <font>
                   <Font name="MV Boli" size="56.0" />
                </font>
             </Label>
-            <AnchorPane fx:id="loginpage" layoutX="285.0" layoutY="9.0" prefHeight="560.0" prefWidth="542.0" visible="false">
-               <children>
-                  <Pane layoutX="169.0" layoutY="14.0" prefHeight="58.0" prefWidth="205.0" style="-fx-background-color: #3B3936; -fx-background-radius: 20;">
-                     <children>
-                        <Label layoutX="26.0" layoutY="-11.0" prefHeight="69.0" prefWidth="154.0" text=" Login" textFill="WHITE">
-                           <font>
-                              <Font name="MV Boli" size="40.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="109.0" layoutY="95.0" prefHeight="370.0" prefWidth="325.0" style="-fx-background-color: transparent; -fx-border-radius: 25; -fx-border-color: #3B3936; -fx-border-width: 2;">
-                     <children>
-                        <Label layoutX="139.0" layoutY="25.0" text="Email" textFill="#3b3936">
-                           <font>
-                              <Font name="Berlin Sans FB" size="20.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="emaillogin" alignment="CENTER" layoutX="24.0" layoutY="54.0" prefHeight="25.0" prefWidth="278.0" promptText="Email" styleClass="textfieldmbar9ech" stylesheets="@auctionDesign.css">
-                           <font>
-                              <Font name="Berlin Sans FB" size="18.0" />
-                           </font>
-                        </TextField>
-                        <PasswordField fx:id="pwdlogin" alignment="CENTER" layoutX="22.0" layoutY="162.0" prefHeight="25.0" prefWidth="278.0" promptText="Password" styleClass="textfieldmbar9ech" stylesheets="@auctionDesign.css">
-                           <font>
-                              <Font name="Berlin Sans FB" size="18.0" />
-                           </font>
-                        </PasswordField>
-                        <Label layoutX="122.0" layoutY="132.0" text="Password" textFill="#3b3936">
-                           <font>
-                              <Font name="Berlin Sans FB" size="20.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="pwderrormsg" alignment="CENTER" layoutX="34.0" layoutY="233.0" prefHeight="25.0" prefWidth="254.0" textFill="#bd2a2e">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="emailerrormsg" alignment="CENTER" layoutX="36.0" layoutY="98.0" prefHeight="25.0" prefWidth="254.0" textFill="#bd2a2e">
-                           <font>
-                              <Font name="Berlin Sans FB" size="16.0" />
-                           </font>
-                        </Label>
-                        <FontAwesomeIconView fill="#bcbbbb" glyphName="ENVELOPE" layoutX="267.0" layoutY="78.0" size="20" wrappingWidth="14.0" />
-                        <FontAwesomeIconView fill="#bcbbbb" glyphName="UNLOCK" layoutX="267.0" layoutY="186.0" size="20" wrappingWidth="14.0" />
-                        <CheckBox fx:id="showpwd" layoutX="34.0" layoutY="202.0" mnemonicParsing="false" onAction="#showpwd" text="show password">
-                           <font>
-                              <Font name="Berlin Sans FB" size="12.0" />
-                           </font>
-                        </CheckBox>
-                        <Button layoutX="61.0" layoutY="275.0" mnemonicParsing="false" onAction="#google_signin_btn" prefHeight="44.0" prefWidth="205.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="sign in with google">
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="GOOGLE" size="25" />
-                           </graphic>
-                        </Button>
-                        <Label fx:id="loginerrormsg" alignment="CENTER" layoutX="37.0" layoutY="331.0" prefHeight="25.0" prefWidth="254.0" textFill="#3b3936">
-                           <font>
-                              <Font name="Berlin Sans FB" size="16.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Button fx:id="login_btn" layoutX="168.0" layoutY="475.0" mnemonicParsing="false" onAction="#login_btn" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Sign In" textFill="#fffefe">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="register_btn" layoutX="287.0" layoutY="475.0" mnemonicParsing="false" onAction="#register_clicked" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Register" textFill="WHITE">
-                     <font>
-                        <Font size="17.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="197.0" layoutY="520.0" mnemonicParsing="false" onAction="#forgotPasswordButton" style="-fx-background-color: transparent;" styleClass="forget-btn" stylesheets="@auctionDesign.css" text="Forget your password?" underline="true" />
-               </children>
-            </AnchorPane>
          </children>
       </Pane>
-      <AnchorPane fx:id="codepage" layoutX="276.0" layoutY="9.0" prefHeight="554.0" prefWidth="550.0">
+      <AnchorPane fx:id="loginpage" layoutX="276.0" layoutY="4.0" prefHeight="691.0" prefWidth="719.0" visible="false">
          <children>
-            <Pane layoutX="113.0" layoutY="104.0" prefHeight="303.0" prefWidth="325.0" style="-fx-background-color: transparent; -fx-border-radius: 25; -fx-border-color: #3B3936; -fx-border-width: 2;">
+            <Pane layoutX="268.0" layoutY="21.0" prefHeight="58.0" prefWidth="205.0" style="-fx-background-color: #3B3936; -fx-background-radius: 20;">
                <children>
-                  <Label layoutX="97.0" layoutY="34.0" text="Enter your code" textFill="#3b3936">
+                  <Label layoutX="26.0" layoutY="-11.0" prefHeight="69.0" prefWidth="154.0" text=" Login" textFill="WHITE">
+                     <font>
+                        <Font name="MV Boli" size="40.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="208.0" layoutY="105.0" prefHeight="488.0" prefWidth="325.0" style="-fx-background-color: transparent; -fx-border-radius: 25; -fx-border-color: #3B3936; -fx-border-width: 2;">
+               <children>
+                  <Label layoutX="139.0" layoutY="25.0" text="Email" textFill="#3b3936">
                      <font>
                         <Font name="Berlin Sans FB" size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="confirm_code_google_btn" layoutX="60.0" layoutY="175.0" mnemonicParsing="false" onAction="#confirm_code_google_btn" prefHeight="44.0" prefWidth="205.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="confirm code" />
-                  <TextField fx:id="codegoogle" alignment="CENTER" layoutX="24.0" layoutY="99.0" prefHeight="25.0" prefWidth="278.0" promptText="code" styleClass="textfieldmbar9ech" stylesheets="@auctionDesign.css">
+                  <TextField fx:id="emaillogin" alignment="CENTER" layoutX="24.0" layoutY="54.0" prefHeight="25.0" prefWidth="278.0" promptText="Email" styleClass="textfieldmbar9ech" stylesheets="@auctionDesign.css">
                      <font>
                         <Font name="Berlin Sans FB" size="18.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="codeerrormsg" alignment="CENTER" layoutX="18.0" layoutY="225.0" prefHeight="69.0" prefWidth="289.0" textFill="#bd2a2e">
+                  <PasswordField fx:id="pwdlogin" alignment="CENTER" layoutX="22.0" layoutY="162.0" prefHeight="25.0" prefWidth="278.0" promptText="Password" styleClass="textfieldmbar9ech" stylesheets="@auctionDesign.css">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                  </PasswordField>
+                  <Label layoutX="122.0" layoutY="132.0" text="Password" textFill="#3b3936">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="pwderrormsg" alignment="CENTER" layoutX="34.0" layoutY="233.0" prefHeight="25.0" prefWidth="254.0" textFill="#bd2a2e">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emailerrormsg" alignment="CENTER" layoutX="36.0" layoutY="98.0" prefHeight="25.0" prefWidth="254.0" textFill="#bd2a2e">
+                     <font>
+                        <Font name="Berlin Sans FB" size="16.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIconView fill="#bcbbbb" glyphName="ENVELOPE" layoutX="267.0" layoutY="78.0" size="20" wrappingWidth="14.0" />
+                  <FontAwesomeIconView fill="#bcbbbb" glyphName="UNLOCK" layoutX="267.0" layoutY="186.0" size="20" wrappingWidth="14.0" />
+                  <CheckBox fx:id="showpwd" layoutX="34.0" layoutY="202.0" mnemonicParsing="false" onAction="#showpwd" text="show password">
+                     <font>
+                        <Font name="Berlin Sans FB" size="12.0" />
+                     </font>
+                  </CheckBox>
+                  <Button layoutX="59.0" layoutY="399.0" mnemonicParsing="false" onAction="#google_signin_btn" prefHeight="44.0" prefWidth="205.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="sign up with google">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="GOOGLE" size="25" />
+                     </graphic>
+                  </Button>
+                  <Label fx:id="loginerrormsg" alignment="CENTER" layoutX="36.0" layoutY="449.0" prefHeight="25.0" prefWidth="254.0" textFill="#3b3936">
+                     <font>
+                        <Font name="Berlin Sans FB" size="16.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="imgCaptcha" fitHeight="90.0" fitWidth="254.0" layoutX="36.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true" />
+                  <TextField fx:id="txtCaptcha" alignment="CENTER" layoutX="96.0" layoutY="356.0" prefHeight="35.0" prefWidth="181.0" styleClass="textfieldmbar9ech" stylesheets="@auctionDesign.css">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="captchabtn" layoutX="53.0" layoutY="357.0" mnemonicParsing="false" onAction="#captcha_btn" prefHeight="32.0" prefWidth="23.0" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" textFill="#fffefe">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="UNDO" text="" />
+                     </graphic>
+                  </Button>
+               </children>
+            </Pane>
+            <Button fx:id="login_btn" layoutX="259.0" layoutY="603.0" mnemonicParsing="false" onAction="#login_btn" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Sign In" textFill="#fffefe">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="register_btn" layoutX="404.0" layoutY="603.0" mnemonicParsing="false" onAction="#register_clicked" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Register" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Button layoutX="296.0" layoutY="651.0" mnemonicParsing="false" onAction="#forgotPasswordButton" style="-fx-background-color: transparent;" styleClass="forget-btn" stylesheets="@auctionDesign.css" text="Forget your password?" underline="true" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="codepage" layoutX="276.0" layoutY="9.0" prefHeight="680.0" prefWidth="719.0" visible="false">
+         <children>
+            <Pane layoutX="157.0" layoutY="159.0" prefHeight="363.0" prefWidth="406.0" style="-fx-background-color: transparent; -fx-border-radius: 25; -fx-border-color: #3B3936; -fx-border-width: 2;">
+               <children>
+                  <Label layoutX="119.0" layoutY="77.0" prefHeight="29.0" prefWidth="170.0" text="Enter your code" textFill="#3b3936">
+                     <font>
+                        <Font name="Berlin Sans FB" size="25.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="confirm_code_google_btn" layoutX="101.0" layoutY="204.0" mnemonicParsing="false" onAction="#confirm_code_google_btn" prefHeight="44.0" prefWidth="205.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="confirm code" />
+                  <TextField fx:id="codegoogle" alignment="CENTER" layoutX="64.0" layoutY="126.0" prefHeight="25.0" prefWidth="278.0" promptText="code" styleClass="textfieldmbar9ech" stylesheets="@auctionDesign.css">
+                     <font>
+                        <Font name="Berlin Sans FB" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Label fx:id="codeerrormsg" alignment="CENTER" layoutX="59.0" layoutY="268.0" prefHeight="69.0" prefWidth="289.0" textFill="#bd2a2e">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="return_fromcode_login_btn" layoutX="238.0" layoutY="447.0" mnemonicParsing="false" onAction="#return_fromcode_login_btn" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Return" textFill="WHITE">
+            <Button fx:id="return_fromcode_login_btn" layoutX="312.0" layoutY="565.0" mnemonicParsing="false" onAction="#return_fromcode_login_btn" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Return" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="ARROW_CIRCLE_LEFT" />
+               </graphic>
             </Button>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="loginfields_google" layoutX="280.0" layoutY="6.0" prefHeight="691.0" prefWidth="711.0">
+         <children>
+            <Button fx:id="confirm_sign" cache="true" layoutX="309.0" layoutY="629.0" mnemonicParsing="false" onAction="#confirm_btn" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Confirm" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="17.0" />
+               </font>
+            </Button>
+            <Label layoutX="275.0" layoutY="126.0" text="First Name" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="pwd" layoutX="92.0" layoutY="313.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="fname" layoutX="270.0" layoutY="149.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <Label layoutX="98.0" layoutY="202.0" text="Last Name" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lname" layoutX="92.0" layoutY="225.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <Label layoutX="102.0" layoutY="289.0" text="Password" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="455.0" layoutY="289.0" text="Cin" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="460.0" layoutY="202.0" text="Address" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="453.0" layoutY="385.0" text="Birth date" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="97.0" layoutY="385.0" text="Phone number" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="birth_d" layoutX="448.0" layoutY="408.0" prefHeight="23.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="cin" layoutX="448.0" layoutY="313.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="address" layoutX="448.0" layoutY="225.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="phone_num" layoutX="91.0" layoutY="408.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <Label layoutX="95.0" layoutY="497.0" text="Gender" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="male_gender" layoutX="94.0" layoutY="526.0" mnemonicParsing="false" text="Male" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="13.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="female_gender" layoutX="174.0" layoutY="526.0" mnemonicParsing="false" text="Female" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="13.0" />
+               </font>
+            </RadioButton>
+            <Label fx:id="errormsgfname" layoutX="269.0" layoutY="185.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsglname" layoutX="92.0" layoutY="258.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgpwd" layoutX="91.0" layoutY="347.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgcin" layoutX="448.0" layoutY="347.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgaddress" layoutX="448.0" layoutY="258.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgbirthdate" layoutX="448.0" layoutY="441.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgphonenum" layoutX="91.0" layoutY="441.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsggender" layoutX="78.0" layoutY="584.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label layoutX="466.0" layoutY="497.0" text="Are you an artist ?" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="yesartist" layoutX="466.0" layoutY="526.0" mnemonicParsing="false" text="Yes" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="13.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="noartist" layoutX="551.0" layoutY="526.0" mnemonicParsing="false" text="No" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="13.0" />
+               </font>
+            </RadioButton>
+            <Label fx:id="errorquestionartist" layoutX="442.0" layoutY="584.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label layoutX="141.0" layoutY="26.0" prefHeight="67.0" prefWidth="421.0" text="Please fill the fields with your informations" textFill="#bd2a2e" underline="true">
+               <font>
+                  <Font name="Berlin Sans FB" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="errormsgelements" layoutX="274.0" layoutY="593.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
          </children>
       </AnchorPane>
    </children>

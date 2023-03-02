@@ -207,7 +207,7 @@ public class users_Services {
         
         res = stmt.executeQuery();
         if (res.next()) {
-            LocalDate D = res.getDate(9).toLocalDate();
+            
             data = new users(
                 res.getInt(1),
                 res.getInt(2),
@@ -217,7 +217,7 @@ public class users_Services {
                 res.getString(6),
                 res.getString(7),
                 res.getInt(8),
-                D,
+                res.getDate(9).toLocalDate(),
                 res.getString(10),
                 res.getString(11),
                 res.getString(12)
