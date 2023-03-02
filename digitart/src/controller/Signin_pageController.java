@@ -561,7 +561,7 @@ public class Signin_pageController implements Initializable {
         if (res.next()) {
            
           Data.user = user.getgoogleuserdata(email);
-          if ((Data.user.getAddress()== null) && (Data.user.getBirth_date() == null) && (Data.user.getCin() == 0) && (Data.user.getFirstname()==null) && (Data.user.getLastname()==null) && (Data.user.getPwd()==null) && (Data.user.getPwd()==null) && (Data.user.getRole()==null) && (Data.user.getPhone_number()==0))
+          if ((Data.user.getAddress()== null) && (Data.user.getCin() == 0) && (Data.user.getFirstname()==null) && (Data.user.getLastname()==null) && (Data.user.getPwd()==null) && (Data.user.getPwd()==null) && (Data.user.getRole()==null) && (Data.user.getPhone_number()==0))
           {   
            codepage.setVisible(false);
            loginpage.setVisible(false);
@@ -576,6 +576,7 @@ public class Signin_pageController implements Initializable {
         }
           else
         {
+           
             stmt = conn.prepareStatement(query);
             stmt.setString(1, email);
             stmt.setString(2, password);
@@ -590,7 +591,7 @@ public class Signin_pageController implements Initializable {
                  Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
              }
              
-             gotoHome(event);
+             
              
          
         } catch (TokenResponseException ex) {
@@ -739,11 +740,10 @@ else if (yesartist.isSelected() && noartist.isSelected())
     String hashedPassword = users_Services.hashPassword(passwd);
     user1 = new users(Cin ,firstname, lastname,Data.user.getEmail(), hashedPassword, Address, phone_number, BirthDate, gender, role,"unblocked");
     user = new users_Services();
-    user.adduser(user1); 
+    user.modifyusergoogle(user1); 
      
      errormsgfname.setText("");
      errormsglname.setText("");
-    
      errormsgpwd.setText("");
      errormsgcin.setText("");
      errormsgaddress.setText("");

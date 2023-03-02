@@ -86,6 +86,20 @@ public class users {
         this.role = role;
    
     }
+      public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,String gender, String role, String status) {
+        this.id = id;
+        this.cin = cin;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.pwd = pwd;
+        this.address = address;
+        this.phone_number = phone_number;
+        
+        this.gender = gender;
+        this.role = role;
+        this.status = status;
+    }
     public users(int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role) {
         
         this.cin = cin;
@@ -132,6 +146,9 @@ public class users {
         
     }
 
+    
+    
+     
     public String getFirstname() {
         return firstname;
     }

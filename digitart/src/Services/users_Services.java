@@ -142,7 +142,33 @@ public class users_Services {
             }
     
     }
+     public void modifyusergoogle(users u){
+       
+            String sql = "update users set cin = ?, firstname = ?, lastname = ?, password = ?, address=?, phone_num=?, birth_date=?, gender=?, role=?, status=?, image=? where email = ?";
+             try {
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1,u.getCin());
+            pst.setString(2,u.getFirstname());
+            pst.setString(3,u.getLastname());
+            pst.setString(4,u.getPwd());
+            pst.setString(5,u.getAddress());
+            pst.setInt(6,u.getPhone_number());
+            pst.setDate(7,Date.valueOf(u.getBirth_date()));
+            pst.setString(8,u.getGender());
+            pst.setString(9,u.getRole());
+            pst.setString(10,"unblocked");
+            pst.setString(11,"");
+            pst.setString(12,u.getEmail());
+            
+             pst.executeUpdate();
+            System.out.println("success!!");
+                
+            } catch (SQLException ex) {
+                System.err.println("error!!");
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
     
+    }
      public static void blockuser(int id){
        
              Statement statement;
@@ -217,7 +243,7 @@ public class users_Services {
                 res.getString(6),
                 res.getString(7),
                 res.getInt(8),
-                res.getDate(9).toLocalDate(),
+                //res.getDate(9).toLocalDate(),
                 res.getString(10),
                 res.getString(11),
                 res.getString(12)
