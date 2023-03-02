@@ -610,18 +610,7 @@ public class Signin_pageController implements Initializable {
         loginfields_google.setVisible(false);
     }
     
-    /*public void recaptchafunc(){
-        RecaptchaEnterpriseServiceClient client = RecaptchaEnterpriseServiceClient.create();
-CreateAssessmentRequest assessmentRequest = CreateAssessmentRequest.newBuilder()
-    .setParent("projects/{project-id}")
-    .setRiskThreshold(0.5F)
-    .setEvent(Event.newBuilder()
-        .setToken("YOUR_RECAPTCHA_RESPONSE_TOKEN")
-        .setSiteKey("YOUR_RECAPTCHA_SITE_KEY")
-        .build())
-    .build();
-CreateAssessmentResponse assessmentResponse = client.createAssessment(assessmentRequest);
-    }*/
+   
 
     @FXML
     private void confirm_btn(ActionEvent event) throws NoSuchAlgorithmException {
@@ -651,7 +640,7 @@ CreateAssessmentResponse assessmentResponse = client.createAssessment(assessment
     {               
     if (!phone_num.getText().matches("\\d+")) {
         errormsgphonenum.setText("Phone number should be a number!");
-    } else if (phone_num.getText().toString().length()<8)
+    } else if (phone_num.getText().toString().length()<8 || phone_num.getText().toString().length()>8)
     {
         errormsgphonenum.setText("Phone number should contain 8 digits!");
     }
@@ -663,7 +652,7 @@ CreateAssessmentResponse assessmentResponse = client.createAssessment(assessment
     {
      if (!cin.getText().matches("\\d+")) {
         errormsgcin.setText("CIN should be a number!");
-    } else if (cin.getText().toString().length()<8)
+    } else if (cin.getText().toString().length()<8 || cin.getText().toString().length()>8)
     {
         errormsgcin.setText("CIN should contain 8 digits!");
     }
@@ -752,7 +741,7 @@ else if (yesartist.isSelected() && noartist.isSelected())
      errormsgelements.setText("");
      errormsgbirthdate.setText("");
      errorquestionartist.setText("");
-    
+     Data.user = user.getgoogleuserdata(user1.getEmail());
      gotoHome(event);
    
    

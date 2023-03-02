@@ -142,6 +142,23 @@ public class users_Services {
             }
     
     }
+    public void modifyuserImage(int id , String image){
+       
+            String sql = "update users set image= ? where id = ?";
+             try {
+            pst = conn.prepareStatement(sql);
+            pst.setString(1,image);
+            pst.setInt(2,id);
+            
+             pst.executeUpdate();
+            System.out.println("success!!");
+                
+            } catch (SQLException ex) {
+                System.err.println("error!!");
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    
+    }
      public void modifyusergoogle(users u){
        
             String sql = "update users set cin = ?, firstname = ?, lastname = ?, password = ?, address=?, phone_num=?, birth_date=?, gender=?, role=?, status=?, image=? where email = ?";

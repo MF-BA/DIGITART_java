@@ -11,11 +11,15 @@ import entity.users;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -35,6 +39,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -54,8 +59,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import main.main;
 import utils.Conn;
 
 /**
@@ -271,8 +281,13 @@ public class DashboardController implements Initializable {
     private Button unblock_fromlist;
     
     private File imageFile;
+   
     @FXML
-    private ImageView imageprof;
+    private Pane avatar_icon;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Circle circle_image;
     /**
      * Initializes the controller class.
      */
@@ -286,6 +301,15 @@ public class DashboardController implements Initializable {
         update_page.setVisible(false);
         editprofile_page.setVisible(false);
         labeladminname.setText(Data.user.getFirstname());
+        
+        if (Data.user.getImage()!=null){
+            String imagePath = Data.user.getImage();
+        Image image = new Image(new File(imagePath).toURI().toString());
+        circle_image.setFill(new ImagePattern(image));
+        }
+        
+        
+        
         comboboxup(); 
         combobox();
         comboboxedit();
@@ -798,8 +822,27 @@ public void comboboxedit()
         users_Services user = new users_Services();
         user.modifyuser(u);
          // Upload the image file if one was selected
+         // Debug statements
+        System.out.println("Image file: " + imageFile);
         if (imageFile != null) {
-            uploadImage();
+            String pathimage = uploadImage();
+            if (pathimage != null) {
+            String sql = "update users set image= ? where id = ?";
+            try {
+                pst = conn.prepareStatement(sql);
+                pst.setString(1, pathimage);
+                pst.setInt(2, u.getId());
+
+                pst.executeUpdate();
+                System.out.println("success!!");
+
+            } catch (SQLException ex) {
+                System.err.println("error!!");
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.err.println("error: failed to upload image");
+        }
         }  
          showusers();
          errormsgfiiledit.setText("your profile is successfully modified!!");  
@@ -885,57 +928,73 @@ public void comboboxedit()
 
     @FXML
     private void handleSelectImage(ActionEvent event) {
-     FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select Image");
-        fileChooser.getExtensionFilters().addAll(
-            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-        File selectedFile = fileChooser.showOpenDialog(imageprof.getScene().getWindow());
-        if (selectedFile != null) {
-            imageFile = selectedFile;
-            Image image = new Image(selectedFile.toURI().toString());
-            imageprof.setImage(image);
-        }
+       FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Select Image");
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+    File selectedFile = fileChooser.showOpenDialog(circle_image.getScene().getWindow());
+    if (selectedFile != null) {
+        imageFile = selectedFile;
+        Image image = new Image(selectedFile.toURI().toString());
+        
+        
+         // Set the clip of the ImageView to the circle shape
+         //avatar_image.setClip(circle_image);
+        
+        circle_image.setFill(new ImagePattern(image));
+    }
         
     }
 
-    private void uploadImage() {
+    private String uploadImage() {
+      
         try {
-            // Read the image file into a byte array
-            byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-            
-            // Encode the image bytes as a base64 string
-            String imageData = Base64.getEncoder().encodeToString(imageBytes);
-            
-            // Create a HTTP connection to the servlet
-            URL url = new URL("http://localhost:8080/uploadImage");
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            
-            // Construct the request body
-            String userId = String.valueOf(Data.user.getId());
-            String filename = imageFile.getName();
-            String body = String.format("userId=%s&filename=%s&imageData=%s",
-                                        userId, filename, imageData);
-            
-            // Write the request body to the connection output stream
-            try (OutputStream os = connection.getOutputStream()) {
-                byte[] input = body.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-            }
-            
-            // Check the response code
-            int responseCode = connection.getResponseCode();
-            if (responseCode != 200) {
-                throw new RuntimeException("Failed to upload image: HTTP error code " + responseCode);
-            }
-            
-            // Close the connection
-            connection.disconnect();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        // Read the image file into a byte array
+        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+        
+        // Encode the image bytes as a base64 string
+        String imageData = Base64.getEncoder().encodeToString(imageBytes);
+        
+        // Create a HTTP connection to the server
+        URL url = new URL("http://localhost:8080/upload");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setDoOutput(true);
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        
+        // Construct the request body
+        String userId = String.valueOf(Data.user.getId());
+        String filename = imageFile.getName();
+        String body = String.format("userId=%s&filename=%s&imageData=%s",
+                                    userId, filename, imageData);
+        
+        // Write the request body to the connection output stream
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = body.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
         }
+        
+        // Check the response code
+        int responseCode = connection.getResponseCode();
+        if (responseCode != 200) {
+            throw new RuntimeException("Failed to upload image: HTTP error code " + responseCode);
+        }
+        
+        // Save the image file to the specified directory
+        String uploadDir = "D:/xamp/htdocs/images/";
+        Path imagePath = Paths.get(uploadDir, filename);
+        Files.write(imagePath, imageBytes);
+            System.out.println(imagePath);
+        // Close the connection
+        connection.disconnect();
+        
+        // Return the path to the saved image file
+        return imagePath.toString();
+        
+    } catch (IOException ex) {
+        ex.printStackTrace();
+        return null;
+    }
     }
 
     

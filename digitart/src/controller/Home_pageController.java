@@ -12,6 +12,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * FXML Controller class
@@ -22,6 +25,8 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private Label labelusername;
+    @FXML
+    private Circle avatar_img;
 
     
     
@@ -34,6 +39,7 @@ public class Home_pageController implements Initializable {
         // TODO
         labelusername.setText(Data.user.getFirstname());
         
+     
         
     }    
     

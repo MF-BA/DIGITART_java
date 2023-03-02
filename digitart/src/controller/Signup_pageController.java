@@ -6,11 +6,15 @@
 package controller;
 
 import Services.users_Services;
+import static controller.Signin_pageController.conn;
 import entity.users;
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -241,7 +245,22 @@ else if (yesartist.isSelected() && noartist.isSelected())
    if (noartist.isSelected()) {
         role = "Subscriber";
     }
+   String sql = "SELECT * FROM users WHERE email=?";
+   PreparedStatement st;
+   ResultSet res = null;
+     try{
+         st = conn.prepareStatement(sql);
+                st.setString(1, Email);
+                res = st.executeQuery();
    
+    if (res.next())
+    {
+       errormsgemail.setText(" this email is already used !!");    
+    }
+    else
+    {
+        
+    
     String hashedPassword = users_Services.hashPassword(passwd);
     user1 = new users(Cin ,firstname, lastname, Email, hashedPassword, Address, phone_number, BirthDate, gender, role,"unblocked");
     user = new users_Services();
@@ -261,7 +280,10 @@ else if (yesartist.isSelected() && noartist.isSelected())
    
    clear();
    loginswitch(event);
-   
+    }
+   }catch (SQLException ex) {
+                 Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+             }
         
     }
 

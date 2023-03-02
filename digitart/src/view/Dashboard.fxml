@@ -15,15 +15,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #E5E7E6;" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DashboardController">
    <children>
       <VBox layoutY="-7.0" prefHeight="729.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
-            <Pane prefHeight="171.0" prefWidth="269.0">
+            <Pane fx:id="avatar_icon" prefHeight="171.0" prefWidth="269.0">
                <children>
-                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="79.0" layoutY="131.0" size="130" />
+                  <Circle fill="#bd2a2e" layoutX="125.0" layoutY="85.0" radius="71.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                  <Circle fx:id="circle_image" fill="#bd2a2e" layoutX="125.0" layoutY="85.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                  <ImageView fx:id="avatar_image" fitHeight="134.0" fitWidth="152.0" layoutX="49.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
             <Label prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
@@ -492,7 +495,6 @@
             <Label fx:id="errormsgbirthdate_edit" layoutX="581.0" layoutY="374.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgphonenum_edit" layoutX="581.0" layoutY="463.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Button layoutX="383.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleSelectImage" prefHeight="33.0" prefWidth="171.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Upload your image" />
-            <ImageView fx:id="imageprof" fitHeight="150.0" fitWidth="200.0" layoutX="368.0" layoutY="420.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
    </children>
