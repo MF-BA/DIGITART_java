@@ -13,6 +13,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.sun.nio.sctp.Notification;
 import entity.Data;
 import utils.Conn;
 import entity.Ticket;
@@ -25,6 +26,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -61,11 +63,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Paint;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import tray.animations.AnimationType;
+import tray.notification.NotificationType;
+import tray.notification.TrayNotification;
 
 /**
  * FXML Controller class
@@ -254,6 +261,25 @@ public class TicketController implements Initializable {
             // Set the anchor to be visible only if a date is selected
             if (payment_date.getValue() != null) {
                 afterdate_anchor.setVisible(true);
+                // Disable spinners if the price is 0 for the respective ticket type
+
+                if (getTicketPrice("Adult", payment_date.getValue()) == 0) {
+                    spinner_adult.setDisable(true);
+                } else {
+                    spinner_adult.setDisable(false);
+                }
+
+                if (getTicketPrice("Teen", payment_date.getValue()) == 0) {
+                    spinner_teen.setDisable(true);
+                } else {
+                    spinner_teen.setDisable(false);
+                }
+
+                if (getTicketPrice("Student", payment_date.getValue()) == 0) {
+                    spinner_student.setDisable(true);
+                } else {
+                    spinner_student.setDisable(false);
+                }
             } else {
                 afterdate_anchor.setVisible(false);
             }
@@ -331,26 +357,6 @@ public class TicketController implements Initializable {
         price_3.setText("$" + String.valueOf(price3));
         price_4.setText(String.valueOf(total));
 
-        // Disable spinners if the price is 0 for the respective ticket type
-        
-        if (getTicketPrice("Adult", selectedDate) == 0) {
-            spinner_adult.setDisable(true);
-        } else {
-            spinner_adult.setDisable(false);
-        }
-
-        if (getTicketPrice("Teen", selectedDate) == 0) {
-            spinner_teen.setDisable(true);
-        } else {
-            spinner_teen.setDisable(false);
-        }
-
-        if (getTicketPrice("Student", selectedDate) == 0) {
-            spinner_student.setDisable(true);
-        } else {
-            spinner_student.setDisable(false);
-        }
-       
     }
 
     public void ShowPayment() {
@@ -417,14 +423,32 @@ public class TicketController implements Initializable {
     }
 
     private void ticketbuy_buy_button(ActionEvent event) throws WriterException, DocumentException {
-        displayPaymentStripe(event);
-
+        // Check if price_4 label is empty or equals to 0
+        if (price_4.getText().isEmpty() || price_4.getText().equals("0")) {
+            // Show a warning message
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Please choose a ticket before proceeding with payment.");
+            alert.showAndWait();
+        } else {
+            // Proceed with payment
+            displayPaymentStripe(event);
+        }
     }
 
     @FXML
     private void displayPaymentStripe(ActionEvent event) throws WriterException {
+        String total = price_4.getText();
+        if (total.isEmpty() || total.equals("0")) {
+            // Show a warning message that the user should choose a ticket before making a payment
+            Alert alert = new Alert(AlertType.WARNING);
+            alert.setHeaderText("Please choose a ticket !!");
+            alert.setContentText("You need to choose a ticket before you can make a payment.");
+            alert.showAndWait();
+            return;
+        }
         try {
-            Data.totalp = price_4.getText();
+            Data.totalp = total;
             Data.purchaseDate = payment_date.getValue();
             Data.nbAdult = spinner_adult.getValue();
             Data.nbTeenager = spinner_teen.getValue();
@@ -544,6 +568,7 @@ public class TicketController implements Initializable {
                     // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
                     ShowTicket();
                     TicketReset();
+                    checkDate();
 
                 }
             } catch (Exception e) {
@@ -844,6 +869,35 @@ public class TicketController implements Initializable {
             btn_dashboard.setStyle("-fx-background-color:transparent");
             btn_buyticket.setStyle("-fx-background-color:transparent");
             ShowTicket();
+
+            Connection connection;
+            Statement statement;
+            ResultSet resultSet;
+            try {
+                connection = Conn.getCon();
+                statement = connection.createStatement();
+                resultSet = statement.executeQuery("SELECT * FROM ticket WHERE ticket_date < CURDATE()");
+
+                if (resultSet.next()) {
+                    String title = "Warning!";
+                    String message = "Please check ticket's date! Tickets needs updates!";
+                    NotificationType notificationType = NotificationType.WARNING;
+                    String imagePath = "/view/warning.jpg";
+                    AnimationType animationType = AnimationType.POPUP;
+                    TrayNotification notification = new TrayNotification();
+                    notification.setTitle(title);
+                    notification.setMessage(message);
+                    notification.setNotificationType(notificationType);
+                    notification.setAnimationType(animationType);
+                    notification.setRectangleFill(Paint.valueOf("#BD2A2E"));
+                    notification.setImage(new Image(imagePath));
+                    notification.showAndWait();
+                }
+                resultSet.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
         } else if (event.getSource() == btn_buyticket) {
             addticket_anchor.setVisible(false);
             buyticket_anchor.setVisible(true);
@@ -866,7 +920,6 @@ public class TicketController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
 
         dashboard_anchor.setVisible(true);
         addticket_anchor.setVisible(false);
@@ -877,7 +930,6 @@ public class TicketController implements Initializable {
 
         //here to delete
         /*
-        ticketbuy_qr_code.setVisible(false);
         dashboard_chart.setVisible(false);
         dashboard_pie.setVisible(false);
          */

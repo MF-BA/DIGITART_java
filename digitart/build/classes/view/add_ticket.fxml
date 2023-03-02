@@ -145,7 +145,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="addticket_anchor" layoutX="270.0" layoutY="9.0" prefHeight="728.0" prefWidth="1198.0" visible="false">
+      <AnchorPane fx:id="addticket_anchor" layoutX="270.0" layoutY="9.0" prefHeight="728.0" prefWidth="1198.0">
          <children>
             <AnchorPane layoutX="16.0" layoutY="19.0" prefHeight="690.0" prefWidth="580.0" stylesheets="@auctionDesign.css">
                <styleClass>
@@ -235,7 +235,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="buyticket_anchor" layoutX="277.0" layoutY="23.0" prefHeight="707.0" prefWidth="1176.0">
+      <AnchorPane fx:id="buyticket_anchor" layoutX="277.0" layoutY="23.0" prefHeight="707.0" prefWidth="1176.0" visible="false">
          <children>
             <AnchorPane layoutX="8.0" layoutY="11.0" prefHeight="691.0" prefWidth="1158.0" stylesheets="@auctionDesign.css">
                <children>
