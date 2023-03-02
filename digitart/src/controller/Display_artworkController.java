@@ -284,9 +284,9 @@ public class Display_artworkController implements Initializable {
     private void serach_keytyped(KeyEvent event) {
         ArtworkList = Artwork_Services.search(artwork_search.getText());
 
-        col_id.setCellValueFactory(new PropertyValueFactory<>("id_art"));
+        
         col_name.setCellValueFactory(new PropertyValueFactory<>("artwork_name"));
-        col_idartist.setCellValueFactory(new PropertyValueFactory<>("id_artist"));
+        
         col_nameartist.setCellValueFactory(new PropertyValueFactory<>("artist_name"));
         col_date.setCellValueFactory(new PropertyValueFactory<>("date_art"));
         col_desc.setCellValueFactory(new PropertyValueFactory<>("description"));

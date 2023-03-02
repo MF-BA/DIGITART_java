@@ -266,7 +266,7 @@ if (file != null) {
         alert.showAndWait();
         
         try {
-        sendEmail("laatarmomo@gmail.com", "ADD ARTWORK IN DIGITART", "Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n Thank you for trusting our application, \n You have successfully added the artwork "+name);
+        sendEmail(Data.user.getEmail(), "ADD ARTWORK IN DIGITART", "Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n Thank you for trusting our application, \n You have successfully added the artwork "+name);
     } catch (MessagingException e) {
         e.printStackTrace();
     }

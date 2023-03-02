@@ -7,51 +7,23 @@ package controller;
 
 import Services.Artwork_Services;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.ByteMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import entity.Artwork;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import net.glxn.qrgen.QRCode;
 
 /**
  * FXML Controller class
@@ -75,44 +47,37 @@ public class Artwork_userfrontController implements Initializable {
       private Image image1;
     @FXML
     private Button btn_qr;
+    @FXML
+    private ImageView qrcode;
     
-//    public void qrcode() throws IOException, WriterException {
-//    // Créer une nouvelle fenêtre
-//    Stage qrCodeStage = new Stage();
-//    qrCodeStage.setTitle("QR Code");
-//
-//    // Créer un ImageView pour afficher le QR code
-//    ImageView qrCodeImageView = new ImageView();
-//    qrCodeStage.setScene(new Scene(new StackPane(qrCodeImageView), 300, 300));
-//
-//    // Générer le QR code avec la bibliothèque ZXing
-//    String text = "https://www.google.com/search?q=" + l_nameartwork.getText() + "+" + l_nameartist.getText();
-//    int size = 200;
-//    String fileType = "png";
-//    Map<EncodeHintType, Object> hintMap = new HashMap<>();
-//    hintMap.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-//
-//    QRCodeWriter qrCodeWriter = new QRCodeWriter();
-//    BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, size, size, hintMap);
-//
-//    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//    MatrixToImageWriter.writeToStream(bitMatrix, fileType, byteArrayOutputStream);
-//
-//    byte[] byteArray = byteArrayOutputStream.toByteArray();
-//
-//    // Convertir le tableau de bytes en BufferedImage
-//    BufferedImage qrCodeImage = ImageIO.read(new ByteArrayInputStream(byteArray));
-//
-//    // Convertir le BufferedImage en Image
-//    Image fxImage = SwingFXUtils.toFXImage(qrCodeImage, null);
-//
-//    // Afficher le QR code dans l'ImageView
-//    qrCodeImageView.setImage(fxImage);
-//
-//    // Afficher la nouvelle fenêtre
-//    qrCodeStage.show();
-//}
+    public void qrcode() throws IOException, WriterException {
+ 
+}
+public void generateQRCode() {
+    String url = "https://artsandculture.google.com/search?q="+l_nameartwork.getText().replaceAll("\\s+", "%20")+"%20"+ l_nameartist.getText().replaceAll("\\s+", "%20");
 
+    QRCodeWriter qrCodeWriter = new QRCodeWriter();
+    ByteMatrix byteMatrix;
+    try {
+        byteMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
+    } catch (WriterException e) {
+        e.printStackTrace();
+        return;
+    }
+
+    int width = byteMatrix.getWidth();
+    int height = byteMatrix.getHeight();
+    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            int value = byteMatrix.get(x, y);
+            image.setRGB(x, y, value == 0 ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
+        }
+    }
+
+    Image fxImage = SwingFXUtils.toFXImage(image, null);
+    qrcode.setImage(fxImage);
+}
 
     /**
      * Initializes the controller class.
@@ -137,17 +102,14 @@ public class Artwork_userfrontController implements Initializable {
         return this.auction_display;
     }*/
 
-//    @FXML
-//    private void btn_qr_clicked(ActionEvent event) {
-//        try {
-//            qrcode();
-//        } catch (IOException ex) {
-//            Logger.getLogger(Artwork_userfrontController.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (WriterException ex) {
-//            Logger.getLogger(Artwork_userfrontController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//    }
+    @FXML
+    private void btn_qr_clicked(ActionEvent event) {
+       
+            generateQRCode();
+            System.out.println("qrcode generated");
+     
+        
+    }
        
 
 

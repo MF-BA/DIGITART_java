@@ -15,7 +15,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_artwork_userController">
    <children>
-      <ScrollPane layoutX="383.0" layoutY="23.0" prefHeight="677.0" prefWidth="684.0">
+      <ScrollPane layoutX="277.0" layoutY="22.0" prefHeight="677.0" prefWidth="885.0">
          <content>
             <HBox fx:id="auction_view" onMouseClicked="#view_clicked" prefHeight="186.0" prefWidth="219.0">
                <children>

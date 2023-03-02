@@ -265,7 +265,7 @@ public class Display_roomController implements Initializable {
     private void search_room_Keytyped(KeyEvent event) {
                RoomList = Room_Services.search(room_search.getText());
 
-        col_id.setCellValueFactory(new PropertyValueFactory<>("id_room"));
+        
         col_name.setCellValueFactory(new PropertyValueFactory<>("name_room"));
         col_area.setCellValueFactory(new PropertyValueFactory<>("area"));
         col_state.setCellValueFactory(new PropertyValueFactory<>("state"));

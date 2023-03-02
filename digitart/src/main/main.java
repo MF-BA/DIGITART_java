@@ -46,7 +46,7 @@ public class main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DIGITART");
 
-        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
+        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/display_artwork_user.fxml"));
         Scene scene = new Scene(DisplayROOM_Page);
 
         this.primaryStage.setScene(scene);
@@ -57,7 +57,7 @@ public class main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Data.user = new users(1, 12,"firstname", "lastname", "email", " pwd", "address",  45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
+        Data.user = new users(1, 12,"Edvard", " Munch", "laatarmomo@gmail.com", " pwd", "address",  45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
         launch(args);
         
         System.exit(
