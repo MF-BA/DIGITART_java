@@ -26,6 +26,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.PasswordAuthentication;
+import java.io.IOException;
+
 /**
  *
  * @author fedi1
@@ -95,7 +97,7 @@ public class main extends Application {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         ArrayList<Integer> id_auction = new ArrayList<>();
         ArrayList<users> users = Auction_Services.verif_winners(id_auction);
@@ -109,6 +111,17 @@ public class main extends Application {
         }
 
         Data.user = new users(1, 12, "firstname", "lastname", "email", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
+
+        /*String apiUrl = "http://data.fixer.io/api/latest?access_key=fBHGSQbaHC735dTQMppwn4QhzmuSeQcp";
+        URL url = new URL(apiUrl);
+        Scanner scanner = new Scanner(url.openStream());
+        String jsonString = scanner.nextLine();
+        System.out.println(jsonString);
+        JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+        double usdToEur = jsonObject.getAsJsonObject("rates").get("USD").getAsDouble();
+        System.out.println("1 USD = " + usdToEur + " EUR");*/
+        
+
         launch(args);
 
         //Amine---------------------------------------------------------------------------------------------------- 
