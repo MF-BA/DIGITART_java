@@ -24,11 +24,15 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import com.google.zxing.BarcodeFormat;
+//import com.google.zxing.common.ByteMatrix;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -64,6 +68,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -288,21 +294,26 @@ public class Signin_pageController implements Initializable {
                          if (rs.getString("status").equals("unblocked")) {
                         
                            // Generate a secret key for the user
-    GoogleAuthenticator gAuth = new GoogleAuthenticator();
-    String secretKey = gAuth.createCredentials().getKey();
+     GoogleAuthenticator gAuth = new GoogleAuthenticator();
+     String secretKey = gAuth.createCredentials().getKey();
+     GoogleAuthenticatorKey gKey = new GoogleAuthenticatorKey.Builder(secretKey).build();
+    
+     String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("MyApp", emaillogin.getText(), gKey);
 
-    // Generate the QR code image
-    String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("MyApp", emaillogin.getText(), secretKey);
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    int size = 200;
-    BitMatrix bitMatrix = com.google.zxing.client.j2se.MatrixToImageWriter.toBitMatrix(qrCodeUrl, MatrixToImageWriter.DEFAULT_QR_CODE_FORMAT, size, size, null);
-    BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-    ImageIO.write(qrImage, "png", out);
-    byte[] qrImageData = out.toByteArray();
-    String qrImageBase64 = Base64.getEncoder().encodeToString(qrImageData);
+        Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+        hints.put(EncodeHintType.MARGIN, 1);
+
+        QRCodeWriter writer = new QRCodeWriter();
+        BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 200, 200, hints);
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        MatrixToImageWriter.writeToStream(matrix, "PNG", outputStream);
+        byte[] qrCodeImageData = outputStream.toByteArray();
+        String qrCodeImageBase64 = Base64.getEncoder().encodeToString(qrCodeImageData);
 
     // Display the QR code image to the user
-    Image image = new Image(qrImageBase64);
+    Image image = new Image(qrCodeImageBase64);
 
     // Display the QR code image in an ImageView
     ImageView imageView = new ImageView(image);
