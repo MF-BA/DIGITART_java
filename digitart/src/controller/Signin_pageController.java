@@ -11,26 +11,21 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.sun.org.apache.xpath.internal.operations.Plus;
-import com.google.api.services.people.v1.PeopleService;
-import com.google.api.services.people.v1.PeopleServiceScopes;
-import java.awt.image.BufferedImage;
-import java.util.UUID;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import com.octo.captcha.service.CaptchaService;
-import com.octo.captcha.service.image.DefaultManageableImageCaptchaService;
-import com.octo.captcha.image.ImageCaptcha;
-import com.octo.captcha.image.ImageCaptchaFactory;
 import com.github.cage.Cage;
 import com.github.cage.GCage;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
+import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import com.google.zxing.WriterException;
+
 /*import com.octo.captcha.image.gimpy.DefaultGimpyEngine;
 import com.octo.captcha.image.gimpy.DefaultBackgroundGenerator;
 import com.octo.captcha.image.gimpy.DefaultWordGenerator;
@@ -47,7 +42,6 @@ import com.octo.captcha.image.gimpy.wordtoimage.textpaster.RandomTextPaster;*/
 
 import entity.Data;
 import entity.users;
-import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -86,13 +80,12 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.UUID;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -100,7 +93,6 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.PasswordAuthentication;
-import javax.swing.JOptionPane;
 
 /**
  * FXML Controller class
@@ -203,6 +195,12 @@ public class Signin_pageController implements Initializable {
     private AnchorPane loginfields_google;
     @FXML
     private Label errormsgelements;
+    @FXML
+    private ImageView qrcodeimage;
+    @FXML
+    private TextField fname1;
+    @FXML
+    private Button confirm_auth_QR;
     /**
      * Initializes the controller class.
      */
@@ -279,6 +277,43 @@ public class Signin_pageController implements Initializable {
               }    else {
                          if (rs.getString("status").equals("unblocked")) {
                         
+                           // Generate a new secret key
+                           GoogleAuthenticator gAuth = new GoogleAuthenticator();
+                           String secretKey = gAuth.createCredentials().getKey();
+
+                             // Generate a QR code image for the secret key
+                            BufferedImage qrImage = null;
+                            /*try {
+                          qrImage = gAuth.getQRCodeImage("DigitArt", secretKey, 200, 200);
+                          
+                               } catch (WriterException e) {
+                             e.printStackTrace();
+                              }*/
+
+                             // Convert the BufferedImage to a JavaFX Image
+                          ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                          try {
+                          ImageIO.write(qrImage, "png", baos);
+                          baos.flush();
+                          } catch (IOException e) {
+                          e.printStackTrace();
+                           }
+                            byte[] imageBytes = baos.toByteArray();
+                            ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
+                            Image image = new Image(bais);
+
+                          // Display the QR code image in an ImageView
+                           
+                           qrcodeimage.setImage(image);
+
+                         // Create a StackPane to hold the ImageView
+                         StackPane root = new StackPane();
+                         root.getChildren().add(qrcodeimage);
+
+       
+                             
+                             
+                             
                             loginerrormsg.setText("Email and Password are correct!! ");
                          Data.user
                                 = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
@@ -369,7 +404,7 @@ public class Signin_pageController implements Initializable {
     }
 
     @FXML
-    private void forgotPasswordButton(ActionEvent event) {
+    private void forgotPasswordButton(ActionEvent event) throws NoSuchAlgorithmException {
 
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Forgot Password");
@@ -383,6 +418,7 @@ public class Signin_pageController implements Initializable {
         props.put("mail.smtp.starttls.enable", "true");
         props.setProperty("mail.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        //props.put("mail.smtp.port", "465");
         //props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         //props.put("mail.smtp.socketFactory.fallback", "false");
 
@@ -435,11 +471,11 @@ public class Signin_pageController implements Initializable {
                         dialog2.setContentText("New password :");
                         Optional<String> result2 = dialog2.showAndWait();
                         String sql1 = "update users set password = ? where id = ?";
-                        System.out.println(result2.get());
+                        System.out.println(users_Services.hashPassword(result2.get()));
                         System.out.println(id);
 
                         pst = conn.prepareStatement(sql1);
-                        pst.setString(1, result2.get());
+                        pst.setString(1, users_Services.hashPassword(result2.get()));
                         pst.setInt(2, id);
                         pst.executeUpdate();
                     } else {
@@ -759,6 +795,10 @@ else if (yesartist.isSelected() && noartist.isSelected())
     BufferedImage image = cage.drawImage(captchaText);
     Image fxImage = SwingFXUtils.toFXImage(image, null);
     imgCaptcha.setImage(fxImage);
+    }
+
+    @FXML
+    private void confirm_auth_QR_btn(ActionEvent event) {
     }
 
 }

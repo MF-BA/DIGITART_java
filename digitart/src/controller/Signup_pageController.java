@@ -5,8 +5,11 @@
  */
 package controller;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import Services.users_Services;
 import static controller.Signin_pageController.conn;
+import entity.Data;
 import entity.users;
 import java.io.IOException;
 import java.net.URL;
@@ -18,6 +21,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Optional;
+import java.util.Properties;
+import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,14 +34,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.MimeMessage;
 import main.main;
 /**
  * FXML Controller class
@@ -123,7 +137,7 @@ public class Signup_pageController implements Initializable {
     private Label errorquestionartist;
     
     @FXML
-    void confirm_btn(ActionEvent event) throws NoSuchAlgorithmException {
+    void confirm_btn(ActionEvent event) throws NoSuchAlgorithmException, AddressException, MessagingException {
        
         
         LocalDate BirthDate = birth_d.getValue();
@@ -245,7 +259,11 @@ else if (yesartist.isSelected() && noartist.isSelected())
    if (noartist.isSelected()) {
         role = "Subscriber";
     }
-   String sql = "SELECT * FROM users WHERE email=?";
+   
+   boolean isValid = isValidEmail(email.getText());
+     if (isValid) {
+    // email is valid
+    String sql = "SELECT * FROM users WHERE email=?";
    PreparedStatement st;
    ResultSet res = null;
      try{
@@ -260,35 +278,84 @@ else if (yesartist.isSelected() && noartist.isSelected())
     else
     {
         
+    Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.setProperty("mail.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");    
+    Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(Data.username, Data.password);
+            }
+        });
+    Random random = new Random();
+    int resetCode = random.nextInt(1000000); // Generate a random 6-digit code
+    String emailContent = "Your verification code is: " + resetCode;
+    Message message = new MimeMessage(session);
+    message.setFrom(new InternetAddress(Data.username));
+    message.setRecipients(Message.RecipientType.TO,
+    InternetAddress.parse(email.getText()));
+    message.setSubject("Email Verification");
+    message.setText(emailContent);
+    Transport.send(message);
+    TextInputDialog dialog1 = new TextInputDialog();
+                    dialog1.setTitle("Email Verification");
+                    dialog1.setHeaderText("Enter the code sent by mail");
+                    dialog1.setContentText("CODE :");
+                    Optional<String> result1 = dialog1.showAndWait();
+                    final int code = Integer.parseInt(result1.get());
+                    if (resetCode == code) {
+                      String hashedPassword = users_Services.hashPassword(passwd);
+                      user1 = new users(Cin ,firstname, lastname, Email, hashedPassword, Address, phone_number, BirthDate, gender, role,"unblocked");
+                      user = new users_Services();
+                      user.adduser(user1); 
+                      errormsgfname.setText("");
+                      errormsglname.setText("");
+                      errormsgemail.setText("");
+                      errormsgpwd.setText("");
+                      errormsgcin.setText("");
+                      errormsgaddress.setText("");
+                      errormsgphonenum.setText("");
+                      errormsggender.setText("");
+                      errormsgelements.setText("");
+                      errormsgbirthdate.setText("");
+                      errorquestionartist.setText("");
+                      clear();
+                      loginswitch(event);
+                    } else {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Email Verification");
+                        alert.setHeaderText(null);
+                        alert.setContentText("the code you entered is incorrect!! ");
+                        alert.showAndWait();
+                    }
     
-    String hashedPassword = users_Services.hashPassword(passwd);
-    user1 = new users(Cin ,firstname, lastname, Email, hashedPassword, Address, phone_number, BirthDate, gender, role,"unblocked");
-    user = new users_Services();
-    user.adduser(user1); 
-     
-    errormsgfname.setText("");
-    errormsglname.setText("");
-    errormsgemail.setText("");
-    errormsgpwd.setText("");
-    errormsgcin.setText("");
-    errormsgaddress.setText("");
-     errormsgphonenum.setText("");
-   errormsggender.setText("");
-   errormsgelements.setText("");
-   errormsgbirthdate.setText("");
-   errorquestionartist.setText("");
-   
-   clear();
-   loginswitch(event);
     }
    }catch (SQLException ex) {
                  Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
              }
+     } else {
+    // email is not valid
+      errormsgemail.setText(" this email is not valid !!");  
+      }
+        
+   
         
     }
 
   }
-    
+    public static boolean isValidEmail(String email) {
+        boolean isValid = false;
+        try {
+            InternetAddress emailAddress = new InternetAddress(email);
+            emailAddress.validate();
+            isValid = true;
+        } catch (AddressException ex) {
+            // email is not valid
+        }
+        return isValid;
+    }
  public void clear(){
      
         fname.setText("");
