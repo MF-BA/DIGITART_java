@@ -17,15 +17,21 @@ import javafx.scene.image.ImageView;
 import com.octo.captcha.service.CaptchaService;
 import com.github.cage.Cage;
 import com.github.cage.GCage;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
-import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
-import javax.imageio.ImageIO;
+import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import com.google.zxing.WriterException;
-
 /*import com.octo.captcha.image.gimpy.DefaultGimpyEngine;
 import com.octo.captcha.image.gimpy.DefaultBackgroundGenerator;
 import com.octo.captcha.image.gimpy.DefaultWordGenerator;
@@ -44,6 +50,7 @@ import entity.Data;
 import entity.users;
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -56,6 +63,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -85,7 +93,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javax.imageio.ImageIO;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -198,9 +208,9 @@ public class Signin_pageController implements Initializable {
     @FXML
     private ImageView qrcodeimage;
     @FXML
-    private TextField fname1;
-    @FXML
     private Button confirm_auth_QR;
+    @FXML
+    private TextField code_qr_input;
     /**
      * Initializes the controller class.
      */
@@ -243,7 +253,7 @@ public class Signin_pageController implements Initializable {
     }
 
     @FXML
-    private void login_btn(ActionEvent event) throws NoSuchAlgorithmException {
+    private void login_btn(ActionEvent event) throws NoSuchAlgorithmException, WriterException, IOException {
 
         users_Services user = new users_Services();
         String role = null;
@@ -277,38 +287,39 @@ public class Signin_pageController implements Initializable {
               }    else {
                          if (rs.getString("status").equals("unblocked")) {
                         
-                           // Generate a new secret key
-                           GoogleAuthenticator gAuth = new GoogleAuthenticator();
-                           String secretKey = gAuth.createCredentials().getKey();
+                           // Generate a secret key for the user
+    GoogleAuthenticator gAuth = new GoogleAuthenticator();
+    String secretKey = gAuth.createCredentials().getKey();
 
-                             // Generate a QR code image for the secret key
-                            BufferedImage qrImage = null;
-                            /*try {
-                          qrImage = gAuth.getQRCodeImage("DigitArt", secretKey, 200, 200);
-                          
-                               } catch (WriterException e) {
-                             e.printStackTrace();
-                              }*/
+    // Generate the QR code image
+    String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("MyApp", emaillogin.getText(), secretKey);
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    int size = 200;
+    BitMatrix bitMatrix = com.google.zxing.client.j2se.MatrixToImageWriter.toBitMatrix(qrCodeUrl, MatrixToImageWriter.DEFAULT_QR_CODE_FORMAT, size, size, null);
+    BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+    ImageIO.write(qrImage, "png", out);
+    byte[] qrImageData = out.toByteArray();
+    String qrImageBase64 = Base64.getEncoder().encodeToString(qrImageData);
 
-                             // Convert the BufferedImage to a JavaFX Image
-                          ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                          try {
-                          ImageIO.write(qrImage, "png", baos);
-                          baos.flush();
-                          } catch (IOException e) {
-                          e.printStackTrace();
-                           }
-                            byte[] imageBytes = baos.toByteArray();
-                            ByteArrayInputStream bais = new ByteArrayInputStream(imageBytes);
-                            Image image = new Image(bais);
+    // Display the QR code image to the user
+    Image image = new Image(qrImageBase64);
 
-                          // Display the QR code image in an ImageView
-                           
-                           qrcodeimage.setImage(image);
+    // Display the QR code image in an ImageView
+    ImageView imageView = new ImageView(image);
+    // Replace this with your own code to display the image in your application
+    // For example, you can add the ImageView to a pane and display it on the screen
+    Pane pane = new Pane();
+    pane.getChildren().add(imageView);
 
-                         // Create a StackPane to hold the ImageView
-                         StackPane root = new StackPane();
-                         root.getChildren().add(qrcodeimage);
+    // Prompt the user to scan the QR code using the Google Authenticator app
+    int verificationCode = Integer.parseInt(code_qr_input.getText()); // replace this with your own code to prompt the user for input
+    boolean isCodeValid = gAuth.authorize(secretKey, verificationCode);
+        if (isCodeValid) {
+            System.out.println("Verification code is valid");
+        } else {
+            System.out.println("Verification code is invalid");
+        }
+                            
 
        
                              

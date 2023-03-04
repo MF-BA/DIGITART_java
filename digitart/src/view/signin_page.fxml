@@ -245,7 +245,7 @@
       <AnchorPane layoutX="284.0" layoutY="11.0" prefHeight="680.0" prefWidth="704.0">
          <children>
             <ImageView fx:id="qrcodeimage" fitHeight="237.0" fitWidth="254.0" layoutX="225.0" layoutY="117.0" pickOnBounds="true" preserveRatio="true" />
-            <TextField fx:id="fname1" alignment="CENTER" layoutX="213.0" layoutY="481.0" prefHeight="26.0" prefWidth="278.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="code_qr_input" alignment="CENTER" layoutX="213.0" layoutY="481.0" prefHeight="26.0" prefWidth="278.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
             <Text fill="#bd2a2e" layoutX="116.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: #bd2a2e;" text="Please install Google authernticator App in your phone, open it and then scan the above barcode to add this application. After you have added this application enter the code you see inthe google authenticator App into the below input box to complete login process." wrappingWidth="473.0">
                <font>
                   <Font name="Arial" size="15.0" />
