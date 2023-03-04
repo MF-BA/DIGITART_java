@@ -102,7 +102,12 @@ public class Artwork_frontController implements Initializable {
         artwork_name.setText(auction_display.getName().toUpperCase());
         artist.setText("Artist: " + auction_display.getName_artist());
         current_bid.setText("Staring Bid:" + String.valueOf(auction_display.getStarting_price()));
-        int next_bid = auction_display.getBid() + auction_display.getIncrement();
+        int next_bid;
+        if (auction_display.getBid()  ==0 )
+            next_bid = auction_display.getStarting_price();
+        else 
+        next_bid = auction_display.getBid() + auction_display.getIncrement();
+        
         this.next_bid.setText("Next Bid:" + String.valueOf(next_bid));
         LocalDate localDate = auction_display.getDate();
         if (Data.user.getId() == Bid_Services.highest_offer_user(auction_display.getId_auction())) {

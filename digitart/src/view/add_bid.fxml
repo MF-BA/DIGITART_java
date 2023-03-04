@@ -8,37 +8,37 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_bidController">
+<AnchorPane id="AnchorPane" prefHeight="250.0" prefWidth="637.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_bidController">
     <stylesheets>
         <URL value="@auctionDesign.css" />
     </stylesheets>
    <children>
-      <Label layoutX="22.0" layoutY="47.0" text="Current Bid :">
+      <Label fx:id="curr_bid_label" layoutX="58.0" layoutY="47.0" text="Current Bid :">
          <font>
             <Font name="Microsoft New Tai Lue" size="28.0" />
          </font>
       </Label>
-      <Label fx:id="Starting_Bid" layoutX="195.0" layoutY="47.0" prefHeight="42.0" prefWidth="101.0" text="100">
+      <Label fx:id="Starting_Bid" layoutX="231.0" layoutY="47.0" prefHeight="42.0" prefWidth="101.0" text="100">
          <font>
             <Font name="Microsoft New Tai Lue Bold" size="28.0" />
          </font>
       </Label>
-      <Label fx:id="dollar" layoutX="295.0" layoutY="48.0" prefHeight="41.0" prefWidth="24.0" text="\$">
+      <Label fx:id="dollar" layoutX="331.0" layoutY="48.0" prefHeight="41.0" prefWidth="24.0" text="\$">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Spinner fx:id="bid" layoutX="114.0" layoutY="150.0" prefHeight="41.0" prefWidth="101.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
-      <Label layoutX="230.0" layoutY="150.0" prefHeight="41.0" prefWidth="24.0" text="\$">
+      <Spinner fx:id="bid" layoutX="150.0" layoutY="150.0" prefHeight="41.0" prefWidth="101.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Label layoutX="266.0" layoutY="150.0" prefHeight="41.0" prefWidth="24.0" text="\$">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="submit" layoutX="381.0" layoutY="150.0" mnemonicParsing="false" onAction="#submit_clicked" prefHeight="41.0" prefWidth="143.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Submit Offer" />
-      <ComboBox fx:id="currency" layoutX="348.0" layoutY="55.0" onAction="#currency_clicked" prefHeight="27.0" prefWidth="125.0" promptText="Currency" styleClass="combobox" stylesheets="@auctionDesign.css" />
-      <Label fx:id="Starting_Bid_currency" layoutX="485.0" layoutY="47.0" prefHeight="42.0" prefWidth="101.0" text="100">
+      <Button fx:id="submit" layoutX="417.0" layoutY="150.0" mnemonicParsing="false" onAction="#submit_clicked" prefHeight="41.0" prefWidth="143.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Submit Offer" />
+      <ComboBox fx:id="currency" layoutX="398.0" layoutY="55.0" onAction="#currency_clicked" prefHeight="27.0" prefWidth="125.0" promptText="Currency" styleClass="combobox" stylesheets="@auctionDesign.css" />
+      <Label fx:id="Starting_Bid_currency" layoutX="535.0" layoutY="47.0" prefHeight="42.0" prefWidth="143.0" text="100">
          <font>
-            <Font name="Microsoft New Tai Lue Bold" size="28.0" />
+            <Font name="Microsoft New Tai Lue Bold" size="20.0" />
          </font>
       </Label>
    </children>

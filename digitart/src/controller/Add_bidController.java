@@ -33,8 +33,10 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 import org.json.JSONObject;
 import java.io.*;
+import java.util.Collection;
 import okhttp3.*;
 import java.util.Iterator;
+import java.util.TreeMap;
 
 /**
  * FXML Controller class
@@ -43,10 +45,7 @@ import java.util.Iterator;
  */
 public class Add_bidController implements Initializable {
 
-    private static final String API_KEY = "fBHGSQbaHC735dTQMppwn4QhzmuSeQcp";
-    private static final String BASE_URL = "http://data.fixer.io/api/latest?access_key=" + API_KEY;
 
-    private Map<String, Double> exchangeRates = new HashMap<>();
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -64,27 +63,29 @@ public class Add_bidController implements Initializable {
     private Label Starting_Bid_currency;
 
     private int current_bid = Bid_Services.highest_offer(Data.auction_display.getId_auction());
+    @FXML
+    private Label curr_bid_label;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         try {
             fetchExchangeRates();
         } catch (Exception ex) {
             Logger.getLogger(Add_bidController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    Starting_Bid_currency.setVisible(false);
+        Starting_Bid_currency.setVisible(false);
         int staringPrice;
         int next_offer = Bid_Services.next_offer(Data.auction_display.getId_auction());
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(next_offer, 100000000);
         valueFactory.setValue(next_offer);
         bid.setValueFactory(valueFactory);
         if (current_bid == 0) {
-            Starting_Bid.setText("NONE");
-            dollar.setVisible(false);
+            Starting_Bid.setText(String.valueOf(Data.auction_display.getStarting_price()));
+            curr_bid_label.setText("Starting Price");
         } else {
             Starting_Bid.setText(String.valueOf(current_bid));
         }
@@ -99,15 +100,6 @@ public class Add_bidController implements Initializable {
         stage.close();
     }
 
-//    public ComboBox<String> getCurrencyComboBox() {
-//        ComboBox<String> comboBox = new ComboBox<>();
-//        comboBox.setPromptText("Select currency");
-//
-//        ObservableList<String> items = FXCollections.observableArrayList(exchangeRates.keySet());
-//        comboBox.setItems(items);
-//
-//        return comboBox;
-//    }
     private void fetchExchangeRates() throws Exception {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
 
@@ -119,20 +111,16 @@ public class Add_bidController implements Initializable {
 
         Response response = client.newCall(request).execute();
         String responseBody = response.body().string();
-        //System.out.println(responseBody);
+
         JSONObject json = new JSONObject(responseBody);
         JSONObject symbols = json.getJSONObject("symbols");
         String test = symbols.toString();
 
-        // parse the response body into a map of currency symbols and names
         Map<String, String> currencySymbols = parseCurrencySymbols(test);
 
-        // create an observable list of the currency symbols
         ObservableList<String> currencyList = FXCollections.observableArrayList(currencySymbols.keySet());
 
-        // create a ComboBox and set its items to the currency list
         currency.setItems(currencyList);
-        System.out.println(currencyList);
 
     }
 
@@ -143,54 +131,36 @@ public class Add_bidController implements Initializable {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, String> map = objectMapper.readValue(json, new TypeReference<Map<String, String>>() {
         });
+        Map<String, String> sortedMap = new TreeMap<>(map);
 
-        return map;
-    }
-
-    private void test() throws IOException {
-        OkHttpClient client = new OkHttpClient().newBuilder().build();
-
-        Request request = new Request.Builder()
-                .url("https://api.apilayer.com/fixer/symbols")
-                .addHeader("apikey", "90bvVgraQiEn2QC6KuN8OOayRnaSqbIx")
-                .method("GET", null)
-                .build();
-        Response response = client.newCall(request).execute();
-        System.out.println(response.body().string());
-    }
-
-    public double convertCurrency(double amount, String toCurrency) {
-        double exchangeRate = exchangeRates.get(toCurrency) / exchangeRates.get("USD");
-        //System.out.println(exchangeRates.get("USD"));
-        return amount * exchangeRate;
+        for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        }
+        return sortedMap;
     }
 
     @FXML
     private void currency_clicked(ActionEvent event) throws IOException {
         Starting_Bid_currency.setVisible(true);
-////        System.out.println(currency.getValue());
-//        String toCurrency = String.valueOf( convertCurrency(current_bid, currency.getValue() ) );
-//        Starting_Bid_currency.setText(toCurrency);
-
         OkHttpClient client = new OkHttpClient().newBuilder().build();
-
-        Request request = new Request.Builder()
-                .url("https://api.apilayer.com/fixer/convert?to=" + currency.getValue() + "&from=USD&amount=" + current_bid)
-                .addHeader("apikey", "90bvVgraQiEn2QC6KuN8OOayRnaSqbIx")
-                .method("GET", null)
-                .build();
+        Request request;
+        if (current_bid == 0) {
+            request = new Request.Builder()
+                    .url("https://api.apilayer.com/fixer/convert?to=" + currency.getValue() + "&from=USD&amount=" + Data.auction_display.getStarting_price())
+                    .addHeader("apikey", "90bvVgraQiEn2QC6KuN8OOayRnaSqbIx")
+                    .method("GET", null)
+                    .build();
+        } else {
+            request = new Request.Builder()
+                    .url("https://api.apilayer.com/fixer/convert?to=" + currency.getValue() + "&from=USD&amount=" + current_bid)
+                    .addHeader("apikey", "90bvVgraQiEn2QC6KuN8OOayRnaSqbIx")
+                    .method("GET", null)
+                    .build();
+        }
         Response response = client.newCall(request).execute();
         String responseBody = response.body().string();
-        System.out.println(responseBody);
-
         JSONObject json = new JSONObject(responseBody);
         double test = json.getDouble("result");
-
-//        System.out.println(response.body().string());
-//        JSONObject json = new JSONObject(response.body().string());
-//        JSONObject result = json.getJSONObject("result");
-//        String test = result.toString();
-
         Starting_Bid_currency.setText(String.valueOf(test));
 
     }

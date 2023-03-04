@@ -82,13 +82,14 @@ public class Add_auction_Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         in_ED.setDayCellFactory(picker -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                LocalDate today = LocalDate.now();
-                setDisable(empty || date.compareTo(today) < 0);
-            }
-        });
+    @Override
+    public void updateItem(LocalDate date, boolean empty) {
+        super.updateItem(date, empty);
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        setDisable(empty || date.compareTo(tomorrow) < 0);
+    }
+});
+
 
         btn_Add_Auction.setStyle("-fx-background-color:  #470011 ");
         btn_Artworks_Auction.setStyle("-fx-background-color:transparent");

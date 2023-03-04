@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import entity.Auction;
 import entity.Auction_display;
 import entity.users;
+import javafx.scene.control.Alert;
 import main.main;
 
 /**
@@ -131,12 +132,29 @@ public class Auction_Services {
     }
 
     public static void delete(int ID) {
-
+        Alert alert;
         Statement statement;
+        ResultSet resultSet;
 
         try {
             statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT COUNT(*) as cnt FROM bid WHERE id_auction =" + ID);
+            resultSet.next();
+            int count = resultSet.getInt("cnt");
+            if (count > 0) {
+                // There are bids for this auction, so exit the function
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("This auction has bids and cannot be deleted.");
+                alert.showAndWait();
+                return;
+            }
+            // No bids for this auction, so proceed with the deletion
             statement.executeUpdate("DELETE FROM auction WHERE id_auction =" + ID);
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("The auction has been deleted successfully.");
+            alert.showAndWait();
 
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
