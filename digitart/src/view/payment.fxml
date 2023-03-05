@@ -63,7 +63,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="payment_email" layoutX="168.0" layoutY="105.0" prefHeight="34.0" prefWidth="219.0" promptText="exemple@test.com      (Optional)" styleClass="payment-text-field" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="payment_email" layoutX="168.0" layoutY="105.0" prefHeight="34.0" prefWidth="219.0" promptText="exemple@test.com" styleClass="payment-text-field" stylesheets="@auctionDesign.css" />
             <Label layoutX="167.0" layoutY="241.0" text="Name on card">
                <font>
                   <Font name="System Bold" size="16.0" />
@@ -74,7 +74,6 @@
             <FontAwesomeIconView glyphName="CC_MASTERCARD" layoutX="420.0" layoutY="194.0" size="2em" />
             <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="307.0" layoutY="425.0" size="2em" />
             <FontAwesomeIconView glyphName="CC_STRIPE" layoutX="452.0" layoutY="194.0" size="2em" />
-            <Button layoutX="409.0" layoutY="105.0" mnemonicParsing="false" onAction="#SendEmail" prefHeight="34.0" prefWidth="82.0" text="Test" />
          </children>
       </AnchorPane>
    </children>

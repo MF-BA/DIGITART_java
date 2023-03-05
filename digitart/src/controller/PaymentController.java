@@ -69,9 +69,10 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import utils.Conn;
-
 
 /**
  * FXML Controller class
@@ -108,8 +109,8 @@ public class PaymentController implements Initializable {
     private TextField payment_name;
 
     @FXML
-    private void handlePayButtonAction(ActionEvent event) {
-        if (cardNumberTextField.getText().isEmpty() || expirymTextField.getText().isEmpty() || expiryyTextField.getText().isEmpty() || cvcTextField.getText().isEmpty() || payment_name.getText().isEmpty()) {
+    private void handlePayButtonAction(ActionEvent event) throws IOException {
+        if (cardNumberTextField.getText().isEmpty() ||payment_email.getText().isEmpty() || expirymTextField.getText().isEmpty() || expiryyTextField.getText().isEmpty() || cvcTextField.getText().isEmpty() || payment_name.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Payment Error");
             alert.setHeaderText(null);
@@ -216,7 +217,85 @@ public class PaymentController implements Initializable {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                
+        String to = payment_email.getText(); // email address where the email will be sent
+        String subject = "Thanks Sir "+ payment_name.getText()+" for your Purchase"; // email subject
 
+        // Generate the content for the email body
+        String body = "<html><body style='font-family: Arial, sans-serif;'>"
+                + "<h1 style='color: #5c5c5c;'>Enjoy you're tour !</h1>"
+                + "<p>Here's a summary of your purchase:</p>"
+                + "<ul>"
+                + "<li style='list-style: none;'><b>Date:</b> " + purchaseDate + "</li>";
+
+        // Add Adult ticket info if not 0
+        if (Data.nbAdult > 0) {
+            body += "<li style='list-style: none;'><b>Adult Tickets:</b> " + nbAdult + "</li>";
+        }
+
+        // Add Teen ticket info if not 0
+        if (Data.nbTeenager > 0) {
+            body += "<li style='list-style: none;'><b>Teen Tickets:</b> " + nbTeenager + "</li>";
+        }
+
+        // Add Student ticket info if not 0
+        if (Data.nbStudent > 0) {
+            body += "<li style='list-style: none;'><b>Student Tickets:</b> " + nbStudent + "</li>";
+        }
+
+        body += "<li style='list-style: none;'><b>Total Price:</b> $" + totalPayment + "</li>" // Add the $ symbol here
+                + "</ul>"
+                + "<p>Thank you for choosing our service. We hope to see you again soon!</p>"
+                + "<img src='cid:logo'/>"
+                + "</body></html>";
+
+        final String username = "aminenoob614@gmail.com"; // your email address
+        final String password = "jgfplacevvaghzfj"; // your email password
+
+        Properties props = new Properties();
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "true");
+                props.put("mail.smtp.host", "smtp.gmail.com");
+                props.put("mail.smtp.port", "587");
+
+                Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+                    @Override
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+                try {
+                    // Create a MimeMessage and set the basic email properties
+                    MimeMessage message = new MimeMessage(session);
+                    message.setFrom(new InternetAddress(username));
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+                    message.setSubject(subject);
+
+                    // Create a MimeMultipart object to hold the email content and attachments
+                    MimeMultipart multipart = new MimeMultipart();
+
+                    // Create a MimeBodyPart for the email content and add it to the MimeMultipart
+                    MimeBodyPart contentPart = new MimeBodyPart();
+                    contentPart.setContent(body, "text/html");
+                    multipart.addBodyPart(contentPart);
+
+                    // Create a MimeBodyPart for the logo image and add it to the MimeMultipart
+                    // Create a MimeBodyPart for the logo image and add it to the MimeMultipart
+                    MimeBodyPart imagePart = new MimeBodyPart();
+                    imagePart.attachFile(new File("C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/view/image/logoD.PNG")); // replace with the actual path to your logo image
+                    imagePart.setContentID("<logo>");
+                    multipart.addBodyPart(imagePart);
+
+                    // Set the MimeMultipart as the email content and send the email
+                    message.setContent(multipart);
+                    Transport.send(message);
+
+                    System.out.println("Email sent successfully!");
+
+                } catch (MessagingException e) {
+                    throw new RuntimeException(e);
+                }
                 // Display a message to the user indicating that the payment was successful
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Payment Successful");
@@ -423,42 +502,7 @@ public class PaymentController implements Initializable {
 
     }
 
-    @FXML
-    private void SendEmail(ActionEvent event) {
 
-        String to =  payment_email.getText(); // email address where the email will be sent
-        String subject = "Payment Received"; // email subject
-        String body = "Dear customer, your payment has been received. Thank you for your business!"; // email body
-
-        final String username = "aminenoob614@gmail.com"; // your email address
-        final String password = "jgfplacevvaghzfj"; // your email password
-
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-        });
-
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-            message.setSubject(subject);
-            message.setText(body);
-
-            Transport.send(message);
-
-            System.out.println("Email sent successfully!");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }
-    }
+   
 
 }
