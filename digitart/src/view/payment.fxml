@@ -74,6 +74,7 @@
             <FontAwesomeIconView glyphName="CC_MASTERCARD" layoutX="420.0" layoutY="194.0" size="2em" />
             <FontAwesomeIconView fill="WHITE" glyphName="CHECK" layoutX="307.0" layoutY="425.0" size="2em" />
             <FontAwesomeIconView glyphName="CC_STRIPE" layoutX="452.0" layoutY="194.0" size="2em" />
+            <Button layoutX="409.0" layoutY="105.0" mnemonicParsing="false" onAction="#SendEmail" prefHeight="34.0" prefWidth="82.0" text="Test" />
          </children>
       </AnchorPane>
    </children>
