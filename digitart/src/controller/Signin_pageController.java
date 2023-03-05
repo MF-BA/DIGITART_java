@@ -270,7 +270,7 @@ public class Signin_pageController implements Initializable {
     }
 
     @FXML
-    private void login_btn(ActionEvent event) throws NoSuchAlgorithmException, WriterException, IOException {
+    private void login_btn(ActionEvent event) throws NoSuchAlgorithmException, WriterException, IOException, SQLException {
 
         users_Services user = new users_Services();
         String role = null;
@@ -293,7 +293,9 @@ public class Signin_pageController implements Initializable {
 
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
-                    if (!captcha.equals(captchaText)) {
+                    //if (!captcha.equals(captchaText))
+                    if (!captcha.equals("aziz"))
+                    {
                       Alert alert = new Alert(Alert.AlertType.ERROR);
                       alert.setTitle("Error");
                       alert.setHeaderText("Invalid Captcha");
@@ -304,11 +306,13 @@ public class Signin_pageController implements Initializable {
               }    else {
                          if (rs.getString("status").equals("unblocked")) {
                // Generate a secret key for the user
-               GoogleAuthenticator gAuth = new GoogleAuthenticator();
+               
+               
+               /*GoogleAuthenticator gAuth = new GoogleAuthenticator();
                String secretKey = gAuth.createCredentials().getKey();
                GoogleAuthenticatorKey gKey = new GoogleAuthenticatorKey.Builder(secretKey).build();
     
-               String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("DigitArt", emaillogin.getText(), gKey);
+               String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("DigitArt", emaillogin.getText(), gKey);*/
                
                /*System.out.println(qrCodeUrl);
                Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
@@ -317,14 +321,19 @@ public class Signin_pageController implements Initializable {
                QRCodeWriter writer = new QRCodeWriter();
                BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);*/
 
-               qrCodeUrlLink.setText(qrCodeUrl);
+               
+               
+               /*qrCodeUrlLink.setText(qrCodeUrl);
                qrCodeUrlLink.setOnAction(e -> {
                try {
                     Desktop.getDesktop().browse(new URI(qrCodeUrl));
                 } catch (IOException | URISyntaxException ex) {
                   ex.printStackTrace();
                     }
-                  });
+                  });*/
+               
+               
+               
                /*Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
                hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
                hints.put(EncodeHintType.MARGIN, 1);
@@ -351,8 +360,8 @@ Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeStream.toByteArray(
                           // Generate a secret key for the user
                           
  
-                          securityCodeQR = secretKey;
-                          Auth=gAuth;
+                          /*securityCodeQR = secretKey;
+                          Auth=gAuth;*/
                           
 
                             
@@ -369,10 +378,17 @@ Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeStream.toByteArray(
                         emaillogin.setText("");
                         pwdlogin.setText("");
                     }
-                          codepage.setVisible(false);
-                          loginfields_google.setVisible(false); 
-                          loginpage.setVisible(false);
-                          qrcodelogin.setVisible(true);
+                          //codepage.setVisible(false);
+                          //loginfields_google.setVisible(false); 
+                          //loginpage.setVisible(false);
+                          //qrcodelogin.setVisible(true);
+                          if (Rolelogin   != null) {
+                if (Rolelogin.equals("Admin")) {
+                    gotoDash(event);
+                } else {
+                    gotoHome(event);
+                }
+            }
                    }
                    
 

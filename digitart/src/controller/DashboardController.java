@@ -8,8 +8,13 @@ package controller;
 import Services.users_Services;
 import entity.Data;
 import entity.users;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -54,7 +59,18 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import static javax.swing.text.DefaultStyledDocument.ElementSpec.ContentType;
 import main.main;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.HttpEntity;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import utils.Conn;
 
 /**
@@ -809,30 +825,33 @@ public void comboboxedit()
         );
         
         users_Services user = new users_Services();
-        user.modifyuser(u);
          // Upload the image file if one was selected
          // Debug statements
         System.out.println("Image file: " + imageFile);
         if (imageFile != null) {
             String pathimage = uploadImage();
+            
             if (pathimage != null) {
-            String sql = "update users set image= ? where id = ?";
-            try {
-                pst = conn.prepareStatement(sql);
-                pst.setString(1, pathimage);
-                pst.setInt(2, u.getId());
-
-                pst.executeUpdate();
-                System.out.println("success!!");
-
-            } catch (SQLException ex) {
-                System.err.println("error!!");
-                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-            }
+               user.modifyuserimage(u,pathimage);
+//            String sql = "update users set image= ? where id = ?";
+//            try {
+//                pst = conn.prepareStatement(sql);
+//                pst.setString(1, pathimage);
+//                pst.setInt(2, idup);
+//
+//                pst.executeUpdate();
+//                System.out.println("success!!");
+//
+//            } catch (SQLException ex) {
+//                System.err.println("error!!");
+//                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         } else {
             System.err.println("error: failed to upload image");
         }
         }  
+        
+        user.modifyuser(u);
          showusers();
          errormsgfiiledit.setText("your profile is successfully modified!!");  
         }
@@ -945,7 +964,8 @@ public void comboboxedit()
         String imageData = Base64.getEncoder().encodeToString(imageBytes);
         
         // Create a HTTP connection to the server
-        URL url = new URL("http://localhost:8080/upload");
+        //URL url = new URL("http://localhost:8080/upload");
+        URL url = new URL("http://localhost:80/images");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setDoOutput(true);
@@ -968,23 +988,142 @@ public void comboboxedit()
         if (responseCode != 200) {
             throw new RuntimeException("Failed to upload image: HTTP error code " + responseCode);
         }
-        
+        String pathlocal = "localhost/images/" + filename;
         // Save the image file to the specified directory
         String uploadDir = "D:/xamp/htdocs/images/";
         Path imagePath = Paths.get(uploadDir, filename);
         Files.write(imagePath, imageBytes);
             System.out.println(imagePath);
         // Close the connection
+        System.out.println(filename);
+        /*String imageUrl = String.format("http://localhost/images/", filename);
+        System.out.println("aziz");
+        System.out.println(imageUrl);*/
+        //return imageUrl;
+        //connection.disconnect();
+        //String imageUrl = String.format("http://localhost/images/%s", filename);
+        
+        // Close the connection
+        //connection.disconnect();
+        //System.out.println(imageUrl);
         connection.disconnect();
-        
+        // Return the URL for the uploaded image
+         //return imageUrl;
         // Return the path to the saved image file
-        return imagePath.toString();
-        
+        //return imagePath.toString();
+        return pathlocal;
     } catch (IOException ex) {
         ex.printStackTrace();
         return null;
     }
     }
+private String upload() {
+
+    try {
+        // Read the image file and encode it as Base64
+        FileInputStream fis = new FileInputStream(imageFile);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = fis.read(buffer)) != -1) {
+            baos.write(buffer, 0, bytesRead);
+        }
+        fis.close();
+        String base64EncodedImage = java.util.Base64.getEncoder().encodeToString(baos.toByteArray());
+       
+
+        // Set up the cURL request to send the encoded image data to the server
+        String url = "http://localhost/images/upload.php"; // Replace with the URL of your server-side script
+        URL obj = new URL(url);
+        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        con.setRequestMethod("POST");
+        con.setRequestProperty("User-Agent", "Mozilla/5.0");
+        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+        con.setDoOutput(true);
+
+        // Write the encoded image data to the request body
+        String urlParameters = "imageData=" + base64EncodedImage;
+        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+        int postDataLength = postData.length;
+        con.setDoOutput(true);
+        con.setInstanceFollowRedirects(false);
+        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        con.setRequestProperty("charset", "utf-8");
+        con.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+        con.setUseCaches(false);
+
+        try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
+            wr.write(postData);
+        }
+
+        // Get the response from the server
+        int responseCode = con.getResponseCode();
+        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+        
+        // Print the response from the server
+        System.out.println("Response code: " + responseCode);
+        System.out.println("Response message: " + response.toString());
+        System.out.println("Response message: " + inputLine);
+        return inputLine;
+    } catch (IOException e) {
+        e.printStackTrace();
+        return null;
+    }
+
+    
+    /*try {
+        // Read the image file into a byte array
+        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+
+        // Create a MultipartEntityBuilder to build the HTTP request body
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+
+        // Add the user ID and file name as text fields in the request body
+        builder.addTextBody("userId", String.valueOf(Data.user.getId()));
+        builder.addTextBody("filename", imageFile.getName());
+
+        // Add the image data as a binary field in the request body
+        builder.addBinaryBody("imageData", imageBytes, ContentType.DEFAULT_BINARY, imageFile.getName());
+
+        // Create a HTTP client and a HTTP post request to the server
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost("http://localhost/images");
+        httpPost.setEntity(builder.build());
+
+        // Execute the HTTP post request and get the response
+        CloseableHttpResponse response = httpClient.execute(httpPost);
+
+        // Check the response code
+        int statusCode = response.getStatusLine().getStatusCode();
+        if (statusCode != 200) {
+            throw new RuntimeException("Failed to upload image: HTTP error code " + statusCode);
+        }
+
+        // Save the image file to the specified directory
+        String uploadDir = "http://localhost/images";
+        Path imagePath = Paths.get(uploadDir, imageFile.getName());
+        Files.write(imagePath, imageBytes);
+
+        // Close the response and the HTTP client
+        response.close();
+        httpClient.close();
+
+        // Return the path to the saved image file
+        return imagePath.toString();
+
+    } catch (IOException ex) {
+        ex.printStackTrace();
+        return null;
+    }*/
+
+}
+
 
     
 }
