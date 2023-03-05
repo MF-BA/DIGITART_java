@@ -33,6 +33,7 @@ import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -55,6 +56,7 @@ import entity.users;
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -96,6 +98,7 @@ import java.util.UUID;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
@@ -158,6 +161,9 @@ public class Signin_pageController implements Initializable {
     private CaptchaService captchaservice;
     private String captchaText;
     private Cage cage = new GCage();
+    private String securityCodeQR;
+    GoogleAuthenticator Auth;
+    private String Rolelogin;
     
     @FXML
     private Button confirm_sign;
@@ -212,11 +218,15 @@ public class Signin_pageController implements Initializable {
     @FXML
     private Label errormsgelements;
     @FXML
-    private ImageView qrcodeimage;
-    @FXML
     private Button confirm_auth_QR;
     @FXML
     private TextField code_qr_input;
+    @FXML
+    private AnchorPane qrcodelogin;
+    @FXML
+    private Hyperlink qrCodeUrlLink;
+    @FXML
+    private ImageView qrcodeimage;
     /**
      * Initializes the controller class.
      */
@@ -225,6 +235,7 @@ public class Signin_pageController implements Initializable {
         // TODO
         codepage.setVisible(false);
         loginfields_google.setVisible(false);
+        qrcodelogin.setVisible(false);
         loginpage.setVisible(true);
         
     captchaText = cage.getTokenGenerator().next();   
@@ -292,57 +303,65 @@ public class Signin_pageController implements Initializable {
         txtCaptcha.requestFocus();
               }    else {
                          if (rs.getString("status").equals("unblocked")) {
-                        
-                           // Generate a secret key for the user
-     GoogleAuthenticator gAuth = new GoogleAuthenticator();
-     String secretKey = gAuth.createCredentials().getKey();
-     GoogleAuthenticatorKey gKey = new GoogleAuthenticatorKey.Builder(secretKey).build();
+               // Generate a secret key for the user
+               GoogleAuthenticator gAuth = new GoogleAuthenticator();
+               String secretKey = gAuth.createCredentials().getKey();
+               GoogleAuthenticatorKey gKey = new GoogleAuthenticatorKey.Builder(secretKey).build();
     
-     String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("MyApp", emaillogin.getText(), gKey);
+               String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("DigitArt", emaillogin.getText(), gKey);
+               
+               /*System.out.println(qrCodeUrl);
+               Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+               hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+               hints.put(EncodeHintType.MARGIN, 1);
+               QRCodeWriter writer = new QRCodeWriter();
+               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);*/
 
-        Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-        hints.put(EncodeHintType.MARGIN, 1);
+               qrCodeUrlLink.setText(qrCodeUrl);
+               qrCodeUrlLink.setOnAction(e -> {
+               try {
+                    Desktop.getDesktop().browse(new URI(qrCodeUrl));
+                } catch (IOException | URISyntaxException ex) {
+                  ex.printStackTrace();
+                    }
+                  });
+               /*Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+               hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+               hints.put(EncodeHintType.MARGIN, 1);
 
-        QRCodeWriter writer = new QRCodeWriter();
-        BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 200, 200, hints);
+               QRCodeWriter writer = new QRCodeWriter();
+               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        MatrixToImageWriter.writeToStream(matrix, "PNG", outputStream);
-        byte[] qrCodeImageData = outputStream.toByteArray();
-        String qrCodeImageBase64 = Base64.getEncoder().encodeToString(qrCodeImageData);
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                 MatrixToImageWriter.writeToStream(matrix, "PNG", outputStream);
+                 byte[] qrCodeImageData = outputStream.toByteArray();*/
+                 
+                         // Convertir le tableau de bytes en BufferedImage
+                         //BufferedImage qrCodeImage = ImageIO.read(new ByteArrayInputStream(byteArray));
+                         // Convertir le BufferedImage en Image
+                         //Image image = SwingFXUtils.toFXImage(qrCodeImage, null);
+                         //Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeImageData));
+                         // Generate the QR code image directly from the secret key
+/*ByteArrayOutputStream qrCodeStream = new ByteArrayOutputStream();
+GoogleAuthenticatorQRGenerator.writeQRCode(secretKey, qrCodeStream);
 
-    // Display the QR code image to the user
-    Image image = new Image(qrCodeImageBase64);
+// Convert the byte stream to an Image
+Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeStream.toByteArray()));*/
+                          //qrcodeimage.setImage(qrCodeImage);
+                          // Generate a secret key for the user
+                          
+ 
+                          securityCodeQR = secretKey;
+                          Auth=gAuth;
+                          
 
-    // Display the QR code image in an ImageView
-    ImageView imageView = new ImageView(image);
-    // Replace this with your own code to display the image in your application
-    // For example, you can add the ImageView to a pane and display it on the screen
-    Pane pane = new Pane();
-    pane.getChildren().add(imageView);
-
-    // Prompt the user to scan the QR code using the Google Authenticator app
-    int verificationCode = Integer.parseInt(code_qr_input.getText()); // replace this with your own code to prompt the user for input
-    boolean isCodeValid = gAuth.authorize(secretKey, verificationCode);
-        if (isCodeValid) {
-            System.out.println("Verification code is valid");
-        } else {
-            System.out.println("Verification code is invalid");
-        }
                             
-
-       
-                             
-                             
-                             
-                            loginerrormsg.setText("Email and Password are correct!! ");
-                         Data.user
+                          Data.user
                                 = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
 
-                        System.out.println(Data.user);
-                        role = rs.getString("role");
-                
+                          System.out.println(Data.user);
+                          role = rs.getString("role");
+                          Rolelogin=role;  
                         
                         
                     } else {
@@ -350,6 +369,10 @@ public class Signin_pageController implements Initializable {
                         emaillogin.setText("");
                         pwdlogin.setText("");
                     }
+                          codepage.setVisible(false);
+                          loginfields_google.setVisible(false); 
+                          loginpage.setVisible(false);
+                          qrcodelogin.setVisible(true);
                    }
                    
 
@@ -359,24 +382,18 @@ public class Signin_pageController implements Initializable {
                     pwdlogin.setText("");
 
                 }
-                //conn.close();
+               
             } catch (SQLException ex) {
                 Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if (role != null) {
-                if (role.equals("Admin")) {
-                    gotoDash(event);
-                } else {
-                    gotoHome(event);
-                }
-            }
+           
 
         }
 
     }
   
-   
+  
    
    
     public void gotoHome(ActionEvent event) {
@@ -549,7 +566,7 @@ public class Signin_pageController implements Initializable {
     codepage.setVisible(true);
     loginpage.setVisible(false);
     loginfields_google.setVisible(false);
-     
+    qrcodelogin.setVisible(false); 
     }
 
     @FXML
@@ -558,7 +575,7 @@ public class Signin_pageController implements Initializable {
         users_Services user = new users_Services();
     if (!code.isEmpty()) {
     
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
             new NetHttpTransport(),
             new JacksonFactory(),
             "120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com",
@@ -624,7 +641,7 @@ public class Signin_pageController implements Initializable {
            codepage.setVisible(false);
            loginpage.setVisible(false);
            loginfields_google.setVisible(true);   
-           
+           qrcodelogin.setVisible(false);
           }
           else
           {
@@ -642,6 +659,7 @@ public class Signin_pageController implements Initializable {
            Data.user = user.getgoogleuserdata(email);
            codepage.setVisible(false);
            loginpage.setVisible(false);
+           qrcodelogin.setVisible(false);
            loginfields_google.setVisible(true);          
         }
            
@@ -662,7 +680,7 @@ public class Signin_pageController implements Initializable {
 
     @FXML
     private void return_fromcode_login_btn(ActionEvent event) {
-
+        qrcodelogin.setVisible(false);
       codepage.setVisible(false);
         loginpage.setVisible(true);
         loginfields_google.setVisible(false);
@@ -821,6 +839,27 @@ else if (yesartist.isSelected() && noartist.isSelected())
 
     @FXML
     private void confirm_auth_QR_btn(ActionEvent event) {
+        
+       int verificationCode = Integer.parseInt(code_qr_input.getText()); 
+     boolean isCodeValid = Auth.authorize(securityCodeQR, verificationCode);
+        if (isCodeValid) {
+            System.out.println("Verification code is valid");
+             if (Rolelogin   != null) {
+                if (Rolelogin.equals("Admin")) {
+                    gotoDash(event);
+                } else {
+                    gotoHome(event);
+                }
+            }
+         } else {
+            System.out.println("Verification code is invalid");
+            
+           loginpage.setVisible(true);
+           loginfields_google.setVisible(false);   
+           qrcodelogin.setVisible(false);
+           codepage.setVisible(false);
+         }
+      
     }
 
 }
