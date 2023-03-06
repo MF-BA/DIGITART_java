@@ -42,6 +42,10 @@ import javafx.scene.control.TextInputControl;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.util.Properties;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -50,6 +54,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -108,6 +113,24 @@ public class Add_artwork_userController implements Initializable {
       ObservableList<String> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_nameroom());
         input_idroom.setItems(myObservableList1);
 
+    }
+       
+       
+     public void showNotification(String title, String message, String imageUrl, double imageWidth, double imageHeight) {
+    Image image = new Image(imageUrl);
+    
+    ImageView imageView = new ImageView(image);
+    imageView.setFitWidth(imageWidth);
+    imageView.setFitHeight(imageHeight);
+    
+    Notifications notificationsBuilder = Notifications.create()
+            .title(title)
+            .text(message)
+            .position(Pos.TOP_RIGHT)
+            .hideAfter(Duration.seconds(10))
+            .graphic(imageView);
+    
+    notificationsBuilder.show();
     }
        
        
@@ -271,8 +294,11 @@ if (file != null) {
         e.printStackTrace();
     }
         
-        // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+        
         go_Display(event);
+        String title="An Artwork was added successfully";
+        String message="Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n You have successfully added the artwork "+name;
+        showNotification(title,message,imageUrl,300,300);
     }
         
     }
