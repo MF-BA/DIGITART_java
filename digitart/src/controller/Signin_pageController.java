@@ -312,7 +312,7 @@ public class Signin_pageController implements Initializable {
                       alert.setContentText("Please enter the correct captcha.");
                       alert.showAndWait();
                       captcha_btn(event);
-        txtCaptcha.requestFocus();
+                      txtCaptcha.requestFocus();
               }    else {
                          if (rs.getString("status").equals("unblocked")) {
                              Data.user
@@ -321,10 +321,20 @@ public class Signin_pageController implements Initializable {
                           loginfields_google.setVisible(false); 
                           loginpage.setVisible(false);
                           qrcodelogin.setVisible(true);
-                         
-                          
+                          String secretcode = null;
+                         String sql1 = "Select secretcode from users where email=? and password=?";
+
+                pst = conn.prepareStatement(sql1);
+                pst.setString(1, emaillogin.getText());
+                pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
+
+                ResultSet rs1 = pst.executeQuery();
+                if (rs1.next()) {
+                    secretcode =rs1.getString("secretcode");
+                }
+                 //Data.user.setSecretcode(secretcode);
                           GoogleAuthenticator gAuth = new GoogleAuthenticator();
-                            if(Data.user.getSecretcode()== null)
+                            if(secretcode == null)
                             {
                            qrcodetext.setText("Please install Google authernticator App in your phone, \n" +
                              "open it and then scan the barcode above to add this application. \n" +
@@ -360,9 +370,9 @@ public class Signin_pageController implements Initializable {
                           
                           securityCodeQR = secretKey;
                           Auth=gAuth;
-                          String sql1 = "update users set secretcode= ? where id = ?";
+                          String sql2 = "update users set secretcode= ? where id = ?";
           try {
-                pst = conn.prepareStatement(sql1);
+                pst = conn.prepareStatement(sql2);
                 pst.setString(1, secretKey);
                 pst.setInt(2, Data.user.getId());
 
@@ -391,11 +401,11 @@ public class Signin_pageController implements Initializable {
                 Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
             }
                             }
-                            if (Data.user.getSecretcode()!= null)
+                            if (secretcode!= null)
                             {
                              qrcodetext.setText("To complete your login process you need to enter the code you see \n" +
                               "in your google authenticator App.");
-                             securityCodeQR = Data.user.getSecretcode();
+                             securityCodeQR = secretcode;
                               Auth=gAuth;  
                             }
             
@@ -903,6 +913,11 @@ else if (yesartist.isSelected() && noartist.isSelected())
 
     @FXML
     private void return_btn_qr(ActionEvent event) {
+        
+    loginpage.setVisible(true);
+    loginfields_google.setVisible(false);   
+    qrcodelogin.setVisible(false);
+    codepage.setVisible(false);
     }
 
 }

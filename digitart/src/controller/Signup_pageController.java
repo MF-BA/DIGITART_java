@@ -36,6 +36,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -135,6 +136,8 @@ public class Signup_pageController implements Initializable {
     private RadioButton noartist;
     @FXML
     private Label errorquestionartist;
+    @FXML
+    private CheckBox showpwd;
     
     @FXML
     void confirm_btn(ActionEvent event) throws NoSuchAlgorithmException, AddressException, MessagingException {
@@ -411,6 +414,17 @@ else if (yesartist.isSelected() && noartist.isSelected())
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void showpwd(ActionEvent event) {
+         if (showpwd.isSelected()) {
+            pwd.setPromptText(pwd.getText());
+            pwd.setText("");
+        } else {
+            pwd.setText(pwd.getPromptText());
+            pwd.setPromptText("");
         }
     }
     

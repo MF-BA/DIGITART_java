@@ -71,6 +71,7 @@ import org.apache.hc.core5.http.HttpEntity;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import javafx.scene.control.CheckBox;
 import utils.Conn;
 
 /**
@@ -186,13 +187,11 @@ public class DashboardController implements Initializable {
     private AnchorPane default_anchor;
     @FXML
     private Button update_btn;
-    @FXML
     private PasswordField pwd_up;
     @FXML
     private TextField fname_up;
     @FXML
     private TextField lname_up;
-    @FXML
     private TextField email_up;
     @FXML
     private DatePicker birth_d_up;
@@ -293,6 +292,11 @@ public class DashboardController implements Initializable {
     private ImageView avatar_image;
     @FXML
     private Circle circle_image;
+    private CheckBox showpwd;
+    @FXML
+    private CheckBox showpwd_add;
+    @FXML
+    private CheckBox showpwd_edit;
     /**
      * Initializes the controller class.
      */
@@ -604,7 +608,7 @@ public void comboboxedit()
     }
 
     @FXML
-    private void edit_profile_btn(ActionEvent event) {
+    private void edit_profile_btn(ActionEvent event) throws NoSuchAlgorithmException {
       edit_profile.setStyle("-fx-background-color: #470011 ");
         add_user.setStyle("-fx-background-color: transparent ");
         list_users.setStyle("-fx-background-color:  transparent ");
@@ -619,7 +623,7 @@ public void comboboxedit()
         fname_editprof.setText(Data.user.getFirstname());
         lname_editprof.setText(Data.user.getLastname());
         email_editprof.setText(Data.user.getEmail());
-        pwd_editprof.setText(Data.user.getPwd());
+        pwd_editprof.setText(user.hashPassword(Data.user.getPwd()));
         cin_editprof.setText(Integer.toString(Data.user.getCin()));
         address_editprof.setText(Data.user.getAddress());
         birth_d_editprof.setValue(Data.user.getBirth_date());
@@ -645,8 +649,8 @@ public void comboboxedit()
         LocalDate BirthDate = birth_d_up.getValue();
         String firstname = fname_up.getText();
         String lastname = lname_up.getText();
-        String Email = email_up.getText();
-        String passwd = pwd_up.getText();
+        //String Email = email_up.getText();
+        //String passwd = pwd_up.getText();
         String Address = address_up.getText();
         String gender = null;
         if (male_gender_up.isSelected()) {
@@ -659,8 +663,8 @@ public void comboboxedit()
              Cin,
              firstname,
                 lastname,
-                Email,
-                passwd,
+                email_up.getText(),
+                pwd_up.getText(),
                 Address,
              phone_number,   
              BirthDate,
@@ -704,7 +708,7 @@ public void comboboxedit()
         Rolebox_up.getItems().addAll(options);
  }
     @FXML
-    private void modify_fromlist_btn(ActionEvent event) {
+    private void modify_fromlist_btn(ActionEvent event) throws NoSuchAlgorithmException {
        
        
       users newSelection = user_table.getSelectionModel().getSelectedItem();
@@ -1123,6 +1127,38 @@ private String upload() {
     }*/
 
 }
+
+    private void showpwd(ActionEvent event) {
+         if (showpwd.isSelected()) {
+            pwd_up.setPromptText(pwd_up.getText());
+            pwd_up.setText("");
+        } else {
+            pwd_up.setText(pwd_up.getPromptText());
+            pwd_up.setPromptText("");
+        }
+    }
+
+    @FXML
+    private void showpwd_add(ActionEvent event) {
+         if (showpwd_add.isSelected()) {
+            pwd.setPromptText(pwd.getText());
+            pwd.setText("");
+        } else {
+            pwd.setText(pwd.getPromptText());
+            pwd.setPromptText("");
+        }
+    }
+
+    @FXML
+    private void showpwd_edit(ActionEvent event) {
+         if (showpwd_edit.isSelected()) {
+            pwd_editprof.setPromptText(pwd_editprof.getText());
+            pwd_editprof.setText("");
+        } else {
+            pwd_editprof.setText(pwd_editprof.getPromptText());
+            pwd_editprof.setPromptText("");
+        }
+    }
 
 
     
