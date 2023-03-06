@@ -17,6 +17,8 @@ import javafx.scene.image.ImageView;
 import com.octo.captcha.service.CaptchaService;
 import com.github.cage.Cage;
 import com.github.cage.GCage;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.services.people.v1.PeopleService;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -94,7 +96,10 @@ import javafx.stage.Stage;
 import utils.Conn;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
+import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
@@ -164,6 +169,7 @@ public class Signin_pageController implements Initializable {
     private String securityCodeQR;
     GoogleAuthenticator Auth;
     private String Rolelogin;
+    private int test = 0;
     
     @FXML
     private Button confirm_sign;
@@ -227,6 +233,10 @@ public class Signin_pageController implements Initializable {
     private Hyperlink qrCodeUrlLink;
     @FXML
     private ImageView qrcodeimage;
+    @FXML
+    private Label qrcodetext;
+    @FXML
+    private Button return_btn_qr;
     /**
      * Initializes the controller class.
      */
@@ -305,36 +315,34 @@ public class Signin_pageController implements Initializable {
         txtCaptcha.requestFocus();
               }    else {
                          if (rs.getString("status").equals("unblocked")) {
-               // Generate a secret key for the user
-               
-               
-               /*GoogleAuthenticator gAuth = new GoogleAuthenticator();
-               String secretKey = gAuth.createCredentials().getKey();
-               GoogleAuthenticatorKey gKey = new GoogleAuthenticatorKey.Builder(secretKey).build();
-    
-               String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("DigitArt", emaillogin.getText(), gKey);*/
-               
-               /*System.out.println(qrCodeUrl);
-               Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-               hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-               hints.put(EncodeHintType.MARGIN, 1);
-               QRCodeWriter writer = new QRCodeWriter();
-               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);*/
+                             Data.user
+                                = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
+                             codepage.setVisible(false);
+                          loginfields_google.setVisible(false); 
+                          loginpage.setVisible(false);
+                          qrcodelogin.setVisible(true);
+                         
+                          
+                          GoogleAuthenticator gAuth = new GoogleAuthenticator();
+                            if(Data.user.getSecretcode()== null)
+                            {
+                           qrcodetext.setText("Please install Google authernticator App in your phone, \n" +
+                             "open it and then scan the barcode above to add this application. \n" +
+                             "After you have added this application enter the code you see \n" +
+                             "in the google authenticator App into the below input box \n" +
+                             "to complete login process.");
+              // Generate a secret key for the user
 
                
+               String secretKey = gAuth.createCredentials().getKey();
+               GoogleAuthenticatorKey gKey = new GoogleAuthenticatorKey.Builder(secretKey).build();
+               String appName = "DigitArt";
+               //String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("DigitArt", emaillogin.getText(), gKey);
+               String qrCodeUrl = "otpauth://totp/" + emaillogin.getText() + "?secret=" + secretKey + "&issuer=" + appName;
                
-               /*qrCodeUrlLink.setText(qrCodeUrl);
-               qrCodeUrlLink.setOnAction(e -> {
-               try {
-                    Desktop.getDesktop().browse(new URI(qrCodeUrl));
-                } catch (IOException | URISyntaxException ex) {
-                  ex.printStackTrace();
-                    }
-                  });*/
+               System.out.println(qrCodeUrl);
                
-               
-               
-               /*Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+               Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
                hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
                hints.put(EncodeHintType.MARGIN, 1);
 
@@ -343,52 +351,63 @@ public class Signin_pageController implements Initializable {
 
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                  MatrixToImageWriter.writeToStream(matrix, "PNG", outputStream);
-                 byte[] qrCodeImageData = outputStream.toByteArray();*/
+                 byte[] qrCodeImageData = outputStream.toByteArray();
                  
-                         // Convertir le tableau de bytes en BufferedImage
-                         //BufferedImage qrCodeImage = ImageIO.read(new ByteArrayInputStream(byteArray));
-                         // Convertir le BufferedImage en Image
-                         //Image image = SwingFXUtils.toFXImage(qrCodeImage, null);
-                         //Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeImageData));
-                         // Generate the QR code image directly from the secret key
-/*ByteArrayOutputStream qrCodeStream = new ByteArrayOutputStream();
-GoogleAuthenticatorQRGenerator.writeQRCode(secretKey, qrCodeStream);
-
-// Convert the byte stream to an Image
-Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeStream.toByteArray()));*/
-                          //qrcodeimage.setImage(qrCodeImage);
-                          // Generate a secret key for the user
-                          
- 
-                          /*securityCodeQR = secretKey;
-                          Auth=gAuth;*/
-                          
-
+                         Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeImageData));
+            
+                          qrcodeimage.setImage(qrCodeImage);
                             
-                          Data.user
-                                = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
+                          
+                          securityCodeQR = secretKey;
+                          Auth=gAuth;
+                          String sql1 = "update users set secretcode= ? where id = ?";
+          try {
+                pst = conn.prepareStatement(sql1);
+                pst.setString(1, secretKey);
+                pst.setInt(2, Data.user.getId());
 
+                pst.executeUpdate();
+                System.out.println("success!!");
+                //users_Services u = new users_Services();
+                //user1 = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
+                users u = new users (Data.user.getId(),
+                        Data.user.getCin(),
+                        Data.user.getFirstname(),
+                        Data.user.getLastname(),
+                        Data.user.getEmail(), 
+                        Data.user.getPwd(), 
+                        Data.user.getAddress(),
+                        Data.user.getPhone_number(),  
+                        Data.user.getBirth_date(),
+                        Data.user.getGender(), 
+                        Data.user.getRole(), 
+                        Data.user.getStatus(),
+                        Data.user.getImage(),
+                        secretKey);
+                
+                user.modifyuser(u);
+            } catch (SQLException ex) {
+                System.err.println("error!!");
+                Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                            }
+                            if (Data.user.getSecretcode()!= null)
+                            {
+                             qrcodetext.setText("To complete your login process you need to enter the code you see \n" +
+                              "in your google authenticator App.");
+                             securityCodeQR = Data.user.getSecretcode();
+                              Auth=gAuth;  
+                            }
+            
                           System.out.println(Data.user);
                           role = rs.getString("role");
-                          Rolelogin=role;  
-                        
-                        
+                          Rolelogin=role; 
                     } else {
                         loginerrormsg.setText("Your account is blocked !! ");
                         emaillogin.setText("");
                         pwdlogin.setText("");
                     }
-                          //codepage.setVisible(false);
-                          //loginfields_google.setVisible(false); 
-                          //loginpage.setVisible(false);
-                          //qrcodelogin.setVisible(true);
-                          if (Rolelogin   != null) {
-                if (Rolelogin.equals("Admin")) {
-                    gotoDash(event);
-                } else {
-                    gotoHome(event);
-                }
-            }
+ 
                    }
                    
 
@@ -616,27 +635,7 @@ Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeStream.toByteArray(
              GoogleIdToken.Payload payload = idToken.getPayload();
              String email = payload.getEmail();
              String password = UUID.randomUUID().toString();
-             
-             
-             /*
-             PeopleService service = new PeopleService.Builder(
-                GoogleNetHttpTransport.newTrustedTransport(),
-                JacksonFactory.getDefaultInstance(),
-                credential)
-                .setApplicationName("DIGITART")
-                .build();
-
-               // Retrieve the user's profile
-               com.google.api.services.people.v1.model.Person profile = service
-                .people()
-                .get("people/" + email)
-                .setPersonFields("names,emailAddresses")
-                .execute();
-
-             // Get the user's name
-               System.out.println("Name: " + profile.getNames().get(0).getDisplayName());
-             System.out.println("Email: " + profile.getEmailAddresses().get(0).getValue());*/
-             
+  
              
              String sql = "SELECT * FROM users WHERE email=?";
              
@@ -855,27 +854,55 @@ else if (yesartist.isSelected() && noartist.isSelected())
 
     @FXML
     private void confirm_auth_QR_btn(ActionEvent event) {
-        
-       int verificationCode = Integer.parseInt(code_qr_input.getText()); 
-     boolean isCodeValid = Auth.authorize(securityCodeQR, verificationCode);
-        if (isCodeValid) {
-            System.out.println("Verification code is valid");
-             if (Rolelogin   != null) {
-                if (Rolelogin.equals("Admin")) {
-                    gotoDash(event);
-                } else {
-                    gotoHome(event);
-                }
-            }
-         } else {
-            System.out.println("Verification code is invalid");
+ final long[] verificationCode = {Integer.parseInt(code_qr_input.getText())};
+                          final int[] testcode = {0};
+                          Timer timer = new Timer();
+                          timer.schedule(new TimerTask() {
+    
+    @Override
+    public void run() {
+        long newCode = Auth.getTotpPassword(securityCodeQR);
+        //if (newCode == verificationCode[0]) {
+        if ( Long.valueOf(newCode).equals(Long.valueOf(verificationCode[0]))){
+            // The code has not changed, do nothing
+            System.out.println("Code has not changed");
+            testcode[0] = 1;
             
-           loginpage.setVisible(true);
-           loginfields_google.setVisible(false);   
-           qrcodelogin.setVisible(false);
-           codepage.setVisible(false);
+        } else {
+            // The code has changed, update the current code and verify it
+            System.out.println("Code has changed");
+            verificationCode[0] = newCode;
+            testcode[0] = 0;
+                          
+        }
+         if (testcode[0] == 1) {
+            Platform.runLater(() -> {
+                if (Rolelogin != null) {
+                    if (Rolelogin.equals("Admin")) {
+                        gotoDash(event);
+                    } else {
+                        gotoHome(event);
+                    }
+                }
+                else
+                {
+    loginpage.setVisible(true);
+    loginfields_google.setVisible(false);   
+    qrcodelogin.setVisible(false);
+    codepage.setVisible(false);
+    loginerrormsg.setText("Verification code is invalid or has changed");  
+                }
+            });
+            timer.cancel();
          }
+    }
+}, 0, 30000);
+   
       
+    }
+
+    @FXML
+    private void return_btn_qr(ActionEvent event) {
     }
 
 }

@@ -118,7 +118,7 @@ public class users_Services {
     
     public void modifyuser(users u){
        
-            String sql = "update users set cin = ?, firstname = ?, lastname = ?, email = ?, password = ?, address=?, phone_num=?, birth_date=?, gender=?, role=? where id = ?";
+            String sql = "update users set cin = ?, firstname = ?, lastname = ?, email = ?, password = ?, address=?, phone_num=?, birth_date=?, gender=?, role=?, status=?, image=?, secretcode=? where id = ?";
              try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1,u.getCin());
@@ -131,7 +131,10 @@ public class users_Services {
             pst.setDate(8,Date.valueOf(u.getBirth_date()));
             pst.setString(9,u.getGender());
             pst.setString(10,u.getRole());
-            pst.setInt(11,u.getId());
+            pst.setString(11,u.getStatus());
+            pst.setString(12,u.getImage());
+            pst.setString(13,u.getSecretcode());
+            pst.setInt(14,u.getId());
             
              pst.executeUpdate();
             System.out.println("success!!");
@@ -250,7 +253,9 @@ public class users_Services {
                 D,
                 res.getString(10),
                 res.getString(11),
-                res.getString(12)
+                res.getString(12),
+                res.getString(13),
+                res.getString(14)
             );
         }
     } catch (SQLException ex) {

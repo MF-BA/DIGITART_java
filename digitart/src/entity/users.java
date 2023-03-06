@@ -18,7 +18,7 @@ public class users {
    String role;
    int id,cin,phone_number;
    LocalDate birth_date;
-   String status,image;
+   String status,image,secretcode;
    
  public users() {
        
@@ -86,6 +86,23 @@ public class users {
         this.role = role;
    
     }
+      public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role, String status, String image, String secretcode) {
+        this.id = id;
+        this.cin = cin;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.pwd = pwd;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.birth_date = birth_date;
+        this.gender = gender;
+        this.role = role;
+        this.status = status;
+        this.image=image;
+        this.secretcode=secretcode;
+   
+    }
       public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,String gender, String role, String status) {
         this.id = id;
         this.cin = cin;
@@ -100,6 +117,7 @@ public class users {
         this.role = role;
         this.status = status;
     }
+     
     public users(int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role) {
         
         this.cin = cin;
@@ -115,6 +133,7 @@ public class users {
         
         
     }
+   
     public users(int cin,String firstname, String lastname, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role, String status) {
         
         this.cin = cin;
@@ -252,14 +271,22 @@ public class users {
     public void setImage(String image) {
         this.image = image;
     }
+
+    @Override
+    public String toString() {
+        return "users{" + "firstname=" + firstname + ", lastname=" + lastname + ", email=" + email + ", pwd=" + pwd + ", address=" + address + ", gender=" + gender + ", role=" + role + ", id=" + id + ", cin=" + cin + ", phone_number=" + phone_number + ", birth_date=" + birth_date + ", status=" + status + ", image=" + image + ", secretcode=" + secretcode + '}';
+    }
    
     
-    @Override
-   public String toString() {
-       return "users [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-               + ", pwd=" + pwd + ", address=" + address + ", gender=" + gender + ", cin=" + cin
-               + ", phone_number=" + phone_number + ", birth_date=" + birth_date + ", role=" + role + ", status=" + status + "]";
-   }
+   
+
+    public String getSecretcode() {
+        return secretcode;
+    }
+
+    public void setSecretcode(String secretcode) {
+        this.secretcode = secretcode;
+    }
     
     
 }

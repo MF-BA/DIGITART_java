@@ -335,9 +335,9 @@ else if (yesartist.isSelected() && noartist.isSelected())
    }catch (SQLException ex) {
                  Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
              }
-     } else {
-    // email is not valid
-      errormsgemail.setText(" this email is not valid !!");  
+         } else {
+         // email is not valid
+         errormsgemail.setText(" this email is not valid !!");  
       }
         
    
@@ -380,7 +380,7 @@ else if (yesartist.isSelected() && noartist.isSelected())
         } catch (IOException ex) {
             Logger.getLogger(Signup_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+       
     }
     
     void return_btn(ActionEvent event) {

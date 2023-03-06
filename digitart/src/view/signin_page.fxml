@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: #E5E7E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Signin_pageController">
    <children>
@@ -81,7 +80,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="GOOGLE" size="25" />
                      </graphic>
                   </Button>
-                  <Label fx:id="loginerrormsg" alignment="CENTER" layoutX="77.0" layoutY="449.0" prefHeight="25.0" prefWidth="254.0" textFill="#3b3936">
+                  <Label fx:id="loginerrormsg" alignment="CENTER" layoutX="14.0" layoutY="449.0" prefHeight="25.0" prefWidth="380.0" textFill="#3b3936">
                      <font>
                         <Font name="Berlin Sans FB" size="16.0" />
                      </font>
@@ -247,11 +246,6 @@
          <children>
             <ImageView fx:id="qrcodeimage" fitHeight="237.0" fitWidth="254.0" layoutX="225.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" />
             <TextField fx:id="code_qr_input" alignment="CENTER" layoutX="208.0" layoutY="416.0" prefHeight="26.0" prefWidth="278.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
-            <Text fill="#bd2a2e" layoutX="111.0" layoutY="333.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: #bd2a2e;" text="Please install Google authernticator App in your phone, open it and then scan the barcode existing in the link above to add this application. After you have added this application enter the code you see inthe google authenticator App into the below input box to complete login process." wrappingWidth="473.0">
-               <font>
-                  <Font name="Arial" size="15.0" />
-               </font>
-            </Text>
             <FontAwesomeIconView fill="#bd2a2e" glyphName="LOCK" layoutX="218.0" layoutY="436.0" size="20" wrappingWidth="14.0" />
             <Button fx:id="confirm_auth_QR" cache="true" layoutX="310.0" layoutY="473.0" mnemonicParsing="false" onAction="#confirm_auth_QR_btn" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Confirm" textFill="WHITE">
                <font>
@@ -263,6 +257,15 @@
                   <Font size="16.0" />
                </font>
             </Hyperlink>
+            <Label fx:id="qrcodetext" layoutX="155.0" layoutY="311.0" prefHeight="98.0" prefWidth="380.0" textFill="#bd2a2e" />
+            <Button fx:id="return_btn_qr" cache="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#return_btn_qr" style="-fx-background-radius: 11;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="return " textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="17.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="ARROW_CIRCLE_LEFT" />
+               </graphic>
+            </Button>
          </children>
       </AnchorPane>
    </children>
