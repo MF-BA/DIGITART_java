@@ -96,6 +96,56 @@ public class Auction_Services {
         return list;
     }
 
+    public static ArrayList<Auction> Display_back_archive() {
+        ArrayList<Auction> list = new ArrayList<>();
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date <= CURDATE()");
+
+            while (resultSet.next()) {
+                LocalDate D = resultSet.getDate(4).toLocalDate();
+                Auction data = new Auction(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getInt(3),
+                        resultSet.getInt(6),
+                        D,
+                        resultSet.getString(5)
+                );
+                list.add(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public static ArrayList<Auction> Display_back() {
+        ArrayList<Auction> list = new ArrayList<>();
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date > CURDATE() ");
+
+            while (resultSet.next()) {
+                LocalDate D = resultSet.getDate(4).toLocalDate();
+                Auction data = new Auction(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getInt(3),
+                        resultSet.getInt(6),
+                        D,
+                        resultSet.getString(5)
+                );
+                list.add(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
     public static ArrayList<Auction> Display_front(int id_artist) {
         ArrayList<Auction> list = new ArrayList<>();
         Statement statement;
@@ -188,8 +238,7 @@ public class Auction_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT artwork_name FROM artwork WHERE id_artist = " + ID_artist + " AND id_art NOT IN "
-                    + "(SELECT id_artwork FROM auction WHERE id_artist =" + ID_artist + ")");
+            resultSet = statement.executeQuery("SELECT artwork_name FROM artwork WHERE id_artist = " + ID_artist + " AND id_art NOT IN (SELECT id_artwork FROM auction WHERE id_artist =" + ID_artist + ")");
 
             while (resultSet.next()) {
                 list.add(resultSet.getString(1));
@@ -199,6 +248,39 @@ public class Auction_Services {
         }
 
         return list;
+    }
+
+    public static ArrayList<String> find_artists() {
+        ArrayList<String> list = new ArrayList<>();
+
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT CONCAT(firstname, ' ', lastname) AS fullname FROM users WHERE role = 'Artist'");
+
+            while (resultSet.next()) {
+                list.add(resultSet.getString(1));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+
+    public static int find_id_artist(String name) {
+        try {
+            PreparedStatement statement = conn.prepareStatement("SELECT id FROM users WHERE CONCAT(firstname, ' ', lastname) = ? AND role = 'Artist'");
+            statement.setString(1, name);
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
     }
 
     public static int find_artwork_id(String artwork_name) {

@@ -88,6 +88,7 @@ public class Auction_frontController implements Initializable {
                 Artwork_frontController cardController = fxmlLoader.getController();
                 //System.out.println(auction_array_detailed.get(0));
                 cardController.set_artwork(auction_array_detailed.get(i));
+                System.out.println(cardBox.getChildren());
                 ImageView cardPane = (ImageView) cardBox.getChildren().get(0);
                 
                 cardPane.setOnMouseClicked(event -> {
@@ -109,7 +110,7 @@ public class Auction_frontController implements Initializable {
         
     }
     
-    private void showArtworkDetails(Auction_display artwork) {
+        private void showArtworkDetails(Auction_display artwork) {
         System.out.println(artwork);
     }
     
