@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author fedi1
+ * @author mohamed
  */
 public class Data {
 

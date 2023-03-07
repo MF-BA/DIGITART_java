@@ -78,6 +78,11 @@ public class Room {
         this.description = description;
     }
     
-    
+    @Override
+public String toString() {
+    return String.format("%s, %s, %s, %s", 
+            name_room, area, state, description);
+}
+
     
 }

@@ -55,7 +55,7 @@ public class Room_Services {
                 );
                 list.add(data);
             }
-            System.out.println("success!! display room");
+           
         } catch (SQLException ex) {
             System.err.println("Err Display room");
         }
@@ -83,7 +83,7 @@ public class Room_Services {
     
      public static void modify(Room room) {
 
-        String Modify_room = "update room set name_room = ? ,area,state=? ,description=? where id_room=?  ";
+        String Modify_room = "update room set name_room = ? ,area=?,state=? ,description=? where id_room=?  ";
         try {
             PreparedStatement st = conn.prepareStatement(Modify_room);
            
@@ -99,4 +99,122 @@ public class Room_Services {
             System.err.println("Err Modify room");
         }
     }
+     
+          public static ArrayList<Room> search(String s) {
+
+        ArrayList<Room> list = new ArrayList<>();
+
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM room where name_room like'%" +s+"%' or state like '%"+s+"%' or description like '%"+s+"%'");
+            
+
+            while (resultSet.next()) {
+              
+                Room data = new Room(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getInt(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5)
+                );
+                list.add(data);
+            }
+        } catch (SQLException ex) {
+            System.err.println("Err Display room");
+        }
+
+        return list;
+
+    }
+          
+          
+          
+     public static int nbRooms() {
+
+    int count = 0;
+
+    Statement statement;
+    ResultSet resultSet;
+    try {
+        statement = conn.createStatement();
+        resultSet = statement.executeQuery("SELECT COUNT(*) AS total FROM room");
+
+        if (resultSet.next()) {
+            count = resultSet.getInt("total");
+        }
+    } catch (SQLException ex) {
+        System.err.println("Error getting number of rooms");
+    }
+
+    return count;
+
+}
+     
+     
+     public static int nbRoomsAvailable() {
+
+    int count = 0;
+
+    Statement statement;
+    ResultSet resultSet;
+    try {
+        statement = conn.createStatement();
+        resultSet = statement.executeQuery("SELECT COUNT(*) AS availble FROM room where state like 'Available' ");
+
+        if (resultSet.next()) {
+            count = resultSet.getInt("availble");
+        }
+    } catch (SQLException ex) {
+        System.err.println("Error getting number of rooms");
+    }
+
+    return count;
+
+}
+     
+     public static int nbArtworks() {
+
+    int count = 0;
+
+    Statement statement;
+    ResultSet resultSet;
+    try {
+        statement = conn.createStatement();
+        resultSet = statement.executeQuery("SELECT COUNT(*) AS totalA FROM artwork");
+
+        if (resultSet.next()) {
+            count = resultSet.getInt("totalA");
+        }
+    } catch (SQLException ex) {
+        System.err.println("Error getting number of rooms");
+    }
+
+    return count;
+
+}
+     
+       public static int nbartbyroom(int id) {
+
+    int count = 0;
+
+    Statement statement;
+    ResultSet resultSet;
+    try {
+        statement = conn.createStatement();
+        resultSet = statement.executeQuery("SELECT COUNT(*) AS nbartbyroom FROM room where id_room ="+id);
+
+        if (resultSet.next()) {
+            count = resultSet.getInt("nbartbyroom");
+        }
+    } catch (SQLException ex) {
+        System.err.println("Error getting number of rooms");
+    }
+
+    return count;
+
+}
+     
+
 }

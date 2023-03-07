@@ -26,6 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -54,12 +55,27 @@ public class Add_roomController implements Initializable {
     private Button BTN_add;
     @FXML
     private TextField INPUT_area;
+    @FXML
+    private Button btn_room;
+    @FXML
+    private Button btn_artwork;
 
     /**
      * Initializes the controller class.
      */
       
-    
+      private void go_artwork(ActionEvent event) {
+        try {
+             root = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
       private void go_Display(ActionEvent event) {
         try {
              root = FXMLLoader.load(getClass().getResource("/view/display_room.fxml"));
@@ -90,30 +106,44 @@ public class Add_roomController implements Initializable {
     private void btn_add_clicked(ActionEvent event) {
         
         String name = this.INPUT_name.getText();
-        int area = Integer.parseInt(this.INPUT_area.getText()); 
-        String state = (String) this.INPUT_state.getSelectionModel().getSelectedItem();
-        String desc = this.INPUT_description.getText();
+    String areaStr = this.INPUT_area.getText();
+    String state = (String) this.INPUT_state.getSelectionModel().getSelectedItem();
+    String desc = this.INPUT_description.getText();
 
-        Alert alert;
+    Alert alert;
 
-        // CHECK IF THE FIELDS ARE EMPTY
-        if (name.isEmpty() || desc.isEmpty() || state == null || INPUT_area.getText().isEmpty() ) {
+    // CHECK IF THE FIELDS ARE EMPTY
+    if (name.isEmpty() || desc.isEmpty() || state == null || areaStr.isEmpty()) {
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill all blank fields");
+        alert.showAndWait();
+    } else {
+        // Parse the area string to an int
+        int area = 0;
+        try {
+            area = Integer.parseInt(areaStr);
+        } catch (NumberFormatException e) {
             alert = new Alert(AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
-            alert.setContentText("Please fill all blank fields");
+            alert.setContentText("Area must be a number");
             alert.showAndWait();
-        } else {
-           Room room= new Room(name,area,state,desc);
-                    Room_Services.add(room);
-                    alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
-                    alert.showAndWait();
-                    // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
-                    go_Display(event);
+            return;
         }
+
+        Room room = new Room(name, area, state, desc);
+        Room_Services.add(room);
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Successfully Added!");
+        alert.showAndWait();
+        
+        // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+        go_Display(event);
+    }
     }
     
     
@@ -122,7 +152,8 @@ public class Add_roomController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
-        
+       btn_room.setStyle("-fx-background-color: #470011 ");
+       btn_artwork.setStyle("-fx-background-color: transparent ");
         
         
         INPUT_area.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -133,4 +164,15 @@ public class Add_roomController implements Initializable {
 
         combobox();
     } 
+
+
+    @FXML
+    private void btn_room_clicked(ActionEvent event) {
+        go_Display(event);
+    }
+
+    @FXML
+    private void btn_artwork_clicked(ActionEvent event) {
+        go_artwork(event);
+    }
 }
