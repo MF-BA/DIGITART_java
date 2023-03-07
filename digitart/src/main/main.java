@@ -47,7 +47,7 @@ public class main extends Application {
 
         
         //Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/back_admin/display_auction_back.fxml"));
-        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/signin_page.fxml"));
+        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
         Scene scene = new Scene(DisplayROOM_Page);
 
         this.primaryStage.setScene(scene);
@@ -112,7 +112,7 @@ public class main extends Application {
 
         }
 
-        Data.user = new users(1, 12, "firstname", "lastname", "email", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
+        Data.user = new users(1, 12, "firstname", "lastname", "laatarmomo@gmail.com", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
 
         /*String apiUrl = "http://data.fixer.io/api/latest?access_key=fBHGSQbaHC735dTQMppwn4QhzmuSeQcp";
         URL url = new URL(apiUrl);

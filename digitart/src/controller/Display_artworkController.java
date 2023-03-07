@@ -14,6 +14,7 @@ import entity.Auction_display;
 import entity.Data;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Optional;
@@ -177,16 +178,15 @@ public class Display_artworkController implements Initializable {
     }
 
     @FXML
-    public void showimage() {
+    public void showimage() throws MalformedURLException, IOException {
         selectedArtwork = ((TableView<Artwork>) table_Artwork).getSelectionModel().getSelectedItem();
         int num = table_Artwork.getSelectionModel().getFocusedIndex();
         if ((num - 1) < -1) {
             return;
         }
-        String url = selectedArtwork.getImage_art();
-
-        image1 = new Image(url, 245, 237, false, true);
-
+        
+          URL url = new URL(selectedArtwork.getImage_art());
+        Image image1 = new Image(url.openStream(), 245, 237, false, true);
         image.setImage(image1);
 
     }
@@ -250,7 +250,7 @@ public class Display_artworkController implements Initializable {
                 alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to delete the artwork with ID: " + a.getId_art() + "?");
+                alert.setContentText("Are you sure you want to delete the artwork with the name: " + a.getArtwork_name() + "?");
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get().equals(ButtonType.OK)) {
 

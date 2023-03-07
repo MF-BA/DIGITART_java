@@ -206,7 +206,7 @@ public class Display_roomController implements Initializable {
                 alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to delete the room with ID: " + r.getId_room() + "?");
+                alert.setContentText("Are you sure you want to delete the room with name: " + r.getName_room()+ "?");
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get().equals(ButtonType.OK)) {
 

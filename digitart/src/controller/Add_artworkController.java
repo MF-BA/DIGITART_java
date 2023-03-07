@@ -31,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -132,100 +133,60 @@ public class Add_artworkController implements Initializable {
       btn_room.setStyle("-fx-background-color: transparent ");
        
     }    
-/*
-     
-       // Create a FileChooser dialog to let the user choose the file to upload
-FileChooser fileChooser = new FileChooser();
-fileChooser.setTitle("Select a file to upload");
-File selectedFile = fileChooser.showOpenDialog(null);
 
-// Call the uploadFile method with the selected file and the upload URL
-if (selectedFile != null) {
-    String uploadUrl = "http://localhost/images/upload";
-    uploadFile(selectedFile, uploadUrl);
-}
-    */
     @FXML
-    private void btn_addimage_clicked(ActionEvent event) {
-//        FileChooser fileChooser = new FileChooser();
-//    fileChooser.setTitle("Select Image File");
-//    fileChooser.getExtensionFilters().addAll(
-//        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
-//    );
-//   selectedFile = fileChooser.showOpenDialog(btn_addimage.getScene().getWindow());
-//    if (selectedFile != null) {
-//       
-//        imageUrl = selectedFile.toURI().toString();
-//        System.out.println(imageUrl);
-//    }
-//
- // Create a FileChooser to select the image file
-    FileChooser fileChooser = new FileChooser();
-fileChooser.setTitle("Select an image file");
-File file = fileChooser.showOpenDialog(new Stage());
- imageUrl = file.toURI().toString();
-  System.out.println(imageUrl);
+    private void btn_addimage_clicked(ActionEvent event) throws IOException {
+        
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
 
-if (file != null) {
-    try {
-        // Read the image file and encode it as Base64
-        FileInputStream fis = new FileInputStream(file);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = fis.read(buffer)) != -1) {
-            baos.write(buffer, 0, bytesRead);
-        }
-        fis.close();
-        String base64EncodedImage = java.util.Base64.getEncoder().encodeToString(baos.toByteArray());
-        System.out.println(base64EncodedImage);
-
-        // Set up the cURL request to send the encoded image data to the server
-        String url = "http://localhost/images/upload.php"; // Replace with the URL of your server-side script
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("User-Agent", "Mozilla/5.0");
-        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-        con.setDoOutput(true);
-
-        // Write the encoded image data to the request body
-        String urlParameters = "imageData=" + base64EncodedImage;
-        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-        int postDataLength = postData.length;
-        con.setDoOutput(true);
-        con.setInstanceFollowRedirects(false);
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        con.setRequestProperty("charset", "utf-8");
-        con.setRequestProperty("Content-Length", Integer.toString(postDataLength));
-        con.setUseCaches(false);
-
-        try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
-            wr.write(postData);
-        }
-
-        // Get the response from the server
-        int responseCode = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        // Print the response from the server
-        System.out.println("Response code: " + responseCode);
-        System.out.println("Response message: " + response.toString());
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
-
+        selectedFile = fileChooser.showOpenDialog(primaryStage);
   }
 
     @FXML
-private void btn_add_clicked(ActionEvent event) {
+private void btn_add_clicked(ActionEvent event) throws IOException {
+    
+       imageUrl="http://localhost/images/"+selectedFile.getName();
+       String phpUrl = "http://localhost/images/upload.php";
+
+
+        // Read the image file data
+        byte[] imageData = Files.readAllBytes(selectedFile.toPath());
+
+        // Create the boundary string for the multipart request
+        String boundary = "---------------------------12345";
+
+        // Open the connection to the PHP script
+        URL url = new URL(phpUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+        // Write the image file data to the output stream of the connection
+        OutputStream outputStream = connection.getOutputStream();
+        outputStream.write(("--" + boundary + "\r\n").getBytes());
+        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + selectedFile.getName() + "\"\r\n").getBytes());
+        outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+        outputStream.write(imageData);
+        outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+        // Read the response from the PHP script
+        InputStream inputStream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        reader.close();
+    
+    
     TextInputControl nameControl = this.Input_name_artwork;
     TextInputControl nameArtistControl = this.input_name_artist;
   
@@ -270,63 +231,26 @@ private void btn_add_clicked(ActionEvent event) {
     }
 }
 
-    
-    
         public void combobox() {
         ObservableList<Integer> myObservableList = FXCollections.observableArrayList(Artwork_Services.find_idartist());
         input_id_artist.setItems(myObservableList);
         
        
        ObservableList<String> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_nameroom());
-        input_idroom.setItems(myObservableList1);
+        input_idroom.setItems(myObservableList1);  
         
-          
+        
 
-      
-        
+        // Create a filtered list to update the ComboBox suggestions
+        FilteredList<String> filteredItems = new FilteredList<>(myObservableList1, p -> true);
+        input_idroom.setOnKeyReleased(event -> {
+            filteredItems.setPredicate(p -> p.toLowerCase().contains(input_idroom.getEditor().getText().toLowerCase().trim()));
+        });
+
+        // Update the ComboBox popup with the filtered list items
+        input_idroom.setItems(filteredItems);
+       
     }
-        
-
-
-public void uploadFile(File file, String uploadUrl) {
-    try {
-        // Set up the HTTP connection
-        URL url = new URL(uploadUrl);
-        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-        httpConn.setDoOutput(true);
-        httpConn.setRequestMethod("POST");
-
-        // Set the request headers
-        httpConn.setRequestProperty("Content-Type", "multipart/form-data; boundary=boundary");
-
-        // Create the multipart request body
-        OutputStream outputStream = httpConn.getOutputStream();
-        String boundary = "--boundary\r\n";
-        outputStream.write(boundary.getBytes("UTF-8"));
-        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + file.getName() + "\"\r\n").getBytes("UTF-8"));
-        outputStream.write(("Content-Type: " + HttpURLConnection.guessContentTypeFromName(file.getName()) + "\r\n\r\n").getBytes("UTF-8"));
-        FileInputStream fileInputStream = new FileInputStream(file);
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = fileInputStream.read(buffer)) != -1) {
-            outputStream.write(buffer, 0, bytesRead);
-        }
-        outputStream.write(("\r\n" + boundary + "--\r\n").getBytes("UTF-8"));
-        fileInputStream.close();
-
-        // Check the response status code
-        int responseCode = httpConn.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_OK) {
-            System.out.println("File uploaded successfully.");
-        } else {
-            System.out.println("File upload failed. Error code: " + responseCode);
-        }
-    } catch (Exception ex) {
-        ex.printStackTrace();
-    }
-}
-
-
 
     @FXML
     private void btn_cancel_clicked(ActionEvent event) {
