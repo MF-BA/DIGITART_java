@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="645.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Bids_displayController">
+    <stylesheets>
+        <URL value="@auctionDesign.css" />
+    </stylesheets>
+   <children>
+      <TableView fx:id="table_view" layoutX="13.0" layoutY="15.0" onMouseClicked="#table_view" prefHeight="470.0" prefWidth="475.0">
+        <columns>
+          <TableColumn fx:id="offer_table_view" prefWidth="149.0" text="Offer" />
+          <TableColumn fx:id="date_table_view" minWidth="5.0" prefWidth="180.0" text="Date" />
+            <TableColumn fx:id="name_table_view" prefWidth="141.0" text="Name" />
+        </columns>
+      </TableView>
+      <Button fx:id="Export_table" layoutX="497.0" layoutY="449.0" mnemonicParsing="false" onAction="#Export_table_clicked" prefHeight="37.0" prefWidth="136.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Export Table" />
+   </children>
+</AnchorPane>

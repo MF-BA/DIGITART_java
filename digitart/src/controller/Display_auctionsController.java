@@ -6,10 +6,7 @@
 package controller;
 
 import Services.Auction_Services;
-import Services.ServiceTicket;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import entity.Auction;
-import entity.Ticket;
 import entity.Auction_display;
 import entity.Data;
 import java.io.IOException;
@@ -33,12 +30,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -78,15 +78,28 @@ public class Display_auctionsController implements Initializable {
     @FXML
     private Button btn_Artworks_Auction;
     @FXML
-    private Button search_btn;
-    @FXML
     private TextField search_in;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
+    @FXML
+    private Button auction_btn;
+    @FXML
+    private FontAwesomeIconView clear;
+    @FXML
+    private Button display_archive;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btn_Add_Auction.setStyle("-fx-background-color:transparent ");
+        btn_Artworks_Auction.setStyle("-fx-background-color:  #470011");
+        auction_btn.setStyle("-fx-background-color:transparent ");
         Showauction();
 
         Dslay_delete_button.setOnAction(this::AuctonDelete);
@@ -96,7 +109,7 @@ public class Display_auctionsController implements Initializable {
 
     public void Showauction() {
 
-        AuctionList = Auction_Services.Display_auction_details();
+        AuctionList = Auction_Services.Display_auction_details(Auction_Services.Display_back_artist(Data.user.getId()));
 
         artwork_Name.setCellValueFactory(new PropertyValueFactory<>("name"));
         Starting_price.setCellValueFactory(new PropertyValueFactory<>("starting_price"));
@@ -122,37 +135,10 @@ public class Display_auctionsController implements Initializable {
     }
 
     @FXML
-    private void AuctonDelete(ActionEvent event) {
-        Auction_display t = select_auction(null);
-        int x = t.getId_auction();
-        Alert alert;
-        if (((x - 1) < -1)) {
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("ERROR !!!!");
-            alert.setContentText("SELECT A ROW TO BE ABLE TO DELETE!!!");
-            alert.showAndWait();
-        } else {
-            alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation Message");
-            alert.setHeaderText(null);
-            alert.setContentText("Are you sure you want to delete the auction?");
-            Optional<ButtonType> option = alert.showAndWait();
-            if (option.get().equals(ButtonType.OK)) {
-                Auction_Services.delete(x);
-                alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("SUCCESS!!!!");
-                alert.setContentText("DELETION ACCOMPLISHED SUCCESSFULLY!!!");
-                alert.showAndWait();
-            }
-            Showauction();
-        }
-    }
-
-    @FXML
     private Auction_display select_auction(MouseEvent event) {
         Auction_display t = ((TableView<Auction_display>) table_auction).getSelectionModel().getSelectedItem();
         int num = table_auction.getSelectionModel().getSelectedIndex();
-        if (((num - 1) < -1)) {
+        if (num == -1) {
             return null;
         }
         Data.auction_display = t;
@@ -160,13 +146,41 @@ public class Display_auctionsController implements Initializable {
     }
 
     @FXML
-    private void btn_add_auction_clck(ActionEvent event) {
-        go_ADD_auction(event);
+    private void AuctonDelete(ActionEvent event) {
+        MouseEvent mouse = new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 1, false, false, false, false, true, false, false, true, false, false, null);
+        Auction_display t = select_auction(mouse);
+
+        Alert alert;
+        if (t == null) {
+
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR !!!!");
+            alert.setContentText("SELECT AN AUCTION TO BE ABLE TO DELETE IT!!!");
+            alert.showAndWait();
+
+        } else {
+            int x = t.getId_auction();
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete the auction?");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get().equals(ButtonType.OK)) {
+                Auction_Services.delete(x);
+                alert.setTitle("SUCCESS!!!!");
+                alert.setContentText("DELETION ACCOMPLISHED SUCCESSFULLY!!!");
+                alert.showAndWait();
+            }
+            alert = new Alert(Alert.AlertType.INFORMATION);
+
+            Showauction();
+
+        }
     }
 
-    private void go_ADD_auction(ActionEvent event) {
+    private void go_modify_auction(ActionEvent event) {
         try {
-            root = FXMLLoader.load(getClass().getResource("/view/add_auction.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/modify_auction.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -177,9 +191,9 @@ public class Display_auctionsController implements Initializable {
 
     }
 
-    private void go_modify_auction(ActionEvent event) {
+    private void go_auction(ActionEvent event) {
         try {
-            root = FXMLLoader.load(getClass().getResource("/view/modify_auction.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/auction_front.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -196,12 +210,23 @@ public class Display_auctionsController implements Initializable {
 
     @FXML
     private void Auctonupdate(ActionEvent event) {
+        MouseEvent mouse = new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 1, false, false, false, false, true, false, false, true, false, false, null);
+        Auction_display t = select_auction(mouse);
 
-        go_modify_auction(event);
+        Alert alert;
+        if (t == null) {
+
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR !!!!");
+            alert.setContentText("SELECT AN AUCTION TO BE ABLE TO MODIFY IT!!!");
+            alert.showAndWait();
+
+        } else {
+            go_modify_auction(event);
+        }
     }
 
-    @FXML
-    private void search_btn_clicked(ActionEvent event) {
+    private void search_btn_clicked() {
         if (search_in.textProperty().getValue().isEmpty()) {
             Showauction();
         } else {
@@ -246,6 +271,112 @@ public class Display_auctionsController implements Initializable {
         }
 
         return results;
+    }
+
+    @FXML
+    private void clear_search(MouseEvent event) {
+        search_in.setText("");
+        Showauction();
+    }
+
+    @FXML
+    private void btn_Add_Auction_click(ActionEvent event) {
+        ArrayList<String> arr = Auction_Services.find_artworks(Data.user.getId());
+
+        if (arr.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("WARNING !!!!");
+            alert.setContentText("You don't have any artwork to add!!!");
+            alert.showAndWait();
+        } else {
+            try {
+                root = FXMLLoader.load(getClass().getResource("/view/add_auction.fxml"));
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @FXML
+    private void auction_btn_clicked(ActionEvent event) {
+        go_auction(event);
+    }
+
+    @FXML
+    private void display_show_bid_btn_click(ActionEvent event) {
+        MouseEvent mouse = new MouseEvent(MouseEvent.MOUSE_CLICKED, 0, 0, 0, 0, MouseButton.PRIMARY, 1, false, false, false, false, true, false, false, true, false, false, null);
+        Auction_display t = select_auction(mouse);
+
+        Alert alert;
+        if (t == null) {
+
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR !!!!");
+            alert.setContentText("SELECT AN AUCTION TO BE ABLE TO DISPLAY ITS BIDS!!!");
+            alert.showAndWait();
+
+        } else {
+
+            try {
+                // Load the FXML file
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Bids_display.fxml"));
+                root = loader.load();
+
+                // Create a new stage and set the FXML file as its scene
+                Stage newWindow = new Stage();
+                newWindow.setTitle(t.getName()+" Bids");
+                newWindow.setScene(new Scene(root));
+
+                // Set the new window's owner and modality
+                newWindow.initOwner((Stage) Dslay_update_button.getScene().getWindow());
+                newWindow.initModality(Modality.WINDOW_MODAL);
+
+                // Show the new window
+                newWindow.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+    @FXML
+    private void search_in_clck(KeyEvent event) {
+        search_btn_clicked();
+    }
+
+    @FXML
+    private void display_archive_click(ActionEvent event) {
+        //ArchiveController
+        
+
+            try {
+                // Load the FXML file
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Archive.fxml"));
+                root = loader.load();
+
+                // Create a new stage and set the FXML file as its scene
+                Stage newWindow = new Stage();
+                newWindow.setTitle(" Archive");
+                newWindow.setScene(new Scene(root));
+
+                // Set the new window's owner and modality
+                newWindow.initOwner((Stage) Dslay_update_button.getScene().getWindow());
+                newWindow.initModality(Modality.WINDOW_MODAL);
+
+                // Show the new window
+                newWindow.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        
     }
 
 }

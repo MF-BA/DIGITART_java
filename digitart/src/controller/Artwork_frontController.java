@@ -5,29 +5,37 @@
  */
 package controller;
 
-import entity.Auction;
+import Services.Auction_Services;
+import Services.Bid_Services;
 import entity.Auction_display;
+import entity.Data;
+import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -36,6 +44,9 @@ import javafx.scene.paint.Paint;
  */
 public class Artwork_frontController implements Initializable {
 
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
     @FXML
     private ImageView photo;
     @FXML
@@ -48,17 +59,18 @@ public class Artwork_frontController implements Initializable {
     private Label Date;
     @FXML
     private Label artist;
-    ZonedDateTime endDateTime;
+
     Auction_display auction_display;
     @FXML
     private Button add_bid;
+    @FXML
+    private ImageView wining;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        endDateTime = ZonedDateTime.of(2023, 2, 28, 12, 0, 0, 0, ZoneId.systemDefault());
 
         artwork_name.setTextFill(Color.BROWN);
         Date.setTextFill(Color.RED);
@@ -72,6 +84,16 @@ public class Artwork_frontController implements Initializable {
         return this.auction_display;
     }
 
+    void update() {
+        ArrayList<Auction_display> auctions = Auction_Services.Display_auction_details(Auction_Services.Display_front(Data.user.getId()));
+        for (Auction_display auction : auctions) {
+            if (auction.getName().equals(auction_display.getName())) {
+                this.auction_display = auction;
+                set_artwork(auction_display);
+            }
+        }
+    }
+
     public void set_artwork(Auction_display auction_display) {
         auction_display.setImg("/view/pexels-sam-kolder-2387873.jpg");
         this.auction_display = auction_display;
@@ -79,10 +101,20 @@ public class Artwork_frontController implements Initializable {
 
         artwork_name.setText(auction_display.getName().toUpperCase());
         artist.setText("Artist: " + auction_display.getName_artist());
-        current_bid.setText("Current Bid:" + String.valueOf(auction_display.getBid()));
-        int next_bid = auction_display.getBid() + auction_display.getIncrement();
+        current_bid.setText("Staring Bid:" + String.valueOf(auction_display.getStarting_price()));
+        int next_bid;
+        if (auction_display.getBid()  ==0 )
+            next_bid = auction_display.getStarting_price();
+        else 
+        next_bid = auction_display.getBid() + auction_display.getIncrement();
+        
         this.next_bid.setText("Next Bid:" + String.valueOf(next_bid));
         LocalDate localDate = auction_display.getDate();
+        if (Data.user.getId() == Bid_Services.highest_offer_user(auction_display.getId_auction())) {
+            wining.setVisible(true);
+        } else {
+            wining.setVisible(false);
+        }
         ZoneId zoneId = ZoneId.systemDefault();
         ZonedDateTime zonedDateTime = localDate.atStartOfDay(zoneId);
 
@@ -94,7 +126,7 @@ public class Artwork_frontController implements Initializable {
             }
         };
 
-        // Schedule the TimerTask to run every 5 seconds
+        // Schedule the TimerTask to run every 0.1 seconds
         timer.schedule(task, 0, 100); // 0 milliseconds initial delay, 5000 milliseconds (5 seconds) between subsequent executions
     }
 
@@ -120,7 +152,35 @@ public class Artwork_frontController implements Initializable {
 
     @FXML
     private void add_bid_clicked(ActionEvent event) {
-        System.out.println("add bid clicked");
+        System.out.println(getArtwork());
+        Data.auction_display = getArtwork();
+        try {
+            // Load the FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/add_bid.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage and set the FXML file as its scene
+            Stage newWindow = new Stage();
+            newWindow.setTitle("My Window");
+
+            // Set the new window's owner and modality
+            newWindow.initOwner((Stage) current_bid.getScene().getWindow());
+            newWindow.initModality(Modality.WINDOW_MODAL);
+            newWindow.setScene(new Scene(root));
+
+            Auction_frontController controller = new Auction_frontController();
+// Set the event handler for when the second stage is closed
+            newWindow.setOnHidden(t -> {
+                // Call the function in the primary stage controller
+                this.update();
+            });
+
+            // Show the new window
+            newWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
