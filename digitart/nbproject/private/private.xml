@@ -4,14 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/Services/ServiceTicket.java</file>
+            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/utils/Conn.java</file>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/view/auctionDesign.css</file>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/TicketController.java</file>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/entity/users.java</file>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/Signup_pageController.java</file>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/Services/users_Services.java</file>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/Signin_pageController.java</file>
+            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/Home_pageController.java</file>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/main/main.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/DashboardController.java</file>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/entity/Data.java</file>
             <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/view/signup_page.fxml</file>
             <file>file:/C:/Users/kossay/Desktop/Primes-maine/digitart/src/controller/Add_auction_Controller.java</file>
@@ -19,6 +20,7 @@
             <file>file:/C:/Users/kossay/Desktop/Primes-maine/digitart/src/controller/DashboardController.java</file>
             <file>file:/C:/Users/kossay/Desktop/Primes-maine/digitart/src/controller/TicketController.java</file>
             <file>file:/C:/Users/kossay/Desktop/Primes-maine/digitart/src/main/main.java</file>
+            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/DashboardController.java</file>
         </group>
     </open-files>
 </project-private>
