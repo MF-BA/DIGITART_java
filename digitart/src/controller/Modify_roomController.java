@@ -122,10 +122,10 @@ public class Modify_roomController implements Initializable {
     }
         
            void showvalues(){
-            INPUT_name.setText(String.valueOf(Data.getRoom().getName_room()));
-        INPUT_area.setText(Integer.toString(Data.getRoom().getArea()));
-        ((ComboBox<String>) INPUT_state).setValue(Data.getRoom().getState());
-        INPUT_description.setText(String.valueOf(Data.getRoom().getDescription()));
+            INPUT_name.setText(String.valueOf(Data.room.getName_room()));
+        INPUT_area.setText(Integer.toString(Data.room.getArea()));
+        ((ComboBox<String>) INPUT_state).setValue(Data.room.getState());
+        INPUT_description.setText(String.valueOf(Data.room.getDescription()));
     combobox();
     
     }
@@ -151,7 +151,7 @@ public class Modify_roomController implements Initializable {
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get().equals(ButtonType.OK)) {
                      int area = Integer.parseInt(this.INPUT_area.getText());
-                   Room room= new Room(Data.getRoom().getId_room(),INPUT_name.getText(),area,INPUT_state.getSelectionModel().getSelectedItem(),INPUT_description.getText());
+                   Room room= new Room(Data.room.getId_room(),INPUT_name.getText(),area,INPUT_state.getSelectionModel().getSelectedItem(),INPUT_description.getText());
                    Room_Services.modify(room);
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");

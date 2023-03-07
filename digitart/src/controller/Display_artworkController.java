@@ -227,7 +227,7 @@ public class Display_artworkController implements Initializable {
             alert.showAndWait();
         } else {
 
-            Data.setArtwork(SelectArtwork());
+            Data.artwork=(SelectArtwork());
             go_modify_artwork(event);
         }
 

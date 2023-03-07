@@ -13,8 +13,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -34,7 +32,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -136,13 +133,13 @@ public class Modify_artworkController implements Initializable {
     }
     
     void showvalues(){
-            Input_name_artwork.setText(String.valueOf(Data.getArtwork().getArtwork_name()));
-        input_date.setValue(LocalDate.parse(String.valueOf(Data.getArtwork().getDate_art())));
-        ((ComboBox<Integer>) input_id_artist).setValue(Data.getArtwork().getId_artist());
-        ((ComboBox<Integer>) input_idroom).setValue(Data.getArtwork().getId_room());
-        input_name_artist.setText(String.valueOf(Data.getArtwork().getArtist_name()));
-        input_desc.setText(String.valueOf(Data.getArtwork().getDescription()));
-        imageUrl=Data.getArtwork().getImage_art();
+            Input_name_artwork.setText(String.valueOf(Data.artwork.getArtwork_name()));
+        input_date.setValue(LocalDate.parse(String.valueOf(Data.artwork.getDate_art())));
+        ((ComboBox<Integer>) input_id_artist).setValue(Data.artwork.getId_artist());
+        ((ComboBox<Integer>) input_idroom).setValue(Data.artwork.getId_room());
+        input_name_artist.setText(String.valueOf(Data.artwork.getArtist_name()));
+        input_desc.setText(String.valueOf(Data.artwork.getDescription()));
+        imageUrl=Data.artwork.getImage_art();
     combobox();
     
     }
@@ -182,7 +179,7 @@ public class Modify_artworkController implements Initializable {
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get().equals(ButtonType.OK)) {
                     LocalDate localDate = input_date.getValue();
-                   Artwork artwork= new Artwork(Data.getArtwork().getId_art(),Input_name_artwork.getText(),input_id_artist.getSelectionModel().getSelectedItem(),input_name_artist.getText(),localDate,input_desc.getText(),imageUrl,input_idroom.getSelectionModel().getSelectedItem());
+                   Artwork artwork= new Artwork(Data.artwork.getId_art(),Input_name_artwork.getText(),input_id_artist.getSelectionModel().getSelectedItem(),input_name_artist.getText(),localDate,input_desc.getText(),imageUrl,input_idroom.getSelectionModel().getSelectedItem());
                     Artwork_Services.modify(artwork);
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");

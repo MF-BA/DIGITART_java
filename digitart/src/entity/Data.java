@@ -14,6 +14,8 @@ import javafx.stage.Stage;
  */
 public class Data {
 
+    public static Room room;
+    public static Artwork artwork;
     public static users user;
     public static Bid bid;
     public static Auction auction;
