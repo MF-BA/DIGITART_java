@@ -86,6 +86,7 @@ public class users {
         this.role = role;
    
     }
+     
       public users(int id,int cin,String firstname, String lastname, String email, String pwd, String address,int phone_number,  LocalDate birth_date,String gender, String role, String status, String image, String secretcode) {
         this.id = id;
         this.cin = cin;

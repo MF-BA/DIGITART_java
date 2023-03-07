@@ -6,6 +6,7 @@
 package controller;
 
 import Services.users_Services;
+import static controller.Signin_pageController.conn;
 import entity.Data;
 import entity.users;
 import java.io.BufferedReader;
@@ -14,6 +15,7 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -71,7 +73,17 @@ import org.apache.hc.core5.http.HttpEntity;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.ResultSet;
+import java.text.DecimalFormat;
+import java.util.Optional;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.HBox;
+import javax.mail.MessagingException;
 import utils.Conn;
 
 /**
@@ -217,7 +229,6 @@ public class DashboardController implements Initializable {
     private AnchorPane editprofile_page;
     @FXML
     private Button editprof_btn;
-    @FXML
     private PasswordField pwd_editprof;
     @FXML
     private TextField fname_editprof;
@@ -258,8 +269,6 @@ public class DashboardController implements Initializable {
     @FXML
     private Label errormsgcin_edit;
     @FXML
-    private Label errormsglname_edit7;
-    @FXML
     private Label errormsgbirthdate_edit;
     @FXML
     private Label errormsgphonenum_edit;
@@ -286,6 +295,8 @@ public class DashboardController implements Initializable {
     
     private File imageFile;
    
+    private String imageUrl;
+    
     @FXML
     private Pane avatar_icon;
     @FXML
@@ -295,8 +306,40 @@ public class DashboardController implements Initializable {
     private CheckBox showpwd;
     @FXML
     private CheckBox showpwd_add;
-    @FXML
     private CheckBox showpwd_edit;
+    @FXML
+    private AnchorPane userstats_dash;
+    @FXML
+    private PieChart chartgender;
+    private HBox boxchart;
+    @FXML
+    private Button showstats_btn;
+    @FXML
+    private Button returnfromstats;
+    @FXML
+    private HBox chartbox;
+    @FXML
+    private Label errormsgfname_modif;
+    @FXML
+    private Label errormsglname_modif;
+    @FXML
+    private Label errormsgcin_modif;
+    @FXML
+    private Label errormsgaddress_modif;
+    @FXML
+    private Label errormsgphonenum_modif;
+    @FXML
+    private Label errormsggender_modif;
+    @FXML
+    private Label errormsgbirthdate_modif;
+    @FXML
+    private Label errormsgrole_modif;
+    @FXML
+    private Label msgsuccess_modif;
+    @FXML
+    private Button newpwd_btn;
+    @FXML
+    private Label errormsgaddress_edit;
     /**
      * Initializes the controller class.
      */
@@ -309,20 +352,29 @@ public class DashboardController implements Initializable {
         adduser_dash_btn.setVisible(false);
         update_page.setVisible(false);
         editprofile_page.setVisible(false);
+        userstats_dash.setVisible(false);
         labeladminname.setText(Data.user.getFirstname());
         
-        if (Data.user.getImage()!=null){
+        /*if (Data.user.getImage()!=null){
             String imagePath = Data.user.getImage();
         Image image = new Image(new File(imagePath).toURI().toString());
         circle_image.setFill(new ImagePattern(image));
+        }*/
+        if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image.setFill(new ImagePattern(image));
         }
+        
+        /*URL url = new URL(Data.user.getImage());
+        Image image1 = new Image(url.openStream(), 245, 237, false, true);
+        image.setImage(image1);*/
         
         
         
         comboboxup(); 
         combobox();
         comboboxedit();
-        
+        userstats();
         
      search_userfield.textProperty().addListener((observable, oldValue, newValue) -> {
     // Retrieve the search query from the text field
@@ -349,6 +401,7 @@ public class DashboardController implements Initializable {
         listusers_btn.setVisible(false);
         update_page.setVisible(false);
         editprofile_page.setVisible(false);
+        userstats_dash.setVisible(false);
         adduser_dash_btn.setVisible(true);
         
          add_user.setStyle("-fx-background-color: #470011 ");
@@ -380,6 +433,7 @@ public void comboboxedit()
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
         editprofile_page.setVisible(false);
+        userstats_dash.setVisible(false);
         update_page.setVisible(true);
         
         list_users.setStyle("-fx-background-color:   transparent ");
@@ -395,6 +449,7 @@ public void comboboxedit()
         adduser_dash_btn.setVisible(false);
         update_page.setVisible(false);
         editprofile_page.setVisible(false);
+        userstats_dash.setVisible(false);
         listusers_btn.setVisible(true);
         
        list_users.setStyle("-fx-background-color: #470011 ");
@@ -483,31 +538,7 @@ public void comboboxedit()
    errormsgbirthdate.setText("");
    errormsgrole.setText("");
        
-    if (!phone_num.getText().isEmpty())
-    {               
-    if (!phone_num.getText().matches("\\d+")) {
-        errormsgphonenum.setText("Phone number should be a number!");
-    } else if (phone_num.getText().toString().length()<8)
-    {
-        errormsgphonenum.setText("Phone number should contain 8 digits!");
-    }
-    else {
-        phone_number = Integer.parseInt(phone_num.getText().trim());
-    }
-            }
-       if (!cin.getText().isEmpty())
-    {
-     if (!cin.getText().matches("\\d+")) {
-        errormsgcin.setText("CIN should be a number!");
-    } else if (cin.getText().toString().length()<8)
-    {
-        errormsgcin.setText("CIN should contain 8 digits!");
-    }
-    else
-    {
-        Cin = Integer.parseInt(cin.getText().trim());  
-    }   
-    }
+    
      if (!male_gender.isSelected() && !female_gender.isSelected()) {
           
         errormsggender.setText("Please specify your gender!"); 
@@ -566,7 +597,32 @@ public void comboboxedit()
     if (female_gender.isSelected()) {
         gender = female_gender.getText();
     }
-   
+   if (!phone_num.getText().isEmpty())
+    {               
+    if (!phone_num.getText().matches("\\d+")) {
+        errormsgphonenum.setText("Phone number should be a number!");
+    } else if (phone_num.getText().toString().length()<8 || phone_num.getText().toString().length()>8)
+    {
+        errormsgphonenum.setText("Phone number should contain 8 digits!");
+    }
+    else {
+        phone_number = Integer.parseInt(phone_num.getText().trim());
+    }
+            }
+       if (!cin.getText().isEmpty())
+    {
+     if (!cin.getText().matches("\\d+")) {
+        errormsgcin.setText("CIN should be a number!");
+    } else if (cin.getText().toString().length()<8 || cin.getText().toString().length()>8)
+    {
+        errormsgcin.setText("CIN should contain 8 digits!");
+    }
+    else
+    {
+        Cin = Integer.parseInt(cin.getText().trim());  
+    }   
+    }
+       if(Cin != 0 && phone_number != 0){
     String hashedPassword = users_Services.hashPassword(passwd);
         
     user1 = new users(Cin ,firstname, lastname, Email, hashedPassword, Address, phone_number, BirthDate, gender, role);
@@ -585,7 +641,7 @@ public void comboboxedit()
    errormsgbirthdate.setText("");
    errormsgrole.setText("");
    clear();
-        
+       }
     }
         
         
@@ -618,12 +674,13 @@ public void comboboxedit()
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
         update_page.setVisible(false);  
+        userstats_dash.setVisible(false);
         editprofile_page.setVisible(true);
         
         fname_editprof.setText(Data.user.getFirstname());
         lname_editprof.setText(Data.user.getLastname());
         email_editprof.setText(Data.user.getEmail());
-        pwd_editprof.setText(user.hashPassword(Data.user.getPwd()));
+        //pwd_editprof.setText(user.hashPassword(Data.user.getPwd()));
         cin_editprof.setText(Integer.toString(Data.user.getCin()));
         address_editprof.setText(Data.user.getAddress());
         birth_d_editprof.setValue(Data.user.getBirth_date());
@@ -644,36 +701,127 @@ public void comboboxedit()
     @FXML
     private void update_btn_dash(ActionEvent event) {
         
-        int Cin = Integer.parseInt(cin_up.getText().trim());
-        int phone_number = Integer.parseInt(phone_num_up.getText().trim());
+        int Cin = 0;
+        int phone_number = 0;
         LocalDate BirthDate = birth_d_up.getValue();
         String firstname = fname_up.getText();
         String lastname = lname_up.getText();
-        //String Email = email_up.getText();
-        //String passwd = pwd_up.getText();
         String Address = address_up.getText();
         String gender = null;
-        if (male_gender_up.isSelected()) {
+     errormsgfname_modif.setText("");
+     errormsglname_modif.setText("");
+     errormsgcin_modif.setText("");
+     errormsgaddress_modif.setText("");
+     errormsgphonenum_modif.setText("");
+     errormsggender_modif.setText("");
+     errormsgbirthdate_modif.setText("");
+   
+        
+        
+     if (!male_gender_up.isSelected() && !female_gender_up.isSelected()) {
+          
+        errormsggender_modif.setText("Please specify your gender!"); 
+        }  
+ 
+if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_up.getText().isEmpty() || cin_up.getText().isEmpty() || BirthDate == null || (!male_gender_up.isSelected() && !female_gender_up.isSelected())) {
+         
+  
+    if (Address.isEmpty())  {
+     
+     errormsgaddress_modif.setText("fill Address !!");   
+    }
+    
+    if ( firstname.isEmpty())
+    {
+     errormsgfname_modif.setText("Fill first name !!");   
+    }
+    if ( lastname.isEmpty())
+    {
+       errormsglname_modif.setText("Fill last name !!");
+    }
+    if (phone_num_up.getText().isEmpty())
+    {
+     errormsgphonenum_modif.setText("Fill phone number !!");  
+    }
+    if (BirthDate == null)
+    {
+        errormsgbirthdate_modif.setText("Fill birth date !!"); 
+    }
+    if ( cin_up.getText().isEmpty() )
+    {
+     errormsgcin_modif.setText("Fill Cin !!");   
+    }
+    } 
+
+   else if (male_gender_up.isSelected() && female_gender_up.isSelected())
+    {
+     errormsggender_modif.setText("Please specify your gender!");    
+    }
+    else {
+    if (male_gender_up.isSelected()) {
         gender = male_gender_up.getText();  
-    } else if (female_gender_up.isSelected()) {
+    } 
+    if (female_gender_up.isSelected()) {
         gender = female_gender_up.getText();
     }
+    if (!phone_num_up.getText().isEmpty())
+    {               
+    if (!phone_num_up.getText().matches("\\d+")) {
+        errormsgphonenum_modif.setText("Phone number should be a number!");
+    } else if (phone_num_up.getText().toString().length()<8 || phone_num_up.getText().toString().length()>8)
+    {
+        errormsgphonenum_modif.setText("Phone number should contain 8 digits!");
+    }
+    else {
+        phone_number = Integer.parseInt(phone_num_up.getText().trim());
+    }
+            }
+       if (!cin_up.getText().isEmpty())
+    {
+     if (!cin_up.getText().matches("\\d+")) {
+        errormsgcin_modif.setText("CIN should be a number!");
+    } else if (cin_up.getText().toString().length()<8 || cin_up.getText().toString().length()>8)
+    {
+        errormsgcin_modif.setText("CIN should contain 8 digits!");
+    }
+    else
+    {
+        Cin = Integer.parseInt(cin_up.getText().trim());  
+    }   
+    }
+       if(Cin != 0 && phone_number != 0){
+      users newSelection = user_table.getSelectionModel().getSelectedItem();
+      if (newSelection != null) {
         String role = (String) Rolebox_up.getSelectionModel().getSelectedItem();
         users u = new users (idup,
              Cin,
              firstname,
                 lastname,
-                email_up.getText(),
-                pwd_up.getText(),
+                newSelection.getEmail(),
+                newSelection.getPwd(),
                 Address,
              phone_number,   
              BirthDate,
                 gender,
-                role
+                role,
+                newSelection.getStatus(),
+                newSelection.getImage(),
+                newSelection.getSecretcode()
         );
         users_Services user = new users_Services();
         user.modifyuser(u);
-        clearupd();
+      }
+        errormsgfname_modif.setText("");
+    errormsglname_modif.setText("");
+    errormsgcin_modif.setText("");
+    errormsgaddress_modif.setText("");
+     errormsgphonenum_modif.setText("");
+   errormsggender_modif.setText("");
+   errormsgbirthdate_modif.setText("");
+        //clearupd();
+        msgsuccess_modif.setText("User modified successfully !!");
+       }
+   }
     }
 
     public int getidupdate(int id){
@@ -691,6 +839,7 @@ public void comboboxedit()
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
         editprofile_page.setVisible(false);
+        userstats_dash.setVisible(false);
         update_page.setVisible(true);
     }
     @FXML
@@ -718,8 +867,8 @@ public void comboboxedit()
         getidupdate(newSelection.getId());
         fname_up.setText(newSelection.getFirstname());
         lname_up.setText(newSelection.getLastname());
-        email_up.setText(newSelection.getEmail());
-        pwd_up.setText(newSelection.getPwd());
+        //email_up.setText(newSelection.getEmail());
+        //pwd_up.setText(newSelection.getPwd());
         address_up.setText(newSelection.getAddress());
         if (newSelection.getGender().equals("Male")) {
             male_gender_up.setSelected(true);
@@ -756,15 +905,15 @@ public void comboboxedit()
     }*/
 
     @FXML
-    private void editprof_btn(ActionEvent event) {
+    private void editprof_btn(ActionEvent event) throws IOException {
         
-       int Cin = Integer.parseInt(cin_editprof.getText().trim());
-        int phone_number = Integer.parseInt(phone_num_editprof.getText().trim());
+       int Cin = 0;
+        int phone_number = 0;
         LocalDate BirthDate = birth_d_editprof.getValue();
         String firstname = fname_editprof.getText();
         String lastname = lname_editprof.getText();
         String Email = email_editprof.getText();
-        String passwd = pwd_editprof.getText();
+        //String passwd = pwd_editprof.getText();
         String Address = address_editprof.getText();
         String gender = null;
         if (male_gender_editprof.isSelected()) {
@@ -773,9 +922,31 @@ public void comboboxedit()
         gender = female_gender_editprof.getText();
     }
         String role = (String) Rolebox_editprof.getSelectionModel().getSelectedItem();
+         errormsggender_edit.setText(""); 
+         errormsgfname_edit.setText(""); 
+         errormsgcin_edit.setText(""); 
+         errormsgaddress_edit.setText(""); 
+         errormsgemail_edit.setText(""); 
+         errormsgbirthdate_edit.setText(""); 
+         errormsgphonenum_edit.setText(""); 
         
         
-        if (!phone_num_editprof.getText().isEmpty())
+     if (!male_gender_editprof.isSelected() && !female_gender_editprof.isSelected()) {
+          
+        errormsggender_edit.setText("Please specify your gender!"); 
+        }  
+     
+     if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+    errormsgemail_edit.setText("Invalid email format!");
+    }
+     if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || Address.isEmpty() || phone_num_editprof.getText().isEmpty() || cin_editprof.getText().isEmpty() || BirthDate == null || (!male_gender_editprof.isSelected() && !female_gender_editprof.isSelected())) {
+         
+       errormsgfiiledit.setText("Please fill all elements!!");  
+       
+        }
+        else
+        {
+            if (!phone_num_editprof.getText().isEmpty())
     {               
     if (!phone_num_editprof.getText().matches("\\d+")) {
         errormsgphonenum_edit.setText("Phone number should be a number!");
@@ -800,69 +971,84 @@ public void comboboxedit()
         Cin = Integer.parseInt(cin_editprof.getText().trim());  
     }   
     }
-     if (!male_gender_editprof.isSelected() && !female_gender_editprof.isSelected()) {
-          
-        errormsggender_edit.setText("Please specify your gender!"); 
-        }  
-     
-     if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
-    errormsgemail_edit.setText("Invalid email format!");
-    }
-        if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num_editprof.getText().isEmpty() || cin_editprof.getText().isEmpty() || BirthDate == null || (!male_gender_editprof.isSelected() && !female_gender_editprof.isSelected())) {
-         
-       errormsgfiiledit.setText("Please fill all elements!!");  
+       if (Cin!=0 && phone_number!=0 && Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")){
+           
        
+            imageUrl="http://localhost/images/"+imageFile.getName();
+       String phpUrl = "http://localhost/images/upload.php";
+//        String imageFilePath = "C:\xamppp\htdocs\piImg";
+
+        // Read the image file data
+        byte[] imageData = Files.readAllBytes(imageFile.toPath());
+
+        // Create the boundary string for the multipart request
+        String boundary = "---------------------------12345";
+
+        // Open the connection to the PHP script
+        URL url = new URL(phpUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+        // Write the image file data to the output stream of the connection
+        OutputStream outputStream = connection.getOutputStream();
+        outputStream.write(("--" + boundary + "\r\n").getBytes());
+        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + imageFile.getName() + "\"\r\n").getBytes());
+        outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+        outputStream.write(imageData);
+        outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+        // Read the response from the PHP script
+        InputStream inputStream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
         }
-        else
-        {
-        users u = new users (idup,
+        reader.close();
+        
+            //String pathimage = upload();
+        users u = new users (Data.user.getId(),
              Cin,
              firstname,
                 lastname,
                 Email,
-                passwd,
+                Data.user.getPwd(),
                 Address,
              phone_number,   
              BirthDate,
                 gender,
-                role
+                role,
+                Data.user.getStatus(),
+                imageUrl,
+                Data.user.getSecretcode()
         );
         
         users_Services user = new users_Services();
          // Upload the image file if one was selected
          // Debug statements
-        System.out.println("Image file: " + imageFile);
-        if (imageFile != null) {
-            String pathimage = uploadImage();
-            
-            if (pathimage != null) {
-               user.modifyuserimage(u,pathimage);
-//            String sql = "update users set image= ? where id = ?";
-//            try {
-//                pst = conn.prepareStatement(sql);
-//                pst.setString(1, pathimage);
-//                pst.setInt(2, idup);
-//
-//                pst.executeUpdate();
-//                System.out.println("success!!");
-//
-//            } catch (SQLException ex) {
-//                System.err.println("error!!");
-//                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-        } else {
-            System.err.println("error: failed to upload image");
-        }
-        }  
-        
+        System.out.println("Image url: " + imageUrl);
+     
         user.modifyuser(u);
          showusers();
          errormsgfiiledit.setText("your profile is successfully modified!!");  
+         errormsggender_edit.setText(""); 
+         errormsgfname_edit.setText(""); 
+         errormsgcin_edit.setText(""); 
+         errormsgaddress_edit.setText(""); 
+         errormsgemail_edit.setText(""); 
+         errormsgbirthdate_edit.setText(""); 
+         errormsgphonenum_edit.setText(""); 
+         
+       }
         }
     }
 
     @FXML
-    private void deconnect_btn(ActionEvent event) {
+    private void deconnect_btn(ActionEvent event) throws SQLException {
         
         deconnect.setStyle("-fx-background-color: #470011 ");
         edit_profile.setStyle("-fx-background-color: transparent ");
@@ -876,7 +1062,7 @@ public void comboboxedit()
         adduser_dash_btn.setVisible(false);
         update_page.setVisible(false);  
         editprofile_page.setVisible(false);
-        
+        userstats_dash.setVisible(false);
         try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/signin_page.fxml"));
@@ -890,7 +1076,7 @@ public void comboboxedit()
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+       // conn.close();
     }
 
     private void eye_on_btn(ActionEvent event) {
@@ -925,15 +1111,9 @@ public void comboboxedit()
          users selectedUser = user_table.getSelectionModel().getSelectedItem();
          if (selectedUser != null) {
         // Remove the selected item from the table's data list
-        
-        
         users_Services.unblockuser(selectedUser.getId());
-        
-        
     }
-        
-        
-        
+ 
         showusers(); 
         
     }
@@ -958,129 +1138,45 @@ public void comboboxedit()
         
     }
 
-    private String uploadImage() {
-      
-        try {
-        // Read the image file into a byte array
-        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-        
-        // Encode the image bytes as a base64 string
-        String imageData = Base64.getEncoder().encodeToString(imageBytes);
-        
-        // Create a HTTP connection to the server
-        //URL url = new URL("http://localhost:8080/upload");
-        URL url = new URL("http://localhost:80/images");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setDoOutput(true);
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        
-        // Construct the request body
-        String userId = String.valueOf(Data.user.getId());
-        String filename = imageFile.getName();
-        String body = String.format("userId=%s&filename=%s&imageData=%s",
-                                    userId, filename, imageData);
-        
-        // Write the request body to the connection output stream
-        try (OutputStream os = connection.getOutputStream()) {
-            byte[] input = body.getBytes(StandardCharsets.UTF_8);
-            os.write(input, 0, input.length);
-        }
-        
-        // Check the response code
-        int responseCode = connection.getResponseCode();
-        if (responseCode != 200) {
-            throw new RuntimeException("Failed to upload image: HTTP error code " + responseCode);
-        }
-        String pathlocal = "localhost/images/" + filename;
-        // Save the image file to the specified directory
-        String uploadDir = "D:/xamp/htdocs/images/";
-        Path imagePath = Paths.get(uploadDir, filename);
-        Files.write(imagePath, imageBytes);
-            System.out.println(imagePath);
-        // Close the connection
-        System.out.println(filename);
-        /*String imageUrl = String.format("http://localhost/images/", filename);
-        System.out.println("aziz");
-        System.out.println(imageUrl);*/
-        //return imageUrl;
-        //connection.disconnect();
-        //String imageUrl = String.format("http://localhost/images/%s", filename);
-        
-        // Close the connection
-        //connection.disconnect();
-        //System.out.println(imageUrl);
-        connection.disconnect();
-        // Return the URL for the uploaded image
-         //return imageUrl;
-        // Return the path to the saved image file
-        //return imagePath.toString();
-        return pathlocal;
-    } catch (IOException ex) {
-        ex.printStackTrace();
-        return null;
-    }
-    }
-private String upload() {
-
-    try {
-        // Read the image file and encode it as Base64
-        FileInputStream fis = new FileInputStream(imageFile);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = fis.read(buffer)) != -1) {
-            baos.write(buffer, 0, bytesRead);
-        }
-        fis.close();
-        String base64EncodedImage = java.util.Base64.getEncoder().encodeToString(baos.toByteArray());
-       
-
-        // Set up the cURL request to send the encoded image data to the server
-        String url = "http://localhost/images/upload.php"; // Replace with the URL of your server-side script
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("User-Agent", "Mozilla/5.0");
-        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-        con.setDoOutput(true);
-
-        // Write the encoded image data to the request body
-        String urlParameters = "imageData=" + base64EncodedImage;
-        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-        int postDataLength = postData.length;
-        con.setDoOutput(true);
-        con.setInstanceFollowRedirects(false);
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        con.setRequestProperty("charset", "utf-8");
-        con.setRequestProperty("Content-Length", Integer.toString(postDataLength));
-        con.setUseCaches(false);
-
-        try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
-            wr.write(postData);
-        }
-
-        // Get the response from the server
-        int responseCode = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        
-        // Print the response from the server
-        System.out.println("Response code: " + responseCode);
-        System.out.println("Response message: " + response.toString());
-        System.out.println("Response message: " + inputLine);
-        return inputLine;
-    } catch (IOException e) {
-        e.printStackTrace();
-        return null;
-    }
-
     
+public String upload() throws IOException {
+
+       imageUrl="http://localhost/images/%22+selectedFile.getName()";
+       String phpUrl = "http://localhost/images/upload.php";
+//        String imageFilePath = "C:\xamppp\htdocs\piImg";
+
+        // Read the image file data
+        byte[] imageData = Files.readAllBytes(imageFile.toPath());
+
+        // Create the boundary string for the multipart request
+        String boundary = "---------------------------12345";
+
+        // Open the connection to the PHP script
+        URL url = new URL(phpUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+        // Write the image file data to the output stream of the connection
+        OutputStream outputStream = connection.getOutputStream();
+        outputStream.write(("--" + boundary + "\r\n").getBytes());
+        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + imageFile.getName() + "\"\r\n").getBytes());
+        outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+        outputStream.write(imageData);
+        outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+        // Read the response from the PHP script
+        InputStream inputStream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        reader.close();
+    return imageUrl;
     /*try {
         // Read the image file into a byte array
         byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
@@ -1149,7 +1245,6 @@ private String upload() {
         }
     }
 
-    @FXML
     private void showpwd_edit(ActionEvent event) {
          if (showpwd_edit.isSelected()) {
             pwd_editprof.setPromptText(pwd_editprof.getText());
@@ -1160,6 +1255,182 @@ private String upload() {
         }
     }
 
+ public void userstats() {
+        
+        try {
+     String sql = "Select gender from users";
+      pst = conn.prepareStatement(sql);
+      ResultSet rs = pst.executeQuery();
+     
+     
+     List<String> genders = new ArrayList<>();
+while (rs.next()) {
+    genders.add(rs.getString("gender"));
+}
+   int maleCount = 0;
+int femaleCount = 0;
+for (String gender : genders) {
+    if (gender.equals("Male")) {
+        maleCount++;
+    } else if (gender.equals("Female")) {
+        femaleCount++;
+    }
+}
+     ObservableList<PieChart.Data> pieChartData =
+    FXCollections.observableArrayList(
+        new PieChart.Data("Male", maleCount),
+        new PieChart.Data("Female", femaleCount)
+    );
+     chartgender = new PieChart(pieChartData);
+chartgender.setTitle("User Gender Statistics");
+     // Add percentage labels to chart
+DecimalFormat decimalFormat = new DecimalFormat("#.##");
+for (PieChart.Data data : chartgender.getData()) {
+    double percentage = (data.getPieValue() / (maleCount + femaleCount)) * 100;
+    String percentageString = decimalFormat.format(percentage) + "%";
+    data.nameProperty().setValue(data.getName() + " (" + percentageString + ")");
+}
 
+
+//panechart.getChildren().add(chartgender);
+//
+//chartgender.setLegendVisible(true);
+//chartgender.setLabelsVisible(true);
+// Wrap the chart in an HBox container
+HBox chartContainer = new HBox(chartgender);
+chartContainer.setAlignment(Pos.CENTER);
+
+// Set the size of the chart container
+chartContainer.setPrefSize(1200, 1200);
+// Set the layout properties of the chart to center it within its container
+//chartgender.setLayoutX((chartContainer.getWidth() - chartgender.getPrefWidth()) / 2);
+//chartgender.setLayoutY((chartContainer.getHeight() - chartgender.getPrefHeight()) / 2);
+// Add the chart container to the user interface
+chartbox.getChildren().add(chartContainer);
+chartgender.setLegendVisible(true);
+chartgender.setLabelsVisible(true);
+
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+  
+     
+     
+ }
+
+    @FXML
+    private void showstats_btn(ActionEvent event) {
+        
+        default_anchor.setVisible(true);
+        listusers_btn.setVisible(false);
+        adduser_dash_btn.setVisible(false);
+        update_page.setVisible(false);
+        editprofile_page.setVisible(false);
+        userstats_dash.setVisible(true);
+        deconnect.setStyle("-fx-background-color: transparent ");
+        edit_profile.setStyle("-fx-background-color: transparent ");
+        add_user.setStyle("-fx-background-color: transparent ");
+        list_users.setStyle("-fx-background-color:  #470011 ");
+        modify_user.setStyle("-fx-background-color: transparent ");
+    }
+
+    @FXML
+    private void returnfromstats_btn(ActionEvent event) {
+        
+        default_anchor.setVisible(false);
+        listusers_btn.setVisible(true);
+        adduser_dash_btn.setVisible(false);
+        update_page.setVisible(false);
+        editprofile_page.setVisible(false);
+        userstats_dash.setVisible(false);
+        deconnect.setStyle("-fx-background-color: transparent ");
+        edit_profile.setStyle("-fx-background-color: transparent ");
+        add_user.setStyle("-fx-background-color: transparent ");
+        list_users.setStyle("-fx-background-color:  #470011 ");
+        modify_user.setStyle("-fx-background-color: transparent ");
+    }
+
+    @FXML
+    private void newpwd_btn(ActionEvent event) throws NoSuchAlgorithmException {
+        
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("New password");
+        dialog.setHeaderText("Enter your old password");
+        dialog.setContentText("pwd :");
+        Optional<String> result = dialog.showAndWait();
+        
+        String oldpwd = users_Services.hashPassword(result.get());
+        try {
+            String sql = "Select * from users where id = ? and password = ?";
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, Data.user.getId());
+            pst.setString(2, oldpwd);
+            
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                if(rs.getString("password").equals(oldpwd)){
+                TextInputDialog dialog1 = new TextInputDialog();
+                dialog1.setTitle("New password");
+                dialog1.setHeaderText("Enter your new password");
+                dialog1.setContentText("pwd :");
+                Optional<String> result1 = dialog1.showAndWait();
+                
+                String newpwd = result1.get();
+                users u = new users (Data.user.getId(),
+             Data.user.getCin(),
+             Data.user.getFirstname(),
+                Data.user.getLastname(),
+                Data.user.getEmail(),
+                users_Services.hashPassword(newpwd),
+                Data.user.getAddress(),
+             Data.user.getPhone_number(),   
+             Data.user.getBirth_date(),
+                Data.user.getGender(),
+                Data.user.getRole(),
+                Data.user.getStatus(),
+                Data.user.getImage(),
+                Data.user.getSecretcode()
+        );
+        
+        users_Services user = new users_Services();
+        user.modifyuser(u);
+                /*try {
+            String sql1 = "update users set password = ? where id = ?";
+            pst = conn.prepareStatement(sql1);
+            pst.setString(1, users_Services.hashPassword(newpwd));
+            pst.setInt(2, Data.user.getId());
+            pst.executeUpdate();
+            
+            System.out.println("success!!");   
+            
+                }catch (SQLException ex) {
+            //Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println("error!!");
+            ex.printStackTrace();
+             }*/
+                }
+            }
+            else
+            {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Wrong password");
+                        alert.setHeaderText(null);
+                        alert.setContentText("the password you entered is incorrect!! ");
+                        alert.showAndWait();
+            }
+            }
+         catch (SQLException ex) {
+            //Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+        
+        
+        
+        
+        
+        
+        
+    }
     
 }

@@ -36,6 +36,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.ByteMatrix;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -296,7 +297,7 @@ public class Signin_pageController implements Initializable {
         } else {
             try {
                 String sql = "Select * from users where email=? and password=?";
-
+                //pst =  conn.createStatement();
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, emaillogin.getText());
                 pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
@@ -358,6 +359,14 @@ public class Signin_pageController implements Initializable {
 
                QRCodeWriter writer = new QRCodeWriter();
                BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);
+             /*QRCodeWriter writer = new QRCodeWriter();
+             ByteMatrix byteMatrix;
+    try {
+        byteMatrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 200, 200);
+    } catch (WriterException e) {
+        e.printStackTrace();
+        return;
+    }*/
 
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                  MatrixToImageWriter.writeToStream(matrix, "PNG", outputStream);

@@ -166,31 +166,8 @@ public class Signup_pageController implements Initializable {
    errorquestionartist.setText("");
    
    
-   if (!phone_num.getText().isEmpty())
-    {               
-    if (!phone_num.getText().matches("\\d+")) {
-        errormsgphonenum.setText("Phone number should be a number!");
-    } else if (phone_num.getText().toString().length()<8)
-    {
-        errormsgphonenum.setText("Phone number should contain 8 digits!");
-    }
-    else {
-        phone_number = Integer.parseInt(phone_num.getText().trim());
-    }
-            }
-       if (!cin.getText().isEmpty())
-    {
-     if (!cin.getText().matches("\\d+")) {
-        errormsgcin.setText("CIN should be a number!");
-    } else if (cin.getText().toString().length()<8)
-    {
-        errormsgcin.setText("CIN should contain 8 digits!");
-    }
-    else
-    {
-        Cin = Integer.parseInt(cin.getText().trim());  
-    }   
-    }
+   
+      
      if (!male_gender.isSelected() && !female_gender.isSelected()) {
           
         errormsggender.setText("Please specify your gender!"); 
@@ -262,7 +239,32 @@ else if (yesartist.isSelected() && noartist.isSelected())
    if (noartist.isSelected()) {
         role = "Subscriber";
     }
-   
+   if (!cin.getText().isEmpty())
+    {
+     if (!cin.getText().matches("\\d+")) {
+        errormsgcin.setText("CIN should be a number!");
+    } else if (cin.getText().toString().length()<8 || cin.getText().toString().length()>8)
+    {
+        errormsgcin.setText("CIN should contain 8 digits!");
+    }
+    else
+    {
+        Cin = Integer.parseInt(cin.getText().trim());  
+    }   
+    }
+   if (!phone_num.getText().isEmpty())
+    {               
+    if (!phone_num.getText().matches("\\d+")) {
+        errormsgphonenum.setText("Phone number should be a number!");
+    } else if (phone_num.getText().toString().length()<8 || phone_num.getText().toString().length()>8)
+    {
+        errormsgphonenum.setText("Phone number should contain 8 digits!");
+    }
+    else {
+        phone_number = Integer.parseInt(phone_num.getText().trim());
+    }
+            }
+   if(phone_number!=0 && Cin!=0){
    boolean isValid = isValidEmail(email.getText());
      if (isValid) {
     // email is valid
@@ -335,16 +337,18 @@ else if (yesartist.isSelected() && noartist.isSelected())
                     }
     
     }
+     
    }catch (SQLException ex) {
                  Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
              }
+     
          } else {
          // email is not valid
          errormsgemail.setText(" this email is not valid !!");  
       }
         
    
-        
+   } 
     }
 
   }
