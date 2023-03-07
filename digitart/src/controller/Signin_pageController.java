@@ -36,6 +36,7 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.ByteMatrix;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -352,15 +353,23 @@ public class Signin_pageController implements Initializable {
                
                System.out.println(qrCodeUrl);
                
-               Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+               /*Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
                hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
                hints.put(EncodeHintType.MARGIN, 1);
 
                QRCodeWriter writer = new QRCodeWriter();
-               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);
+               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);*/
+               ByteMatrix byteMatrix;
+               QRCodeWriter writer = new QRCodeWriter();
+    try {
+        byteMatrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400);
+    } catch (WriterException e) {
+        e.printStackTrace();
+        return;
+    }
 
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                 MatrixToImageWriter.writeToStream(matrix, "PNG", outputStream);
+                 MatrixToImageWriter.writeToStream(byteMatrix, "PNG", outputStream);
                  byte[] qrCodeImageData = outputStream.toByteArray();
                  
                          Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeImageData));
