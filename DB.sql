@@ -27,25 +27,54 @@ SET time_zone = "+00:00";
 -- Structure de la table `auction`
 --
 
-
 CREATE TABLE `auction` (
   `id_auction` int(11) NOT NULL,
   `starting_price` int(11) NOT NULL,
   `increment` int(11) NOT NULL DEFAULT 10,
   `ending_date` date NOT NULL,
   `description` text NOT NULL,
-  `id_artwork` int(11) NOT NULL
+  `id_artwork` int(11) NOT NULL,
+  `state` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `auction`
 --
 
-INSERT INTO `auction` (`id_auction`, `starting_price`, `increment`, `ending_date`, `description`, `id_artwork`) VALUES
-(6, 500, 50, '2023-02-15', 'new edition', 1),
-(7, 100, 10, '2023-03-10', 'new edition', 1),
-(8, 100, 10, '2023-03-10', 'new edition', 1),
-(9, 100, 10, '2023-03-10', 'new edition', 1);
+INSERT INTO `auction` (`id_auction`, `starting_price`, `increment`, `ending_date`, `description`, `id_artwork`, `state`) VALUES
+(37, 10000, 10, '2023-03-11', 'monalisa saaaaa777777777biii', 1, NULL);
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `auction`
+--
+ALTER TABLE `auction`
+  ADD PRIMARY KEY (`id_auction`),
+  ADD KEY `fk_artwork` (`id_artwork`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `auction`
+--
+ALTER TABLE `auction`
+  MODIFY `id_auction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `auction`
+--
+ALTER TABLE `auction`
+  ADD CONSTRAINT `fk_artwork` FOREIGN KEY (`id_artwork`) REFERENCES `artwork` (`id_art`);
+COMMIT;
 
 -- --------------------------------------------------------
 
