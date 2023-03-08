@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #E5E7E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Dashboard_homepageController">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1207.0">
+         <image>
+            <Image url="@../background%20dashboard.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="189.0" fitWidth="285.0" layoutX="799.0" layoutY="34.0">
+         <image>
+            <Image url="@../logo%20digitart%20rouge.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="-300.0" layoutY="-86.0" prefHeight="392.0" prefWidth="900.0" rotate="-42.5" styleClass="left-form" stylesheets="@auctionDesign.css">
+         <children>
+            <Circle fill="#bd2a2e" layoutX="424.0" layoutY="140.0" radius="69.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+            <Circle fx:id="circle_image" fill="#bd2a2e" layoutX="424.0" layoutY="140.0" radius="65.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+            <ImageView fx:id="avatar_image" fitHeight="177.0" fitWidth="180.0" layoutX="334.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="labeladminname" alignment="CENTER" contentDisplay="CENTER" layoutX="220.0" layoutY="274.0" prefHeight="41.0" prefWidth="269.0" rotate="42.0" text="Welcome" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="labeladminname1" alignment="CENTER" contentDisplay="CENTER" layoutX="252.0" layoutY="216.0" prefHeight="41.0" prefWidth="269.0" rotate="42.0" text="Welcome" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="60.0" />
+               </font>
+            </Label>
+         </children></Pane>
+      <Button fx:id="users_btn" cache="true" layoutX="225.0" layoutY="329.0" mnemonicParsing="false" onAction="#users_btn" prefHeight="107.0" prefWidth="258.0" styleClass="dashhome-btn" stylesheets="@auctionDesign.css" text="Users Management" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB" size="17.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="USER" size="25" />
+         </graphic>
+      </Button>
+      <Button fx:id="gallery_btn" cache="true" layoutX="354.0" layoutY="491.0" mnemonicParsing="false" onAction="#gallery_btn" prefHeight="107.0" prefWidth="258.0" styleClass="dashhome-btn" stylesheets="@auctionDesign.css" text="Gallery Management" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB" size="17.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="IMAGE" size="25" />
+         </graphic>
+      </Button>
+      <Button fx:id="tickets_btn" cache="true" layoutX="550.0" layoutY="329.0" mnemonicParsing="false" onAction="#tickets_btn" prefHeight="107.0" prefWidth="258.0" styleClass="dashhome-btn" stylesheets="@auctionDesign.css" text="Tickets Management" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB" size="17.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="TICKET" size="25" />
+         </graphic>
+      </Button>
+      <Button fx:id="auction_btn" cache="true" layoutX="742.0" layoutY="491.0" mnemonicParsing="false" onAction="#auction_btn" prefHeight="107.0" prefWidth="258.0" styleClass="dashhome-btn" stylesheets="@auctionDesign.css" text="Auctions Management" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB" size="17.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="GAVEL" size="25" />
+         </graphic>
+      </Button>
+      <Button fx:id="events_btn" cache="true" layoutX="883.0" layoutY="329.0" mnemonicParsing="false" onAction="#events_btn" prefHeight="107.0" prefWidth="258.0" styleClass="dashhome-btn" stylesheets="@auctionDesign.css" text="Events Managements" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB" size="17.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="BULLHORN" size="25" />
+         </graphic>
+      </Button>
+      <Label fx:id="labeladminname11" alignment="CENTER" contentDisplay="CENTER" layoutX="537.0" layoutY="57.0" prefHeight="107.0" prefWidth="334.0" text="Dashboard">
+         <font>
+            <Font name="Berlin Sans FB" size="70.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

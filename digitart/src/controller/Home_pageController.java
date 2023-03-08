@@ -77,6 +77,10 @@ public class Home_pageController implements Initializable {
         Image image = new Image(Data.user.getImage());
         circle_image.setFill(new ImagePattern(image));
         }
+        else
+        {
+            circle_image.setFill(null);
+        }
      
         
     }    
