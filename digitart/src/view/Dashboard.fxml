@@ -81,14 +81,6 @@
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Button>
-            <Label fx:id="labeladminname2" prefHeight="17.0" prefWidth="272.0">
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
             <ImageView fitHeight="147.0" fitWidth="250.0">
                <image>
                   <Image url="@../logo%20digitart%20white.png" />

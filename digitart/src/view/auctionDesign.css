@@ -165,7 +165,7 @@ and open the template in the editor.
 }
 .hometest-btn{
     -fx-background-color:#ffff;
-    
+  
     -fx-text-fill:#3B3936;
     -fx-font-size:18px;
     border-radius:15px 0 15px;
@@ -175,6 +175,21 @@ and open the template in the editor.
 .hometest-btn:hover{
     -fx-background-color:#BD2A2E;
     -fx-text-fill:#ffff;
+    
+}
+.dashhome-btn{
+    -fx-background-color:linear-gradient(to bottom right,  #BD2A2E,  #7C060F);
+    -fx-background-radius:50;
+    -fx-text-fill:#ffff;
+    -fx-font-size:18px;
+    border-radius:15px 0 15px;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+}
+.dashhome-btn:hover{
+    -fx-background-color:#3B3936;
+    -fx-text-fill:#ffff;
+    -fx-effect: dropshadow(gaussian, #3B3936, 5, 0, 0, 1);
 }
 .forget-btn{
     -fx-background-color: transparent;
