@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="790.0" prefWidth="1300.0" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_auctionsController">
+<AnchorPane id="AnchorPane" prefHeight="790.0" prefWidth="1300.0" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_auction_backController">
    <children>
       <AnchorPane id="AnchorPane" prefHeight="790.0" prefWidth="1300.0">
          <children>
@@ -21,7 +21,7 @@
                   <Image url="@../background%20homepage.jpg" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="-7.0" layoutY="-4.0" prefHeight="784.0" prefWidth="1295.0">
+            <AnchorPane layoutX="3.0" layoutY="2.0" prefHeight="784.0" prefWidth="1295.0">
                <children>
                   <ImageView fitHeight="172.0" fitWidth="311.0" layoutX="468.0" layoutY="-20.0">
                      <image>
@@ -59,7 +59,7 @@
                   <Button fx:id="tickets_btn" layoutX="511.0" layoutY="158.0" mnemonicParsing="false" onAction="#tickets_btn" prefHeight="35.0" prefWidth="113.0" styleClass="home-btn" stylesheets="@auctionDesign.css" text="Buy tickets" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="homepage_anchorpane" layoutX="4.0" layoutY="189.0" prefHeight="587.0" prefWidth="1268.0">
+            <AnchorPane fx:id="homepage_anchorpane" layoutX="14.0" layoutY="195.0" prefHeight="587.0" prefWidth="1268.0">
                <children>
                   <TableView fx:id="table_auction" layoutX="258.0" layoutY="70.0" onMouseClicked="#select_auction" prefHeight="388.0" prefWidth="886.0" style="-fx-alignement: center;" stylesheets="@auctionDesign.css">
                      <columns>
@@ -82,19 +82,14 @@
                   <TextField fx:id="search_in" layoutX="992.0" layoutY="38.0" onKeyTyped="#search_in_clck" prefHeight="27.0" prefWidth="152.0" promptText="SEARCH" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF;" styleClass="search" stylesheets="@auctionDesign.css" />
                   <Button fx:id="display_archive" layoutX="856.0" layoutY="467.0" mnemonicParsing="false" onAction="#display_archive_click" prefHeight="41.0" prefWidth="152.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show Archive" />
                   <FontAwesomeIconView fx:id="clear" glyphName="CLOSE" layoutX="1127.0" layoutY="56.0" onMouseClicked="#clear_search" size="15.0" />
-                  <Button fx:id="btn_Add_Auction" layoutX="-7.0" layoutY="97.0" mnemonicParsing="false" onAction="#btn_Add_Auction_click" prefHeight="35.0" prefWidth="181.0" styleClass="home-btn" stylesheets="@auctionDesign.css" text="Add To Auction">
+                  <Button fx:id="btn_Add_Auction1" layoutX="20.0" layoutY="87.0" mnemonicParsing="false" onAction="#btn_Add_Auction_click" prefHeight="35.0" prefWidth="152.0" styleClass="home-btn" stylesheets="@auctionDesign.css" text="Add To Auction">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_Artworks_Auction" layoutX="-7.0" layoutY="65.0" mnemonicParsing="false" onAction="#Artworks__Auction_cicked" prefHeight="35.0" prefWidth="181.0" styleClass="home-btn" stylesheets="@auctionDesign.css" text="Artworks In Auction">
+                  <Button fx:id="btn_Artworks_Auction1" layoutX="20.0" layoutY="52.0" mnemonicParsing="false" onAction="#Artworks__Auction_cicked" prefHeight="35.0" prefWidth="181.0" styleClass="home-btn" stylesheets="@auctionDesign.css" text="Artworks In Auction">
                      <font>
                         <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="auction_btn1" layoutX="-7.0" layoutY="132.0" mnemonicParsing="false" onAction="#auction_btn_clicked" prefHeight="35.0" prefWidth="181.0" styleClass="home-btn" stylesheets="@auctionDesign.css" text="Auction">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
                      </font>
                   </Button>
                </children>

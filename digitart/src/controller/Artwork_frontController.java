@@ -96,7 +96,7 @@ public class Artwork_frontController implements Initializable {
     }
 
     public void set_artwork(Auction_display auction_display) {
-
+        this.auction_display = auction_display;
         image1 = new Image(auction_display.getImg(), 350, 300, false, true);
         photo.setImage(image1);
         artwork_name.setText(auction_display.getName().toUpperCase());
