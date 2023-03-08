@@ -45,8 +45,6 @@ public class Home_pageController implements Initializable {
     @FXML
     private Button disconnect;
     @FXML
-    private Pane avatar_icon;
-    @FXML
     private Circle circle_image;
     @FXML
     private ImageView avatar_image;
@@ -55,59 +53,19 @@ public class Home_pageController implements Initializable {
     @FXML
     private Button disconnect1;
     @FXML
-    private Button editprof_btn;
+    private Button home_btn;
     @FXML
-    private TextField fname_editprof;
+    private Button artwork_btn;
     @FXML
-    private TextField lname_editprof;
+    private Button auction_btn;
     @FXML
-    private TextField email_editprof;
+    private Button events_btn;
     @FXML
-    private DatePicker birth_d_editprof;
+    private Button tickets_btn;
     @FXML
-    private TextField cin_editprof;
-    @FXML
-    private TextField address_editprof;
-    @FXML
-    private TextField phone_num_editprof;
-    @FXML
-    private RadioButton male_gender_editprof;
-    @FXML
-    private RadioButton female_gender_editprof;
-    @FXML
-    private Button clear_fields_editprof;
-    @FXML
-    private ComboBox<?> Rolebox_editprof;
-    @FXML
-    private Label errormsglname_edit;
-    @FXML
-    private Label errormsgfname_edit;
-    @FXML
-    private Label errormsgemail_edit;
-    @FXML
-    private Label errormsggender_edit;
-    @FXML
-    private Label errormsgcin_edit;
-    @FXML
-    private Label errormsgaddress_edit;
-    @FXML
-    private Label errormsgbirthdate_edit;
-    @FXML
-    private Label errormsgphonenum_edit;
-    @FXML
-    private Button newpwd_btn;
-    @FXML
-    private Label errormsgfiiledit;
-    @FXML
-    private Circle circle_image_edit;
-    @FXML
-    private ImageView avatar_image1;
-    @FXML
-    private Label labelusername_edit;
+    private AnchorPane homepage_anchorpane;
 
     
-    
-  
     /**
      * Initializes the controller class.
      */
@@ -140,20 +98,25 @@ public class Home_pageController implements Initializable {
         }
     }
 
+
     @FXML
-    private void editprof_btn(ActionEvent event) {
+    private void home_btn(ActionEvent event) {
     }
 
     @FXML
-    private void clear_fields_update_btn(ActionEvent event) {
+    private void artwork_btn(ActionEvent event) {
     }
 
     @FXML
-    private void handleSelectImage(ActionEvent event) {
+    private void auction_btn(ActionEvent event) {
     }
 
     @FXML
-    private void newpwd_btn(ActionEvent event) {
+    private void events_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
     }
     
 }
