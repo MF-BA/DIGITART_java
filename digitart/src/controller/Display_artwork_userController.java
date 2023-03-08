@@ -9,6 +9,7 @@ package controller;
 
 import Services.Artwork_Services;
 import entity.Artwork;
+import entity.Data;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,9 +26,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -43,17 +47,35 @@ public class Display_artwork_userController implements Initializable {
     @FXML
     private GridPane auction_container;
     HBox cardBox;
-    @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
-    private Button btn_artwork;
     private Stage stage;
     private Scene scene;
     private Parent root;
+    @FXML
+    private Button disconnect;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private Button home_btn;
+    @FXML
+    private Button artwork_btn;
+    @FXML
+    private Button auction_btn;
+    @FXML
+    private Button events_btn;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labelusername;
+    @FXML
+    private Button tickets_btn;
+    @FXML
+    private AnchorPane home;
+    @FXML
+    private AnchorPane homepage_anchorpane;
+    @FXML
+    private Button add_artwork_btn;
     
     private void go_add_artwork(ActionEvent event) {
         try {
@@ -66,9 +88,17 @@ public class Display_artwork_userController implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+            artwork_btn.setStyle("-fx-background-color: #bd2a2e ");
+        if("Artist".equals(Data.user.getRole())){
+            add_artwork_btn.setVisible(true);
+        
+        }else{add_artwork_btn.setVisible(false);}
 
         artworkArray = Artwork_Services.Display();
         int column = 0;
@@ -108,8 +138,80 @@ public class Display_artwork_userController implements Initializable {
     private void view_clicked(MouseEvent event) {
     }
 
-    @FXML
     private void btn_artwork_clicked(ActionEvent event) {
         go_add_artwork(event);
+    }
+
+    @FXML
+    private void disconnect_btn(ActionEvent event) {
+        
+        
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+            try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/home_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void add_artwork_btn_clicked(ActionEvent event) {
+           try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_artwork_user.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

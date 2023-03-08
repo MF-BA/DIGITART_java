@@ -84,7 +84,7 @@ public void generateQRCode() {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       
     }  
     public void show_artwork(Artwork artwork) {
          image1 = new Image(artwork.getImage_art(), 350, 300, false, true);
@@ -95,6 +95,7 @@ public void generateQRCode() {
         l_desc.setText(artwork.getDescription());
         l_date.setText(artwork.getDate_art().toString());
         l_room.setText(Artwork_Services.find_nameroom(artwork.getId_room()).toString());
+         generateQRCode();
         
     }
     /*
@@ -102,14 +103,7 @@ public void generateQRCode() {
         return this.auction_display;
     }*/
 
-    @FXML
-    private void btn_qr_clicked(ActionEvent event) {
-       
-            generateQRCode();
-            System.out.println("qrcode generated");
-     
-        
-    }
+   
        
 
 

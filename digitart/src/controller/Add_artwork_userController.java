@@ -48,6 +48,8 @@ import java.util.Properties;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -80,14 +82,6 @@ public class Add_artwork_userController implements Initializable {
     private Button btn_add;
     @FXML
     private Button btn_cancel;
-    @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
-    private Button btn_artwork;
 
     private Stage stage;
     private Scene scene;
@@ -95,6 +89,32 @@ public class Add_artwork_userController implements Initializable {
     private String imageUrl;
     private String nameRoom ;
     private File selectedFile;
+    @FXML
+    private Button disconnect;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private Button home_btn;
+    @FXML
+    private Button artwork_btn;
+    @FXML
+    private Button auction_btn;
+    @FXML
+    private Button events_btn;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labelusername;
+    @FXML
+    private Button tickets_btn;
+    @FXML
+    private AnchorPane home;
+    @FXML
+    private AnchorPane homepage_anchorpane;
+    @FXML
+    private Button add_artwork_btn;
     /**
      * Initializes the controller class.
      */
@@ -171,6 +191,8 @@ public class Add_artwork_userController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        artwork_btn.setStyle("-fx-background-color: #bd2a2e ");
+        add_artwork_btn.setStyle("-fx-background-color: #bd2a2e ");
         combobox();
     }    
 
@@ -286,7 +308,62 @@ public class Add_artwork_userController implements Initializable {
     }
 
     @FXML
-    private void btn_artwork_clicked(ActionEvent event) {
+    private void disconnect_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+            try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+            try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/home_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+       go_Display(event);
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void add_artwork_btn_clicked(ActionEvent event) {
     }
     
     
