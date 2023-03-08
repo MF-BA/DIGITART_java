@@ -62,6 +62,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -73,6 +74,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -119,7 +122,7 @@ public class Add_eventController implements Initializable {
     @FXML
     private Button btnadd;
     @FXML
-    private TextField txt_nb_participants;
+    private Spinner<Integer> txt_nb_participants;
     @FXML
     private TextField txt_event_id;
     @FXML
@@ -127,7 +130,7 @@ public class Add_eventController implements Initializable {
     @FXML
     private DatePicker txt_end_date;
     @FXML
-    private TextField txt_start_time;
+    private Spinner<Integer> txt_start_time;
     @FXML
     private TextArea txt_desc;
     @FXML
@@ -227,6 +230,8 @@ public class Add_eventController implements Initializable {
     @FXML
     private Button btn_addimage;
     @FXML
+    private ImageView imageev;
+    @FXML
     
     private void searchTicket() {
         ObservableList<Event> ticketObservableList = FXCollections.observableList(eventList);
@@ -293,8 +298,23 @@ public class Add_eventController implements Initializable {
      showparticipants();
      combobox();
      searchTicket();
+     showSpinner(txt_nb_participants);
+     showSpinner1(txt_start_time);
     }    
+public void showSpinner(Spinner<Integer> spinner) {
+        // Create a new spinner value factory with a range of 1 to 10, and an initial value of 1
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 70, 0);
 
+        // Set the spinner value factory
+        spinner.setValueFactory(valueFactory);
+    }
+public void showSpinner1(Spinner<Integer> spinner) {
+        // Create a new spinner value factory with a range of 1 to 10, and an initial value of 1
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 24, 0);
+
+        // Set the spinner value factory
+        spinner.setValueFactory(valueFactory);
+    }
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
@@ -323,36 +343,10 @@ public class Add_eventController implements Initializable {
             errormsgenddate.setText("");
             errormsgnbparticipants.setText("");
             errormsgdetails.setText("");
-            
-             if (!txt_start_time.getText().isEmpty())
-    {               
-    if (!txt_start_time.getText().matches("\\d+")) {
-        errormsgstarttime.setText("Start Time should be a number!");
-    } else if (txt_start_time.getText().toString().length()<2)
-    {
-        errormsgstarttime.setText("Time shouldn't pass 24!");
-    }
- if (start_date == null) {
-    errormsgstartdate.setText("Fill start date !!");
-} else if (start_date.isBefore(today)) {
-    errormsgstartdate.setText("Start date cannot be in the past!!");
-}
-   
-            }
-             try {
-    int number = Integer.parseInt(txt_start_time.getText());
-    if(number >= 24){
-        errormsgstarttime.setText("Start Time shouldn't pass 24");
-    }
-} catch (NumberFormatException e) {
-    // handle the case where the input is not a valid integer
-    JOptionPane.showMessageDialog(null, "Please enter a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
-    txt_start_time.setText(""); // clear the input field
-    txt_start_time.requestFocus(); // set focus back to the input field
-}
+          
   
      
-   if (event_name.isEmpty() || event_desc.isEmpty() || txt_room == null || txt_nb_participants.getText().isEmpty() || end_date == null  || start_date == null || txt_start_time.getText().isEmpty()) {
+   if (event_name.isEmpty() || event_desc.isEmpty() || txt_room == null || txt_nb_participants.getValue() == 0 || end_date == null  || start_date == null || txt_start_time.getValue() == 0) {
          
        errormsgelements.setText("Please fill all elements!!");  
     
@@ -377,15 +371,29 @@ public class Add_eventController implements Initializable {
     {
      errormsgenddate.setText("Fill end date!!");   
     }
-    if(txt_nb_participants.getText().isEmpty())
+    if(txt_nb_participants.getValue() == 0)
     {
         errormsgnbparticipants.setText("Fill the number of participants");
     }
-    if(txt_start_time.getText().isEmpty())
+    if(txt_start_time.getValue() == 0)
     {
         errormsgstarttime.setText("Fill the start time");
     }
+     
+                     
    
+ if (start_date == null) {
+    errormsgstartdate.setText("Fill start date !!");
+} else if (start_date.isBefore(today)) {
+    errormsgstartdate.setText("Start date cannot be in the past!!");
+}
+ if (end_date == null) {
+    errormsgenddate.setText("Fill end date !!");
+} else if (start_date.isBefore(today)) {
+    errormsgenddate.setText("End date cannot be in the past!!");
+}
+   
+            
    
     } else {
                 try {
@@ -408,7 +416,79 @@ public class Add_eventController implements Initializable {
            EventDelete();
         }if(event.getSource()==btnupdate)
         {
-            EventUpdate();
+            errormsgeventid.setText("");
+            errormsgeventname.setText("");
+            errormsgstarttime.setText("");
+            errormsgroomid.setText("");
+            errormsgstartdate.setText("");
+            errormsgenddate.setText("");
+            errormsgnbparticipants.setText("");
+            errormsgdetails.setText("");
+          
+  
+     
+   if (event_name.isEmpty() || event_desc.isEmpty() || txt_room == null || txt_nb_participants.getValue() == 0|| end_date == null  || start_date == null || txt_start_time.getValue() == 0) {
+         
+       errormsgelements.setText("Please fill all elements!!");  
+    
+    if (event_name.isEmpty())   {
+     
+     errormsgeventname.setText("fill event name !!");   
+    }
+    if(txt_room == null)
+    {
+        errormsgroomid.setText("Fill Room id");
+    }
+    if (event_desc.isEmpty())  {
+     
+     errormsgdetails.setText("fill event details !!");   
+    }
+    if ( start_date == null)
+    {
+     
+     errormsgstartdate.setText("Fill start date !!");   
+    }
+    if ( end_date == null)
+    {
+     errormsgenddate.setText("Fill end date!!");   
+    }
+    if(txt_nb_participants.getValue() == 0)
+    {
+        errormsgnbparticipants.setText("Fill the number of participants");
+    }
+    if(txt_start_time.getValue() == 0)
+    {
+        errormsgstarttime.setText("Fill the start time");
+    }
+     
+                   
+    
+ if (start_date == null) {
+    errormsgstartdate.setText("Fill start date !!");
+} else if (start_date.isBefore(today)) {
+    errormsgstartdate.setText("Start date cannot be in the past!!");
+}
+ if (end_date == null) {
+    errormsgenddate.setText("Fill end date !!");
+} else if (start_date.isBefore(today)) {
+    errormsgenddate.setText("End date cannot be in the past!!");
+}
+   
+            
+  
+   
+    } else {
+                try {
+                    Notification.sendNotification("Digitart","An Event was added",MessageType.INFO);
+                } catch (AWTException ex) {
+                    Logger.getLogger(Add_eventController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(Add_eventController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+       EventUpdate();
+       
+   }
+     
         }
     }
     
@@ -513,9 +593,9 @@ public class Add_eventController implements Initializable {
         LocalDate start_date = this.txt_start_date.getValue();
         LocalDate end_date = this.txt_end_date.getValue();
         String event_name = this.txt_event_name.getText();
-        int nb_participants = Integer.parseInt(this.txt_nb_participants.getText());
+        int nb_participants = this.txt_nb_participants.getValue();
         String event_desc = this.txt_desc.getText();
-        int start_time = Integer.parseInt(this.txt_start_time.getText());
+        int start_time = this.txt_start_time.getValue();
         int id_room;
         id_room = this.txt_room.getSelectionModel().getSelectedItem();  
         
@@ -608,9 +688,9 @@ public class Add_eventController implements Initializable {
         LocalDate start_date = this.txt_start_date.getValue();
         LocalDate end_date = this.txt_end_date.getValue();
         String event_name = this.txt_event_name.getText();
-        int nb_participants = Integer.parseInt(this.txt_nb_participants.getText());
+        int nb_participants = this.txt_nb_participants.getValue();
         String event_desc = this.txt_desc.getText();
-        int start_time = Integer.parseInt(this.txt_start_time.getText());
+        int start_time = this.txt_start_time.getValue();
         try {
             if ( event_name.isEmpty() || start_date == null  || end_date == null) {
             alert = new Alert(AlertType.ERROR);
@@ -649,9 +729,9 @@ public class Add_eventController implements Initializable {
         txt_event_id.setText(String.valueOf(eventt.getEvent_id()));
         txt_start_date.setValue(LocalDate.parse(String.valueOf(eventt.getStart_date())));
         txt_end_date.setValue(LocalDate.parse(String.valueOf(eventt.getEnd_date())));
-        txt_nb_participants.setText(String.valueOf(eventt.getNb_participants()));
+        txt_nb_participants.getValueFactory().setValue(eventt.getNb_participants());
         txt_desc.setText(String.valueOf(eventt.getDetail()));
-        txt_start_time.setText(String.valueOf(eventt.getStart_time()));
+        txt_start_time.getValueFactory().setValue(eventt.getStart_time());
         txt_event_name.setText(String.valueOf(eventt.getEvent_name()));
         ((ComboBox<Integer>) txt_room).setValue(eventt.getId_room());
             
@@ -670,9 +750,9 @@ public class Add_eventController implements Initializable {
         LocalDate start_date = this.txt_start_date.getValue();
         LocalDate end_date = this.txt_end_date.getValue();
         String event_name = this.txt_event_name.getText();
-        int nb_participants = Integer.parseInt(this.txt_nb_participants.getText());
+        int nb_participants = (int) this.txt_nb_participants.getValue();
         String event_desc = this.txt_desc.getText();
-        int start_time = Integer.parseInt(this.txt_start_time.getText());
+        int start_time = (int) this.txt_start_time.getValue();
         int id_room = this.txt_room.getSelectionModel().getSelectedItem();
         try {
             if (event_name.isEmpty() || start_date == null  || end_date == null) {
@@ -743,10 +823,10 @@ public class Add_eventController implements Initializable {
         list_participants.setStyle("-fx-background-color: transparent "); 
         txt_event_id.setText("");
         txt_event_name.setText("");
-        txt_start_time.setText("");
+        txt_start_time.getValueFactory().setValue(0);
         txt_end_date.setValue(null);
         txt_start_date.setValue(null);
-       txt_nb_participants.setText("");
+       txt_nb_participants.getValueFactory().setValue(0);
         txt_room.getSelectionModel().clearSelection(); 
         txt_desc.setText("");
         
@@ -755,14 +835,12 @@ public class Add_eventController implements Initializable {
     @FXML
     private void list_event_btn(ActionEvent event) {
         btnadd.setVisible(false);
-        btnupdate.setVisible(false);
         add_event_txt_field.setVisible(false);
         modify_event_field.setVisible(false);
         event_add_anc.setVisible(false);
         list_of_events.setVisible(true);
         part_anc.setVisible(false);
         add_event.setStyle("-fx-background-color:   transparent ");
-        modify_event.setStyle("-fx-background-color:  transparent ");
         list_events.setStyle("-fx-background-color: #470011 "); 
         list_participants.setStyle("-fx-background-color: transparent "); 
     }
@@ -778,7 +856,6 @@ public class Add_eventController implements Initializable {
         event_add_anc.setVisible(false);
         list_of_events.setVisible(false);
         add_event.setStyle("-fx-background-color:   transparent ");
-        modify_event.setStyle("-fx-background-color:  transparent ");
         list_events.setStyle("-fx-background-color: transparent "); 
         list_participants.setStyle("-fx-background-color: #470011 "); 
     }
@@ -905,16 +982,19 @@ public class Add_eventController implements Initializable {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
-
+        
         selectedFile = fileChooser.showOpenDialog(primaryStage);
         
-        
-        
-        
-        
-     
+         if (selectedFile != null) {
+        // Create an Image object from the selected file
+        Image image = new Image(selectedFile.toURI().toString());
 
+        // Set the image of the ImageView
+        imageev.setImage(image);
     }
+       
+    }
+ 
 
     
 }
