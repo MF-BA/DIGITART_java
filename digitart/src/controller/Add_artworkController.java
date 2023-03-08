@@ -239,18 +239,28 @@ private void btn_add_clicked(ActionEvent event) throws IOException {
        ObservableList<String> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_nameroom());
         input_idroom.setItems(myObservableList1);  
         
-        
-
-        // Create a filtered list to update the ComboBox suggestions
-        FilteredList<String> filteredItems = new FilteredList<>(myObservableList1, p -> true);
-        input_idroom.setOnKeyReleased(event -> {
-            filteredItems.setPredicate(p -> p.toLowerCase().contains(input_idroom.getEditor().getText().toLowerCase().trim()));
-        });
-
-        // Update the ComboBox popup with the filtered list items
-        input_idroom.setItems(filteredItems);
-       
     }
+//        
+//                public void combobox() {
+//        ObservableList<Integer> myObservableList = FXCollections.observableArrayList(Artwork_Services.find_idartist());
+//        input_id_artist.setItems(myObservableList);
+//        
+//       
+//       ObservableList<String> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_nameroom());
+//        input_idroom.setItems(myObservableList1);  
+//        
+//        
+//
+//        // Create a filtered list to update the ComboBox suggestions
+//        FilteredList<String> filteredItems = new FilteredList<>(myObservableList1, p -> true);
+//        input_idroom.setOnKeyReleased(event -> {
+//            filteredItems.setPredicate(p -> p.toLowerCase().contains(input_idroom.getEditor().getText().toLowerCase().trim()));
+//        });
+//
+//        // Update the ComboBox popup with the filtered list items
+//        input_idroom.setItems(filteredItems);
+//       
+//    }
 
     @FXML
     private void btn_cancel_clicked(ActionEvent event) {
