@@ -31,7 +31,7 @@
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="disconnect1" layoutX="1015.0" layoutY="87.0" mnemonicParsing="false" onAction="#disconnect_btn" prefHeight="33.0" prefWidth="142.0" style="-fx-background-radius: 20;" styleClass="home-btn" stylesheets="@auctionDesign.css" text="Edit profile" textFill="WHITE">
+            <Button fx:id="editprof_btn" layoutX="1015.0" layoutY="87.0" mnemonicParsing="false" onAction="#editprof_btn" prefHeight="33.0" prefWidth="142.0" style="-fx-background-radius: 20;" styleClass="home-btn" stylesheets="@auctionDesign.css" text="Edit profile" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="FILE_TEXT" size="15" />
                </graphic>

@@ -5,6 +5,7 @@
  */
 package view;
 
+import entity.Data;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -16,8 +17,10 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 /**
@@ -86,6 +89,11 @@ public class Editprofileuser_frontController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        labelusername_edit.setText(Data.user.getFirstname());
+        if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image_edit.setFill(new ImagePattern(image));
+        }
     }    
 
     @FXML

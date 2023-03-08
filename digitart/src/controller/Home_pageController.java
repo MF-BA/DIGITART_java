@@ -51,8 +51,6 @@ public class Home_pageController implements Initializable {
     @FXML
     private AnchorPane home;
     @FXML
-    private Button disconnect1;
-    @FXML
     private Button home_btn;
     @FXML
     private Button artwork_btn;
@@ -64,6 +62,8 @@ public class Home_pageController implements Initializable {
     private Button tickets_btn;
     @FXML
     private AnchorPane homepage_anchorpane;
+    @FXML
+    private Button editprof_btn;
 
     
     /**
@@ -117,6 +117,23 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void tickets_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
