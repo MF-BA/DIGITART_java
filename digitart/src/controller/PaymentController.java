@@ -474,6 +474,7 @@ public class PaymentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         totalLabel.setText(Data.totalp);
+        
         anchor_2.setVisible(false);
 
         Stripe.apiKey = "sk_test_51MfRIsHcaMLPP7A1X3INIItKLbEljzGYdpTujtvwb4mrggNEJtwS1SG2C6MyxYdz8T2uPVh219jsg7LBZRWSh2Ye00QEgBJZmW";

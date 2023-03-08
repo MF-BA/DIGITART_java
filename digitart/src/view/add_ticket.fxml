@@ -41,7 +41,7 @@
                   <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <Label prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
+            <Label fx:id="name" prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
                <padding>
                   <Insets left="70.0" />
                </padding>

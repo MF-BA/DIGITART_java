@@ -1418,14 +1418,14 @@ chartgender.setLabelsVisible(true);
                 
                 String newpwd = result1.get();
                 users u = new users (Data.user.getId(),
-             Data.user.getCin(),
-             Data.user.getFirstname(),
+                Data.user.getCin(),
+                Data.user.getFirstname(),
                 Data.user.getLastname(),
                 Data.user.getEmail(),
                 users_Services.hashPassword(newpwd),
                 Data.user.getAddress(),
-             Data.user.getPhone_number(),   
-             Data.user.getBirth_date(),
+                Data.user.getPhone_number(),   
+                Data.user.getBirth_date(),
                 Data.user.getGender(),
                 Data.user.getRole(),
                 Data.user.getStatus(),

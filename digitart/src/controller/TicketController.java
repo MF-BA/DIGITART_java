@@ -11,6 +11,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
+import entity.Data;
 import utils.Conn;
 import entity.Ticket;
 import entity.Payment;
@@ -186,6 +187,8 @@ public class TicketController implements Initializable {
     private Button deconnect1;
     
      private Parent pt;
+    @FXML
+    private Label name;
 
     public void combobox() {
         List<String> options = new ArrayList<>();
@@ -694,7 +697,9 @@ public class TicketController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
+        name.setText(Data.user.getFirstname());
+        
         dashboard_anchor.setVisible(true);
         addticket_anchor.setVisible(false);
         payment_anchor.setVisible(false);
