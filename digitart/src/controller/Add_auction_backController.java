@@ -146,7 +146,7 @@ public class Add_auction_backController implements Initializable {
     
     private void go_Home() {
         try {
-            root = FXMLLoader.load(getClass().getResource("/view/back_admin/display_auction_back.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/display_auction_back.fxml"));
             //stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage = (Stage) in_SB.getScene().getWindow();
             scene = new Scene(root);

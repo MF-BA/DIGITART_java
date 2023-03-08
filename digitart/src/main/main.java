@@ -9,21 +9,10 @@ import Services.Auction_Services;
 import Services.Bid_Services;
 
 import java.time.LocalDate;
-import com.stripe.Stripe;
-import com.stripe.exception.StripeException;
-import com.stripe.model.Card;
-import com.stripe.model.Charge;
-import com.stripe.model.Customer;
-import com.stripe.model.Token;
-import controller.Signup_pageController;
-import entity.Bid;
-import entity.Auction_display;
 import entity.Data;
 import entity.users;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -58,7 +47,7 @@ public class main extends Application {
 
         
         //Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/back_admin/display_auction_back.fxml"));
-        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
+        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/Display_auctions.fxml"));
         Scene scene = new Scene(DisplayROOM_Page);
 
         this.primaryStage.setScene(scene);
@@ -123,7 +112,7 @@ public class main extends Application {
 
         }
 
-        Data.user = new users(1, 12, "firstname", "lastname", "laatarmomo@gmail.com", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
+        Data.user = new users(35, 12, "firstname", "lastname", "laatarmomo@gmail.com", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
 
         /*String apiUrl = "http://data.fixer.io/api/latest?access_key=fBHGSQbaHC735dTQMppwn4QhzmuSeQcp";
         URL url = new URL(apiUrl);

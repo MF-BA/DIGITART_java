@@ -6,6 +6,7 @@
 package controller;
 
 import Services.Auction_Services;
+import Services.Bid_Services;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entity.Auction_display;
 import entity.Data;
@@ -140,6 +141,11 @@ public class Display_auction_backController implements Initializable {
             return null;
         }
         Data.auction_display = t;
+        Data.back_auction=true;
+        if(Bid_Services.Display(t.getId_auction()).isEmpty())
+            Dslay_update_button.setDisable(false);
+        else 
+            Dslay_update_button.setDisable(true);
         return t;
     }
 
@@ -267,7 +273,7 @@ public class Display_auction_backController implements Initializable {
     private void btn_Add_Auction_click(ActionEvent event) {
         
         try {
-            root = FXMLLoader.load(getClass().getResource("/view/back_admin/add_auction_back.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/view/add_auction_back.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -330,7 +336,7 @@ public class Display_auction_backController implements Initializable {
         try {
             // Load the FXML file
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/back_admin/Archive_back.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Archive_back.fxml"));
             root = loader.load();
 
             // Create a new stage and set the FXML file as its scene

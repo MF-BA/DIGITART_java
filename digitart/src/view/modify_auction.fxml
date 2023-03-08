@@ -22,7 +22,7 @@
             <Font name="Berlin Sans FB Demi Bold" size="50.0" />
          </font>
       </Label>
-      <Label layoutX="410.0" layoutY="195.0" prefHeight="30.0" prefWidth="126.0" text="Select Item:">
+      <Label fx:id="modif" layoutX="410.0" layoutY="195.0" prefHeight="30.0" prefWidth="126.0" text="Select Item:">
          <font>
             <Font name="Microsoft New Tai Lue" size="20.0" />
          </font>

@@ -6,6 +6,7 @@
 package controller;
 
 import Services.Auction_Services;
+import Services.Bid_Services;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entity.Auction_display;
 import entity.Data;
@@ -142,6 +143,11 @@ public class Display_auctionsController implements Initializable {
             return null;
         }
         Data.auction_display = t;
+        Data.back_auction=false;
+        if(Bid_Services.Display(t.getId_auction()).isEmpty())
+            Dslay_update_button.setDisable(false);
+        else 
+            Dslay_update_button.setDisable(true);
         return t;
     }
 

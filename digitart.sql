@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `artwork`
+-- Structure de la table `auction`
 --
 
 CREATE TABLE `auction` (

@@ -30,7 +30,7 @@
          </font>
       </Label>
       <Button fx:id="display_show_bid_btn" layoutX="744.0" layoutY="581.0" mnemonicParsing="false" onAction="#display_show_bid_btn_click" prefHeight="41.0" prefWidth="119.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show Bids" />
-      <Button fx:id="Dslay_update_button" disable="true" layoutX="1041.0" layoutY="632.0" mnemonicParsing="false" onAction="#Auctonupdate" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Update" visible="false" />
+      <Button fx:id="Dslay_update_button" layoutX="1041.0" layoutY="632.0" mnemonicParsing="false" onAction="#Auctonupdate" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Update" />
       <Button fx:id="Dslay_delete_button" layoutX="1041.0" layoutY="581.0" mnemonicParsing="false" onAction="#AuctonDelete" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Delete" />
       <TextField fx:id="search_in" layoutX="1013.0" layoutY="156.0" onKeyTyped="#search_in_clck" prefHeight="27.0" prefWidth="152.0" promptText="SEARCH" style="-fx-background-radius: 20;" styleClass="search" stylesheets="@auctionDesign.css" />
       <VBox prefHeight="729.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">

@@ -21,12 +21,10 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -82,13 +80,14 @@ public class Event_displayController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+
         // TODO
-    }   
+    }
     Event test;
     Image image1;
-     public void show_event(Event event) throws MalformedURLException, IOException {
-        test=event;
+
+    public void show_event(Event event) throws MalformedURLException, IOException {
+        test = event;
         URL url = new URL(event.getImage());
         System.out.println(event.getImage());
         image1 = new Image(event.getImage(), 350, 350, false, true);
@@ -97,17 +96,17 @@ public class Event_displayController implements Initializable {
         txt_start_date.setText(event.getStart_date().toString());
         txt_end_date.setText(event.getEnd_date().toString());
         txt_event_desc.setText(event.getDetail());
-       txt_start_time.setText(String.format("%02d:00", event.getStart_time()));
-         ZoneId zoneId = ZoneId.systemDefault();
-          
-     Date date = event.getStart_date();
+        txt_start_time.setText(String.format("%02d:00", event.getStart_time()));
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        Date date = event.getStart_date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        LocalDate localDate = LocalDate.of(calendar.get(Calendar.YEAR), 
-                                            calendar.get(Calendar.MONTH) + 1, 
-                                            calendar.get(Calendar.DAY_OF_MONTH));
-         //System.out.println(event.getStart_date().toInstant());
-        
+        LocalDate localDate = LocalDate.of(calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.DAY_OF_MONTH));
+        //System.out.println(event.getStart_date().toInstant());
+
         ZonedDateTime zonedDateTime = localDate.atStartOfDay(zoneId);
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
@@ -119,11 +118,10 @@ public class Event_displayController implements Initializable {
 
         // Schedule the TimerTask to run every 0.1 seconds
         timer.schedule(task, 0, 100); // 0 milliseconds initial delay, 5000 milliseconds (5 seconds) between subsequent executions
-           
-        
+
     }
-     
-     public static String findDifference(ZonedDateTime endDateTime) {
+
+    public static String findDifference(ZonedDateTime endDateTime) {
         // Calculate time difference in seconds
         long differenceInSeconds = ChronoUnit.SECONDS.between(ZonedDateTime.now(), endDateTime);
 
@@ -142,91 +140,90 @@ public class Event_displayController implements Initializable {
         // Return the result string
         return result;
     }
-     public Event getEvent()
-     {
-         return test;
-     }
+
+    public Event getEvent() {
+        return test;
+    }
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if(event.getSource()==btnparticipate){
-           UserAdd(test.getEvent_id());
+        if (event.getSource() == btnparticipate) {
+            UserAdd(test.getEvent_id());
         }
     }
+
     public void UserAdd(int id_event) {
 
-        Event event =null;
-       int id_user=Data.user.getId();
-        String first_name=Data.user.getFirstname();
-        String last_name=Data.user.getLastname();
-        String adress=Data.user.getAddress();
-        String gender=Data.user.getGender();
+        Event event = null;
+        int id_user = Data.user.getId();
+        String first_name = Data.user.getFirstname();
+        String last_name = Data.user.getLastname();
+        String adress = Data.user.getAddress();
+        String gender = Data.user.getGender();
         int event_id = id_event;
 
         Alert alert;
 
         // CHECK IF THE FIELDS ARE EMPTY
-      
-            try {
-                // CHECK IF THE TICKET ID ALREADY EXISTS
-                Connection connection;
-                connection = Conn.getCon();
-                String check = "SELECT id_user FROM participants WHERE id_user = ?";
-                PreparedStatement checkStatement = connection.prepareStatement(check);
-                checkStatement.setInt(1, id_user);
-                ResultSet result = checkStatement.executeQuery();
-                if (result.next()) {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("User ID: " + id_user + " can only participate in one event at a time!");
-                    alert.showAndWait();
-                } else {
-                    Event_Services.insertuser(id_user,first_name, last_name,adress,gender,event_id);
-                    alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
-                    alert.showAndWait();
-                    // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+        try {
+            // CHECK IF THE TICKET ID ALREADY EXISTS
+            Connection connection;
+            connection = Conn.getCon();
+            String check = "SELECT id_user FROM participants WHERE id_user = ?";
+            PreparedStatement checkStatement = connection.prepareStatement(check);
+            checkStatement.setInt(1, id_user);
+            ResultSet result = checkStatement.executeQuery();
+            if (result.next()) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("User ID: " + id_user + " can only participate in one event at a time!");
+                alert.showAndWait();
+            } else {
+                Event_Services.insertuser(id_user, first_name, last_name, adress, gender, event_id);
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Successfully Added!");
+                alert.showAndWait();
+                // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
 
-                    
-                }
-            } catch (Exception e) {
-                Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "fatal error!!", e);
             }
-        
-    }
-public void generateQRCode() {
-    String url = "https://artsandculture.google.com/search?q="+txt_event_name.getText().replaceAll("\\s+", "%20")+"%20"+ txt_start_date.getText().replaceAll("\\s+", "%20");
-
-    QRCodeWriter qrCodeWriter = new QRCodeWriter();
-    ByteMatrix byteMatrix;
-    try {
-        byteMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
-    } catch (WriterException e) {
-        e.printStackTrace();
-        return;
-    }
-
-    int width = byteMatrix.getWidth();
-    int height = byteMatrix.getHeight();
-    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-            int value = byteMatrix.get(x, y);
-            image.setRGB(x, y, value == 0 ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
+        } catch (Exception e) {
+            Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "fatal error!!", e);
         }
+
     }
 
-    Image fxImage = SwingFXUtils.toFXImage(image, null);
-    qrcode.setImage(fxImage);
-}
+    public void generateQRCode() {
+        String url = "https://artsandculture.google.com/search?q=" + txt_event_name.getText().replaceAll("\\s+", "%20") + "%20" + txt_start_date.getText().replaceAll("\\s+", "%20" + txt_end_date.getText().replaceAll("\\s+", "%20") + txt_event_desc.getText().replaceAll("\\s+", "%20"));
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        ByteMatrix byteMatrix;
+        try {
+            byteMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
+        } catch (WriterException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        int width = byteMatrix.getWidth();
+        int height = byteMatrix.getHeight();
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int value = byteMatrix.get(x, y);
+                image.setRGB(x, y, value == 0 ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
+            }
+        }
+
+        Image fxImage = SwingFXUtils.toFXImage(image, null);
+        qrcode.setImage(fxImage);
+    }
+
     @FXML
     private void btn_qr_clicked(ActionEvent event) {
-           generateQRCode();
-            System.out.println("qrcode generated");
+        generateQRCode();
+        System.out.println("qrcode generated");
     }
-    
-    
+
 }

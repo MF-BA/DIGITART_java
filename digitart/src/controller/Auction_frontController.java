@@ -75,7 +75,7 @@ public class Auction_frontController implements Initializable {
     }
     
     public void display_auction() {
-        auction_array_detailed = Auction_Services.Display_auction_details(Auction_Services.Display_front(Data.user.getId()));
+        auction_array_detailed = Auction_Services.Display_auction_details(Auction_Services.Display_front_public(Data.user.getId()));
         int column = 0;
         int row = 1;
         for (int i = 0; i < auction_array_detailed.size(); i++) {
@@ -86,7 +86,6 @@ public class Auction_frontController implements Initializable {
             try {
                 cardBox = fxmlLoader.load();
                 Artwork_frontController cardController = fxmlLoader.getController();
-                //System.out.println(auction_array_detailed.get(0));
                 cardController.set_artwork(auction_array_detailed.get(i));
                 System.out.println(cardBox.getChildren());
                 ImageView cardPane = (ImageView) cardBox.getChildren().get(0);

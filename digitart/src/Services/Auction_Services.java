@@ -170,6 +170,31 @@ public class Auction_Services {
         }
         return list;
     }
+    
+    public static ArrayList<Auction> Display_front_public(int id_artist) {
+        ArrayList<Auction> list = new ArrayList<>();
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE ending_date > CURDATE() and artwork.id_artist <>" + id_artist);
+
+            while (resultSet.next()) {
+                LocalDate D = resultSet.getDate(4).toLocalDate();
+                Auction data = new Auction(resultSet.getInt(1),
+                        resultSet.getInt(2),
+                        resultSet.getInt(3),
+                        resultSet.getInt(6),
+                        D,
+                        resultSet.getString(5)
+                );
+                list.add(data);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
 
     public static ArrayList<Auction_display> Display_auction_details(ArrayList<Auction> Display) {
         ArrayList<Auction_display> displayList; // initialize displayList
