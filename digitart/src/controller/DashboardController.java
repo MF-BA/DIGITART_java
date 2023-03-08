@@ -677,7 +677,7 @@ public void comboboxedit()
         userstats_dash.setVisible(false);
         editprofile_page.setVisible(true);
         
-        fname_editprof.setText(Data.user.getFirstname());
+       fname_editprof.setText(Data.user.getFirstname());
         lname_editprof.setText(Data.user.getLastname());
         email_editprof.setText(Data.user.getEmail());
         //pwd_editprof.setText(user.hashPassword(Data.user.getPwd()));
@@ -844,7 +844,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     }
     @FXML
     private void clear_fields_update_btn(ActionEvent event) {
-        clearupd();
+       clearedit();
         
     }
     
@@ -973,8 +973,8 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     }
        if (Cin!=0 && phone_number!=0 && Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")){
            
-       
-            imageUrl="http://localhost/images/"+imageFile.getName();
+       if (imageFile!=null){
+       imageUrl="http://localhost/images/"+imageFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
 //        String imageFilePath = "C:\xamppp\htdocs\piImg";
 
@@ -1009,8 +1009,6 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
             System.out.println(line);
         }
         reader.close();
-        
-            //String pathimage = upload();
         users u = new users (Data.user.getId(),
              Cin,
              firstname,
@@ -1042,9 +1040,59 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
          errormsgemail_edit.setText(""); 
          errormsgbirthdate_edit.setText(""); 
          errormsgphonenum_edit.setText(""); 
+       }
+       else
+       {
+        users u = new users (Data.user.getId(),
+             Cin,
+             firstname,
+                lastname,
+                Email,
+                Data.user.getPwd(),
+                Address,
+             phone_number,   
+             BirthDate,
+                gender,
+                role,
+                Data.user.getStatus(),
+                Data.user.getImage(),
+                Data.user.getSecretcode()
+        );
+        
+        users_Services user = new users_Services();
+         // Upload the image file if one was selected
+         // Debug statements
+        System.out.println("Image url: " + imageUrl);
+     
+        user.modifyuser(u);
+         showusers();
+         errormsgfiiledit.setText("your profile is successfully modified!!");  
+         errormsggender_edit.setText(""); 
+         errormsgfname_edit.setText(""); 
+         errormsgcin_edit.setText(""); 
+         errormsgaddress_edit.setText(""); 
+         errormsgemail_edit.setText(""); 
+         errormsgbirthdate_edit.setText(""); 
+         errormsgphonenum_edit.setText("");    
+       }
+            //String pathimage = upload();
+        
          
        }
         }
+    }
+    public void clearedit(){
+        
+        fname_editprof.setText("");
+        lname_editprof.setText("");
+        email_editprof.setText("");
+       female_gender_editprof.setSelected(false);
+       male_gender_editprof.setSelected(false);
+       Rolebox_editprof.getSelectionModel().clearSelection(); 
+       address_editprof.setText("");
+       cin_editprof.setText("");
+       birth_d_editprof.setValue(null); 
+       phone_num_editprof.setText("");
     }
 
     @FXML

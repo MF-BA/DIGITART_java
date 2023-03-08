@@ -88,6 +88,7 @@ and open the template in the editor.
 .textfield-home{
     -fx-background-color:transparent;
     -fx-border-color: #ffff;
+    -fx-text-fill: white;
     -fx-font-family:"Tahoma";
     -fx-font-size:13px;
     -fx-border-radius:10px 5px 10px 5px;
@@ -173,6 +174,7 @@ and open the template in the editor.
 }
 .hometest-btn:hover{
     -fx-background-color:#BD2A2E;
+    -fx-text-fill:#ffff;
 }
 .forget-btn{
     -fx-background-color: transparent;

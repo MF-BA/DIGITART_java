@@ -51,7 +51,7 @@ public class users_Services {
             pst.setString(9,u.getGender());
             pst.setString(10,u.getRole());
             pst.setString(11,"unblocked");
-            pst.setString(12,"");
+            pst.setString(12,null);
              pst.executeUpdate();
             System.out.println("success!!");
                 
