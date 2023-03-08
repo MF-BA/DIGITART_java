@@ -189,7 +189,6 @@ if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmp
      errormsgpwd.setText("fill paswword !!");   
     }
     if (Address.isEmpty())  {
-     
      errormsgaddress.setText("fill Address !!");   
     }
     if ( Email.isEmpty())

@@ -231,8 +231,6 @@ public class Signin_pageController implements Initializable {
     @FXML
     private AnchorPane qrcodelogin;
     @FXML
-    private Hyperlink qrCodeUrlLink;
-    @FXML
     private ImageView qrcodeimage;
     @FXML
     private Label qrcodetext;
