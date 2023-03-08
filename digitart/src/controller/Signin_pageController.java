@@ -353,20 +353,20 @@ public class Signin_pageController implements Initializable {
                
                System.out.println(qrCodeUrl);
                
-               /*Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
-               hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-               hints.put(EncodeHintType.MARGIN, 1);
-
-               QRCodeWriter writer = new QRCodeWriter();
-               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);
-             /*QRCodeWriter writer = new QRCodeWriter();
+//               Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
+//               hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+//               hints.put(EncodeHintType.MARGIN, 1);
+//
+//               QRCodeWriter writer = new QRCodeWriter();
+//               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);
+             QRCodeWriter writer = new QRCodeWriter();
              ByteMatrix byteMatrix;
     try {
         byteMatrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 200, 200);
     } catch (WriterException e) {
         e.printStackTrace();
         return;
-    }*/
+    }
 
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                  MatrixToImageWriter.writeToStream(byteMatrix, "PNG", outputStream);
