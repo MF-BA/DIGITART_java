@@ -7,10 +7,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -54,9 +56,19 @@
       <FontAwesomeIconView glyphName="SEARCH" layoutX="289.0" layoutY="160.0" />
       <VBox prefHeight="720.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
-            <Pane prefHeight="171.0" prefWidth="269.0">
+            <Pane fx:id="avatar_icon" prefHeight="171.0" prefWidth="269.0">
                <children>
-                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="79.0" layoutY="131.0" size="130" />
+                  <Circle fill="#bd2a2e" layoutX="125.0" layoutY="85.0" radius="71.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                  <Circle fx:id="circle_image" fill="#bd2a2e" layoutX="125.0" layoutY="85.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                  <ImageView fx:id="avatar_image" fitHeight="134.0" fitWidth="152.0" layoutX="49.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label fx:id="labeladminname2" prefHeight="17.0" prefWidth="272.0">
+                     <padding>
+                        <Insets left="80.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <Label prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
@@ -67,26 +79,20 @@
                   <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <Label fx:id="labeladminname" prefHeight="17.0" prefWidth="272.0">
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
+            <Label fx:id="labeladminname3" alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
                <font>
-                  <Font name="System Bold" size="16.0" />
+                  <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <Label />
-            <Label />
-            <Label />
+            <Button fx:id="return_dash_btn" mnemonicParsing="false" onAction="#return_dash_btn" prefHeight="51.0" prefWidth="271.0" styleClass="navRETURN-form" stylesheets="@auctionDesign.css" text="Back to home" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="REPLY" size="20" />
+               </graphic>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
             <Label fx:id="labeladminname1" prefHeight="17.0" prefWidth="272.0">
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="labeladminname2" prefHeight="17.0" prefWidth="272.0">
                <padding>
                   <Insets left="80.0" />
                </padding>
@@ -110,6 +116,32 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="IMAGE" size="30" />
                </graphic>
             </Button>
+            <Label prefHeight="17.0" prefWidth="252.0" />
+            <Label fx:id="labeladminname" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="17.0" prefWidth="252.0" />
+            <ImageView fitHeight="147.0" fitWidth="250.0">
+               <image>
+                  <Image url="@../logo%20digitart%20white.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="deconnect1" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="20" />
+               </graphic>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
+            <Label />
+            <Label />
+            <Label />
          </children>
       </VBox>
       <Pane layoutX="829.0" layoutY="264.0" prefHeight="263.0" prefWidth="263.0" style="-fx-background-color: #3B3936;" />

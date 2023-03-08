@@ -37,9 +37,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -95,6 +98,43 @@ public class Display_roomController implements Initializable {
     private Label labeladminname2;
     @FXML
     private Button BTN_PDF;
+    @FXML
+    private Pane avatar_icon;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labeladminname3;
+    @FXML
+    private Button return_dash_btn;
+    @FXML
+    private Button deconnect1;
+    
+    
+     private void go_signin(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/signin_page.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+     private void go_home(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/dashboard_homepage.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void ShowRoom() {
 
@@ -355,6 +395,16 @@ public class Display_roomController implements Initializable {
     private void BTN_statistics_clicked(ActionEvent event) {
 
         go_RoomChart(event);
+    }
+
+    @FXML
+    private void return_dash_btn(ActionEvent event) {
+        go_home(event);
+    }
+
+    @FXML
+    private void deconnect_btn(ActionEvent event) {
+        go_signin( event);
     }
 
 }
