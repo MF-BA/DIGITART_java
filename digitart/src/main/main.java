@@ -9,10 +9,21 @@ import Services.Auction_Services;
 import Services.Bid_Services;
 
 import java.time.LocalDate;
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.Card;
+import com.stripe.model.Charge;
+import com.stripe.model.Customer;
+import com.stripe.model.Token;
+import controller.Signup_pageController;
+import entity.Bid;
+import entity.Auction_display;
 import entity.Data;
 import entity.users;
 import java.time.Month;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -193,8 +204,7 @@ public class main extends Application {
        System.out.println(ServiceTicket.displayTicket());
          */
         // Amine---------------------------------------------------------------------------------------------------- 
-        System.exit(
-                0);
+        System.exit(0);
 
     }
 

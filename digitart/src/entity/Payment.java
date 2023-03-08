@@ -32,7 +32,7 @@ public class Payment {
     }
 
     public Payment(int userid, LocalDate purchaseDate, int nbAdult, int nbTeenager, int nbStudent, int totalPayment) {
-        this.userid = 0;
+        this.userid = userid;
         this.purchaseDate = purchaseDate;
         this.nbAdult = nbAdult;
         this.nbTeenager = nbTeenager;

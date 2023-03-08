@@ -273,6 +273,30 @@ INSERT INTO `payment` (`payment_id`, `user_id`, `purchase_date`, `nb_adult`, `nb
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `payment`
+--
+
+CREATE TABLE `payment` (
+  `payment_id` int(255) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `purchase_date` date NOT NULL,
+  `nb_adult` int(20) DEFAULT NULL,
+  `nb_teenager` int(20) DEFAULT NULL,
+  `nb_student` int(20) DEFAULT NULL,
+  `total_payment` int(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `payment`
+--
+
+INSERT INTO `payment` (`payment_id`, `user_id`, `purchase_date`, `nb_adult`, `nb_teenager`, `nb_student`, `total_payment`) VALUES
+(17, NULL, '2023-02-23', 4, 4, 4, 360),
+(21, NULL, '2023-02-22', 2, 4, 5, 300);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `ticket`
 --
 

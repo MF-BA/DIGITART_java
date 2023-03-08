@@ -7,6 +7,7 @@ package entity;
 
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import java.time.LocalDate;
 
 /**
  *
@@ -23,4 +24,10 @@ public class Data {
     public static final String username = "digitart.primes@gmail.com";
     public static final String password = "ktknrunncnveaidz";
 
+    public static Payment payment;
+    public static String totalp;
+    public static LocalDate purchaseDate;
+    public static int nbAdult;
+    public static int nbTeenager;
+    public static int nbStudent;
 }
