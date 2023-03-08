@@ -20,6 +20,7 @@ public class Event {
     private String detail;
     private int nb_participants;
     private int id_room;
+    private String image;
     
     public Event(int event_id,Date start_date,Date end_date,int start_time,String event_name,String detail,int nb_participants) {
         this.event_id = event_id;
@@ -42,6 +43,19 @@ public class Event {
         this.id_room=id_room;
         
 }
+           public Event(int event_id,Date start_date,Date end_date,int start_time,String event_name,String detail,int nb_participants,int id_room,String image) {
+        this.event_id = event_id;
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.start_time = start_time;
+        this.event_name = event_name;
+        this.detail = detail;
+        this.nb_participants=nb_participants;
+        this.id_room=id_room;
+        this.image=image;
+}
+
+    
 
     public Event(Date start_date, Date end_date, int start_time, String event_name, String detail, int nb_participants) {
       
@@ -52,9 +66,27 @@ public class Event {
         this.detail = detail;
         this.nb_participants=nb_participants;
     }
+    public Event(Date start_date, Date end_date, int start_time, String event_name, String detail, int nb_participants,String image) {
+      
+        this.start_date = start_date;
+        this.end_date = end_date;
+        this.start_time = start_time;
+        this.event_name = event_name;
+        this.detail = detail;
+        this.nb_participants=nb_participants;
+        this.image=image;
+    }
 
     public int getEvent_id() {
         return event_id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Date getStart_date() {

@@ -14,14 +14,29 @@ import Services.Event_Services;
 import static Services.Event_Services.displayEvent;
 import utils.Conn;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import doryan.windowsnotificationapi.fr.Notification;
 import entity.Data;
 import entity.Participants;
 import entity.Ticket;
+import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -91,6 +106,7 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import static utils.Conn.conn;
 /**
  * FXML Controller class
  *
@@ -207,6 +223,9 @@ public class Add_eventController implements Initializable {
     @FXML
     private Button pdf_print;
     @FXML
+    private Button btn_addimage;
+    @FXML
+    
     private void searchTicket() {
         ObservableList<Event> ticketObservableList = FXCollections.observableList(eventList);
         FilteredList<Event> filteredData = new FilteredList<>(ticketObservableList, p -> true);
@@ -367,7 +386,13 @@ public class Add_eventController implements Initializable {
    
    
     } else {
-       
+                try {
+                    Notification.sendNotification("Digitart","An Event was added",MessageType.INFO);
+                } catch (AWTException ex) {
+                    Logger.getLogger(Add_eventController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(Add_eventController.class.getName()).log(Level.SEVERE, null, ex);
+                }
        EventAdd();
        
    }
@@ -492,7 +517,6 @@ public class Add_eventController implements Initializable {
         int id_room;
         id_room = this.txt_room.getSelectionModel().getSelectedItem();  
         
-
         Alert alert;
 
         // CHECK IF THE FIELDS ARE EMPTY
@@ -511,6 +535,42 @@ public class Add_eventController implements Initializable {
                 PreparedStatement checkStatement = connection.prepareStatement(check);
                 checkStatement.setString(1, event_id);
                 ResultSet result = checkStatement.executeQuery();
+                 // String imagePath = file.getPath();
+       imageUrl="http://localhost/images/"+selectedFile.getName();
+       String phpUrl = "http://localhost/images/upload.php";
+//        String imageFilePath = "C:\\xamppp\\htdocs\\piImg";
+
+        // Read the image file data
+        byte[] imageData = Files.readAllBytes(selectedFile.toPath());
+
+        // Create the boundary string for the multipart request
+        String boundary = "---------------------------12345";
+
+        // Open the connection to the PHP script
+        URL url = new URL(phpUrl);
+        HttpURLConnection connectionn = (HttpURLConnection) url.openConnection();
+        connectionn.setDoOutput(true);
+        connectionn.setRequestMethod("POST");
+        connectionn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+        // Write the image file data to the output stream of the connection
+        OutputStream outputStream = connectionn.getOutputStream();
+        outputStream.write(("--" + boundary + "\r\n").getBytes());
+        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + selectedFile.getName() + "\"\r\n").getBytes());
+        outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+        outputStream.write(imageData);
+        outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+        // Read the response from the PHP script
+        InputStream inputStream = connectionn.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        reader.close();
                 if (result.next()) {
                     alert = new Alert(AlertType.ERROR);
                     alert.setTitle("Error Message");
@@ -518,12 +578,14 @@ public class Add_eventController implements Initializable {
                     alert.setContentText("Event ID: " + event_id + " already exists!");
                     alert.showAndWait();
                 } else {
-                    Event_Services.insertevent(event_name,start_date, end_date,nb_participants,start_time,event_desc,id_room);
+                    Event_Services.insertevent(event_name,start_date, end_date,nb_participants,start_time,event_desc,id_room,imageUrl);
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Added!");
                     alert.showAndWait();
+                  
+
                     // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
                     try {
         sendEmail("bedhiefkoussay2015@gmail.com", "Event Added", "Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n Thank you for trusting our application, \n You have successfully added the event "+event_name);
@@ -829,6 +891,28 @@ public class Add_eventController implements Initializable {
         alert.showAndWait();
     }
 }
+    private File selectedFile;
+    private String imageUrl;
+
+    @FXML
+    private void btn_addimage_clicked(ActionEvent event) throws IOException {
+        
+        Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        selectedFile = fileChooser.showOpenDialog(primaryStage);
+        
+        
+        
+        
+        
+     
+
+    }
     
     
 }

@@ -124,7 +124,7 @@
                   <TextArea fx:id="txt_desc" layoutX="162.0" layoutY="312.0" prefHeight="76.0" prefWidth="179.0" promptText="Enter the details of event" styleClass="textfield" stylesheets="@auctionDesign.css" />
                   <TextField fx:id="txt_event_name" layoutX="165.0" layoutY="56.0" prefHeight="30.0" prefWidth="179.0" promptText="Enter the event name" styleClass="textfield" stylesheets="@auctionDesign.css" />
                   <DatePicker fx:id="txt_end_date" layoutX="629.0" layoutY="134.0" prefHeight="30.0" prefWidth="179.0" promptText="MM-DD-YYYY" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                  <ComboBox fx:id="txt_room" layoutX="159.0" layoutY="227.0" prefHeight="30.0" prefWidth="179.0" promptText="Select the room Id" styleClass="combobox" />
+                  <ComboBox fx:id="txt_room" layoutX="159.0" layoutY="227.0" prefHeight="30.0" prefWidth="179.0" promptText="Select the room" styleClass="combobox" />
                   <Label layoutX="293.0" layoutY="381.0" text="Event ID :" textFill="#3b3936" visible="false">
                      <font>
                         <Font name="Microsoft New Tai Lue Bold" size="15.0" />
@@ -140,7 +140,7 @@
                         <Font name="Microsoft New Tai Lue Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="58.0" layoutY="224.0" text="Room ID :" textFill="#3b3936">
+                  <Label layoutX="58.0" layoutY="224.0" text="Room :" textFill="#3b3936">
                      <font>
                         <Font name="Microsoft New Tai Lue Bold" size="15.0" />
                      </font>
@@ -168,11 +168,16 @@
                   <Label fx:id="errormsgeventid" layoutX="161.0" layoutY="88.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
                   <Label fx:id="errormsgdetails" layoutX="176.0" layoutY="397.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
                   <Label fx:id="errormsgroomid" layoutX="166.0" layoutY="263.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+                  <Button fx:id="btn_addimage" layoutX="589.0" layoutY="333.0" mnemonicParsing="false" onAction="#btn_addimage_clicked" prefHeight="34.0" prefWidth="179.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add Image">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <Button fx:id="btnadd" layoutX="384.0" layoutY="596.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="82.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add" />
             <Button fx:id="btnupdate" layoutX="383.0" layoutY="594.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="38.0" prefWidth="82.0" styleClass="update-btn" stylesheets="@auctionDesign.css" text="Update" visible="false" />
-            <Label fx:id="add_event_txt_field" layoutX="325.0" layoutY="27.0" text="Add Event" textFill="#93341a">
+            <Label fx:id="add_event_txt_field" layoutX="325.0" layoutY="21.0" text="Add Event" textFill="#93341a">
                <font>
                   <Font name="System Bold" size="50.0" />
                </font>
@@ -194,7 +199,7 @@
          <children>
             <TableView fx:id="tabevent" layoutX="17.0" layoutY="152.0" onMouseClicked="#handleMouseAction" prefHeight="471.0" prefWidth="939.0" stylesheets="@auctionDesign.css">
                <columns>
-                  <TableColumn fx:id="colid" prefWidth="54.39996337890625" text="ID" />
+                  <TableColumn fx:id="colid" prefWidth="54.39996337890625" text="ID" visible="false" />
                   <TableColumn fx:id="coleventname" prefWidth="96.00003051757812" text="Event name" />
                   <TableColumn fx:id="colstartdate" prefWidth="116.26666259765625" text="Start Date" />
                   <TableColumn fx:id="colenddate" prefWidth="125.333251953125" text="End date" />
@@ -218,7 +223,7 @@
          <children>
             <TableView fx:id="tabpart" layoutX="41.0" layoutY="97.0" prefHeight="467.0" prefWidth="883.0" stylesheets="@auctionDesign.css">
                <columns>
-                  <TableColumn fx:id="colid_part" prefWidth="54.39996337890625" text="ID" />
+                  <TableColumn fx:id="colid_part" prefWidth="54.39996337890625" text="ID" visible="false" />
                   <TableColumn fx:id="colpart_fname" prefWidth="167.20004272460938" text="First name" />
                   <TableColumn fx:id="colpart_lname" prefWidth="201.60000610351562" text="Last name" />
                   <TableColumn fx:id="colpart_adress" prefWidth="233.33331298828125" text="Adress" />

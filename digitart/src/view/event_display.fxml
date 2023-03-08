@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox fx:id="one_event" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="809.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event_displayController">
+   <children>
+      <VBox prefHeight="349.0" prefWidth="339.0">
+         <children>
+            <HBox prefHeight="49.0" prefWidth="360.0">
+               <children>
+                  <Text fill="#bd2a2e" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name:" wrappingWidth="167.935546875">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="txt_event_name" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="360.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date :" wrappingWidth="169.2314453125">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="txt_start_date" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="54.0" prefWidth="360.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date :" wrappingWidth="170.6826171875">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="txt_end_date" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="62.0" prefWidth="360.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Details :" wrappingWidth="169.4267578125">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="txt_event_desc" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="113.0" prefWidth="305.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time :" wrappingWidth="169.080078125">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="txt_start_time" text="Label">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Line endX="238.49290466308594" endY="-0.4137834310531616" startX="-100.0" />
+            <Label fx:id="countdown" text="Label" textFill="#730000">
+               <font>
+                  <Font name="Berlin Sans FB" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox prefHeight="384.0" prefWidth="242.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Poster :" wrappingWidth="208.357421875">
+               <font>
+                  <Font name="Berlin Sans FB" size="22.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="imagev" fitHeight="303.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true" />
+            <Line endX="139.99342346191406" endY="-1.2082266807556152" startX="-100.89950561523438" startY="-1.207310438156128" />
+            <Button fx:id="btnparticipate" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="34.0" prefWidth="131.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Participate" />
+         </children>
+      </VBox>
+      <VBox prefHeight="384.0" prefWidth="224.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Event Qr code :" wrappingWidth="208.357421875">
+               <font>
+                  <Font name="Berlin Sans FB" size="22.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="qrcode" fitHeight="180.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox prefHeight="123.0" prefWidth="224.0" />
+            <Line endX="121.89283752441406" endY="0.4137672483921051" startX="-100.0" />
+            <Button fx:id="btn_qr" mnemonicParsing="false" onAction="#btn_qr_clicked" prefHeight="34.0" prefWidth="179.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Generate Qr code" />
+         </children>
+      </VBox>
+   </children>
+</HBox>
