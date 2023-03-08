@@ -198,7 +198,7 @@ public class Event_displayController implements Initializable {
         
     }
 public void generateQRCode() {
-    String url = "https://artsandculture.google.com/search?q="+txt_event_name.getText().replaceAll("\\s+", "%20")+"%20"+ txt_start_date.getText().replaceAll("\\s+", "%20");
+    String url = "https://artsandculture.google.com/search?q="+txt_event_name.getText().replaceAll("\\s+", "%20")+"%20"+ txt_start_date.getText().replaceAll("\\s+", "%20"+ txt_end_date.getText().replaceAll("\\s+", "%20")+ txt_event_desc.getText().replaceAll("\\s+", "%20"));
 
     QRCodeWriter qrCodeWriter = new QRCodeWriter();
     ByteMatrix byteMatrix;
