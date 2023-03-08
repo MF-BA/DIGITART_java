@@ -536,5 +536,107 @@
             </Button>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="editprofile_page" layoutX="255.0" layoutY="7.0" prefHeight="709.0" prefWidth="936.0" visible="false">
+         <children>
+            <Button fx:id="editprof_btn" cache="true" layoutX="323.0" layoutY="621.0" mnemonicParsing="false" onAction="#editprof_btn" prefHeight="41.0" prefWidth="93.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Edit" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="17.0" />
+               </font>
+            </Button>
+            <Label layoutX="181.0" layoutY="143.0" text="First Name" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="pwd_editprof" layoutX="175.0" layoutY="430.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="fname_editprof" layoutX="175.0" layoutY="166.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <Label layoutX="182.0" layoutY="231.0" text="Last Name" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="lname_editprof" layoutX="175.0" layoutY="255.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <Label layoutX="182.0" layoutY="318.0" text="Email" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="email_editprof" layoutX="175.0" layoutY="342.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <Label layoutX="182.0" layoutY="401.0" text="Password" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="587.0" layoutY="143.0" text="Cin" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="587.0" layoutY="231.0" text="Address" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="587.0" layoutY="318.0" text="Birth date" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="587.0" layoutY="401.0" text="Phone number" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="birth_d_editprof" layoutX="581.0" layoutY="342.0" prefHeight="23.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="cin_editprof" layoutX="581.0" layoutY="166.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="address_editprof" layoutX="581.0" layoutY="255.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <TextField fx:id="phone_num_editprof" layoutX="581.0" layoutY="430.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+            <Label layoutX="176.0" layoutY="495.0" text="Gender" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="male_gender_editprof" layoutX="174.0" layoutY="531.0" mnemonicParsing="false" text="Male" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="13.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="female_gender_editprof" layoutX="273.0" layoutY="531.0" mnemonicParsing="false" text="Female" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="13.0" />
+               </font>
+            </RadioButton>
+            <Label layoutX="583.0" layoutY="495.0" text="Role" textFill="#3b3936">
+               <font>
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="clear_fields_editprof" cache="true" layoutX="524.0" layoutY="621.0" mnemonicParsing="false" onAction="#clear_fields_update_btn" prefHeight="41.0" prefWidth="86.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Clear" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="17.0" />
+               </font>
+            </Button>
+            <ComboBox fx:id="Rolebox_editprof" layoutX="581.0" layoutY="518.0" prefHeight="25.0" prefWidth="164.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
+            <Label fx:id="errormsgfiiledit" layoutX="378.0" layoutY="575.0" prefHeight="33.0" prefWidth="181.0" textFill="RED">
+               <font>
+                  <Font name="Berlin Sans FB" size="16.0" />
+               </font></Label>
+            <Label layoutX="267.0" layoutY="39.0" prefHeight="67.0" prefWidth="403.0" text="Edit your profile" textFill="#bd2a2e">
+               <font>
+                  <Font name="Berlin Sans FB" size="60.0" />
+               </font>
+            </Label>
+            <Label fx:id="errormsglname_edit" layoutX="175.0" layoutY="287.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgfname_edit" layoutX="175.0" layoutY="199.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgemail_edit" layoutX="175.0" layoutY="374.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsglname_edit3" layoutX="202.0" layoutY="347.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgpwd_edit" layoutX="175.0" layoutY="463.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsggender_edit" layoutX="175.0" layoutY="558.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgcin_edit" layoutX="581.0" layoutY="199.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsglname_edit7" layoutX="581.0" layoutY="287.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgbirthdate_edit" layoutX="581.0" layoutY="374.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgphonenum_edit" layoutX="581.0" layoutY="463.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

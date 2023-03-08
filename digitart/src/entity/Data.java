@@ -23,7 +23,7 @@ public class Data {
     public static Auction_display auction_display;
     public static final String username = "digitart.primes@gmail.com";
     public static final String password = "ktknrunncnveaidz";
-
+    public static Event event;
     public static Payment payment;
     public static String totalp;
     public static LocalDate purchaseDate;

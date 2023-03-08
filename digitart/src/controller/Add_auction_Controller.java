@@ -66,6 +66,11 @@ public class Add_auction_Controller implements Initializable {
     private Button btn_Add_Auction;
     @FXML
     private Button btn_Artworks_Auction;
+    @FXML
+    private Button Close;
+    @FXML
+    private Button Minimize;
+    @FXML
     private AnchorPane main_anchor;
     @FXML
     private Label labeladminname;
