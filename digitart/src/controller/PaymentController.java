@@ -110,7 +110,7 @@ public class PaymentController implements Initializable {
 
     @FXML
     private void handlePayButtonAction(ActionEvent event) throws IOException {
-        if (cardNumberTextField.getText().isEmpty() ||payment_email.getText().isEmpty() || expirymTextField.getText().isEmpty() || expiryyTextField.getText().isEmpty() || cvcTextField.getText().isEmpty() || payment_name.getText().isEmpty()) {
+        if (cardNumberTextField.getText().isEmpty() || payment_email.getText().isEmpty() || expirymTextField.getText().isEmpty() || expiryyTextField.getText().isEmpty() || cvcTextField.getText().isEmpty() || payment_name.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Payment Error");
             alert.setHeaderText(null);
@@ -154,7 +154,7 @@ public class PaymentController implements Initializable {
             confirmAlert.setHeaderText(null);
             confirmAlert.setContentText("Are you sure you want to make this payment?");
             Optional<ButtonType> result = confirmAlert.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
+            if (result.isPresent() && result.get() == ButtonType.OK) {    //add condition on the existance of the email
                 // Charge the user's card for the total amount
                 int amount = Integer.parseInt(totalLabel.getText()) * 100;
                 String currency = "usd";
@@ -177,9 +177,6 @@ public class PaymentController implements Initializable {
                     return;
                 }
 
-                // Get the user ID (assuming the user ID is 1)
-                int userId = 1;
-
                 // Get the selected date from the date picker
                 LocalDate purchaseDate = Data.purchaseDate;
 
@@ -190,17 +187,18 @@ public class PaymentController implements Initializable {
                 int totalPayment = Integer.parseInt(totalLabel.getText());
 
                 // Create a new Payment object with the collected data
-                Payment payment = new Payment(userId, purchaseDate, nbAdult, nbTeenager, nbStudent, totalPayment);
+                Payment payment = new Payment(Data.user.getId(), purchaseDate, nbAdult, nbTeenager, nbStudent, totalPayment);
 
                 try {
                     Connection conn = Conn.getCon();
-                    PreparedStatement stmt = conn.prepareStatement("INSERT INTO payment (purchase_date, nb_adult, nb_teenager, nb_student, total_payment) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement stmt = conn.prepareStatement("INSERT INTO payment (purchase_date, nb_adult, nb_teenager, nb_student, total_payment, user_id) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                     stmt.setDate(1, java.sql.Date.valueOf(payment.getPurchaseDate()));
                     stmt.setInt(2, payment.getNbAdult());
                     stmt.setInt(3, payment.getNbTeenager());
                     stmt.setInt(4, payment.getNbStudent());
                     stmt.setInt(5, payment.getTotalPayment());
-                    //data.user.getUserId();
+                    stmt.setInt(6, payment.getId());
+
                     int affectedRows = stmt.executeUpdate();
 
                     if (affectedRows == 0) {
@@ -217,42 +215,42 @@ public class PaymentController implements Initializable {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                
-        String to = payment_email.getText(); // email address where the email will be sent
-        String subject = "Thanks Sir "+ payment_name.getText()+" for your Purchase"; // email subject
 
-        // Generate the content for the email body
-        String body = "<html><body style='font-family: Arial, sans-serif;'>"
-                + "<h1 style='color: #5c5c5c;'>Enjoy you're tour !</h1>"
-                + "<p>Here's a summary of your purchase:</p>"
-                + "<ul>"
-                + "<li style='list-style: none;'><b>Date:</b> " + purchaseDate + "</li>";
+                String to = payment_email.getText(); // email address where the email will be sent
+                String subject = "Thanks Sir " + payment_name.getText() + " for your Purchase"; // email subject
 
-        // Add Adult ticket info if not 0
-        if (Data.nbAdult > 0) {
-            body += "<li style='list-style: none;'><b>Adult Tickets:</b> " + nbAdult + "</li>";
-        }
+                // Generate the content for the email body
+                String body = "<html><body style='font-family: Arial, sans-serif;'>"
+                        + "<h1 style='color: #5c5c5c;'>Enjoy you're tour !</h1>"
+                        + "<p>Here's a summary of your purchase:</p>"
+                        + "<ul>"
+                        + "<li style='list-style: none;'><b>Date:</b> " + purchaseDate + "</li>";
 
-        // Add Teen ticket info if not 0
-        if (Data.nbTeenager > 0) {
-            body += "<li style='list-style: none;'><b>Teen Tickets:</b> " + nbTeenager + "</li>";
-        }
+                // Add Adult ticket info if not 0
+                if (Data.nbAdult > 0) {
+                    body += "<li style='list-style: none;'><b>Adult Tickets:</b> " + nbAdult + "</li>";
+                }
 
-        // Add Student ticket info if not 0
-        if (Data.nbStudent > 0) {
-            body += "<li style='list-style: none;'><b>Student Tickets:</b> " + nbStudent + "</li>";
-        }
+                // Add Teen ticket info if not 0
+                if (Data.nbTeenager > 0) {
+                    body += "<li style='list-style: none;'><b>Teen Tickets:</b> " + nbTeenager + "</li>";
+                }
 
-        body += "<li style='list-style: none;'><b>Total Price:</b> $" + totalPayment + "</li>" // Add the $ symbol here
-                + "</ul>"
-                + "<p>Thank you for choosing our service. We hope to see you again soon!</p>"
-                + "<img src='cid:logo'/>"
-                + "</body></html>";
+                // Add Student ticket info if not 0
+                if (Data.nbStudent > 0) {
+                    body += "<li style='list-style: none;'><b>Student Tickets:</b> " + nbStudent + "</li>";
+                }
 
-        final String username = "aminenoob614@gmail.com"; // your email address
-        final String password = "jgfplacevvaghzfj"; // your email password
+                body += "<li style='list-style: none;'><b>Total Price:</b> $" + totalPayment + "</li>" // Add the $ symbol here
+                        + "</ul>"
+                        + "<p>Thank you for choosing our service. We hope to see you again soon!</p>"
+                        + "<img src='cid:logo'/>"
+                        + "</body></html>";
 
-        Properties props = new Properties();
+                final String username = "aminenoob614@gmail.com"; // your email address
+                final String password = "jgfplacevvaghzfj"; // your email password
+
+                Properties props = new Properties();
                 props.put("mail.smtp.auth", "true");
                 props.put("mail.smtp.starttls.enable", "true");
                 props.put("mail.smtp.host", "smtp.gmail.com");
@@ -294,7 +292,14 @@ public class PaymentController implements Initializable {
                     System.out.println("Email sent successfully!");
 
                 } catch (MessagingException e) {
-                    throw new RuntimeException(e);
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Payment Successful");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Your payment was successful but the email provided was not found.");
+                    alert.showAndWait();
+                    anchor_2.setVisible(true);
+                    anchor_1.setVisible(false);
+                    //throw new RuntimeException(e);
                 }
                 // Display a message to the user indicating that the payment was successful
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -302,10 +307,8 @@ public class PaymentController implements Initializable {
                 alert.setHeaderText(null);
                 alert.setContentText("Your payment was successful.");
                 alert.showAndWait();
-
                 anchor_2.setVisible(true);
                 anchor_1.setVisible(false);
-
             }
         }
     }
@@ -501,8 +504,5 @@ public class PaymentController implements Initializable {
         cvcTextField.setTextFormatter(cvcFormatter);
 
     }
-
-
-   
 
 }

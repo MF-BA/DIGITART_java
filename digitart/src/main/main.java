@@ -55,6 +55,7 @@ public class main extends Application {
         this.primaryStage.setTitle("DIGITART");
 
         Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/add_ticket.fxml"));
+        //Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/add_ticket_user.fxml"));
         Scene scene = new Scene(DisplayROOM_Page);
 
         this.primaryStage.setScene(scene);
