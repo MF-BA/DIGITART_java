@@ -34,6 +34,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -72,6 +75,32 @@ public class Add_auction_backController implements Initializable {
     private Button btn_Add_Auction;
     @FXML
     private ComboBox<String> in_Artist;
+    @FXML
+    private Button disconnect;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private Button home_btn;
+    @FXML
+    private Button artwork_btn;
+    @FXML
+    private Button auction_btn;
+    @FXML
+    private Button events_btn;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labelusername;
+    @FXML
+    private Button tickets_btn;
+    @FXML
+    private AnchorPane home;
+    @FXML
+    private Button btn_Add_Auction1;
+    @FXML
+    private Button btn_Artworks_Auction1;
 
     /**
      * Initializes the controller class.
@@ -175,6 +204,34 @@ public class Add_auction_backController implements Initializable {
         ObservableList<String> myObservableList = FXCollections.observableArrayList(Auction_Services.find_artworks(id_artist));
         System.out.println(myObservableList);
         in_I.setItems(myObservableList);
+    }
+
+    @FXML
+    private void disconnect_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
     }
     
 }

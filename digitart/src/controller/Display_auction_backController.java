@@ -36,9 +36,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -77,12 +80,6 @@ public class Display_auction_backController implements Initializable {
     @FXML
     private TextField search_in;
     @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
     private Button btn_Artworks_Auction;
     @FXML
     private Button btn_Add_Auction;
@@ -90,6 +87,30 @@ public class Display_auction_backController implements Initializable {
     private FontAwesomeIconView clear;
     @FXML
     private Button display_archive;
+    @FXML
+    private Button disconnect;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private Button home_btn;
+    @FXML
+    private Button artwork_btn;
+    @FXML
+    private Button auction_btn;
+    @FXML
+    private Button events_btn;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labelusername;
+    @FXML
+    private Button tickets_btn;
+    @FXML
+    private AnchorPane home;
+    @FXML
+    private AnchorPane homepage_anchorpane;
 
     /**
      * Initializes the controller class.
@@ -98,9 +119,7 @@ public class Display_auction_backController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         btn_Add_Auction.setStyle("-fx-background-color:transparent ");
         btn_Artworks_Auction.setStyle("-fx-background-color:  #470011");
-
         Showauction();
-
         Dslay_delete_button.setOnAction(this::AuctonDelete);
     }
 
@@ -141,11 +160,12 @@ public class Display_auction_backController implements Initializable {
             return null;
         }
         Data.auction_display = t;
-        Data.back_auction=true;
-        if(Bid_Services.Display(t.getId_auction()).isEmpty())
+        Data.back_auction = true;
+        if (Bid_Services.Display(t.getId_auction()).isEmpty()) {
             Dslay_update_button.setDisable(false);
-        else 
+        } else {
             Dslay_update_button.setDisable(true);
+        }
         return t;
     }
 
@@ -271,7 +291,7 @@ public class Display_auction_backController implements Initializable {
 
     @FXML
     private void btn_Add_Auction_click(ActionEvent event) {
-        
+
         try {
             root = FXMLLoader.load(getClass().getResource("/view/add_auction_back.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -281,8 +301,7 @@ public class Display_auction_backController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(Display_auction_backController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-        
+
     }
 
     @FXML
@@ -354,6 +373,47 @@ public class Display_auction_backController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    private void disconnect_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
     }
 
 }
