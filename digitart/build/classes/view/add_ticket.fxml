@@ -2,136 +2,120 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="main_anchor" prefHeight="463.0" prefWidth="855.0" styleClass="right-form" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TicketController">
+<AnchorPane id="AnchorPane" fx:id="main_anchor" prefHeight="720.0" prefWidth="1200.0" styleClass="right-form" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TicketController">
    <children>
-      <AnchorPane layoutY="31.0" prefHeight="466.0" prefWidth="182.0" styleClass="left-form" stylesheets="@auctionDesign.css">
+      <VBox prefHeight="745.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
-            <FontAwesomeIconView fill="#fafafa" glyphName="USER" layoutX="61.0" layoutY="83.0" size="80.0" text="" wrappingWidth="59.19998016357408" />
-            <Label layoutX="48.0" layoutY="94.0" prefHeight="27.0" prefWidth="82.0" text="WELCOME," textAlignment="CENTER" textFill="WHITE">
+            <Pane prefHeight="299.0" prefWidth="250.0">
+               <children>
+                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="81.0" layoutY="122.0" size="130" />
+                  <Label layoutX="1.0" layoutY="149.0" prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
+                     <padding>
+                        <Insets left="70.0" />
+                     </padding>
+                     <font>
+                        <Font name="Berlin Sans FB" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Button fx:id="btn_dashboard" mnemonicParsing="false" onAction="#switchForm" prefHeight="51.0" prefWidth="258.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Dashboard" textFill="WHITE">
                <font>
-                  <Font name="Tahoma" size="16.0" />
+                  <Font name="Berlin Sans FB" size="18.0" />
                </font>
-            </Label>
-            <Label layoutX="51.0" layoutY="114.0" prefHeight="27.0" prefWidth="74.0" text="Si Amine" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="Tahoma Bold" size="16.0" />
-               </font>
-            </Label>
-            <Button fx:id="btn_dashboard" layoutX="23.0" layoutY="160.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="30.0" prefWidth="130.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Dashboard">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="DASHBOARD" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="DASHBOARD" text="" wrappingWidth="19.066650390625" />
                </graphic>
             </Button>
-            <Button fx:id="btn_addticket" layoutX="25.0" layoutY="200.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="30.0" prefWidth="130.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Add Ticket">
+            <Button fx:id="btn_addticket" mnemonicParsing="false" onAction="#switchForm" prefHeight="51.0" prefWidth="249.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Add Ticket" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="TICKET" />
                </graphic>
             </Button>
-            <Line endX="29.20001220703125" layoutX="123.0" layoutY="149.0" startX="-100.0" stroke="WHITE" />
-            <Button fx:id="btn_buyticket" layoutX="25.0" layoutY="240.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="30.0" prefWidth="130.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Buy Ticket">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="TICKET" />
-               </graphic>
-            </Button>
-         </children></AnchorPane>
-      <AnchorPane layoutX="-1.0" layoutY="1.0" prefHeight="32.0" prefWidth="881.0" styleClass="top-form" stylesheets="@auctionDesign.css">
-         <children>
-            <Button fx:id="Close" layoutX="828.2" layoutY="0.7999999999999998" mnemonicParsing="false" onAction="#Close" styleClass="close" stylesheets="@auctionDesign.css" AnchorPane.rightAnchor="-0.20000000000004547" AnchorPane.topAnchor="0.7999999999999998">
-               <graphic>
-                  <FontAwesomeIconView glyphName="CLOSE" size="15.0" text="">
-                     <styleClass>
-                        <String fx:value="close" />
-                        <String fx:value="left-form" />
-                     </styleClass>
-                  </FontAwesomeIconView>
-               </graphic>
-            </Button>
-            <Button fx:id="Minimize" layoutX="780.0" layoutY="1.0" minWidth="45.0" mnemonicParsing="false" onAction="#Minimize" prefHeight="30.0" prefWidth="45.0" styleClass="minimize" stylesheets="@auctionDesign.css">
-               <graphic>
-                  <FontAwesomeIconView glyphName="MINUS" />
-               </graphic>
-            </Button>
-            <Label layoutX="36.0" layoutY="7.0" prefHeight="18.0" prefWidth="138.0" text="Ticket management " />
-            <FontAwesomeIconView glyphName="TICKET" layoutX="14.0" layoutY="19.0" />
          </children>
-      </AnchorPane>
-      <AnchorPane fx:id="dashboard_anchor" layoutX="193.0" layoutY="41.0" prefHeight="410.0" prefWidth="671.0" visible="false">
+      </VBox>
+      <AnchorPane fx:id="dashboard_anchor" layoutX="249.0" layoutY="2.4" prefHeight="729.0" prefWidth="1192.0" visible="false" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="32.0" AnchorPane.topAnchor="2.0">
          <children>
-            <AnchorPane layoutX="12.0" layoutY="14.0" prefHeight="120.0" prefWidth="648.0" stylesheets="@auctionDesign.css">
+            <AnchorPane layoutX="44.0" layoutY="34.0" prefHeight="224.0" prefWidth="1147.0" stylesheets="@auctionDesign.css">
                <styleClass>
                   <String fx:value="white-bg" />
                   <String fx:value="shadow" />
                </styleClass>
                <children>
-                  <AnchorPane layoutX="438.0" layoutY="9.0" prefHeight="102.0" prefWidth="195.0" styleClass="card3" stylesheets="@auctionDesign.css">
+                  <AnchorPane layoutX="768.0" layoutY="21.0" prefHeight="180.0" prefWidth="350.0" styleClass="card1" stylesheets="@auctionDesign.css">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="DOLLAR" layoutX="20.0" layoutY="58.0" size="4em" wrappingWidth="52.00000000000006" />
-                        <Label layoutX="48.0" layoutY="65.0" prefHeight="27.0" prefWidth="138.0" text="Total Income" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label layoutX="95.0" layoutY="112.0" prefHeight="32.0" prefWidth="178.0" text="Total Income" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
-                              <Font name="Tahoma Bold" size="16.0" />
+                              <Font name="Berlin Sans FB Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dashboard_totalincome" layoutX="117.0" layoutY="27.0" prefHeight="27.0" prefWidth="66.0" text="\$0.0" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label fx:id="dashboard_totalincome" layoutX="118.0" layoutY="23.0" prefHeight="51.0" prefWidth="226.0" text="\$0.0" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
-                              <Font name="Tahoma Bold" size="16.0" />
+                              <Font name="Tahoma Bold" size="40.0" />
                            </font>
                         </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="DOLLAR" layoutX="11.0" layoutY="96.0" size="8em" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="226.0" layoutY="9.0" prefHeight="102.0" prefWidth="195.0" styleClass="card2" stylesheets="@auctionDesign.css">
+                  <AnchorPane layoutX="390.0" layoutY="21.0" prefHeight="180.0" prefWidth="350.0" styleClass="card1" stylesheets="@auctionDesign.css">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="MONEY" layoutX="14.0" layoutY="54.0" size="4em" wrappingWidth="52.00000000000006" />
-                        <Label layoutX="42.0" layoutY="61.0" prefHeight="27.0" prefWidth="138.0" text="Today's Income" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label layoutX="101.0" layoutY="112.0" prefHeight="30.0" prefWidth="188.0" text="Today's Income" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
-                              <Font name="Tahoma Bold" size="16.0" />
+                              <Font name="Berlin Sans FB Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dashboard_todayincome" layoutX="111.0" layoutY="23.0" prefHeight="27.0" prefWidth="66.0" text="\$0.0" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label fx:id="dashboard_todayincome" layoutX="145.0" layoutY="22.0" prefHeight="51.0" prefWidth="194.0" text="\$0" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
-                              <Font name="Tahoma Bold" size="16.0" />
+                              <Font name="Tahoma Bold" size="40.0" />
                            </font>
                         </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="MONEY" layoutX="11.0" layoutY="94.0" size="8em" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="14.0" layoutY="9.0" prefHeight="102.0" prefWidth="195.0" styleClass="card1" stylesheets="@auctionDesign.css">
+                  <AnchorPane layoutX="12.0" layoutY="21.0" prefHeight="180.0" prefWidth="350.0" styleClass="card1" stylesheets="@auctionDesign.css">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="TICKET" layoutX="14.0" layoutY="55.0" size="4em" wrappingWidth="52.00000000000006" />
-                        <Label layoutX="42.0" layoutY="62.0" prefHeight="27.0" prefWidth="138.0" text="Available Tickets" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label layoutX="62.0" layoutY="109.0" prefHeight="32.0" prefWidth="225.0" text="Available Tickets" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
-                              <Font name="Tahoma Bold" size="16.0" />
+                              <Font name="Berlin Sans FB Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dashboard_availabletickets" layoutX="111.0" layoutY="24.0" prefHeight="27.0" prefWidth="59.0" text="0" textAlignment="CENTER" textFill="#ffffffd4">
+                        <Label fx:id="dashboard_availabletickets" layoutX="145.0" layoutY="22.0" prefHeight="51.0" prefWidth="194.0" text="0" textAlignment="CENTER" textFill="#ffffffd4">
                            <font>
-                              <Font name="Tahoma Bold" size="16.0" />
+                              <Font name="Tahoma Bold" size="40.0" />
                            </font>
                         </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="TICKET" layoutX="14.0" layoutY="96.0" size="8em" />
                      </children>
                   </AnchorPane>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="14.0" layoutY="143.0" prefHeight="268.0" prefWidth="648.0" stylesheets="@auctionDesign.css">
+            <AnchorPane layoutX="42.0" layoutY="279.0" prefHeight="438.0" prefWidth="723.0" stylesheets="@auctionDesign.css">
                <styleClass>
                   <String fx:value="white-bg" />
                   <String fx:value="shadow" />
                </styleClass>
                <children>
-                  <LineChart fx:id="dashboard_chart" layoutX="14.0" layoutY="-110.0" prefHeight="290.4" prefWidth="648.0" title="Income Chart" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <LineChart fx:id="dashboard_chart" layoutX="-86.0" layoutY="9.0" prefHeight="420.0" prefWidth="537.0" styleClass="dashboard_chart" stylesheets="@auctionDesign.css" AnchorPane.bottomAnchor="9.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="9.0">
                      <xAxis>
                         <CategoryAxis side="BOTTOM" />
                      </xAxis>
@@ -141,173 +125,103 @@
                   </LineChart>
                </children>
             </AnchorPane>
+            <AnchorPane layoutX="777.0" layoutY="276.0" prefHeight="438.0" prefWidth="414.0" stylesheets="@auctionDesign.css">
+               <styleClass>
+                  <String fx:value="white-bg" />
+                  <String fx:value="shadow" />
+               </styleClass>
+               <children>
+                  <PieChart fx:id="dashboard_pie" layoutX="18.0" layoutY="8.0" prefHeight="414.0" prefWidth="377.0" stylesheets="@auctionDesign.css" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="addticket_anchor" layoutX="182.0" layoutY="43.0" prefHeight="410.0" prefWidth="671.0">
+      <AnchorPane fx:id="addticket_anchor" layoutX="270.0" layoutY="9.0" prefHeight="728.0" prefWidth="1198.0" visible="false">
          <children>
-            <AnchorPane layoutX="8.0" layoutY="9.0" prefHeight="391.0" prefWidth="293.0" stylesheets="@auctionDesign.css">
+            <AnchorPane layoutX="16.0" layoutY="19.0" prefHeight="690.0" prefWidth="580.0" stylesheets="@auctionDesign.css">
                <styleClass>
                   <String fx:value="white-bg" />
                   <String fx:value="shadow" />
                </styleClass>
                <children>
                   <TextField fx:id="ticket_id" layoutX="96.0" layoutY="15.0" prefHeight="30.0" prefWidth="179.0" promptText="7 digits" styleClass="textfield" stylesheets="@auctionDesign.css" visible="false" />
-                  <Label layoutX="3.0" layoutY="50.0" text="Start Date:">
+                  <DatePicker fx:id="ticket_date" layoutX="205.0" layoutY="95.0" prefHeight="38.0" prefWidth="179.0" promptText="MM-DD-YYYY" styleClass="combobox" stylesheets="@auctionDesign.css" />
+                  <ComboBox fx:id="ticket_type" layoutX="207.0" layoutY="296.0" prefHeight="38.0" prefWidth="179.0" promptText="select type" styleClass="combobox" stylesheets="@auctionDesign.css" />
+                  <TextField fx:id="ticket_price" layoutX="208.0" layoutY="398.0" prefHeight="35.0" prefWidth="179.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+                  <Button fx:id="ticket_add_button" layoutX="146.0" layoutY="537.0" mnemonicParsing="false" onAction="#TicketAdd" prefHeight="38.0" prefWidth="106.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add" />
+                  <Button fx:id="ticket_update_button" layoutX="327.0" layoutY="535.0" mnemonicParsing="false" onAction="#TicketUpdate" prefHeight="38.0" prefWidth="106.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Update" />
+                  <Button fx:id="ticket_reset_button" layoutX="144.0" layoutY="612.0" mnemonicParsing="false" onAction="#TicketReset" prefHeight="38.0" prefWidth="106.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Reset" />
+                  <Button fx:id="ticket_delete_button" layoutX="330.0" layoutY="612.0" mnemonicParsing="false" onAction="#TicketDelete" prefHeight="38.0" prefWidth="106.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Delete" />
+                  <DatePicker fx:id="ticket_edate" layoutX="206.0" layoutY="196.0" prefHeight="38.0" prefWidth="179.0" promptText="MM-DD-YYYY" styleClass="combobox" stylesheets="@auctionDesign.css" />
+                  <Label layoutX="79.0" layoutY="100.0" text="Start Date:" textFill="#3b3936">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Microsoft New Tai Lue Bold" size="20.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="ticket_date" layoutX="96.0" layoutY="45.0" prefHeight="30.0" promptText="MM-DD-YYYY" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                  <Label layoutX="5.0" layoutY="159.0" text="Ticket type:">
+                  <Label layoutX="76.0" layoutY="201.0" text="End Date:" textFill="#3b3936">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Microsoft New Tai Lue Bold" size="20.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="ticket_type" layoutX="96.0" layoutY="154.0" prefHeight="30.0" prefWidth="179.0" promptText="select type" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                  <Label layoutX="4.0" layoutY="216.0" text="Ticket Price:">
+                  <Label layoutX="76.0" layoutY="300.0" text="Ticket type:" textFill="#3b3936">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Microsoft New Tai Lue Bold" size="20.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="ticket_price" layoutX="96.0" layoutY="211.0" prefHeight="30.0" prefWidth="179.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
-                  <Button fx:id="ticket_add_button" layoutX="35.0" layoutY="285.0" mnemonicParsing="false" onAction="#TicketAdd" prefHeight="30.0" prefWidth="82.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add" />
-                  <Button fx:id="ticket_update_button" layoutX="171.0" layoutY="285.0" mnemonicParsing="false" onAction="#TicketUpdate" prefHeight="30.0" prefWidth="82.0" styleClass="update-btn" stylesheets="@auctionDesign.css" text="Update" />
-                  <Button fx:id="ticket_reset_button" layoutX="35.0" layoutY="332.0" mnemonicParsing="false" onAction="#TicketReset" prefHeight="30.0" prefWidth="82.0" styleClass="reset-btn" stylesheets="@auctionDesign.css" text="Reset" />
-                  <Button fx:id="ticket_delete_button" layoutX="171.0" layoutY="332.0" mnemonicParsing="false" onAction="#TicketDelete" prefHeight="30.0" prefWidth="82.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete" />
-                  <DatePicker fx:id="ticket_edate" layoutX="96.0" layoutY="101.0" prefHeight="30.0" promptText="MM-DD-YYYY" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                  <Label layoutX="5.0" layoutY="106.0" text="End Date:">
+                  <Label layoutX="73.0" layoutY="401.0" text="Ticket Price:" textFill="#3b3936">
                      <font>
-                        <Font size="14.0" />
+                        <Font name="Microsoft New Tai Lue Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="72.0" layoutY="14.0" prefHeight="67.0" prefWidth="416.0" text="Add Ticket" textFill="#bd2a2e">
+                     <padding>
+                        <Insets left="100.0" />
+                     </padding>
+                     <font>
+                        <Font name="Berlin Sans FB" size="50.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="307.0" layoutY="9.0" prefHeight="391.0" prefWidth="349.0" stylesheets="@auctionDesign.css">
+            <AnchorPane layoutX="609.0" layoutY="20.0" prefHeight="690.0" prefWidth="580.0" stylesheets="@auctionDesign.css">
                <styleClass>
                   <String fx:value="white-bg" />
                   <String fx:value="shadow" />
                </styleClass>
                <children>
-                  <TableView fx:id="ticket_tableview" layoutY="82.0" onMouseClicked="#SelectTicket" prefHeight="226.0" prefWidth="384.0" stylesheets="@auctionDesign.css">
+                  <TableView fx:id="ticket_tableview" layoutX="12.0" layoutY="130.0" onMouseClicked="#SelectTicket" prefHeight="420.0" prefWidth="555.0" stylesheets="@auctionDesign.css">
                      <columns>
-                        <TableColumn fx:id="ticket_tv_id" prefWidth="33.599945068359375" text="ID" />
-                        <TableColumn fx:id="ticket_tv_date" prefWidth="108.0" text="Start Date" />
-                        <TableColumn fx:id="ticket_tv_edate" prefWidth="106.4000244140625" text="End Date" />
-                        <TableColumn fx:id="ticket_tv_price" prefWidth="60.0" text="Price" />
-                        <TableColumn fx:id="ticket_tv_type" prefWidth="77.5999755859375" text="Type" />
+                        <TableColumn fx:id="ticket_tv_date" prefWidth="163.199951171875" text="Start Date" />
+                        <TableColumn fx:id="ticket_tv_edate" prefWidth="168.0001220703125" text="End Date" />
+                        <TableColumn fx:id="ticket_tv_price" prefWidth="104.533447265625" text="Price" />
+                        <TableColumn fx:id="ticket_tv_type" prefWidth="120.000244140625" text="Type" />
                      </columns>
                   </TableView>
-                  <TextField fx:id="ticket_search" layoutX="28.0" layoutY="19.0" onKeyTyped="#searchTicket" prefHeight="30.0" prefWidth="179.0" promptText="Search" styleClass="search" stylesheets="@auctionDesign.css" />
-                  <FontAwesomeIconView glyphName="SEARCH" layoutX="34.0" layoutY="39.0" />
-                  <Button fx:id="check_payment" layoutX="199.0" layoutY="333.0" mnemonicParsing="false" onAction="#CheckPayment" prefHeight="30.0" prefWidth="168.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Check Ticket Bought" />
+                  <TextField fx:id="ticket_search" layoutX="17.0" layoutY="64.0" onKeyTyped="#searchTicket" prefHeight="38.0" prefWidth="291.0" promptText="Search" styleClass="search" stylesheets="@auctionDesign.css" />
+                  <FontAwesomeIconView glyphName="SEARCH" layoutX="31.0" layoutY="87.0" />
+                  <Button fx:id="check_payment" layoutX="165.0" layoutY="610.0" mnemonicParsing="false" onAction="#CheckPayment" prefHeight="46.0" prefWidth="278.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Check Ticket Bought" />
                </children>
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="payment_anchor" layoutX="192.0" layoutY="39.0" prefHeight="449.0" prefWidth="691.0" visible="false">
+      <AnchorPane fx:id="payment_anchor" layoutX="254.0" layoutY="3.0" prefHeight="739.0" prefWidth="1222.0" visible="false">
          <children>
-            <AnchorPane layoutX="6.0" prefHeight="433.0" prefWidth="658.0" stylesheets="@auctionDesign.css">
+            <AnchorPane layoutX="13.0" layoutY="12.0" prefHeight="713.0" prefWidth="1198.0" stylesheets="@auctionDesign.css">
                <styleClass>
                   <String fx:value="white-bg" />
                   <String fx:value="shadow" />
                </styleClass>
                <children>
-                  <TableView fx:id="payment_tableview" layoutX="33.0" layoutY="56.0" onMouseClicked="#SelectTicket" prefHeight="226.0" prefWidth="609.0" stylesheets="@auctionDesign.css">
+                  <TableView fx:id="payment_tableview" layoutX="21.0" layoutY="33.0" onMouseClicked="#SelectTicket" prefHeight="560.0" prefWidth="1154.0" stylesheets="@auctionDesign.css">
                      <columns>
-                        <TableColumn fx:id="payment_tv_id" prefWidth="48.0" text="PID" />
-                        <TableColumn fx:id="payment_tv_idUser" prefWidth="44.0" text="UID" />
-                        <TableColumn fx:id="payment_tv_purchaseD" prefWidth="98.4000244140625" text="Purchase Date" />
-                        <TableColumn fx:id="payment_tv_adult" prefWidth="95.99996948242188" text="Nb Adult " />
-                        <TableColumn fx:id="payment_tv_teen" prefWidth="104.0" text="Nb Teen" />
-                        <TableColumn fx:id="payment_tv_student" prefWidth="108.79998779296875" text="Nb Student" />
-                        <TableColumn fx:id="payment_tv_total" prefWidth="113.5999755859375" text="Total payment" />
+                        <TableColumn fx:id="payment_tv_purchaseD" prefWidth="271.7332458496094" text="Purchase Date" />
+                        <TableColumn fx:id="payment_tv_adult" prefWidth="213.86669921875" text="Nb Adult " />
+                        <TableColumn fx:id="payment_tv_teen" prefWidth="208.00006103515625" text="Nb Teen" />
+                        <TableColumn fx:id="payment_tv_student" prefWidth="201.5999755859375" text="Nb Student" />
+                        <TableColumn fx:id="payment_tv_total" prefWidth="263.999755859375" text="Total payment" />
                      </columns>
                   </TableView>
-                  <Button fx:id="payment_delete_button" layoutX="288.0" layoutY="317.0" mnemonicParsing="false" onAction="#PaymentDelete" prefHeight="30.0" prefWidth="82.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete" />
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="buyticket_anchor" layoutX="192.0" layoutY="53.0" prefHeight="410.0" prefWidth="671.0" visible="false">
-         <children>
-            <AnchorPane layoutX="8.0" layoutY="9.0" prefHeight="391.0" prefWidth="642.0" stylesheets="@auctionDesign.css" visible="false">
-               <styleClass>
-                  <String fx:value="white-bg" />
-                  <String fx:value="shadow" />
-               </styleClass>
-               <children>
-                  <Label layoutX="163.0" layoutY="14.0" text="PURCHASE TICKETS">
-                     <font>
-                        <Font name="Tahoma Bold" size="28.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="99.0" layoutY="76.0" text="Select Date:">
-                     <font>
-                        <Font name="Tahoma Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <AnchorPane fx:id="afterdate_anchor" layoutX="33.0" layoutY="109.0" prefHeight="268.0" prefWidth="594.0">
-                     <children>
-                        <Button fx:id="ticketbuy_add_button" layoutX="497.0" layoutY="223.0" mnemonicParsing="false" onAction="#addPayment" prefHeight="30.0" prefWidth="82.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Buy" />
-                        <Button fx:id="ticketbuy_update_button" layoutX="384.0" layoutY="223.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="82.0" styleClass="update-btn" stylesheets="@auctionDesign.css" text="Receipt" />
-                        <Button fx:id="ticketbuy_reset_button" layoutX="21.0" layoutY="223.0" mnemonicParsing="false" onAction="#SpinnerReset" prefHeight="30.0" prefWidth="82.0" styleClass="reset-btn" stylesheets="@auctionDesign.css" text="Reset" />
-                        <Label layoutX="64.0" layoutY="56.0" text="Adult">
-                           <font>
-                              <Font name="Tahoma Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="66.0" layoutY="96.0" text="Teen">
-                           <font>
-                              <Font name="Tahoma Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="55.0" layoutY="143.0" text="Student">
-                           <font>
-                              <Font name="Tahoma Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="213.0" layoutY="22.0" text="Quantity">
-                           <font>
-                              <Font name="Tahoma Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="367.0" layoutY="22.0" text="Price($)">
-                           <font>
-                              <Font name="Tahoma Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Spinner fx:id="spinner_adult" layoutX="212.0" layoutY="51.0" onMouseClicked="#getSpinner" prefHeight="27.0" prefWidth="62.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                        <Label fx:id="price_1" layoutX="380.0" layoutY="56.0" text="\$0.0">
-                           <font>
-                              <Font name="Tahoma Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="price_2" layoutX="380.0" layoutY="97.0" text="\$0.0">
-                           <font>
-                              <Font name="Tahoma Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="price_3" layoutX="380.0" layoutY="143.0" text="\$0.0">
-                           <font>
-                              <Font name="Tahoma Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="440.0" layoutY="172.0" text="Total:">
-                           <font>
-                              <Font name="Tahoma Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="price_4" layoutX="497.0" layoutY="172.0" text="\$0.0">
-                           <font>
-                              <Font name="Tahoma Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Spinner fx:id="spinner_teen" layoutX="212.0" layoutY="92.0" onMouseClicked="#getSpinner" prefHeight="27.0" prefWidth="62.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                        <Spinner fx:id="spinner_student" layoutX="212.0" layoutY="138.0" onMouseClicked="#getSpinner" prefHeight="27.0" prefWidth="62.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                     </children>
-                  </AnchorPane>
-                  <DatePicker fx:id="payment_date" layoutX="250.0" layoutY="70.0" onAction="#checkDate" prefHeight="30.0" promptText="MM-DD-YYYY" styleClass="combobox" stylesheets="@auctionDesign.css" />
-                  <TextField fx:id="date_warning" layoutX="429.0" layoutY="70.0" mouseTransparent="true" prefHeight="30.0" prefWidth="212.0" styleClass="date_warning" stylesheets="@auctionDesign.css" />
+                  <Button fx:id="payment_delete_button" layoutX="552.0" layoutY="623.0" mnemonicParsing="false" onAction="#PaymentDelete" prefHeight="47.0" prefWidth="159.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Delete" />
                </children>
             </AnchorPane>
          </children>

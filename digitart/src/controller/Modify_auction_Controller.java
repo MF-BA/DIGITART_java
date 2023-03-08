@@ -31,6 +31,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
@@ -63,15 +64,30 @@ public class Modify_auction_Controller implements Initializable {
     private Button submit_add_auction;
     @FXML
     private Button cancel_add_auction;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname2;
+    @FXML
+    private Label modif;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<String> myObservableList = FXCollections.observableArrayList(Auction_Services.find_artworks(1));
+        if (Data.back_auction) {
+            //ObservableList<String> myObservableList = FXCollections.observableArrayList(Auction_Services.find_artworks(Data.user.getId()));
 
-        in_I.setItems(myObservableList);
+            //in_I.setItems(myObservableList);
+            in_I.setVisible(false);
+            modif.setVisible(false);
+        } else {
+            ObservableList<String> myObservableList = FXCollections.observableArrayList(Auction_Services.find_artworks(Data.user.getId()));
+            in_I.setItems(myObservableList);
+        }
 
         // force the field to be numeric only
         in_SP.textProperty().addListener(new ChangeListener<String>() {
@@ -98,7 +114,11 @@ public class Modify_auction_Controller implements Initializable {
 
     private void go_Home(ActionEvent event) {
         try {
-            root = FXMLLoader.load(getClass().getResource("/view/Display_auctions.fxml"));
+            if (Data.back_auction) {
+                root = FXMLLoader.load(getClass().getResource("/view/display_auction_back.fxml"));
+            } else {
+                root = FXMLLoader.load(getClass().getResource("/view/Display_auctions.fxml"));
+            }
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -125,8 +145,6 @@ public class Modify_auction_Controller implements Initializable {
             Optional<ButtonType> option = alert.showAndWait();
             if (option.get().equals(ButtonType.OK)) {
                 LocalDate date = in_ED.getValue();
-                /*date */
-                System.out.println(in_I.getValue());
 
                 Auction auction = new Auction(Data.auction_display.getId_auction(), Integer.parseInt(in_SP.textProperty().getValue()),
                         in_BI.getValue(), Auction_Services.find_artwork_id(in_I.getValue()),
@@ -141,6 +159,5 @@ public class Modify_auction_Controller implements Initializable {
     private void cancel_add_auction_clicked(ActionEvent event) {
         go_Home(event);
     }
-
 
 }

@@ -21,7 +21,6 @@ public class Auction_display {
     int bid;
     String img;
     String name_artist;
-
     int id_auction, id_artwork;
 
     public Auction_display(Auction auction, String name, int bid) {

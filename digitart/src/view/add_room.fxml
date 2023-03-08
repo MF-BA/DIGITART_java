@@ -1,54 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="836.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_roomController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1200.0" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_roomController">
    <children>
-      <Text layoutX="290.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add room" textAlignment="CENTER" wrappingWidth="212.13671875">
+      <Text fill="#bd2a2e" layoutX="490.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Add room" textAlignment="CENTER" wrappingWidth="490.13671875">
          <font>
-            <Font name="Impact" size="46.0" />
+            <Font name="Berlin Sans FB" size="72.0" />
          </font>
       </Text>
-      <TextField fx:id="INPUT_name" layoutX="294.0" layoutY="186.0" prefHeight="25.0" prefWidth="302.0" />
-      <Label layoutX="126.0" layoutY="183.0" text="Name:">
+      <TextField fx:id="INPUT_name" layoutX="621.0" layoutY="137.0" prefHeight="25.0" prefWidth="302.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Label layoutX="453.0" layoutY="134.0" stylesheets="@auctionDesign.css" text="Name:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="126.0" layoutY="274.0" prefHeight="32.0" prefWidth="63.0" text="Area:">
+      <Label layoutX="453.0" layoutY="203.0" prefHeight="32.0" prefWidth="63.0" stylesheets="@auctionDesign.css" text="Area:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="126.0" layoutY="366.0" prefHeight="32.0" prefWidth="132.0" text="State:">
+      <Label layoutX="453.0" layoutY="281.0" prefHeight="32.0" prefWidth="132.0" stylesheets="@auctionDesign.css" text="State:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <ComboBox fx:id="INPUT_state" layoutX="294.0" layoutY="370.0" prefHeight="25.0" prefWidth="302.0" />
-      <Label layoutX="123.0" layoutY="465.0" prefHeight="32.0" prefWidth="132.0" text="Description:">
+      <ComboBox fx:id="INPUT_state" layoutX="621.0" layoutY="285.0" prefHeight="25.0" prefWidth="302.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
+      <Label layoutX="450.0" layoutY="366.0" prefHeight="32.0" prefWidth="132.0" stylesheets="@auctionDesign.css" text="Description:">
          <font>
-            <Font size="22.0" />
+            <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <TextArea fx:id="INPUT_description" layoutX="290.0" layoutY="465.0" prefHeight="206.0" prefWidth="308.0" />
-      <Button fx:id="BTN_cancel" layoutX="219.0" layoutY="723.0" mnemonicParsing="false" onAction="#btn_cancel_clicked" text="Cancel">
+      <TextArea fx:id="INPUT_description" layoutX="622.0" layoutY="366.0" prefHeight="206.0" prefWidth="308.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Button fx:id="BTN_cancel" layoutX="551.0" layoutY="622.0" mnemonicParsing="false" onAction="#btn_cancel_clicked" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Cancel">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_add" layoutX="458.0" layoutY="723.0" mnemonicParsing="false" onAction="#btn_add_clicked" text="Confirm adding">
+      <Button fx:id="BTN_add" layoutX="790.0" layoutY="622.0" mnemonicParsing="false" onAction="#btn_add_clicked" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Confirm adding">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <TextField fx:id="INPUT_area" layoutX="290.0" layoutY="278.0" prefHeight="25.0" prefWidth="302.0" />
+      <TextField fx:id="INPUT_area" layoutX="617.0" layoutY="207.0" prefHeight="25.0" prefWidth="302.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <VBox prefHeight="720.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
+         <children>
+            <Pane prefHeight="171.0" prefWidth="269.0">
+               <children>
+                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="79.0" layoutY="131.0" size="130" />
+               </children>
+            </Pane>
+            <Label prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
+               <padding>
+                  <Insets left="70.0" />
+               </padding>
+               <font>
+                  <Font name="Berlin Sans FB" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="labeladminname" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label />
+            <Label />
+            <Label />
+            <Label fx:id="labeladminname1" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labeladminname2" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_room" mnemonicParsing="false" onAction="#btn_room_clicked" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="List of Rooms" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CUBE" size="30" />
+               </graphic>
+            </Button>
+            <Button fx:id="btn_artwork" mnemonicParsing="false" onAction="#btn_artwork_clicked" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="List of Artworks" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="IMAGE" size="30" />
+               </graphic>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>

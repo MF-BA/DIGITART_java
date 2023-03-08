@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_auction_backController">
+   <children>
+      <Label layoutX="484.0" layoutY="26.0" stylesheets="@auctionDesign.css" text="ADD TO AUCTION">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="50.0" />
+         </font>
+      </Label>
+      <Label fx:id="select_item_label" layoutX="372.0" layoutY="262.0" prefHeight="30.0" prefWidth="126.0" stylesheets="@auctionDesign.css" text="Select Item:">
+         <font>
+            <Font name="Microsoft New Tai Lue" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="372.0" layoutY="337.0" stylesheets="@auctionDesign.css" text="Description:">
+         <font>
+            <Font name="Microsoft New Tai Lue" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="822.0" layoutY="188.0" stylesheets="@auctionDesign.css" text="Starting Bid:">
+         <font>
+            <Font name="Microsoft New Tai Lue" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="822.0" layoutY="294.0" stylesheets="@auctionDesign.css" text="Bid Increment:">
+         <font>
+            <Font name="Microsoft New Tai Lue" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="820.0" layoutY="396.0" stylesheets="@auctionDesign.css" text="Ending Date:">
+         <font>
+            <Font name="Microsoft New Tai Lue" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="in_SB" layoutX="822.0" layoutY="225.0" prefHeight="41.0" prefWidth="150.0" styleClass="textfield" stylesheets="@auctionDesign.css">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextArea fx:id="in_Desc" layoutX="372.0" layoutY="373.0" prefHeight="142.0" prefWidth="297.0" styleClass="textfield" stylesheets="@auctionDesign.css">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextArea>
+      <DatePicker fx:id="in_ED" layoutX="819.0" layoutY="426.0" prefHeight="41.0" prefWidth="150.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Spinner fx:id="in_BI" editable="true" layoutX="822.0" layoutY="331.0" prefHeight="41.0" prefWidth="93.0" styleClass="textfield" stylesheets="@auctionDesign.css">
+         <effect>
+            <Glow />
+         </effect>
+      </Spinner>
+      <ComboBox fx:id="in_I" disable="true" layoutX="372.0" layoutY="296.0" prefHeight="30.0" prefWidth="190.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Label layoutX="984.0" layoutY="225.0" prefHeight="41.0" prefWidth="24.0" text="\$">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="925.0" layoutY="331.0" prefHeight="41.0" prefWidth="24.0" text="\$">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="submit_add_auction" layoutX="1050.0" layoutY="601.0" mnemonicParsing="false" onAction="#submit_add_auction_clicked" prefHeight="44.0" prefWidth="108.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Submit">
+         <font>
+            <Font name="Microsoft New Tai Lue" size="20.0" />
+         </font>
+      </Button>
+      <VBox prefHeight="729.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
+         <children>
+            <Pane prefHeight="171.0" prefWidth="269.0">
+               <children>
+                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="79.0" layoutY="131.0" size="130" />
+               </children>
+            </Pane>
+            <Label prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
+               <padding>
+                  <Insets left="70.0" />
+               </padding>
+               <font>
+                  <Font name="Berlin Sans FB" size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="labeladminname" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label />
+            <Label />
+            <Label />
+            <Label fx:id="labeladminname1" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="labeladminname2" prefHeight="17.0" prefWidth="272.0">
+               <padding>
+                  <Insets left="80.0" />
+               </padding>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_Artworks_Auction" mnemonicParsing="false" onAction="#Artworks__Auction_cicked" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Artworks In Auction" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
+               </graphic>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="btn_Add_Auction" mnemonicParsing="false" onAction="#btn_Add_Auction_click" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Add To Auction" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="USER_PLUS" size="20" />
+               </graphic>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+      <Label layoutX="372.0" layoutY="193.0" prefHeight="30.0" prefWidth="126.0" text="Select Atrist:">
+         <font>
+            <Font name="Microsoft New Tai Lue" size="20.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="in_Artist" layoutX="372.0" layoutY="227.0" onAction="#in_Artist_clicked" prefHeight="30.0" prefWidth="190.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+   </children>
+</AnchorPane>

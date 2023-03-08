@@ -8,47 +8,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="695.0" spacing="50.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Artwork_frontController">
+<HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="695.0" spacing="20.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Artwork_frontController">
    <children>
       <ImageView fx:id="photo" fitHeight="158.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../../../../../../wallpapers/pexels-sam-kolder-2387873.jpg" />
          </image>
       </ImageView>
-      <VBox alignment="BASELINE_LEFT" prefHeight="200.0" prefWidth="392.0">
+      <VBox alignment="BASELINE_LEFT" prefHeight="200.0" prefWidth="461.0">
          <children>
             <Label fx:id="artwork_name" text="MONALISA">
                <font>
-                  <Font name="System Bold Italic" size="24.0" />
+                  <Font name="Microsoft New Tai Lue Bold" size="35.0" />
                </font>
             </Label>
-            <Label fx:id="artist" text="Artist:">
+            <Label fx:id="artist" prefHeight="26.0" prefWidth="298.0" text="Artist:">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Microsoft New Tai Lue" size="17.0" />
                </font>
             </Label>
-            <Label fx:id="current_bid" prefHeight="30.0" prefWidth="130.0" text="Current Bid:">
+            <Label fx:id="current_bid" prefHeight="22.0" prefWidth="290.0" text="Current Bid:">
                <font>
-                  <Font name="System Bold" size="20.0" />
+                  <Font name="Microsoft New Tai Lue Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="next_bid" prefHeight="26.0" prefWidth="113.0" text="Next Bid:">
+            <Label fx:id="next_bid" prefHeight="23.0" prefWidth="292.0" text="Next Bid:">
                <font>
-                  <Font size="17.0" />
+                  <Font name="Microsoft New Tai Lue" size="16.0" />
                </font>
             </Label>
             <Label prefHeight="26.0" prefWidth="173.0" text="The auction ends in :">
                <font>
-                  <Font size="17.0" />
+                  <Font name="Microsoft New Tai Lue" size="18.0" />
                </font>
             </Label>
             <Label fx:id="Date" text="test">
                <font>
-                  <Font name="System Bold" size="15.0" />
+                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
                </font>
             </Label>
          </children>
       </VBox>
-      <Button fx:id="add_bid" mnemonicParsing="false" onAction="#add_bid_clicked" prefHeight="36.0" prefWidth="186.0" text="Add Bid" />
+      <ImageView fx:id="wining" fitHeight="20.0" fitWidth="20.0">
+         <image>
+            <Image url="@pngegg.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="add_bid" mnemonicParsing="false" onAction="#add_bid_clicked" prefHeight="39.0" prefWidth="293.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add Bid" />
    </children>
 </HBox>
