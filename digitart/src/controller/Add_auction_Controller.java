@@ -36,7 +36,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -66,20 +68,29 @@ public class Add_auction_Controller implements Initializable {
     private Button btn_Add_Auction;
     @FXML
     private Button btn_Artworks_Auction;
-    @FXML
-    private Button Close;
-    @FXML
-    private Button Minimize;
-    @FXML
-    private AnchorPane main_anchor;
-    @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
     private Button auction_btn;
+    @FXML
+    private Button disconnect;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private Button home_btn;
+    @FXML
+    private Button artwork_btn;
+    @FXML
+    private Button auction_btn1;
+    @FXML
+    private Button events_btn;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labelusername;
+    @FXML
+    private Button tickets_btn;
+    @FXML
+    private Button auction_btn11;
 
     /**
      * Initializes the controller class.
@@ -95,10 +106,8 @@ public class Add_auction_Controller implements Initializable {
     }
 });
 
-
-        btn_Add_Auction.setStyle("-fx-background-color:  #470011 ");
-        btn_Artworks_Auction.setStyle("-fx-background-color:transparent");
-        auction_btn.setStyle("-fx-background-color:transparent ");
+        auction_btn1.setStyle("-fx-background-color: #bd2a2e");
+        btn_Add_Auction.setStyle("-fx-background-color:  #bd2a2e ");
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000);
         valueFactory.setValue(10);
         in_BI.setValueFactory(valueFactory);
@@ -191,5 +200,46 @@ public class Add_auction_Controller implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @FXML
+    private void disconnect_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
     }
 }
