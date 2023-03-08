@@ -180,16 +180,19 @@ and open the template in the editor.
 .dashhome-btn{
     -fx-background-color:linear-gradient(to bottom right,  #BD2A2E,  #7C060F);
     -fx-background-radius:50;
-    -fx-text-fill:#ffff;
+    -fx-text-fill:#ffffff;
     -fx-font-size:18px;
-    border-radius:15px 0 15px;
+    border-radius:50px;
     -fx-border-width:.8px;
     -fx-font-family:"Berlin Sans FB";
 }
 .dashhome-btn:hover{
-    -fx-background-color:#3B3936;
-    -fx-text-fill:#ffff;
+    -fx-background-color:#7C060F;
+    -fx-border-radius:50px;
+    -fx-text-fill:#ffffff;
     -fx-effect: dropshadow(gaussian, #3B3936, 5, 0, 0, 1);
+    
+    
 }
 .forget-btn{
     -fx-background-color: transparent;
