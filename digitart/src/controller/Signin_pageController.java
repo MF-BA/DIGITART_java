@@ -297,7 +297,7 @@ public class Signin_pageController implements Initializable {
         } else {
             try {
                 String sql = "Select * from users where email=? and password=?";
-
+                //pst =  conn.createStatement();
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, emaillogin.getText());
                 pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
@@ -358,15 +358,15 @@ public class Signin_pageController implements Initializable {
                hints.put(EncodeHintType.MARGIN, 1);
 
                QRCodeWriter writer = new QRCodeWriter();
-               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);*/
-               ByteMatrix byteMatrix;
-               QRCodeWriter writer = new QRCodeWriter();
+               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);
+             /*QRCodeWriter writer = new QRCodeWriter();
+             ByteMatrix byteMatrix;
     try {
-        byteMatrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400);
+        byteMatrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 200, 200);
     } catch (WriterException e) {
         e.printStackTrace();
         return;
-    }
+    }*/
 
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                  MatrixToImageWriter.writeToStream(byteMatrix, "PNG", outputStream);
