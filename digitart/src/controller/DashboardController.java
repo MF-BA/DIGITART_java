@@ -96,10 +96,6 @@ public class DashboardController implements Initializable {
     @FXML
     private Label labeladminname;
     @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
     private Button add_user;
     @FXML
     private Button modify_user;
@@ -263,8 +259,6 @@ public class DashboardController implements Initializable {
     @FXML
     private Label errormsglname_edit3;
     @FXML
-    private Label errormsgpwd_edit;
-    @FXML
     private Label errormsggender_edit;
     @FXML
     private Label errormsgcin_edit;
@@ -272,17 +266,6 @@ public class DashboardController implements Initializable {
     private Label errormsgbirthdate_edit;
     @FXML
     private Label errormsgphonenum_edit;
-    @FXML
-    private Label labeladminname21;
-    @FXML
-    private Label labeladminname22;
-    @FXML
-    private Label labeladminname23;
-    @FXML
-    private Label labeladminname24;
-    @FXML
-    private Label labeladminname25;
-    @FXML
     private Button deconnect;
     private Button eye_on;
     private Button eye_off;
@@ -340,6 +323,15 @@ public class DashboardController implements Initializable {
     private Button newpwd_btn;
     @FXML
     private Label errormsgaddress_edit;
+    @FXML
+    private Button return_dash_btn;
+    @FXML
+    private Button deconnect1;
+    
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent pt;
     /**
      * Initializes the controller class.
      */
@@ -1479,6 +1471,23 @@ chartgender.setLabelsVisible(true);
         
         
         
+    }
+
+    @FXML
+    private void return_dash_btn(ActionEvent event) {
+        try {
+             pt=FXMLLoader
+                    .load(getClass().getResource("/view/Dashboard_homepage.fxml"));
+            
+             scene=new Scene(pt);
+             stage=(Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Login");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

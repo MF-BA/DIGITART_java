@@ -46,9 +46,14 @@
                   <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <Label />
-            <Label />
-            <Label />
+            <Button fx:id="return_dash_btn" mnemonicParsing="false" onAction="#return_dash_btn" prefHeight="51.0" prefWidth="271.0" styleClass="navRETURN-form" stylesheets="@auctionDesign.css" text="Back to home" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="REPLY" size="20" />
+               </graphic>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
             <Button fx:id="edit_profile" mnemonicParsing="false" onAction="#edit_profile_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Edit profile" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="USER" size="20" text="" />
@@ -81,12 +86,13 @@
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Button>
+            <Label prefHeight="17.0" prefWidth="252.0" />
             <ImageView fitHeight="147.0" fitWidth="250.0">
                <image>
                   <Image url="@../logo%20digitart%20white.png" />
                </image>
             </ImageView>
-            <Button fx:id="deconnect" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
+            <Button fx:id="deconnect1" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="20" />
                </graphic>
