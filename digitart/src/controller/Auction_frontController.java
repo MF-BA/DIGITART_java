@@ -25,11 +25,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -38,14 +40,14 @@ import javafx.stage.Stage;
  * @author fedi1
  */
 public class Auction_frontController implements Initializable {
-    
+
     private Stage stage;
     private Scene scene;
     private Parent root;
     /**
      * Initializes the controller class.
      */
-    
+
     ArrayList<Auction_display> auction_array_detailed;
     @FXML
     private HBox auction_view;
@@ -53,43 +55,71 @@ public class Auction_frontController implements Initializable {
     private GridPane auction_container;
     HBox cardBox;
     @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
     private Button btn_Artworks_Auction;
     @FXML
     private Button btn_Add_Auction;
     @FXML
     private Button auction_btn;
-    
+    @FXML
+    private Button disconnect;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private Button home_btn;
+    @FXML
+    private Button artwork_btn;
+    @FXML
+    private Button events_btn;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labelusername;
+    @FXML
+    private Button tickets_btn;
+    @FXML
+    private Button auction_btn1;
+    @FXML
+    private ScrollPane scrollPane;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        btn_Add_Auction.setStyle("-fx-background-color: transparent");
-        btn_Artworks_Auction.setStyle("-fx-background-color:transparent  ");
-        auction_btn.setStyle("-fx-background-color: #470011");
+        if(Data.user.getRole()== "Subscriber")
+        {
+            auction_btn1.setVisible(false);
+            btn_Artworks_Auction.setVisible(false);
+            btn_Add_Auction.setVisible(false);
+        }
+        auction_btn.setStyle("-fx-background-color: #bd2a2e");
+        auction_btn1.setStyle("-fx-background-color: #bd2a2e");
         display_auction();
-        
     }
-    
+
     public void display_auction() {
         auction_array_detailed = Auction_Services.Display_auction_details(Auction_Services.Display_front_public(Data.user.getId()));
         int column = 0;
         int row = 1;
+        if (auction_array_detailed.size() == 1) {
+            scrollPane.setPrefSize(900,232
+            );
+        }
+        else if(auction_array_detailed.size() == 0)
+        {
+            scrollPane.setPrefSize(0,0);
+        }
         for (int i = 0; i < auction_array_detailed.size(); i++) {
-            
+
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/view/artwork_front.fxml"));
-            
+
             try {
                 cardBox = fxmlLoader.load();
                 Artwork_frontController cardController = fxmlLoader.getController();
                 cardController.set_artwork(auction_array_detailed.get(i));
-                System.out.println(cardBox.getChildren());
+                //System.out.println(cardBox.getChildren());
                 ImageView cardPane = (ImageView) cardBox.getChildren().get(0);
-                
+
                 cardPane.setOnMouseClicked(event -> {
                     // Pass the selected artwork to the detail view
                     showArtworkDetails(cardController.getArtwork());
@@ -106,25 +136,25 @@ public class Auction_frontController implements Initializable {
                 Logger.getLogger("heeerrreeeee" + Auction_frontController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
     }
-    
-        private void showArtworkDetails(Auction_display artwork) {
+
+    private void showArtworkDetails(Auction_display artwork) {
         System.out.println(artwork);
     }
-    
+
     @FXML
     private void view_clicked(MouseEvent event) {
     }
-    
+
     @FXML
     private void auction_btn_clicked(ActionEvent event) {
     }
-    
+
     @FXML
     private void btn_Add_Auction_click(ActionEvent event) {
         ArrayList<String> arr = Auction_Services.find_artworks(Data.user.getId());
-        
+
         if (arr.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("WARNING !!!!");
@@ -142,7 +172,7 @@ public class Auction_frontController implements Initializable {
             }
         }
     }
-    
+
     private void go_Home(ActionEvent event) {
         try {
             // Get the current stage
@@ -162,10 +192,51 @@ public class Auction_frontController implements Initializable {
             Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @FXML
     private void Artworks__Auction_cicked(ActionEvent event) {
         go_Home(event);
     }
-    
+
+    @FXML
+    private void disconnect_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
+    }
+
 }

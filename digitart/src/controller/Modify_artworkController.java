@@ -173,16 +173,17 @@ public class Modify_artworkController implements Initializable {
          Alert alert;
         try {
     
-    
+     
             if (Input_name_artwork.getText().isEmpty() || input_name_artist.getText().isEmpty()
                     || input_idroom.getSelectionModel().getSelectedItem() == null
-                    || input_desc.getText().isEmpty()|| input_date.getValue() == null || selectedFile == null) {
+                    || input_desc.getText().isEmpty()|| input_date.getValue() == null ) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Please fill all the fields or add the image again");
+                alert.setContentText("Please fill all the fields ");
                 alert.showAndWait();
             } else {
+                if(selectedFile!=null)  {
                 alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
@@ -191,7 +192,7 @@ public class Modify_artworkController implements Initializable {
                 if (option.get().equals(ButtonType.OK)) {
                     
                     
-                             
+                         
        
         imageUrl = "http://localhost/images/"+selectedFile.getName();
         
@@ -245,6 +246,20 @@ public class Modify_artworkController implements Initializable {
                   
                 } else {
                     return;
+                }
+             } else{
+                    LocalDate localDate = input_date.getValue();
+                    nameRoom = input_idroom.getSelectionModel().getSelectedItem();
+        
+                    id_room = Artwork_Services.find_idroom(nameRoom) ;
+                   Artwork artwork= new Artwork(Data.artwork.getId_art(),Input_name_artwork.getText(),input_id_artist.getSelectionModel().getSelectedItem(),input_name_artist.getText(),localDate,input_desc.getText(),Data.artwork.getImage_art(),id_room);
+                    Artwork_Services.modify(artwork);
+                    alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Updated!");
+                    alert.showAndWait();
+                    go_Display(event);
                 }
             }
         } catch (Exception e) {

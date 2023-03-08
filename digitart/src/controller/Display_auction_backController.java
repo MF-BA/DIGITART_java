@@ -36,9 +36,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -77,12 +80,6 @@ public class Display_auction_backController implements Initializable {
     @FXML
     private TextField search_in;
     @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
     private Button btn_Artworks_Auction;
     @FXML
     private Button btn_Add_Auction;
@@ -90,6 +87,30 @@ public class Display_auction_backController implements Initializable {
     private FontAwesomeIconView clear;
     @FXML
     private Button display_archive;
+    @FXML
+    private Button disconnect;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private Button home_btn;
+    @FXML
+    private Button artwork_btn;
+    @FXML
+    private Button auction_btn;
+    @FXML
+    private Button events_btn;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labelusername;
+    @FXML
+    private Button tickets_btn;
+    @FXML
+    private AnchorPane homepage_anchorpane;
+    @FXML
+    private Button auction_btn1;
 
     /**
      * Initializes the controller class.
@@ -354,6 +375,38 @@ public class Display_auction_backController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    private void disconnect_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void auction_btn_clicked(ActionEvent event) {
     }
 
 }

@@ -35,17 +35,12 @@ import java.io.IOException;
 public class main extends Application {
 
     private Stage primaryStage;
-    private Parent root;
-    //private Parent ADDAUCTION_Page
-    private double x = 0;
-    private double y = 0;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("DIGITART");
 
-        
         //Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/back_admin/display_auction_back.fxml"));
         Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/participate_event.fxml"));
         Scene scene = new Scene(DisplayROOM_Page);
@@ -91,11 +86,6 @@ public class main extends Application {
         }
     }
 
-
-    /* public static void main(String[] args) {
-            EnvoyerEmail test = new EnvoyerEmail();
-            test.envoyer();
-        }*/
     /**
      * @param args the command line arguments
      */
@@ -109,92 +99,10 @@ public class main extends Application {
             main test = new main();
             test.send_mail(user, id_auction.get(i));
             i++;
-
         }
-
-        Data.user = new users(35, 12, "firstname", "lastname", "laatarmomo@gmail.com", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "role");
-
-        /*String apiUrl = "http://data.fixer.io/api/latest?access_key=fBHGSQbaHC735dTQMppwn4QhzmuSeQcp";
-        URL url = new URL(apiUrl);
-        Scanner scanner = new Scanner(url.openStream());
-        String jsonString = scanner.nextLine();
-        System.out.println(jsonString);
-        JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-        double usdToEur = jsonObject.getAsJsonObject("rates").get("USD").getAsDouble();
-        System.out.println("1 USD = " + usdToEur + " EUR");*/
-        
-
+        Data.user = new users(35, 12, "firstname", "lastname", "laatarmomo@gmail.com", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "Admin");
         launch(args);
-
-        //Amine---------------------------------------------------------------------------------------------------- 
-        /*
-        java.sql.Date ticketDate = java.sql.Date.valueOf("1990-03-12");
-        Ticket ticket = new Ticket(123,ticketDate, "Teen", 100, 30, "kes7a");
-      ServiceTicket.addTicket(ticket);
-
         System.exit(0);
-        
-         */
- /* MOHAMED -----------------------------------------------------------
-        
-        
-          ArrayList<Room> data ;
-        ArrayList<Artwork> data2 ;
-        
-        
-        
-        /**add and display room 
-         * 
-             Room room1 = new Room("Carthage",260,"available","qdqzdqzd");
-             Room_Services.add(room1);
-        
-    
-             data = Room_Services.Display() ;
-             System.out.println(data);
-         */
- /* delete and display room 
-        
-            Room room2 = data.get(0);
-            Room_Services.delete(room2.getId_room());
-        
-            data = Room_Services.Display() ;
-            System.out.println(data);
-         */
- /* add  and display artwork
-        
-          Artwork artwork1 = new Artwork("La Jaconde",1,"Leonard de Vinci",LocalDate.of(1517, Month.MARCH, 10),"qdqzdqzd","url",2);
-             Artwork_Services.add(artwork1);
-        
-        
-             data2 = Artwork_Services.Display() ;
-             System.out.println(data2);
-             
-         */
- /* delete and display artwork 
-        
-            Artwork artwork2 = data2.get(0);
-            Artwork_Services.delete(artwork2.getId_art());
-        
-            data2 = Artwork_Services.Display() ;
-            System.out.println(data2);
-   
-         */
- /* 
-
-       System.out.println(ServiceTicket.displayTicket());
-        
-       ServiceTicket.deleteTicket(1234);
-        
-        System.out.println(ServiceTicket.displayTicket());
-        
-        Ticket updatedTicket = new Ticket(123,ticketDate, "Adult", 200, 20, "dar");
-        ServiceTicket.updateTicket(updatedTicket);
-        
-       System.out.println(ServiceTicket.displayTicket());
-         */
-        // Amine---------------------------------------------------------------------------------------------------- 
-        System.exit(0);
-
     }
 
 }

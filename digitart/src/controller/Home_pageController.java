@@ -77,6 +77,10 @@ public class Home_pageController implements Initializable {
         Image image = new Image(Data.user.getImage());
         circle_image.setFill(new ImagePattern(image));
         }
+        else
+        {
+            circle_image.setFill(null);
+        }
      
         
     }    
@@ -105,6 +109,20 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void artwork_btn(ActionEvent event) {
+        
+         try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/display_artwork_user.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -117,6 +135,19 @@ public class Home_pageController implements Initializable {
 
     @FXML
     private void tickets_btn(ActionEvent event) {
+            try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_ticket_user.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

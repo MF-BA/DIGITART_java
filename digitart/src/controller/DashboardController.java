@@ -96,10 +96,6 @@ public class DashboardController implements Initializable {
     @FXML
     private Label labeladminname;
     @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
     private Button add_user;
     @FXML
     private Button modify_user;
@@ -263,8 +259,6 @@ public class DashboardController implements Initializable {
     @FXML
     private Label errormsglname_edit3;
     @FXML
-    private Label errormsgpwd_edit;
-    @FXML
     private Label errormsggender_edit;
     @FXML
     private Label errormsgcin_edit;
@@ -272,17 +266,6 @@ public class DashboardController implements Initializable {
     private Label errormsgbirthdate_edit;
     @FXML
     private Label errormsgphonenum_edit;
-    @FXML
-    private Label labeladminname21;
-    @FXML
-    private Label labeladminname22;
-    @FXML
-    private Label labeladminname23;
-    @FXML
-    private Label labeladminname24;
-    @FXML
-    private Label labeladminname25;
-    @FXML
     private Button deconnect;
     private Button eye_on;
     private Button eye_off;
@@ -340,6 +323,15 @@ public class DashboardController implements Initializable {
     private Button newpwd_btn;
     @FXML
     private Label errormsgaddress_edit;
+    @FXML
+    private Button return_dash_btn;
+    @FXML
+    private Button deconnect1;
+    
+    
+    private Stage stage;
+    private Scene scene;
+    private Parent pt;
     /**
      * Initializes the controller class.
      */
@@ -677,7 +669,7 @@ public void comboboxedit()
         userstats_dash.setVisible(false);
         editprofile_page.setVisible(true);
         
-        fname_editprof.setText(Data.user.getFirstname());
+       fname_editprof.setText(Data.user.getFirstname());
         lname_editprof.setText(Data.user.getLastname());
         email_editprof.setText(Data.user.getEmail());
         //pwd_editprof.setText(user.hashPassword(Data.user.getPwd()));
@@ -844,7 +836,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     }
     @FXML
     private void clear_fields_update_btn(ActionEvent event) {
-        clearupd();
+       clearedit();
         
     }
     
@@ -973,8 +965,8 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     }
        if (Cin!=0 && phone_number!=0 && Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")){
            
-       
-            imageUrl="http://localhost/images/"+imageFile.getName();
+       if (imageFile!=null){
+       imageUrl="http://localhost/images/"+imageFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
 //        String imageFilePath = "C:\xamppp\htdocs\piImg";
 
@@ -1009,8 +1001,6 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
             System.out.println(line);
         }
         reader.close();
-        
-            //String pathimage = upload();
         users u = new users (Data.user.getId(),
              Cin,
              firstname,
@@ -1042,9 +1032,59 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
          errormsgemail_edit.setText(""); 
          errormsgbirthdate_edit.setText(""); 
          errormsgphonenum_edit.setText(""); 
+       }
+       else
+       {
+        users u = new users (Data.user.getId(),
+             Cin,
+             firstname,
+                lastname,
+                Email,
+                Data.user.getPwd(),
+                Address,
+             phone_number,   
+             BirthDate,
+                gender,
+                role,
+                Data.user.getStatus(),
+                Data.user.getImage(),
+                Data.user.getSecretcode()
+        );
+        
+        users_Services user = new users_Services();
+         // Upload the image file if one was selected
+         // Debug statements
+        System.out.println("Image url: " + imageUrl);
+     
+        user.modifyuser(u);
+         showusers();
+         errormsgfiiledit.setText("your profile is successfully modified!!");  
+         errormsggender_edit.setText(""); 
+         errormsgfname_edit.setText(""); 
+         errormsgcin_edit.setText(""); 
+         errormsgaddress_edit.setText(""); 
+         errormsgemail_edit.setText(""); 
+         errormsgbirthdate_edit.setText(""); 
+         errormsgphonenum_edit.setText("");    
+       }
+            //String pathimage = upload();
+        
          
        }
         }
+    }
+    public void clearedit(){
+        
+        fname_editprof.setText("");
+        lname_editprof.setText("");
+        email_editprof.setText("");
+       female_gender_editprof.setSelected(false);
+       male_gender_editprof.setSelected(false);
+       Rolebox_editprof.getSelectionModel().clearSelection(); 
+       address_editprof.setText("");
+       cin_editprof.setText("");
+       birth_d_editprof.setValue(null); 
+       phone_num_editprof.setText("");
     }
 
     @FXML
@@ -1431,6 +1471,23 @@ chartgender.setLabelsVisible(true);
         
         
         
+    }
+
+    @FXML
+    private void return_dash_btn(ActionEvent event) {
+        try {
+             pt=FXMLLoader
+                    .load(getClass().getResource("/view/Dashboard_homepage.fxml"));
+            
+             scene=new Scene(pt);
+             stage=(Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Login");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }

@@ -45,7 +45,6 @@ import java.util.TreeMap;
  */
 public class Add_bidController implements Initializable {
 
-
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -62,7 +61,7 @@ public class Add_bidController implements Initializable {
     @FXML
     private Label Starting_Bid_currency;
 
-    private int current_bid = Bid_Services.highest_offer(Data.auction_display.getId_auction());
+    private int current_bid;
     @FXML
     private Label curr_bid_label;
 
@@ -71,14 +70,14 @@ public class Add_bidController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        System.out.println(Data.auction_display.getId_auction());
+        current_bid = Bid_Services.highest_offer(Data.auction_display.getId_auction());
         try {
             fetchExchangeRates();
         } catch (Exception ex) {
             Logger.getLogger(Add_bidController.class.getName()).log(Level.SEVERE, null, ex);
         }
         Starting_Bid_currency.setVisible(false);
-        int staringPrice;
         int next_offer = Bid_Services.next_offer(Data.auction_display.getId_auction());
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(next_offer, 100000000);
         valueFactory.setValue(next_offer);

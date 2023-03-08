@@ -281,10 +281,10 @@ public class PaymentController implements Initializable {
                     // Create a MimeBodyPart for the logo image and add it to the MimeMultipart
                     // Create a MimeBodyPart for the logo image and add it to the MimeMultipart
                     MimeBodyPart imagePart = new MimeBodyPart();
-                    imagePart.attachFile(new File("C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/view/image/logoD.PNG")); // replace with the actual path to your logo image
+                    imagePart.attachFile(new File("src/view/image/logoD.PNG")); // replace with the actual path to your logo image
                     imagePart.setContentID("<logo>");
                     multipart.addBodyPart(imagePart);
-
+                   
                     // Set the MimeMultipart as the email content and send the email
                     message.setContent(multipart);
                     Transport.send(message);
