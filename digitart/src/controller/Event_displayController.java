@@ -163,7 +163,8 @@ public class Event_displayController implements Initializable {
         int event_id = id_event;
 
         Alert alert;
-
+    }
+/*
         // CHECK IF THE FIELDS ARE EMPTY
         try {
             // CHECK IF THE TICKET ID ALREADY EXISTS
@@ -191,6 +192,7 @@ public class Event_displayController implements Initializable {
             }
         
     }
+        */
 public void generateQRCode() {
     String url = "https://artsandculture.google.com/search?q="+txt_event_name.getText().replaceAll("\\s+", "%20")+"%20"+ txt_start_date.getText().replaceAll("\\s+", "%20"+ txt_end_date.getText().replaceAll("\\s+", "%20")+ txt_event_desc.getText().replaceAll("\\s+", "%20"));
 
@@ -213,8 +215,9 @@ public void generateQRCode() {
         }
 
     }
+}
 
-    public void generateQRCode() {
+   /* public void generateQRCode() {
         String url = "https://artsandculture.google.com/search?q=" + txt_event_name.getText().replaceAll("\\s+", "%20") + "%20" + txt_start_date.getText().replaceAll("\\s+", "%20" + txt_end_date.getText().replaceAll("\\s+", "%20") + txt_event_desc.getText().replaceAll("\\s+", "%20"));
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         ByteMatrix byteMatrix;
@@ -238,6 +241,7 @@ public void generateQRCode() {
         Image fxImage = SwingFXUtils.toFXImage(image, null);
         qrcode.setImage(fxImage);
     }
+*/
 
     @FXML
     private void btn_qr_clicked(ActionEvent event) {
