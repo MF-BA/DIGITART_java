@@ -369,6 +369,18 @@ and open the template in the editor.
 .dashboard_chart .chart-pie-label {
     -fx-font-family: "Berlin Sans FB";
 }
+.hometest-btn{
+    -fx-background-color:#ffff;
+
+    -fx-text-fill:#3B3936;
+    -fx-font-size:22px;
+    -fx-background-radius:20;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+}
+.hometest-btn:hover{
+    -fx-background-color:#BD2A2E;
+}
 
 /* Styling for payment form text fields */
 .payment-text-field {
