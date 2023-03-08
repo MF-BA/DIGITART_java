@@ -15,7 +15,7 @@ public class Conn {
 
     static Conn A;
 
-    String URL = "jdbc:mysql://localhost/digit";
+    String URL = "jdbc:mysql://localhost/digitart";
     String user = "root";
     String pwd = "";
 
