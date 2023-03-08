@@ -21,6 +21,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -154,18 +155,19 @@ public class Event_displayController implements Initializable {
 
     public void UserAdd(int id_event) {
 
-        Event event = null;
-        int id_user = Data.user.getId();
-        String first_name = Data.user.getFirstname();
-        String last_name = Data.user.getLastname();
-        String adress = Data.user.getAddress();
-        String gender = Data.user.getGender();
-        int event_id = id_event;
-
-        Alert alert;
-
-        // CHECK IF THE FIELDS ARE EMPTY
         try {
+            Event event = null;
+            int id_user = Data.user.getId();
+            String first_name = Data.user.getFirstname();
+            String last_name = Data.user.getLastname();
+            String adress = Data.user.getAddress();
+            String gender = Data.user.getGender();
+            int event_id = id_event;
+            
+            Alert alert;
+            
+            // CHECK IF THE FIELDS ARE EMPTY
+            
             // CHECK IF THE TICKET ID ALREADY EXISTS
             Connection connection;
             connection = Conn.getCon();
@@ -189,30 +191,12 @@ public class Event_displayController implements Initializable {
                 // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
 
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(Event_displayController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
-public void generateQRCode() {
-    String url = "https://artsandculture.google.com/search?q="+txt_event_name.getText().replaceAll("\\s+", "%20")+"%20"+ txt_start_date.getText().replaceAll("\\s+", "%20"+ txt_end_date.getText().replaceAll("\\s+", "%20")+ txt_event_desc.getText().replaceAll("\\s+", "%20"));
 
-    QRCodeWriter qrCodeWriter = new QRCodeWriter();
-    ByteMatrix byteMatrix;
-    try {
-        byteMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
-    } catch (WriterException e) {
-        e.printStackTrace();
-        return;
-    }
-
-    int width = byteMatrix.getWidth();
-    int height = byteMatrix.getHeight();
-    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-            int value = byteMatrix.get(x, y);
-            image.setRGB(x, y, value == 0 ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
-        }
-
-    }
 
     public void generateQRCode() {
         String url = "https://artsandculture.google.com/search?q=" + txt_event_name.getText().replaceAll("\\s+", "%20") + "%20" + txt_start_date.getText().replaceAll("\\s+", "%20" + txt_end_date.getText().replaceAll("\\s+", "%20") + txt_event_desc.getText().replaceAll("\\s+", "%20"));

@@ -36,7 +36,9 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -67,11 +69,23 @@ public class Modify_auction_Controller implements Initializable {
     @FXML
     private Label labeladminname;
     @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
     private Label modif;
+    @FXML
+    private Pane avatar_icon;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Button edit_profile;
+    @FXML
+    private Button add_user;
+    @FXML
+    private Button modify_user;
+    @FXML
+    private Button list_users;
+    @FXML
+    private Button deconnect1;
 
     /**
      * Initializes the controller class.
@@ -158,6 +172,26 @@ public class Modify_auction_Controller implements Initializable {
     @FXML
     private void cancel_add_auction_clicked(ActionEvent event) {
         go_Home(event);
+    }
+
+    @FXML
+    private void edit_profile_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void add_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void modify_user_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void list_users_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void deconnect_btn(ActionEvent event) {
     }
 
 }
