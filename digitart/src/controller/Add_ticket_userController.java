@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -33,8 +34,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -49,10 +52,6 @@ public class Add_ticket_userController implements Initializable {
 
     @FXML
     private AnchorPane main_anchor;
-    @FXML
-    private Button btn_buyticket;
-    @FXML
-    private AnchorPane buyticket_anchor;
     @FXML
     private AnchorPane afterdate_anchor;
     @FXML
@@ -76,7 +75,31 @@ public class Add_ticket_userController implements Initializable {
     @FXML
     private DatePicker payment_date;
     @FXML
-    private TextField date_warning;
+    private Button disconnect;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private Button home_btn;
+    @FXML
+    private Button artwork_btn;
+    @FXML
+    private Button auction_btn;
+    @FXML
+    private Button events_btn;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labelusername;
+    @FXML
+    private Button tickets_btn;
+    @FXML
+    private AnchorPane home;
+    @FXML
+    private AnchorPane homepage_anchorpane;
+    @FXML
+    private Label price_41;
 
     public void showSpinner(Spinner<Integer> spinner) {
         // Create a new spinner value factory with a range of 1 to 10, and an initial value of 1
@@ -91,6 +114,7 @@ public class Add_ticket_userController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tickets_btn.setStyle("-fx-background-color:#bd2a2e");
         showSpinner(spinner_adult);
         showSpinner(spinner_student);
         showSpinner(spinner_teen);
@@ -98,16 +122,7 @@ public class Add_ticket_userController implements Initializable {
         checkDate();
     }
 
-    @FXML
-    public void switchForm(ActionEvent event) {
-
-        if (event.getSource() == btn_buyticket) {
-            buyticket_anchor.setVisible(true);
-            SpinnerReset();
-            btn_buyticket.setStyle("-fx-background-color:#470011");
-
-        }
-    }
+    
      public void SpinnerReset1() {
         price_1.setText("");
         price_2.setText("");
@@ -296,6 +311,56 @@ public class Add_ticket_userController implements Initializable {
             // Proceed with payment
             displayPaymentStripe(event);
         }
+    }
+
+    @FXML
+    private void disconnect_btn(ActionEvent event) {
+         try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/signin_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
     }
 
 }

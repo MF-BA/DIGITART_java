@@ -162,6 +162,20 @@ and open the template in the editor.
 .add-btn:hover{
     -fx-background-color:#BD2A2E;
 }
+
+.add-btn1{
+    -fx-background-color:#3B3936;
+    -fx-cursor:hand;
+    -fx-text-fill:#fff;
+    -fx-font-size:30px;
+   -fx-background-radius:20;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+    -fx-background-radius:20;
+}
+.add-btn1:hover{
+    -fx-background-color:#BD2A2E;
+}
 .home-btn{
     -fx-background-color:transparent;
     
@@ -178,8 +192,8 @@ and open the template in the editor.
     -fx-background-color:#ffff;
   
     -fx-text-fill:#3B3936;
-    -fx-font-size:18px;
-    border-radius:15px 0 15px;
+    -fx-font-size:22px;
+    -fx-background-radius:20;
     -fx-border-width:.8px;
     -fx-font-family:"Berlin Sans FB";
 }
@@ -373,6 +387,10 @@ and open the template in the editor.
   -fx-font-size: 14;
   -fx-text-fill: #666;
   -fx-font-weight: bold;
+}
+
+.anchor-pane {
+  -fx-background-color: transparent;
 }
 
 
