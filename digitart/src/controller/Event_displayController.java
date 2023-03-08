@@ -189,8 +189,27 @@ public class Event_displayController implements Initializable {
                 // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
 
             }
-        } catch (Exception e) {
-            Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "fatal error!!", e);
+        
+    }
+public void generateQRCode() {
+    String url = "https://artsandculture.google.com/search?q="+txt_event_name.getText().replaceAll("\\s+", "%20")+"%20"+ txt_start_date.getText().replaceAll("\\s+", "%20"+ txt_end_date.getText().replaceAll("\\s+", "%20")+ txt_event_desc.getText().replaceAll("\\s+", "%20"));
+
+    QRCodeWriter qrCodeWriter = new QRCodeWriter();
+    ByteMatrix byteMatrix;
+    try {
+        byteMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
+    } catch (WriterException e) {
+        e.printStackTrace();
+        return;
+    }
+
+    int width = byteMatrix.getWidth();
+    int height = byteMatrix.getHeight();
+    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
+            int value = byteMatrix.get(x, y);
+            image.setRGB(x, y, value == 0 ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
         }
 
     }
