@@ -14,10 +14,13 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -91,6 +94,7 @@ public class Add_artwork_userController implements Initializable {
     private Parent root;
     private String imageUrl;
     private String nameRoom ;
+    private File selectedFile;
     /**
      * Initializes the controller class.
      */
@@ -173,84 +177,57 @@ public class Add_artwork_userController implements Initializable {
     @FXML
     private void btn_addimage_clicked(ActionEvent event) {
         
-        //        FileChooser fileChooser = new FileChooser();
-//    fileChooser.setTitle("Select Image File");
-//    fileChooser.getExtensionFilters().addAll(
-//        new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
-//    );
-//   selectedFile = fileChooser.showOpenDialog(btn_addimage.getScene().getWindow());
-//    if (selectedFile != null) {
-//       
-//        imageUrl = selectedFile.toURI().toString();
-//        System.out.println(imageUrl);
-//    }
-//
- // Create a FileChooser to select the image file
-    FileChooser fileChooser = new FileChooser();
-fileChooser.setTitle("Select an image file");
-File file = fileChooser.showOpenDialog(new Stage());
- imageUrl = file.toURI().toString();
-  System.out.println(imageUrl);
+         Stage primaryStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select an image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
 
-if (file != null) {
-    try {
-        // Read the image file and encode it as Base64
-        FileInputStream fis = new FileInputStream(file);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int bytesRead;
-        while ((bytesRead = fis.read(buffer)) != -1) {
-            baos.write(buffer, 0, bytesRead);
-        }
-        fis.close();
-        String base64EncodedImage = java.util.Base64.getEncoder().encodeToString(baos.toByteArray());
-       
-
-        // Set up the cURL request to send the encoded image data to the server
-        String url = "http://localhost/images/upload.php"; // Replace with the URL of your server-side script
-        URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-        con.setRequestMethod("POST");
-        con.setRequestProperty("User-Agent", "Mozilla/5.0");
-        con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-        con.setDoOutput(true);
-
-        // Write the encoded image data to the request body
-        String urlParameters = "imageData=" + base64EncodedImage;
-        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
-        int postDataLength = postData.length;
-        con.setDoOutput(true);
-        con.setInstanceFollowRedirects(false);
-        con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        con.setRequestProperty("charset", "utf-8");
-        con.setRequestProperty("Content-Length", Integer.toString(postDataLength));
-        con.setUseCaches(false);
-
-        try (DataOutputStream wr = new DataOutputStream(con.getOutputStream())) {
-            wr.write(postData);
-        }
-
-        // Get the response from the server
-        int responseCode = con.getResponseCode();
-        BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-
-        // Print the response from the server
-        System.out.println("Response code: " + responseCode);
-        System.out.println("Response message: " + response.toString());
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
+        selectedFile = fileChooser.showOpenDialog(primaryStage);
+     
     }
 
     @FXML
-    private void btn_add_clicked(ActionEvent event) {
+    private void btn_add_clicked(ActionEvent event) throws IOException {
+        
+         // String imagePath = file.getPath();
+       imageUrl="http://localhost/images/"+selectedFile.getName();
+       String phpUrl = "http://localhost/images/upload.php";
+//        String imageFilePath = "C:\\xamppp\\htdocs\\piImg";
+
+        // Read the image file data
+        byte[] imageData = Files.readAllBytes(selectedFile.toPath());
+
+        // Create the boundary string for the multipart request
+        String boundary = "---------------------------12345";
+
+        // Open the connection to the PHP script
+        URL url = new URL(phpUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+        // Write the image file data to the output stream of the connection
+        OutputStream outputStream = connection.getOutputStream();
+        outputStream.write(("--" + boundary + "\r\n").getBytes());
+        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + selectedFile.getName() + "\"\r\n").getBytes());
+        outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+        outputStream.write(imageData);
+        outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+        // Read the response from the PHP script
+        InputStream inputStream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        reader.close();
+    
         TextInputControl nameControl = this.Input_name_artwork;
    
   

@@ -27,7 +27,7 @@
             <TableColumn fx:id="col_nameartist" prefWidth="137.0" text="Name_Artist" />
             <TableColumn fx:id="col_date" prefWidth="63.0" text="Date" />
             <TableColumn fx:id="col_desc" prefWidth="106.0" text="Description" />
-            <TableColumn fx:id="col_idroom" prefWidth="120.0" text="id_room" />
+            <TableColumn fx:id="col_idroom" prefWidth="120.0" text="room name" />
          </columns>
       </TableView>
       <Button fx:id="BTN_add" layoutX="397.0" layoutY="592.0" mnemonicParsing="false" onAction="#btn_add_clicked" prefHeight="38.0" prefWidth="194.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add new artwork">

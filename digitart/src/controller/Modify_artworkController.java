@@ -9,9 +9,15 @@ package controller;
 import Services.Artwork_Services;
 import entity.Artwork;
 import entity.Data;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -51,7 +57,7 @@ public class Modify_artworkController implements Initializable {
     @FXML
     private ComboBox<Integer> input_id_artist;
     @FXML
-    private ComboBox<Integer> input_idroom;
+    private ComboBox<String> input_idroom;
     @FXML
     private DatePicker input_date;
     @FXML
@@ -63,9 +69,11 @@ public class Modify_artworkController implements Initializable {
     
     private File selectedFile;
     private String imageUrl;
-      private Stage stage;
+    private Stage stage;
     private Scene scene;
     private Parent root;
+    private String nameRoom ;
+    private int id_room ;
     
     @FXML
     private Button btn_addimage;
@@ -110,7 +118,8 @@ public class Modify_artworkController implements Initializable {
    selectedFile = fileChooser.showOpenDialog(btn_addimage.getScene().getWindow());
     if (selectedFile != null) {
        
-        imageUrl = selectedFile.toURI().toString();
+        imageUrl = "http://localhost/images/"+selectedFile.getName();
+        
     }
     }
 
@@ -127,16 +136,16 @@ public class Modify_artworkController implements Initializable {
         input_id_artist.setItems(myObservableList);
         
        
-      ObservableList<Integer> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_idroom());
+      ObservableList<String> myObservableList1 = FXCollections.observableArrayList(Artwork_Services.find_nameroom());
         input_idroom.setItems(myObservableList1);
     
     }
     
     void showvalues(){
-            Input_name_artwork.setText(String.valueOf(Data.artwork.getArtwork_name()));
+        Input_name_artwork.setText(String.valueOf(Data.artwork.getArtwork_name()));
         input_date.setValue(LocalDate.parse(String.valueOf(Data.artwork.getDate_art())));
         ((ComboBox<Integer>) input_id_artist).setValue(Data.artwork.getId_artist());
-        ((ComboBox<Integer>) input_idroom).setValue(Data.artwork.getId_room());
+        ((ComboBox<String>) input_idroom).setValue(Artwork_Services.find_nameroom(Data.artwork.getId_room()));
         input_name_artist.setText(String.valueOf(Data.artwork.getArtist_name()));
         input_desc.setText(String.valueOf(Data.artwork.getDescription()));
         imageUrl=Data.artwork.getImage_art();
@@ -163,13 +172,15 @@ public class Modify_artworkController implements Initializable {
         
          Alert alert;
         try {
+    
+    
             if (Input_name_artwork.getText().isEmpty() || input_name_artist.getText().isEmpty()
                     || input_idroom.getSelectionModel().getSelectedItem() == null
-                    || input_desc.getText().isEmpty()|| input_date.getValue() == null) {
+                    || input_desc.getText().isEmpty()|| input_date.getValue() == null || selectedFile == null) {
                 alert = new Alert(AlertType.ERROR);
                 alert.setTitle("Error Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Please fill the fields");
+                alert.setContentText("Please fill all the fields or add the image again");
                 alert.showAndWait();
             } else {
                 alert = new Alert(AlertType.CONFIRMATION);
@@ -178,8 +189,52 @@ public class Modify_artworkController implements Initializable {
                 alert.setContentText("Are you sure you want to UPDATE the artwork Name: " + Input_name_artwork.getText() + "?");
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get().equals(ButtonType.OK)) {
+                    
+                    
+                             
+       
+        imageUrl = "http://localhost/images/"+selectedFile.getName();
+        
+       
+       String phpUrl = "http://localhost/images/upload.php";
+
+        // Read the image file data
+        byte[] imageData = Files.readAllBytes(selectedFile.toPath());
+
+        // Create the boundary string for the multipart request
+        String boundary = "---------------------------12345";
+
+        // Open the connection to the PHP script
+        URL url = new URL(phpUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+        // Write the image file data to the output stream of the connection
+        OutputStream outputStream = connection.getOutputStream();
+        outputStream.write(("--" + boundary + "\r\n").getBytes());
+        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + selectedFile.getName() + "\"\r\n").getBytes());
+        outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+        outputStream.write(imageData);
+        outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+        // Read the response from the PHP script
+        InputStream inputStream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        reader.close();
+                    
                     LocalDate localDate = input_date.getValue();
-                   Artwork artwork= new Artwork(Data.artwork.getId_art(),Input_name_artwork.getText(),input_id_artist.getSelectionModel().getSelectedItem(),input_name_artist.getText(),localDate,input_desc.getText(),imageUrl,input_idroom.getSelectionModel().getSelectedItem());
+                    nameRoom = input_idroom.getSelectionModel().getSelectedItem();
+        
+                    id_room = Artwork_Services.find_idroom(nameRoom) ;
+                   Artwork artwork= new Artwork(Data.artwork.getId_art(),Input_name_artwork.getText(),input_id_artist.getSelectionModel().getSelectedItem(),input_name_artist.getText(),localDate,input_desc.getText(),imageUrl,id_room);
                     Artwork_Services.modify(artwork);
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");

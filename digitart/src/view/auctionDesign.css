@@ -147,7 +147,6 @@ and open the template in the editor.
 .forget-btn{
     -fx-background-color: transparent;
     -fx-cursor:hand;
-    -fx-text-fill:#00000;
     -fx-font-size:14px;
     border-radius:15px 0 15px;
     -fx-border-width:.8px;
