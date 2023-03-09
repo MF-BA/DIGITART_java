@@ -92,7 +92,7 @@
                   <Image url="@../logo%20digitart%20white.png" />
                </image>
             </ImageView>
-            <Button fx:id="deconnect1" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
+            <Button fx:id="deconnect" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="20" />
                </graphic>
