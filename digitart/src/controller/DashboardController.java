@@ -266,6 +266,7 @@ public class DashboardController implements Initializable {
     private Label errormsgbirthdate_edit;
     @FXML
     private Label errormsgphonenum_edit;
+    @FXML
     private Button deconnect;
     private Button eye_on;
     private Button eye_off;
@@ -325,8 +326,6 @@ public class DashboardController implements Initializable {
     private Label errormsgaddress_edit;
     @FXML
     private Button return_dash_btn;
-    @FXML
-    private Button deconnect1;
     
     
     private Stage stage;
@@ -407,6 +406,11 @@ public void combobox()
 {
     List<String> options = new ArrayList<>();
         options.add("Admin");
+        options.add("Events manager");
+        options.add("Users manager");
+        options.add("Tickets manager");
+        options.add("Auction manager");
+        options.add("Gallery manager");
         options.add("Artist");
         options.add("Subscriber");
         Rolebox.getItems().addAll(options);
@@ -415,6 +419,11 @@ public void comboboxedit()
 {
     List<String> options = new ArrayList<>();
         options.add("Admin");
+        options.add("Events manager");
+        options.add("Users manager");
+        options.add("Tickets manager");
+        options.add("Auction manager");
+        options.add("Gallery manager");
         options.add("Artist");
         options.add("Subscriber");
         Rolebox_editprof.getItems().addAll(options);
@@ -844,6 +853,11 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
  {
      List<String> options = new ArrayList<>();
         options.add("Admin");
+        options.add("Events manager");
+        options.add("Users manager");
+        options.add("Tickets manager");
+        options.add("Auction manager");
+        options.add("Gallery manager");
         options.add("Artist");
         options.add("Subscriber");
         Rolebox_up.getItems().addAll(options);
