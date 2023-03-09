@@ -7,9 +7,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" stylesheets="@auctionDesign.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_auction_backController">
@@ -33,11 +36,15 @@
       <Button fx:id="Dslay_update_button" layoutX="1041.0" layoutY="632.0" mnemonicParsing="false" onAction="#Auctonupdate" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Update" />
       <Button fx:id="Dslay_delete_button" layoutX="1041.0" layoutY="581.0" mnemonicParsing="false" onAction="#AuctonDelete" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Delete" />
       <TextField fx:id="search_in" layoutX="1013.0" layoutY="156.0" onKeyTyped="#search_in_clck" prefHeight="27.0" prefWidth="152.0" promptText="SEARCH" style="-fx-background-radius: 20;" styleClass="search" stylesheets="@auctionDesign.css" />
+      <FontAwesomeIconView fx:id="clear" glyphName="CLOSE" layoutX="1150.0" layoutY="174.0" onMouseClicked="#clear_search" size="15.0" />
+      <Button fx:id="display_archive" layoutX="877.0" layoutY="581.0" mnemonicParsing="false" onAction="#display_archive_click" prefHeight="41.0" prefWidth="152.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show Archive" />
       <VBox prefHeight="729.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
-            <Pane prefHeight="171.0" prefWidth="269.0">
+            <Pane fx:id="avatar_icon" prefHeight="171.0" prefWidth="269.0">
                <children>
-                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="79.0" layoutY="131.0" size="130" />
+                  <Circle fill="#bd2a2e" layoutX="125.0" layoutY="85.0" radius="71.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                  <Circle fx:id="circle_image" fill="#bd2a2e" layoutX="125.0" layoutY="85.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                  <ImageView fx:id="avatar_image" fitHeight="134.0" fitWidth="152.0" layoutX="49.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
             <Label prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
@@ -48,36 +55,14 @@
                   <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <Label fx:id="labeladminname" prefHeight="17.0" prefWidth="272.0">
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
+            <Label fx:id="labeladminname3" alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
                <font>
-                  <Font name="System Bold" size="16.0" />
+                  <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <Label />
-            <Label />
-            <Label />
-            <Label fx:id="labeladminname1" prefHeight="17.0" prefWidth="272.0">
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="labeladminname2" prefHeight="17.0" prefWidth="272.0">
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Button fx:id="btn_Artworks_Auction" mnemonicParsing="false" onAction="#Artworks__Auction_cicked" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Artworks In Auction" textFill="WHITE">
+            <Button fx:id="return_dash_btn" mnemonicParsing="false" onAction="#return_dash_btn" prefHeight="51.0" prefWidth="271.0" styleClass="navRETURN-form" stylesheets="@auctionDesign.css" text="Back to home" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="REPLY" size="20" />
                </graphic>
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
@@ -91,9 +76,39 @@
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Button>
+            <Button fx:id="btn_Artworks_Auction" mnemonicParsing="false" onAction="#Artworks__Auction_cicked" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Artworks In Auction" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
+               </graphic>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="modify_user" disable="true" mnemonicParsing="false" onAction="#modify_user_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="list_users" disable="true" mnemonicParsing="false" onAction="#list_users_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
+            <Label prefHeight="17.0" prefWidth="252.0" />
+            <ImageView fitHeight="147.0" fitWidth="250.0">
+               <image>
+                  <Image url="@../logo%20digitart%20white.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="deconnect1" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="20" />
+               </graphic>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
-      <FontAwesomeIconView fx:id="clear" glyphName="CLOSE" layoutX="1150.0" layoutY="175.0" onMouseClicked="#clear_search" size="15.0" />
-      <Button fx:id="display_archive" layoutX="877.0" layoutY="581.0" mnemonicParsing="false" onAction="#display_archive_click" prefHeight="41.0" prefWidth="152.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show Archive" />
    </children>
 </AnchorPane>

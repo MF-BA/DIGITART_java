@@ -10,9 +10,12 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Add_auction_backController">
@@ -22,68 +25,76 @@
             <Font name="Berlin Sans FB Demi Bold" size="50.0" />
          </font>
       </Label>
-      <Label fx:id="select_item_label" layoutX="372.0" layoutY="262.0" prefHeight="30.0" prefWidth="126.0" stylesheets="@auctionDesign.css" text="Select Item:">
+      <Label fx:id="select_item_label" layoutX="400.0" layoutY="266.0" prefHeight="30.0" prefWidth="126.0" stylesheets="@auctionDesign.css" text="Select Item:">
          <font>
             <Font name="Microsoft New Tai Lue" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="372.0" layoutY="337.0" stylesheets="@auctionDesign.css" text="Description:">
+      <Label layoutX="400.0" layoutY="341.0" stylesheets="@auctionDesign.css" text="Description:">
          <font>
             <Font name="Microsoft New Tai Lue" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="822.0" layoutY="188.0" stylesheets="@auctionDesign.css" text="Starting Bid:">
+      <Label layoutX="850.0" layoutY="192.0" stylesheets="@auctionDesign.css" text="Starting Bid:">
          <font>
             <Font name="Microsoft New Tai Lue" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="822.0" layoutY="294.0" stylesheets="@auctionDesign.css" text="Bid Increment:">
+      <Label layoutX="850.0" layoutY="298.0" stylesheets="@auctionDesign.css" text="Bid Increment:">
          <font>
             <Font name="Microsoft New Tai Lue" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="820.0" layoutY="396.0" stylesheets="@auctionDesign.css" text="Ending Date:">
+      <Label layoutX="848.0" layoutY="400.0" stylesheets="@auctionDesign.css" text="Ending Date:">
          <font>
             <Font name="Microsoft New Tai Lue" size="20.0" />
          </font>
       </Label>
-      <TextField fx:id="in_SB" layoutX="822.0" layoutY="225.0" prefHeight="41.0" prefWidth="150.0" styleClass="textfield" stylesheets="@auctionDesign.css">
+      <TextField fx:id="in_SB" layoutX="850.0" layoutY="229.0" prefHeight="41.0" prefWidth="150.0" styleClass="textfield" stylesheets="@auctionDesign.css">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <TextArea fx:id="in_Desc" layoutX="372.0" layoutY="373.0" prefHeight="142.0" prefWidth="297.0" styleClass="textfield" stylesheets="@auctionDesign.css">
+      <TextArea fx:id="in_Desc" layoutX="400.0" layoutY="377.0" prefHeight="142.0" prefWidth="297.0" styleClass="textfield" stylesheets="@auctionDesign.css">
          <font>
             <Font size="20.0" />
          </font>
       </TextArea>
-      <DatePicker fx:id="in_ED" layoutX="819.0" layoutY="426.0" prefHeight="41.0" prefWidth="150.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
-      <Spinner fx:id="in_BI" editable="true" layoutX="822.0" layoutY="331.0" prefHeight="41.0" prefWidth="93.0" styleClass="textfield" stylesheets="@auctionDesign.css">
+      <DatePicker fx:id="in_ED" layoutX="847.0" layoutY="430.0" prefHeight="41.0" prefWidth="150.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Spinner fx:id="in_BI" editable="true" layoutX="850.0" layoutY="335.0" prefHeight="41.0" prefWidth="93.0" styleClass="textfield" stylesheets="@auctionDesign.css">
          <effect>
             <Glow />
          </effect>
       </Spinner>
-      <ComboBox fx:id="in_I" disable="true" layoutX="372.0" layoutY="296.0" prefHeight="30.0" prefWidth="190.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
-      <Label layoutX="984.0" layoutY="225.0" prefHeight="41.0" prefWidth="24.0" text="\$">
+      <ComboBox fx:id="in_I" disable="true" layoutX="400.0" layoutY="300.0" prefHeight="30.0" prefWidth="190.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
+      <Label layoutX="1012.0" layoutY="229.0" prefHeight="41.0" prefWidth="24.0" text="\$">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="925.0" layoutY="331.0" prefHeight="41.0" prefWidth="24.0" text="\$">
+      <Label layoutX="953.0" layoutY="335.0" prefHeight="41.0" prefWidth="24.0" text="\$">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="submit_add_auction" layoutX="1050.0" layoutY="601.0" mnemonicParsing="false" onAction="#submit_add_auction_clicked" prefHeight="44.0" prefWidth="108.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Submit">
+      <Button fx:id="submit_add_auction" layoutX="1012.0" layoutY="576.0" mnemonicParsing="false" onAction="#submit_add_auction_clicked" prefHeight="57.0" prefWidth="127.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Submit" textFill="WHITE">
          <font>
             <Font name="Microsoft New Tai Lue" size="20.0" />
          </font>
       </Button>
+      <Label layoutX="400.0" layoutY="197.0" prefHeight="30.0" prefWidth="126.0" text="Select Atrist:">
+         <font>
+            <Font name="Microsoft New Tai Lue" size="20.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="in_Artist" layoutX="400.0" layoutY="231.0" onAction="#in_Artist_clicked" prefHeight="30.0" prefWidth="190.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
       <VBox prefHeight="729.0" prefWidth="250.0" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
-            <Pane prefHeight="171.0" prefWidth="269.0">
+            <Pane fx:id="avatar_icon" prefHeight="171.0" prefWidth="269.0">
                <children>
-                  <FontAwesomeIconView fill="#e5e7e6" glyphName="USER" layoutX="79.0" layoutY="131.0" size="130" />
+                  <Circle fill="#bd2a2e" layoutX="125.0" layoutY="85.0" radius="71.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+                  <Circle fx:id="circle_image" fill="#bd2a2e" layoutX="125.0" layoutY="85.0" radius="67.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+                  <ImageView fx:id="avatar_image" fitHeight="134.0" fitWidth="152.0" layoutX="49.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </Pane>
             <Label prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
@@ -94,36 +105,14 @@
                   <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <Label fx:id="labeladminname" prefHeight="17.0" prefWidth="272.0">
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
+            <Label fx:id="labeladminname3" alignment="CENTER" contentDisplay="CENTER" prefHeight="41.0" prefWidth="269.0" text="Welcome" textFill="#e5e7e6">
                <font>
-                  <Font name="System Bold" size="16.0" />
+                  <Font name="Berlin Sans FB" size="30.0" />
                </font>
             </Label>
-            <Label />
-            <Label />
-            <Label />
-            <Label fx:id="labeladminname1" prefHeight="17.0" prefWidth="272.0">
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Label fx:id="labeladminname2" prefHeight="17.0" prefWidth="272.0">
-               <padding>
-                  <Insets left="80.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <Button fx:id="btn_Artworks_Auction" mnemonicParsing="false" onAction="#Artworks__Auction_cicked" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Artworks In Auction" textFill="WHITE">
+            <Button fx:id="return_dash_btn" mnemonicParsing="false" onAction="#return_dash_btn" prefHeight="51.0" prefWidth="271.0" styleClass="navRETURN-form" stylesheets="@auctionDesign.css" text="Back to home" textFill="WHITE">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="REPLY" size="20" />
                </graphic>
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
@@ -137,13 +126,39 @@
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Button>
+            <Button fx:id="btn_Artworks_Auction" mnemonicParsing="false" onAction="#Artworks__Auction_cicked" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Artworks In Auction" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
+               </graphic>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="modify_user" disable="true" mnemonicParsing="false" onAction="#modify_user_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="list_users" disable="true" mnemonicParsing="false" onAction="#list_users_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
+            <Label prefHeight="17.0" prefWidth="252.0" />
+            <ImageView fitHeight="147.0" fitWidth="250.0">
+               <image>
+                  <Image url="@../logo%20digitart%20white.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="deconnect1" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="20" />
+               </graphic>
+               <font>
+                  <Font name="Berlin Sans FB" size="18.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
-      <Label layoutX="372.0" layoutY="193.0" prefHeight="30.0" prefWidth="126.0" text="Select Atrist:">
-         <font>
-            <Font name="Microsoft New Tai Lue" size="20.0" />
-         </font>
-      </Label>
-      <ComboBox fx:id="in_Artist" layoutX="372.0" layoutY="227.0" onAction="#in_Artist_clicked" prefHeight="30.0" prefWidth="190.0" styleClass="textfield" stylesheets="@auctionDesign.css" />
    </children>
 </AnchorPane>

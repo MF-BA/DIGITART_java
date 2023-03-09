@@ -36,11 +36,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -87,36 +90,48 @@ public class Display_auction_backController implements Initializable {
     private FontAwesomeIconView clear;
     @FXML
     private Button display_archive;
-    @FXML
-    private Button disconnect;
-    @FXML
-    private Button editprof_btn;
-    @FXML
-    private Button home_btn;
-    @FXML
-    private Button artwork_btn;
-    @FXML
-    private Button auction_btn;
-    @FXML
-    private Button events_btn;
+
     @FXML
     private Circle circle_image;
     @FXML
     private ImageView avatar_image;
     @FXML
-    private Label labelusername;
+    private Pane avatar_icon;
     @FXML
-    private Button tickets_btn;
+    private Label labeladminname3;
     @FXML
-    private AnchorPane homepage_anchorpane;
+    private Button return_dash_btn;
     @FXML
-    private Button auction_btn1;
+    private Button modify_user;
+    @FXML
+    private Button list_users;
+    @FXML
+    private Button deconnect1;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+     
+        labeladminname3.setText(Data.user.getFirstname());
+        
+        /*if (Data.user.getImage()!=null){
+            String imagePath = Data.user.getImage();
+        Image image = new Image(new File(imagePath).toURI().toString());
+        circle_image.setFill(new ImagePattern(image));
+        }*/
+        
+        if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image.setFill(new ImagePattern(image));
+        }
+        
+        
+        return_dash_btn.setVisible(true);
+        if (!Data.user.getRole().equals("Admin")) {
+            return_dash_btn.setVisible(false);
+        }
         btn_Add_Auction.setStyle("-fx-background-color:transparent ");
         btn_Artworks_Auction.setStyle("-fx-background-color:  #470011");
 
@@ -377,36 +392,44 @@ public class Display_auction_backController implements Initializable {
 
     }
 
+
     @FXML
-    private void disconnect_btn(ActionEvent event) {
+    private void return_dash_btn(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/Dashboard_homepage.fxml"));
+            //stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage = (Stage) display_show_bid_btn.getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
-    private void editprof_btn(ActionEvent event) {
+    private void modify_user_btn(ActionEvent event) {
     }
 
     @FXML
-    private void home_btn(ActionEvent event) {
+    private void list_users_btn(ActionEvent event) {
     }
 
     @FXML
-    private void artwork_btn(ActionEvent event) {
-    }
+    private void deconnect_btn(ActionEvent event) {
+               try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/signin_page.fxml"));
 
-    @FXML
-    private void auction_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void events_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void tickets_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void auction_btn_clicked(ActionEvent event) {
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

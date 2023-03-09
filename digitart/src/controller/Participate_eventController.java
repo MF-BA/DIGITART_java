@@ -52,6 +52,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import utils.Conn;
 import static utils.Conn.conn;
@@ -63,14 +64,7 @@ import static utils.Conn.conn;
  */
 public class Participate_eventController implements Initializable {
 
-    @FXML
     private Label welcome;
-    @FXML
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
     @FXML
     private TableView<Event> tabevent_user;
     @FXML
@@ -101,7 +95,6 @@ public class Participate_eventController implements Initializable {
     private Label event_id_text;
     @FXML
     private Label nb_participants_text;
-    @FXML
     private Button deconnect;
     @FXML
     private AnchorPane default_anchor;
@@ -124,6 +117,30 @@ public class Participate_eventController implements Initializable {
     private Label event_name_show;
     @FXML
     private Button btndelete;
+    @FXML
+    private Button disconnect;
+    @FXML
+    private Button editprof_btn;
+    @FXML
+    private Button home_btn;
+    @FXML
+    private Button artwork_btn;
+    @FXML
+    private Button auction_btn;
+    @FXML
+    private Button events_btn;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labelusername;
+    @FXML
+    private Button tickets_btn;
+    @FXML
+    private AnchorPane home;
+    @FXML
+    private AnchorPane homepage_anchorpane;
 
     /**
      * Initializes the controller class.
@@ -135,11 +152,10 @@ public class Participate_eventController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        welcome.setText(Data.user.getFirstname());
         showparticipants();
         combobox();
         labelupdate();
-        
+        anc_scroll.setVisible(false);
         event_array = Event_Services.displayEventFront();
         event_array1 = Event_Services.displayEventPart();
         int column = 0;
@@ -350,14 +366,30 @@ public class Participate_eventController implements Initializable {
         
     }
 
-    @FXML
-    private void deconnect_btn(ActionEvent event) {
-        deconnect.setStyle("-fx-background-color: #470011 ");
-        
-        
-        default_anchor.setVisible(false);
+//    private void deconnect_btn(ActionEvent event) {
+//        deconnect.setStyle("-fx-background-color: #470011 ");
+//        
+//        
+//        default_anchor.setVisible(false);
+//
+//        try {
+//            Parent parent2 = FXMLLoader
+//                    .load(getClass().getResource("/view/signin_page.fxml"));
+//
+//            Scene scene = new Scene(parent2);
+//            Stage stage = (Stage) ((Node) event.getSource())
+//                    .getScene().getWindow();
+//            stage.setScene(scene);
+//            stage.setTitle("DIGITART");
+//            stage.show();
+//        } catch (IOException ex) {
+//            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 
-        try {
+    @FXML
+    private void disconnect_btn(ActionEvent event) {
+          try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/signin_page.fxml"));
 
@@ -370,6 +402,45 @@ public class Participate_eventController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+         try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+        anc_scroll.setVisible(true);
+        events_btn.setStyle("-fx-background-color: #bd2a2e "); 
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
     }
 
 }

@@ -161,11 +161,12 @@ public class Display_auctionsController implements Initializable {
             return null;
         }
         Data.auction_display = t;
-        Data.back_auction=false;
-        if(Bid_Services.Display(t.getId_auction()).isEmpty())
+        Data.back_auction = false;
+        if (Bid_Services.Display(t.getId_auction()).isEmpty()) {
             Dslay_update_button.setDisable(false);
-        else 
+        } else {
             Dslay_update_button.setDisable(true);
+        }
         return t;
     }
 
@@ -353,7 +354,7 @@ public class Display_auctionsController implements Initializable {
 
                 // Create a new stage and set the FXML file as its scene
                 Stage newWindow = new Stage();
-                newWindow.setTitle(t.getName()+" Bids");
+                newWindow.setTitle(t.getName() + " Bids");
                 newWindow.setScene(new Scene(root));
 
                 // Set the new window's owner and modality
@@ -377,34 +378,119 @@ public class Display_auctionsController implements Initializable {
     @FXML
     private void display_archive_click(ActionEvent event) {
         //ArchiveController
-        
 
-            try {
-                // Load the FXML file
+        try {
+            // Load the FXML file
 
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Archive.fxml"));
-                root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Archive.fxml"));
+            root = loader.load();
 
-                // Create a new stage and set the FXML file as its scene
-                Stage newWindow = new Stage();
-                newWindow.setTitle(" Archive");
-                newWindow.setScene(new Scene(root));
+            // Create a new stage and set the FXML file as its scene
+            Stage newWindow = new Stage();
+            newWindow.setTitle(" Archive");
+            newWindow.setScene(new Scene(root));
 
-                // Set the new window's owner and modality
-                newWindow.initOwner((Stage) Dslay_update_button.getScene().getWindow());
-                newWindow.initModality(Modality.WINDOW_MODAL);
+            // Set the new window's owner and modality
+            newWindow.initOwner((Stage) Dslay_update_button.getScene().getWindow());
+            newWindow.initModality(Modality.WINDOW_MODAL);
 
-                // Show the new window
-                newWindow.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Show the new window
+            newWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        
     }
 
     @FXML
     private void disconnect_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/signin_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void home_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/Home_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/display_artwork_user.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/participate_event.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_ticket_user.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -422,26 +508,6 @@ public class Display_auctionsController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @FXML
-    private void home_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void artwork_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void auction_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void events_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void tickets_btn(ActionEvent event) {
     }
 
 }

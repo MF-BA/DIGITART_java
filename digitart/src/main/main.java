@@ -42,7 +42,7 @@ public class main extends Application {
         this.primaryStage.setTitle("DIGITART");
 
         //Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/back_admin/display_auction_back.fxml"));
-        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
+        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/signin_page.fxml"));
         Scene scene = new Scene(DisplayROOM_Page);
 
         this.primaryStage.setScene(scene);
@@ -100,7 +100,8 @@ public class main extends Application {
             test.send_mail(user, id_auction.get(i));
             i++;
         }
-        Data.user = new users(35, 12, "firstname", "lastname", "laatarmomo@gmail.com", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "Admin");
+        Data.user = new users(35, 12, "Toutou", "Toutou", "laatarmomo@gmail.com", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "Admin");
+        Data.user.setImage("http://localhost/images/333193552_2431029213712333_5205244347491257198_n.jpg");
         launch(args);
         System.exit(0);
     }

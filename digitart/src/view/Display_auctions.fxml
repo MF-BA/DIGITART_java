@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -77,7 +78,7 @@
                      </font>
                   </Label>
                   <Button fx:id="display_show_bid_btn" layoutX="723.0" layoutY="467.0" mnemonicParsing="false" onAction="#display_show_bid_btn_click" prefHeight="41.0" prefWidth="119.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show Bids" />
-                  <Button fx:id="Dslay_update_button" layoutX="1020.0" layoutY="518.0" mnemonicParsing="false" onAction="#Auctonupdate" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Update" />
+                  <Button fx:id="Dslay_update_button" layoutX="1020.0" layoutY="518.0" mnemonicParsing="false" onAction="#Auctonupdate" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Update" visible="false" />
                   <Button fx:id="Dslay_delete_button" layoutX="1020.0" layoutY="467.0" mnemonicParsing="false" onAction="#AuctonDelete" prefHeight="41.0" prefWidth="107.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Delete" />
                   <TextField fx:id="search_in" layoutX="992.0" layoutY="38.0" onKeyTyped="#search_in_clck" prefHeight="27.0" prefWidth="152.0" promptText="SEARCH" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF;" styleClass="search" stylesheets="@auctionDesign.css" />
                   <Button fx:id="display_archive" layoutX="856.0" layoutY="467.0" mnemonicParsing="false" onAction="#display_archive_click" prefHeight="41.0" prefWidth="152.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show Archive" />

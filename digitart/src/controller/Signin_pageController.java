@@ -160,10 +160,7 @@ public class Signin_pageController implements Initializable {
     private AnchorPane codepage;
     @FXML
     private Label codeerrormsg;
-   
-    
-    
-    
+
     private CaptchaService captchaservice;
     private String captchaText;
     private Cage cage = new GCage();
@@ -171,7 +168,7 @@ public class Signin_pageController implements Initializable {
     GoogleAuthenticator Auth;
     private String Rolelogin;
     private int test = 0;
-    
+
     @FXML
     private Button confirm_sign;
     @FXML
@@ -236,6 +233,7 @@ public class Signin_pageController implements Initializable {
     private Label qrcodetext;
     @FXML
     private Button return_btn_qr;
+
     /**
      * Initializes the controller class.
      */
@@ -246,20 +244,14 @@ public class Signin_pageController implements Initializable {
         loginfields_google.setVisible(false);
         qrcodelogin.setVisible(false);
         loginpage.setVisible(true);
-        
-    captchaText = cage.getTokenGenerator().next();   
-    BufferedImage image = cage.drawImage(captchaText);
-    Image fxImage = SwingFXUtils.toFXImage(image, null);
-    imgCaptcha.setImage(fxImage);
-    captchaText = cage.getTokenGenerator().next();
-        
-        
-        
-        
-        
-       
-    }
 
+        captchaText = cage.getTokenGenerator().next();
+        BufferedImage image = cage.drawImage(captchaText);
+        Image fxImage = SwingFXUtils.toFXImage(image, null);
+        imgCaptcha.setImage(fxImage);
+        captchaText = cage.getTokenGenerator().next();
+
+    }
 
     @FXML
     private void register_clicked(ActionEvent event) {
@@ -285,7 +277,7 @@ public class Signin_pageController implements Initializable {
         users_Services user = new users_Services();
         String role = null;
         String captcha = txtCaptcha.getText();
-        
+
         if (emaillogin.getText().trim().isEmpty() && pwdlogin.getText().trim().isEmpty()) {
             emailerrormsg.setText("Email is Empty !! ");
             pwderrormsg.setText("Password is Empty !! ");
@@ -304,130 +296,124 @@ public class Signin_pageController implements Initializable {
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
                     //if (!captcha.equals(captchaText))
-                    if (!captcha.equals("aziz"))
-                    {
-                      Alert alert = new Alert(Alert.AlertType.ERROR);
-                      alert.setTitle("Error");
-                      alert.setHeaderText("Invalid Captcha");
-                      alert.setContentText("Please enter the correct captcha.");
-                      alert.showAndWait();
-                      captcha_btn(event);
-                      txtCaptcha.requestFocus();
-              }    else {
-                         if (rs.getString("status").equals("unblocked")) {
-                             Data.user
-                                = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
-                             codepage.setVisible(false);
-                          loginfields_google.setVisible(false); 
-                          loginpage.setVisible(false);
-                          qrcodelogin.setVisible(true);
-                          String secretcode = null;
-                         String sql1 = "Select secretcode from users where email=? and password=?";
+                    if (!captcha.equals("aziz")) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Invalid Captcha");
+                        alert.setContentText("Please enter the correct captcha.");
+                        alert.showAndWait();
+                        captcha_btn(event);
+                        txtCaptcha.requestFocus();
+                    } else {
+                        if (rs.getString("status").equals("unblocked")) {
+                            Data.user
+                                    = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
+                            codepage.setVisible(false);
+                            loginfields_google.setVisible(false);
+                            loginpage.setVisible(false);
+                            qrcodelogin.setVisible(true);
+                            String secretcode = null;
+                            String sql1 = "Select secretcode from users where email=? and password=?";
 
-                pst = conn.prepareStatement(sql1);
-                pst.setString(1, emaillogin.getText());
-                pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
+                            pst = conn.prepareStatement(sql1);
+                            pst.setString(1, emaillogin.getText());
+                            pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
 
-                ResultSet rs1 = pst.executeQuery();
-                if (rs1.next()) {
-                    secretcode =rs1.getString("secretcode");
-                }
-                 //Data.user.setSecretcode(secretcode);
-                          GoogleAuthenticator gAuth = new GoogleAuthenticator();
-                            if(secretcode == null)
-                            {
-                           qrcodetext.setText("Please install Google authernticator App in your phone, \n" +
-                             "open it and then scan the barcode above to add this application. \n" +
-                             "After you have added this application enter the code you see \n" +
-                             "in the google authenticator App into the below input box \n" +
-                             "to complete login process.");
-              // Generate a secret key for the user
+                            ResultSet rs1 = pst.executeQuery();
+                            if (rs1.next()) {
+                                secretcode = rs1.getString("secretcode");
+                            }
+                            //Data.user.setSecretcode(secretcode);
+                            GoogleAuthenticator gAuth = new GoogleAuthenticator();
+                            if (secretcode == null) {
+                                qrcodetext.setText("Please install Google authernticator App in your phone, \n"
+                                        + "open it and then scan the barcode above to add this application. \n"
+                                        + "After you have added this application enter the code you see \n"
+                                        + "in the google authenticator App into the below input box \n"
+                                        + "to complete login process.");
+                                // Generate a secret key for the user
 
-               
-               String secretKey = gAuth.createCredentials().getKey();
-               GoogleAuthenticatorKey gKey = new GoogleAuthenticatorKey.Builder(secretKey).build();
-               String appName = "DigitArt";
-               //String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("DigitArt", emaillogin.getText(), gKey);
-               String qrCodeUrl = "otpauth://totp/" + emaillogin.getText() + "?secret=" + secretKey + "&issuer=" + appName;
-               
-               System.out.println(qrCodeUrl);
-               
+                                String secretKey = gAuth.createCredentials().getKey();
+                                GoogleAuthenticatorKey gKey = new GoogleAuthenticatorKey.Builder(secretKey).build();
+                                String appName = "DigitArt";
+                                //String qrCodeUrl = GoogleAuthenticatorQRGenerator.getOtpAuthURL("DigitArt", emaillogin.getText(), gKey);
+                                String qrCodeUrl = "otpauth://totp/" + emaillogin.getText() + "?secret=" + secretKey + "&issuer=" + appName;
+
+                                System.out.println(qrCodeUrl);
+
 //               Map<EncodeHintType, Object> hints = new EnumMap<>(EncodeHintType.class);
 //               hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 //               hints.put(EncodeHintType.MARGIN, 1);
 //
 //               QRCodeWriter writer = new QRCodeWriter();
 //               BitMatrix matrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 400, 400, hints);
-             QRCodeWriter writer = new QRCodeWriter();
-             ByteMatrix byteMatrix;
-    try {
-        byteMatrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 200, 200);
-    } catch (WriterException e) {
-        e.printStackTrace();
-        return;
-    }
+                                QRCodeWriter writer = new QRCodeWriter();
+                                ByteMatrix byteMatrix;
+                                try {
+                                    byteMatrix = writer.encode(qrCodeUrl, BarcodeFormat.QR_CODE, 200, 200);
+                                } catch (WriterException e) {
+                                    e.printStackTrace();
+                                    return;
+                                }
 
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                 MatrixToImageWriter.writeToStream(byteMatrix, "PNG", outputStream);
-                 byte[] qrCodeImageData = outputStream.toByteArray();
-                 
-                         Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeImageData));
-            
-                          qrcodeimage.setImage(qrCodeImage);
-                            
-                          
-                          securityCodeQR = secretKey;
-                          Auth=gAuth;
-                          String sql2 = "update users set secretcode= ? where id = ?";
-          try {
-                pst = conn.prepareStatement(sql2);
-                pst.setString(1, secretKey);
-                pst.setInt(2, Data.user.getId());
+                                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                                MatrixToImageWriter.writeToStream(byteMatrix, "PNG", outputStream);
+                                byte[] qrCodeImageData = outputStream.toByteArray();
 
-                pst.executeUpdate();
-                System.out.println("success!!");
-                //users_Services u = new users_Services();
-                //user1 = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
-                users u = new users (Data.user.getId(),
-                        Data.user.getCin(),
-                        Data.user.getFirstname(),
-                        Data.user.getLastname(),
-                        Data.user.getEmail(), 
-                        Data.user.getPwd(), 
-                        Data.user.getAddress(),
-                        Data.user.getPhone_number(),  
-                        Data.user.getBirth_date(),
-                        Data.user.getGender(), 
-                        Data.user.getRole(), 
-                        Data.user.getStatus(),
-                        Data.user.getImage(),
-                        secretKey);
-                
-                user.modifyuser(u);
-            } catch (SQLException ex) {
-                System.err.println("error!!");
-                Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                                Image qrCodeImage = new Image(new ByteArrayInputStream(qrCodeImageData));
+
+                                qrcodeimage.setImage(qrCodeImage);
+
+                                securityCodeQR = secretKey;
+                                Auth = gAuth;
+                                String sql2 = "update users set secretcode= ? where id = ?";
+                                try {
+                                    pst = conn.prepareStatement(sql2);
+                                    pst.setString(1, secretKey);
+                                    pst.setInt(2, Data.user.getId());
+
+                                    pst.executeUpdate();
+                                    System.out.println("success!!");
+                                    //users_Services u = new users_Services();
+                                    //user1 = user.getuserdata(emaillogin.getText(), pwdlogin.getText());
+                                    users u = new users(Data.user.getId(),
+                                            Data.user.getCin(),
+                                            Data.user.getFirstname(),
+                                            Data.user.getLastname(),
+                                            Data.user.getEmail(),
+                                            Data.user.getPwd(),
+                                            Data.user.getAddress(),
+                                            Data.user.getPhone_number(),
+                                            Data.user.getBirth_date(),
+                                            Data.user.getGender(),
+                                            Data.user.getRole(),
+                                            Data.user.getStatus(),
+                                            Data.user.getImage(),
+                                            secretKey);
+
+                                    user.modifyuser(u);
+                                } catch (SQLException ex) {
+                                    System.err.println("error!!");
+                                    Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
-                            if (secretcode!= null)
-                            {
-                             qrcodetext.setText("To complete your login process you need to enter the code you see \n" +
-                              "in your google authenticator App.");
-                             securityCodeQR = secretcode;
-                              Auth=gAuth;  
+                            if (secretcode != null) {
+                                qrcodetext.setText("To complete your login process you need to enter the code you see \n"
+                                        + "in your google authenticator App.");
+                                securityCodeQR = secretcode;
+                                Auth = gAuth;
                             }
-            
-                          System.out.println(Data.user);
-                          role = rs.getString("role");
-                          Rolelogin=role; 
-                    } else {
-                        loginerrormsg.setText("Your account is blocked !! ");
-                        emaillogin.setText("");
-                        pwdlogin.setText("");
+
+                            System.out.println(Data.user);
+                            role = rs.getString("role");
+                            Rolelogin = role;
+                        } else {
+                            loginerrormsg.setText("Your account is blocked !! ");
+                            emaillogin.setText("");
+                            pwdlogin.setText("");
+                        }
+
                     }
- 
-                   }
-                   
 
                 } else {
                     loginerrormsg.setText("Email or Password incorrect !! ");
@@ -435,20 +421,15 @@ public class Signin_pageController implements Initializable {
                     pwdlogin.setText("");
 
                 }
-               
+
             } catch (SQLException ex) {
                 Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-           
-
         }
 
     }
-  
-  
-   
-   
+
     public void gotoHome(ActionEvent event) {
 
         try {
@@ -470,6 +451,86 @@ public class Signin_pageController implements Initializable {
         try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/Dashboard.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void gotoDashEvent(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_event.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void gotoDashGallery(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/display_artwork.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void gotoDashauction(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/display_auction_back.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void gotoDashticket(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_ticket.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void gotohomeDash(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/Dashboard_homepage.fxml"));
 
             Scene scene = new Scene(parent2);
             Stage stage = (Stage) ((Node) event.getSource())
@@ -585,8 +646,6 @@ public class Signin_pageController implements Initializable {
 
             }
 
-            
-
         } catch (SQLException ex) {
             //Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
@@ -596,336 +655,325 @@ public class Signin_pageController implements Initializable {
 
     @FXML
     private void google_signin_btn(ActionEvent event) throws IOException {
-        
-    GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-        new NetHttpTransport(),
-        new JacksonFactory(),
-        "120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com",
-        "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",
-        Arrays.asList("email", "profile"))
-        .setAccessType("offline")
-        .build();
 
-    String authorizationUrl = flow.newAuthorizationUrl()
-        .setRedirectUri("urn:ietf:wg:oauth:2.0:oob")
-        .build();
+        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                new NetHttpTransport(),
+                new JacksonFactory(),
+                "120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com",
+                "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",
+                Arrays.asList("email", "profile"))
+                .setAccessType("offline")
+                .build();
 
-    try {
-        Desktop.getDesktop().browse(new URI(authorizationUrl));
-    } catch (URISyntaxException ex) {
-        Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        String authorizationUrl = flow.newAuthorizationUrl()
+                .setRedirectUri("urn:ietf:wg:oauth:2.0:oob")
+                .build();
 
-    codepage.setVisible(true);
-    loginpage.setVisible(false);
-    loginfields_google.setVisible(false);
-    qrcodelogin.setVisible(false); 
+        try {
+            Desktop.getDesktop().browse(new URI(authorizationUrl));
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        codepage.setVisible(true);
+        loginpage.setVisible(false);
+        loginfields_google.setVisible(false);
+        qrcodelogin.setVisible(false);
     }
 
     @FXML
     private void confirm_code_google_btn(ActionEvent event) throws IOException, NoSuchAlgorithmException, GeneralSecurityException {
         String code = codegoogle.getText();
         users_Services user = new users_Services();
-    if (!code.isEmpty()) {
-    
-         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-            new NetHttpTransport(),
-            new JacksonFactory(),
-            "120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com",
-            "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",
-            Arrays.asList("email", "profile"))
-            .setAccessType("offline")
-            .build();
-        try {
-            
-             GoogleTokenResponse tokenResponse = flow.newTokenRequest(code)
-                     .setRedirectUri("urn:ietf:wg:oauth:2.0:oob")
-                     .execute();
-             
-             GoogleCredential credential = new GoogleCredential.Builder()
-                     .setTransport(new NetHttpTransport())
-                     .setJsonFactory(new JacksonFactory())
-                     .setClientSecrets("120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com", "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")
-                     .build()
-                     .setFromTokenResponse(tokenResponse);
-             
-             GoogleIdToken idToken = tokenResponse.parseIdToken();
-             GoogleIdToken.Payload payload = idToken.getPayload();
-             String email = payload.getEmail();
-             String password = UUID.randomUUID().toString();
-  
-             
-             String sql = "SELECT * FROM users WHERE email=?";
-             
-             String query = "INSERT INTO users (email, password) VALUES (?, ?)";
-             PreparedStatement stmt;
-             PreparedStatement st;
-             ResultSet res = null;
-             try {
-                st = conn.prepareStatement(sql);
-                st.setString(1, email);
-                res = st.executeQuery();
-                
-        if (res.next()) {
-           
-          Data.user = user.getgoogleuserdata(email);
-          if ((Data.user.getAddress()== null) && (Data.user.getCin() == 0) && (Data.user.getFirstname()==null) && (Data.user.getLastname()==null) && (Data.user.getPwd()==null) && (Data.user.getPwd()==null) && (Data.user.getRole()==null) && (Data.user.getPhone_number()==0))
-          {   
-           codepage.setVisible(false);
-           loginpage.setVisible(false);
-           loginfields_google.setVisible(true);   
-           qrcodelogin.setVisible(false);
-          }
-          else
-          {
-           gotoHome(event);   
-          }
-  
-        }
-          else
-        {
-           
-            stmt = conn.prepareStatement(query);
-            stmt.setString(1, email);
-            stmt.setString(2, password);
-            stmt.executeUpdate();
-           Data.user = user.getgoogleuserdata(email);
-           codepage.setVisible(false);
-           loginpage.setVisible(false);
-           qrcodelogin.setVisible(false);
-           loginfields_google.setVisible(true);          
-        }
-           
-             } catch (SQLException ex) {
-                 Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
-             }
-             
-             
-             
-         
-        } catch (TokenResponseException ex) {
-        // Display an error message to the user
-        codeerrormsg.setText("the code is wrong !! ");
-    }
-            
+        if (!code.isEmpty()) {
+
+            GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                    new NetHttpTransport(),
+                    new JacksonFactory(),
+                    "120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com",
+                    "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",
+                    Arrays.asList("email", "profile"))
+                    .setAccessType("offline")
+                    .build();
+            try {
+
+                GoogleTokenResponse tokenResponse = flow.newTokenRequest(code)
+                        .setRedirectUri("urn:ietf:wg:oauth:2.0:oob")
+                        .execute();
+
+                GoogleCredential credential = new GoogleCredential.Builder()
+                        .setTransport(new NetHttpTransport())
+                        .setJsonFactory(new JacksonFactory())
+                        .setClientSecrets("120437690388-3v4hej9ne4v073q4o5ij9hpqkenih37v.apps.googleusercontent.com", "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")
+                        .build()
+                        .setFromTokenResponse(tokenResponse);
+
+                GoogleIdToken idToken = tokenResponse.parseIdToken();
+                GoogleIdToken.Payload payload = idToken.getPayload();
+                String email = payload.getEmail();
+                String password = UUID.randomUUID().toString();
+
+                String sql = "SELECT * FROM users WHERE email=?";
+
+                String query = "INSERT INTO users (email, password) VALUES (?, ?)";
+                PreparedStatement stmt;
+                PreparedStatement st;
+                ResultSet res = null;
+                try {
+                    st = conn.prepareStatement(sql);
+                    st.setString(1, email);
+                    res = st.executeQuery();
+
+                    if (res.next()) {
+
+                        Data.user = user.getgoogleuserdata(email);
+                        Rolelogin= Data.user.getRole();
+                        if ((Data.user.getAddress() == null) && (Data.user.getCin() == 0) && (Data.user.getFirstname() == null) && (Data.user.getLastname() == null) && (Data.user.getPwd() == null) && (Data.user.getPwd() == null) && (Data.user.getRole() == null) && (Data.user.getPhone_number() == 0)) {
+                            codepage.setVisible(false);
+                            loginpage.setVisible(false);
+                            loginfields_google.setVisible(true);
+                            qrcodelogin.setVisible(false);
+                        } else {
+                            if (Rolelogin != null) {
+                                if (Rolelogin.equals("Admin")) {
+                                    gotohomeDash(event);
+                                } else if (Rolelogin.equals("Users manager")) {
+                                    gotoDash(event);
+                                } else if (Rolelogin.equals("Events manager")) {
+                                    gotoDashEvent(event);
+                                } else if (Rolelogin.equals("Tickets manager")) {
+                                    gotoDashticket(event);
+                                } else if (Rolelogin.equals("Auction manager")) {
+                                    gotoDashauction(event);
+                                } else if (Rolelogin.equals("Gallery manager")) {
+                                    gotoDashGallery(event);
+                                } else {
+                                    gotoHome(event);
+                                }
+                            }
+                        }
+
+                    } else {
+
+                        stmt = conn.prepareStatement(query);
+                        stmt.setString(1, email);
+                        stmt.setString(2, password);
+                        stmt.executeUpdate();
+                        Data.user = user.getgoogleuserdata(email);
+                        codepage.setVisible(false);
+                        loginpage.setVisible(false);
+                        qrcodelogin.setVisible(false);
+                        loginfields_google.setVisible(true);
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
+            } catch (TokenResponseException ex) {
+                // Display an error message to the user
+                codeerrormsg.setText("the code is wrong !! ");
+            }
+
+        }
     }
 
     @FXML
     private void return_fromcode_login_btn(ActionEvent event) {
         qrcodelogin.setVisible(false);
-      codepage.setVisible(false);
+        codepage.setVisible(false);
         loginpage.setVisible(true);
         loginfields_google.setVisible(false);
     }
-    
-   
 
     @FXML
     private void confirm_btn(ActionEvent event) throws NoSuchAlgorithmException {
-        
-      LocalDate BirthDate = birth_d.getValue();
+
+        LocalDate BirthDate = birth_d.getValue();
         String firstname = fname.getText();
         String lastname = lname.getText();
         String passwd = pwd.getText();
         String Address = address.getText();
         String gender = null;
         String role = null;
-    int Cin = 0;
-    int phone_number = 0;
-       errormsgfname.setText("");
-    errormsglname.setText("");
-    errormsgpwd.setText("");
-    errormsgcin.setText("");
-    errormsgaddress.setText("");
-     errormsgphonenum.setText("");
-   errormsggender.setText("");
-   errormsgelements.setText("");
-   errormsgbirthdate.setText("");
-   errorquestionartist.setText("");
-   
-   
-   if (!phone_num.getText().isEmpty())
-    {               
-    if (!phone_num.getText().matches("\\d+")) {
-        errormsgphonenum.setText("Phone number should be a number!");
-    } else if (phone_num.getText().toString().length()<8 || phone_num.getText().toString().length()>8)
-    {
-        errormsgphonenum.setText("Phone number should contain 8 digits!");
-    }
-    else {
-        phone_number = Integer.parseInt(phone_num.getText().trim());
-    }
+        int Cin = 0;
+        int phone_number = 0;
+        errormsgfname.setText("");
+        errormsglname.setText("");
+        errormsgpwd.setText("");
+        errormsgcin.setText("");
+        errormsgaddress.setText("");
+        errormsgphonenum.setText("");
+        errormsggender.setText("");
+        errormsgelements.setText("");
+        errormsgbirthdate.setText("");
+        errorquestionartist.setText("");
+
+        if (!phone_num.getText().isEmpty()) {
+            if (!phone_num.getText().matches("\\d+")) {
+                errormsgphonenum.setText("Phone number should be a number!");
+            } else if (phone_num.getText().toString().length() < 8 || phone_num.getText().toString().length() > 8) {
+                errormsgphonenum.setText("Phone number should contain 8 digits!");
+            } else {
+                phone_number = Integer.parseInt(phone_num.getText().trim());
             }
-       if (!cin.getText().isEmpty())
-    {
-     if (!cin.getText().matches("\\d+")) {
-        errormsgcin.setText("CIN should be a number!");
-    } else if (cin.getText().toString().length()<8 || cin.getText().toString().length()>8)
-    {
-        errormsgcin.setText("CIN should contain 8 digits!");
-    }
-    else
-    {
-        Cin = Integer.parseInt(cin.getText().trim());  
-    }   
-    }
-     if (!male_gender.isSelected() && !female_gender.isSelected()) {
-          
-        errormsggender.setText("Please specify your gender!"); 
-        }  
-     if (!yesartist.isSelected() && !noartist.isSelected()) {
-          
-        errorquestionartist.setText("Please answer the question!"); 
         }
-   
-    
-if (firstname.isEmpty() || lastname.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null || (!male_gender.isSelected() && !female_gender.isSelected())|| (!yesartist.isSelected() && !noartist.isSelected())) {
-         
-       errormsgelements.setText("Please fill all elements!!");  
-    
-    if (passwd.isEmpty())   {
-     
-     errormsgpwd.setText("fill paswword !!");   
-    }
-    if (Address.isEmpty())  {
-     
-     errormsgaddress.setText("fill Address !!");   
-    }
-    if ( firstname.isEmpty())
-    {
-     errormsgfname.setText("Fill first name !!");   
-    }
-    if ( lastname.isEmpty())
-    {
-       errormsglname.setText("Fill last name !!");
-    }
-    if (phone_num.getText().isEmpty())
-    {
-     errormsgphonenum.setText("Fill phone number !!");  
-    }
-    if (BirthDate == null)
-    {
-        errormsgbirthdate.setText("Fill birth date !!"); 
-    }
-    if ( cin.getText().isEmpty() )
-    {
-     errormsgcin.setText("Fill Cin !!");   
-    }
-    } 
-else if (yesartist.isSelected() && noartist.isSelected())
-    {
-     errorquestionartist.setText("Please select only one answer!");    
-    }
-   else if (male_gender.isSelected() && female_gender.isSelected())
-    {
-     errormsggender.setText("Please specify your gender!");    
-    }
-    else {
-    if (male_gender.isSelected()) {
-        gender = male_gender.getText();  
-    } 
-    if (female_gender.isSelected()) {
-        gender = female_gender.getText();
-    }
-   if (yesartist.isSelected()) {
-        role = "Artist";
-    }
-   if (noartist.isSelected()) {
-        role = "Subscriber";
-    }
-   
-    String hashedPassword = users_Services.hashPassword(passwd);
-    user1 = new users(Cin ,firstname, lastname,Data.user.getEmail(), hashedPassword, Address, phone_number, BirthDate, gender, role,"unblocked");
-    user = new users_Services();
-    user.modifyusergoogle(user1); 
-     
-     errormsgfname.setText("");
-     errormsglname.setText("");
-     errormsgpwd.setText("");
-     errormsgcin.setText("");
-     errormsgaddress.setText("");
-     errormsgphonenum.setText("");
-     errormsggender.setText("");
-     errormsgelements.setText("");
-     errormsgbirthdate.setText("");
-     errorquestionartist.setText("");
-     Data.user = user.getgoogleuserdata(user1.getEmail());
-     gotoHome(event);
-   
-   
-   
-        
-    }  
-        
-        
-        
+        if (!cin.getText().isEmpty()) {
+            if (!cin.getText().matches("\\d+")) {
+                errormsgcin.setText("CIN should be a number!");
+            } else if (cin.getText().toString().length() < 8 || cin.getText().toString().length() > 8) {
+                errormsgcin.setText("CIN should contain 8 digits!");
+            } else {
+                Cin = Integer.parseInt(cin.getText().trim());
+            }
+        }
+        if (!male_gender.isSelected() && !female_gender.isSelected()) {
+
+            errormsggender.setText("Please specify your gender!");
+        }
+        if (!yesartist.isSelected() && !noartist.isSelected()) {
+
+            errorquestionartist.setText("Please answer the question!");
+        }
+
+        if (firstname.isEmpty() || lastname.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null || (!male_gender.isSelected() && !female_gender.isSelected()) || (!yesartist.isSelected() && !noartist.isSelected())) {
+
+            errormsgelements.setText("Please fill all elements!!");
+
+            if (passwd.isEmpty()) {
+
+                errormsgpwd.setText("fill paswword !!");
+            }
+            if (Address.isEmpty()) {
+
+                errormsgaddress.setText("fill Address !!");
+            }
+            if (firstname.isEmpty()) {
+                errormsgfname.setText("Fill first name !!");
+            }
+            if (lastname.isEmpty()) {
+                errormsglname.setText("Fill last name !!");
+            }
+            if (phone_num.getText().isEmpty()) {
+                errormsgphonenum.setText("Fill phone number !!");
+            }
+            if (BirthDate == null) {
+                errormsgbirthdate.setText("Fill birth date !!");
+            }
+            if (cin.getText().isEmpty()) {
+                errormsgcin.setText("Fill Cin !!");
+            }
+        } else if (yesartist.isSelected() && noartist.isSelected()) {
+            errorquestionartist.setText("Please select only one answer!");
+        } else if (male_gender.isSelected() && female_gender.isSelected()) {
+            errormsggender.setText("Please specify your gender!");
+        } else {
+            if (male_gender.isSelected()) {
+                gender = male_gender.getText();
+            }
+            if (female_gender.isSelected()) {
+                gender = female_gender.getText();
+            }
+            if (yesartist.isSelected()) {
+                role = "Artist";
+            }
+            if (noartist.isSelected()) {
+                role = "Subscriber";
+            }
+
+            String hashedPassword = users_Services.hashPassword(passwd);
+            user1 = new users(Cin, firstname, lastname, Data.user.getEmail(), hashedPassword, Address, phone_number, BirthDate, gender, role, "unblocked");
+            user = new users_Services();
+            user.modifyusergoogle(user1);
+
+            errormsgfname.setText("");
+            errormsglname.setText("");
+            errormsgpwd.setText("");
+            errormsgcin.setText("");
+            errormsgaddress.setText("");
+            errormsgphonenum.setText("");
+            errormsggender.setText("");
+            errormsgelements.setText("");
+            errormsgbirthdate.setText("");
+            errorquestionartist.setText("");
+            Data.user = user.getgoogleuserdata(user1.getEmail());
+            gotoHome(event);
+
+        }
+
     }
 
     @FXML
     private void captcha_btn(ActionEvent event) {
         captchaText = cage.getTokenGenerator().next();
-    BufferedImage image = cage.drawImage(captchaText);
-    Image fxImage = SwingFXUtils.toFXImage(image, null);
-    imgCaptcha.setImage(fxImage);
+        BufferedImage image = cage.drawImage(captchaText);
+        Image fxImage = SwingFXUtils.toFXImage(image, null);
+        imgCaptcha.setImage(fxImage);
     }
 
     @FXML
     private void confirm_auth_QR_btn(ActionEvent event) {
- final long[] verificationCode = {Integer.parseInt(code_qr_input.getText())};
-                          final int[] testcode = {0};
-                          Timer timer = new Timer();
-                          timer.schedule(new TimerTask() {
-    
-    @Override
-    public void run() {
-        long newCode = Auth.getTotpPassword(securityCodeQR);
-        //if (newCode == verificationCode[0]) {
-        if ( Long.valueOf(newCode).equals(Long.valueOf(verificationCode[0]))){
-            // The code has not changed, do nothing
-            System.out.println("Code has not changed");
-            testcode[0] = 1;
-            
-        } else {
-            // The code has changed, update the current code and verify it
-            System.out.println("Code has changed");
-            verificationCode[0] = newCode;
-            testcode[0] = 0;
-                          
-        }
-         if (testcode[0] == 1) {
-            Platform.runLater(() -> {
-                if (Rolelogin != null) {
-                    if (Rolelogin.equals("Admin")) {
-                        gotoDash(event);
-                    } else {
-                        gotoHome(event);
-                    }
+        final long[] verificationCode = {Integer.parseInt(code_qr_input.getText())};
+        final int[] testcode = {0};
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                long newCode = Auth.getTotpPassword(securityCodeQR);
+                //if (newCode == verificationCode[0]) {
+                if (Long.valueOf(newCode).equals(Long.valueOf(verificationCode[0]))) {
+                    // The code has not changed, do nothing
+                    System.out.println("Code has not changed");
+                    testcode[0] = 1;
+
+                } else {
+                    // The code has changed, update the current code and verify it
+                    System.out.println("Code has changed");
+                    verificationCode[0] = newCode;
+                    testcode[0] = 0;
+
                 }
-                else
-                {
-    loginpage.setVisible(true);
-    loginfields_google.setVisible(false);   
-    qrcodelogin.setVisible(false);
-    codepage.setVisible(false);
-    loginerrormsg.setText("Verification code is invalid or has changed");  
+                if (testcode[0] == 1) {
+                    Platform.runLater(() -> {
+                        if (Rolelogin != null) {
+                            if (Rolelogin.equals("Admin")) {
+                                gotohomeDash(event);
+                            } else if (Rolelogin.equals("Users manager")) {
+                                gotoDash(event);
+                            } else if (Rolelogin.equals("Events manager")) {
+                                gotoDashEvent(event);
+                            } else if (Rolelogin.equals("Tickets manager")) {
+                                gotoDashticket(event);
+                            } else if (Rolelogin.equals("Auction manager")) {
+                                gotoDashauction(event);
+                            } else if (Rolelogin.equals("Gallery manager")) {
+                                gotoDashGallery(event);
+                            } else {
+                                gotoHome(event);
+                            }
+                        } else {
+                            loginpage.setVisible(true);
+                            loginfields_google.setVisible(false);
+                            qrcodelogin.setVisible(false);
+                            codepage.setVisible(false);
+                            loginerrormsg.setText("Verification code is invalid or has changed");
+                        }
+                    });
+                    timer.cancel();
                 }
-            });
-            timer.cancel();
-         }
-    }
-}, 0, 30000);
-   
-      
+            }
+        }, 0, 30000);
+
     }
 
     @FXML
     private void return_btn_qr(ActionEvent event) {
-        
-    loginpage.setVisible(true);
-    loginfields_google.setVisible(false);   
-    qrcodelogin.setVisible(false);
-    codepage.setVisible(false);
+
+        loginpage.setVisible(true);
+        loginfields_google.setVisible(false);
+        qrcodelogin.setVisible(false);
+        codepage.setVisible(false);
     }
 
 }

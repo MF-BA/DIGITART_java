@@ -6,31 +6,22 @@
 package controller;
 
 import Services.users_Services;
-import static controller.Signin_pageController.conn;
 import entity.Data;
 import entity.users;
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -61,18 +52,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import static javax.swing.text.DefaultStyledDocument.ElementSpec.ContentType;
-import main.main;
-import org.apache.hc.client5.http.classic.methods.HttpPost;
-import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.core5.http.HttpEntity;
 
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.util.Optional;
@@ -83,7 +64,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
-import javax.mail.MessagingException;
 import utils.Conn;
 
 /**
@@ -266,6 +246,7 @@ public class DashboardController implements Initializable {
     private Label errormsgbirthdate_edit;
     @FXML
     private Label errormsgphonenum_edit;
+    @FXML
     private Button deconnect;
     private Button eye_on;
     private Button eye_off;
@@ -325,8 +306,6 @@ public class DashboardController implements Initializable {
     private Label errormsgaddress_edit;
     @FXML
     private Button return_dash_btn;
-    @FXML
-    private Button deconnect1;
     
     
     private Stage stage;
@@ -338,7 +317,7 @@ public class DashboardController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+        System.out.println(Data.user.getImage());
         default_anchor.setVisible(true);
         listusers_btn.setVisible(false);
         adduser_dash_btn.setVisible(false);
@@ -407,6 +386,11 @@ public void combobox()
 {
     List<String> options = new ArrayList<>();
         options.add("Admin");
+        options.add("Events manager");
+        options.add("Users manager");
+        options.add("Tickets manager");
+        options.add("Auction manager");
+        options.add("Gallery manager");
         options.add("Artist");
         options.add("Subscriber");
         Rolebox.getItems().addAll(options);
@@ -415,6 +399,11 @@ public void comboboxedit()
 {
     List<String> options = new ArrayList<>();
         options.add("Admin");
+        options.add("Events manager");
+        options.add("Users manager");
+        options.add("Tickets manager");
+        options.add("Auction manager");
+        options.add("Gallery manager");
         options.add("Artist");
         options.add("Subscriber");
         Rolebox_editprof.getItems().addAll(options);
@@ -844,6 +833,11 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
  {
      List<String> options = new ArrayList<>();
         options.add("Admin");
+        options.add("Events manager");
+        options.add("Users manager");
+        options.add("Tickets manager");
+        options.add("Auction manager");
+        options.add("Gallery manager");
         options.add("Artist");
         options.add("Subscriber");
         Rolebox_up.getItems().addAll(options);
@@ -1418,14 +1412,14 @@ chartgender.setLabelsVisible(true);
                 
                 String newpwd = result1.get();
                 users u = new users (Data.user.getId(),
-             Data.user.getCin(),
-             Data.user.getFirstname(),
+                Data.user.getCin(),
+                Data.user.getFirstname(),
                 Data.user.getLastname(),
                 Data.user.getEmail(),
                 users_Services.hashPassword(newpwd),
                 Data.user.getAddress(),
-             Data.user.getPhone_number(),   
-             Data.user.getBirth_date(),
+                Data.user.getPhone_number(),   
+                Data.user.getBirth_date(),
                 Data.user.getGender(),
                 Data.user.getRole(),
                 Data.user.getStatus(),

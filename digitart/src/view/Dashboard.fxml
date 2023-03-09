@@ -92,7 +92,7 @@
                   <Image url="@../logo%20digitart%20white.png" />
                </image>
             </ImageView>
-            <Button fx:id="deconnect1" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
+            <Button fx:id="deconnect" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="20" />
                </graphic>
@@ -190,7 +190,7 @@
                   <Font name="Berlin Sans FB" size="60.0" />
                </font>
             </Label>
-            <ComboBox fx:id="Rolebox" layoutX="542.0" layoutY="500.0" prefHeight="25.0" prefWidth="164.0" promptText="select your role" styleClass="combobox" stylesheets="@auctionDesign.css" />
+            <ComboBox fx:id="Rolebox" layoutX="542.0" layoutY="500.0" prefHeight="32.0" prefWidth="171.0" promptText="select your role" styleClass="combobox" stylesheets="@auctionDesign.css" />
             <Label fx:id="errormsgfname" layoutX="231.0" layoutY="211.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsglname" layoutX="230.0" layoutY="284.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgemail" layoutX="230.0" layoutY="361.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
@@ -275,7 +275,7 @@
          </children>
       </AnchorPane>
       <AnchorPane fx:id="default_anchor" layoutX="254.0" layoutY="-1.0" prefHeight="722.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;" visible="false" />
-      <AnchorPane fx:id="update_page" layoutX="255.0" layoutY="2.0" prefHeight="709.0" prefWidth="936.0" visible="false">
+      <AnchorPane fx:id="update_page" layoutX="255.0" layoutY="2.0" prefHeight="709.0" prefWidth="936.0">
          <children>
             <Label layoutX="323.0" layoutY="52.0" prefHeight="67.0" prefWidth="290.0" text="Modify user" textFill="#bd2a2e">
                <font>

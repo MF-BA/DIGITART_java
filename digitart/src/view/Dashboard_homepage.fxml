@@ -24,9 +24,9 @@
       </ImageView>
       <Pane layoutX="-300.0" layoutY="-86.0" prefHeight="392.0" prefWidth="900.0" rotate="-42.5" styleClass="left-form" stylesheets="@auctionDesign.css">
          <children>
-            <Circle fill="#bd2a2e" layoutX="424.0" layoutY="140.0" radius="69.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
-            <Circle fx:id="circle_image" fill="#bd2a2e" layoutX="424.0" layoutY="140.0" radius="65.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
-            <ImageView fx:id="avatar_image" fitHeight="177.0" fitWidth="180.0" layoutX="334.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" />
+            <Circle fill="#bd2a2e" layoutX="454.0" layoutY="183.0" radius="69.0" rotate="42.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+            <Circle fx:id="circle_image" fill="#bd2a2e" layoutX="454.0" layoutY="183.0" radius="65.0" rotate="42.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+            <ImageView fx:id="avatar_image" fitHeight="177.0" fitWidth="180.0" layoutX="364.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true" rotate="42.0" />
             <Label fx:id="labeladminname" alignment="CENTER" contentDisplay="CENTER" layoutX="220.0" layoutY="274.0" prefHeight="41.0" prefWidth="269.0" rotate="42.0" text="Welcome" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="30.0" />

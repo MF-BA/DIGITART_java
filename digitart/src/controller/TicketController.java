@@ -11,9 +11,11 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
+import entity.Data;
 import utils.Conn;
 import entity.Ticket;
 import entity.Payment;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.Date;
@@ -35,7 +37,9 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
@@ -54,8 +58,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
@@ -168,6 +175,20 @@ public class TicketController implements Initializable {
     private Button check_payment;
     @FXML
     private Button payment_delete_button;
+    @FXML
+    private Pane avatar_icon;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Button return_dash_btn;
+    @FXML
+    private Button deconnect1;
+    
+     private Parent pt;
+    @FXML
+    private Label name;
 
     public void combobox() {
         List<String> options = new ArrayList<>();
@@ -676,7 +697,9 @@ public class TicketController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
+        name.setText(Data.user.getFirstname());
+        
         dashboard_anchor.setVisible(true);
         addticket_anchor.setVisible(false);
         payment_anchor.setVisible(false);
@@ -715,6 +738,40 @@ public class TicketController implements Initializable {
 
     private Element generateGreyRectangle(Document document, PdfPTable ticketTable) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @FXML
+    private void return_dash_btn(ActionEvent event) {
+         try {
+             pt=FXMLLoader
+                    .load(getClass().getResource("/view/Dashboard_homepage.fxml"));
+            
+             scene=new Scene(pt);
+             stage=(Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Login");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void deconnect_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/signin_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
