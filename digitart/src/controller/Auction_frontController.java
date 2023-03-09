@@ -85,7 +85,7 @@ public class Auction_frontController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if(Data.user.getRole()== "Subscriber")
+        if(Data.user.getRole().equals("Subscriber") )
         {
             auction_btn1.setVisible(false);
             btn_Artworks_Auction.setVisible(false);
