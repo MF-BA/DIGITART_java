@@ -94,7 +94,8 @@ public class Add_auction_backController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (Data.user.getRole() != "Admin") {
+        return_dash_btn.setVisible(true);
+        if (!Data.user.getRole().equals("Admin")) {
             return_dash_btn.setVisible(false);
         }
         labeladminname3.setText(Data.user.getFirstname());

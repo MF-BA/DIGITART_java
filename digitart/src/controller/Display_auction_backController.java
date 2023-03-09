@@ -90,14 +90,8 @@ public class Display_auction_backController implements Initializable {
     private FontAwesomeIconView clear;
     @FXML
     private Button display_archive;
+
     @FXML
-<<<<<<< HEAD
-    private Label labeladminname;
-    @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-=======
     private Circle circle_image;
     @FXML
     private ImageView avatar_image;
@@ -113,7 +107,6 @@ public class Display_auction_backController implements Initializable {
     private Button list_users;
     @FXML
     private Button deconnect1;
->>>>>>> fedi
 
     /**
      * Initializes the controller class.
@@ -128,14 +121,15 @@ public class Display_auction_backController implements Initializable {
         Image image = new Image(new File(imagePath).toURI().toString());
         circle_image.setFill(new ImagePattern(image));
         }*/
+        
         if (Data.user.getImage()!=null){
         Image image = new Image(Data.user.getImage());
         circle_image.setFill(new ImagePattern(image));
         }
         
         
-        
-        if (Data.user.getRole() != "Admin") {
+        return_dash_btn.setVisible(true);
+        if (!Data.user.getRole().equals("Admin")) {
             return_dash_btn.setVisible(false);
         }
         btn_Add_Auction.setStyle("-fx-background-color:transparent ");
@@ -398,8 +392,7 @@ public class Display_auction_backController implements Initializable {
 
     }
 
-<<<<<<< HEAD
-=======
+
     @FXML
     private void return_dash_btn(ActionEvent event) {
         try {
@@ -438,7 +431,5 @@ public class Display_auction_backController implements Initializable {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
->>>>>>> fedi
 
 }

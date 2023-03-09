@@ -300,7 +300,7 @@ public class Add_eventController implements Initializable {
         event_add_anc.setVisible(true);
         list_of_events.setVisible(false);
         part_anc.setVisible(false);
-        welcome.setText(Data.user.getFirstname());
+        labeladminname.setText(Data.user.getFirstname());
          if(Data.user.getRole().equals("Event manager"))
          {
              return_dash_btn.setVisible(false);
