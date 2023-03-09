@@ -43,10 +43,14 @@ public class main extends Application {
 
         //Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/back_admin/display_auction_back.fxml"));
 <<<<<<< HEAD
+<<<<<<< HEAD
         Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/Dashboard_homepage.fxml"));
 =======
         Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/display_artwork.fxml"));
 >>>>>>> Mohamed
+=======
+        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/add_event.fxml"));
+>>>>>>> koussay
         Scene scene = new Scene(DisplayROOM_Page);
 
         this.primaryStage.setScene(scene);
