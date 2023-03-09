@@ -17,29 +17,15 @@ import javafx.scene.image.ImageView;
 import com.octo.captcha.service.CaptchaService;
 import com.github.cage.Cage;
 import com.github.cage.GCage;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.services.people.v1.PeopleService;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
-import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
-import com.google.zxing.BarcodeFormat;
 //import com.google.zxing.common.ByteMatrix;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.ByteMatrix;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 /*import com.octo.captcha.image.gimpy.DefaultGimpyEngine;
 import com.octo.captcha.image.gimpy.DefaultBackgroundGenerator;
 import com.octo.captcha.image.gimpy.DefaultWordGenerator;
@@ -59,7 +45,6 @@ import entity.users;
 import java.awt.Desktop;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -72,9 +57,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Base64;
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -104,13 +86,9 @@ import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javax.imageio.ImageIO;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -924,16 +902,17 @@ public class Signin_pageController implements Initializable {
                 //if (newCode == verificationCode[0]) {
                 if (Long.valueOf(newCode).equals(Long.valueOf(verificationCode[0]))) {
                     // The code has not changed, do nothing
-                    System.out.println("Code has not changed");
+                    //System.out.println("Code has not changed");
                     testcode[0] = 1;
 
                 } else {
                     // The code has changed, update the current code and verify it
-                    System.out.println("Code has changed");
+                    //System.out.println("Code has changed");
                     verificationCode[0] = newCode;
                     testcode[0] = 0;
 
                 }
+                //System.out.println(Rolelogin);
                 if (testcode[0] == 1) {
                     Platform.runLater(() -> {
                         if (Rolelogin != null) {
