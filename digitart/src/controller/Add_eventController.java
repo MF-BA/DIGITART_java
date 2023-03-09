@@ -232,6 +232,8 @@ public class Add_eventController implements Initializable {
     @FXML
     private ImageView imageev;
     @FXML
+    private Label errormsgimage;
+    @FXML
     
     private void searchTicket() {
         ObservableList<Event> ticketObservableList = FXCollections.observableList(eventList);
@@ -613,11 +615,12 @@ public void showSpinner1(Spinner<Integer> spinner) {
                 // CHECK IF THE TICKET ID ALREADY EXISTS
                 Connection connection;
                 connection = Conn.getCon();
-                String check = "SELECT ticket_id FROM ticket WHERE ticket_id = ?";
+                String check = "SELECT id FROM event WHERE id = ?";
                 PreparedStatement checkStatement = connection.prepareStatement(check);
                 checkStatement.setString(1, event_id);
                 ResultSet result = checkStatement.executeQuery();
                  // String imagePath = file.getPath();
+                 
        imageUrl="http://localhost/images/"+selectedFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
 //        String imageFilePath = "C:\\xamppp\\htdocs\\piImg";
@@ -702,7 +705,7 @@ public void showSpinner1(Spinner<Integer> spinner) {
                 alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to delete Event ID: " + event_id + "?");
+                alert.setContentText("Are you sure you want to delete Event: " + event_name + "?");
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get().equals(ButtonType.OK)) {
                     int id = Integer.parseInt(event_id);
@@ -765,7 +768,7 @@ public void showSpinner1(Spinner<Integer> spinner) {
                 alert = new Alert(AlertType.CONFIRMATION);
                 alert.setTitle("Confirmation Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to UPDATE ticket ID: " + event_id + "?");
+                alert.setContentText("Are you sure you want to UPDATE Event: " + event_name+ "?");
                 Optional<ButtonType> option = alert.showAndWait();
                 if (option.get().equals(ButtonType.OK)) {
                     LocalDate localDates = start_date;

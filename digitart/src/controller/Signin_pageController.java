@@ -481,7 +481,81 @@ public class Signin_pageController implements Initializable {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void gotoDashEvent(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_event.fxml"));
 
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void gotoDashGallery(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/display_artwork.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void gotoDashauction(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/display_auction_back.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void gotoDashticket(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_ticket.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+      public void gotohomeDash(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/Dashboard_homepage.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Dashboard");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     @FXML
     private void showpwd(ActionEvent event) {
 
@@ -897,8 +971,25 @@ else if (yesartist.isSelected() && noartist.isSelected())
             Platform.runLater(() -> {
                 if (Rolelogin != null) {
                     if (Rolelogin.equals("Admin")) {
+                        gotohomeDash(event);
+                    } 
+                    else if(Rolelogin.equals("Users manager")){
                         gotoDash(event);
-                    } else {
+                    }
+                    else if(Rolelogin.equals("Events manager")){
+                        gotoDashEvent(event);
+                    }
+                    else if(Rolelogin.equals("Tickets manager")){
+                        gotoDashticket(event);
+                    }
+                    else if(Rolelogin.equals("Auction manager")){
+                        gotoDashauction(event);
+                    }
+                    else if(Rolelogin.equals("Gallery manager")){
+                        gotoDashGallery(event);
+                    }
+                    
+                    else {
                         gotoHome(event);
                     }
                 }
