@@ -22,10 +22,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.time.Instant;
 =======
 import java.sql.SQLException;
 >>>>>>> fedi
+=======
+import java.time.Instant;
+>>>>>>> Mohamed
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -160,6 +164,9 @@ public class Event_displayController implements Initializable {
     public void UserAdd(int id_event) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Mohamed
         Event event =null;
        int id_user=Data.user.getId();
         String first_name=Data.user.getFirstname();
@@ -195,6 +202,7 @@ public class Event_displayController implements Initializable {
                     alert.setContentText("Successfully Added!");
                     alert.showAndWait();
                     // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+<<<<<<< HEAD
 =======
         try {
             Event event = null;
@@ -231,6 +239,8 @@ public class Event_displayController implements Initializable {
                 alert.showAndWait();
                 // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
 >>>>>>> fedi
+=======
+>>>>>>> Mohamed
 
                     
                 }
@@ -268,6 +278,7 @@ public void generateQRCode() {
             image.setRGB(x, y, value == 0 ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 
@@ -299,6 +310,8 @@ public void generateQRCode() {
         Image fxImage = SwingFXUtils.toFXImage(image, null);
         qrcode.setImage(fxImage);
 >>>>>>> fedi
+=======
+>>>>>>> Mohamed
     }
 */
 

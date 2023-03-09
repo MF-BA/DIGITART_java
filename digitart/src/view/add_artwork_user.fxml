@@ -85,21 +85,21 @@
                         <Font name="Berlin Sans FB" size="22.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="Input_name_artwork" layoutX="475.0" layoutY="159.0" prefHeight="25.0" prefWidth="203.0" promptText="Name Artwork" styleClass="textfield" stylesheets="@auctionDesign.css" />
-                  <ComboBox fx:id="input_idroom" layoutX="928.0" layoutY="361.0" prefHeight="25.0" prefWidth="185.0" promptText="choose room" styleClass="combobox" stylesheets="@auctionDesign.css" />
+                  <TextField fx:id="Input_name_artwork" layoutX="475.0" layoutY="159.0" prefHeight="25.0" prefWidth="203.0" promptText="Name Artwork" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
+                  <ComboBox fx:id="input_idroom" layoutX="928.0" layoutY="361.0" prefHeight="25.0" prefWidth="185.0" promptText="choose room" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
                   <DatePicker fx:id="input_date" layoutX="473.0" layoutY="265.0" prefHeight="25.0" prefWidth="203.0" promptText="Date creation of artwork" />
-                  <TextArea fx:id="input_desc" layoutX="919.0" layoutY="150.0" prefHeight="146.0" prefWidth="185.0" promptText="Describe the artwork" styleClass="textfield" stylesheets="@auctionDesign.css" />
-                  <Button fx:id="btn_addimage" layoutX="483.0" layoutY="357.0" mnemonicParsing="false" onAction="#btn_addimage_clicked" prefHeight="33.0" prefWidth="203.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="add a file">
+                  <TextArea fx:id="input_desc" layoutX="919.0" layoutY="150.0" prefHeight="146.0" prefWidth="185.0" promptText="Describe the artwork" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
+                  <Button fx:id="btn_addimage" layoutX="483.0" layoutY="357.0" mnemonicParsing="false" onAction="#btn_addimage_clicked" prefHeight="33.0" prefWidth="203.0" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="add a file">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_add" layoutX="746.0" layoutY="471.0" mnemonicParsing="false" onAction="#btn_add_clicked" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Confirm adding" textFill="#1aae21">
+                  <Button fx:id="btn_add" layoutX="746.0" layoutY="471.0" mnemonicParsing="false" onAction="#btn_add_clicked" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Confirm adding" textFill="#1aae21">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Button>
-                  <Button fx:id="btn_cancel" layoutX="548.0" layoutY="471.0" mnemonicParsing="false" onAction="#btn_cancel_clicked" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Cancel" textFill="#ae1515">
+                  <Button fx:id="btn_cancel" layoutX="548.0" layoutY="471.0" mnemonicParsing="false" onAction="#btn_cancel_clicked" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Cancel" textFill="#ae1515">
                      <font>
                         <Font size="17.0" />
                      </font>

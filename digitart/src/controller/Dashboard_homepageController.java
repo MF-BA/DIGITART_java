@@ -140,6 +140,19 @@ public class Dashboard_homepageController implements Initializable {
 <<<<<<< HEAD
 =======
     private void gallery_btn(ActionEvent event) {
+         try {
+             pt=FXMLLoader
+                    .load(getClass().getResource("/view/display_room.fxml"));
+            
+             scene=new Scene(pt);
+             stage=(Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Login");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

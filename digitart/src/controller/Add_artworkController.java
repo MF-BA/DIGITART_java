@@ -50,6 +50,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -95,10 +97,52 @@ public class Add_artworkController implements Initializable {
     private Button btn_room;
     @FXML
     private Button btn_artwork;
+    @FXML
+    private Pane avatar_icon;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Label labeladminname2;
+    @FXML
+    private Label labeladminname3;
+    @FXML
+    private Button return_dash_btn;
+    @FXML
+    private Label labeladminname1;
+    @FXML
+    private Label labeladminname;
+    @FXML
+    private Button deconnect1;
 
     /**
      * Initializes the controller class.
      */
+    
+     private void go_signin(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/signin_page.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+     private void go_home(ActionEvent event) {
+        try {
+            root = FXMLLoader.load(getClass().getResource("/view/dashboard_homepage.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Add_auction_Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
       private void go_room(ActionEvent event) {
         try {
@@ -276,6 +320,16 @@ private void btn_add_clicked(ActionEvent event) throws IOException {
     @FXML
     private void btn_artwork_clicked(ActionEvent event) {
         go_Display(event);
+    }
+
+    @FXML
+    private void return_dash_btn(ActionEvent event) {
+        go_home(event);
+    }
+
+    @FXML
+    private void deconnect_btn(ActionEvent event) {
+        go_signin(event);
     }
     
 }

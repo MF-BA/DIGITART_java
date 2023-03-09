@@ -172,11 +172,15 @@
                   <ImageView fx:id="imageev" fitHeight="150.0" fitWidth="200.0" layoutX="558.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true" />
 =======
                   <ImageView fx:id="imageev" fitHeight="150.0" fitWidth="200.0" layoutX="558.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true" />
+<<<<<<< HEAD
 >>>>>>> amine
+=======
+>>>>>>> Mohamed
                   <FontAwesomeIconView fill="#6b6969" glyphName="CLOCK_ALT" layoutX="348.0" layoutY="165.0" size="20" />
                   <FontAwesomeIconView fill="#797979" glyphName="GROUP" layoutX="808.0" layoutY="248.0" size="20" />
                   <Spinner fx:id="txt_nb_participants" layoutX="628.0" layoutY="228.0" prefHeight="26.0" prefWidth="175.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
                   <Spinner fx:id="txt_start_time" layoutX="158.0" layoutY="144.0" prefHeight="26.0" prefWidth="181.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
+<<<<<<< HEAD
 <<<<<<< HEAD
                   <Label fx:id="errormsgimage" layoutX="748.0" layoutY="438.0" prefHeight="18.0" prefWidth="161.0" textFill="RED" />
                </children>
@@ -187,6 +191,11 @@
             </AnchorPane>
             <Button fx:id="btnadd" layoutX="345.0" layoutY="596.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="34.0" prefWidth="187.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add">
 >>>>>>> amine
+=======
+               </children>
+            </AnchorPane>
+            <Button fx:id="btnadd" layoutX="345.0" layoutY="596.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="34.0" prefWidth="187.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Add">
+>>>>>>> Mohamed
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="CHECK_SQUARE" />
                </graphic></Button>
@@ -215,7 +224,10 @@
             <Label fx:id="errormsgnbparticipants" layoutX="634.0" layoutY="366.0" prefHeight="18.0" prefWidth="215.0" textFill="RED" />
 =======
             <Label fx:id="errormsgnbparticipants" layoutX="648.0" layoutY="361.0" prefHeight="18.0" prefWidth="215.0" textFill="RED" />
+<<<<<<< HEAD
 >>>>>>> amine
+=======
+>>>>>>> Mohamed
             <Label fx:id="errormsgelements" layoutX="356.0" layoutY="646.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
          </children>
       </AnchorPane>
