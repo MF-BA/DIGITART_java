@@ -88,29 +88,11 @@ public class Display_auction_backController implements Initializable {
     @FXML
     private Button display_archive;
     @FXML
-    private Button disconnect;
+    private Label labeladminname;
     @FXML
-    private Button editprof_btn;
+    private Label labeladminname1;
     @FXML
-    private Button home_btn;
-    @FXML
-    private Button artwork_btn;
-    @FXML
-    private Button auction_btn;
-    @FXML
-    private Button events_btn;
-    @FXML
-    private Circle circle_image;
-    @FXML
-    private ImageView avatar_image;
-    @FXML
-    private Label labelusername;
-    @FXML
-    private Button tickets_btn;
-    @FXML
-    private AnchorPane homepage_anchorpane;
-    @FXML
-    private Button auction_btn1;
+    private Label labeladminname2;
 
     /**
      * Initializes the controller class.
@@ -377,36 +359,5 @@ public class Display_auction_backController implements Initializable {
 
     }
 
-    @FXML
-    private void disconnect_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void editprof_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void home_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void artwork_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void auction_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void events_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void tickets_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void auction_btn_clicked(ActionEvent event) {
-    }
 
 }

@@ -200,6 +200,93 @@ public class Auction_frontController implements Initializable {
 
     @FXML
     private void disconnect_btn(ActionEvent event) {
+         try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/signin_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    @FXML
+    private void home_btn(ActionEvent event) {try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/Home_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void artwork_btn(ActionEvent event) {
+        
+         try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/display_artwork_user.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void auction_btn(ActionEvent event) {
+               
+    }
+
+    @FXML
+    private void events_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/participate_event.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
+            try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_ticket_user.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -217,26 +304,6 @@ public class Auction_frontController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    @FXML
-    private void home_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void artwork_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void auction_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void events_btn(ActionEvent event) {
-    }
-
-    @FXML
-    private void tickets_btn(ActionEvent event) {
     }
 
 }

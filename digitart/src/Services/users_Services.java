@@ -292,10 +292,12 @@ public class users_Services {
                 res.getString(6),
                 res.getString(7),
                 res.getInt(8),
-                //res.getDate(9).toLocalDate(),
+                res.getDate(9).toLocalDate(),
                 res.getString(10),
                 res.getString(11),
-                res.getString(12)
+                res.getString(12),
+                res.getString(13),
+                res.getString(14)
             );
         }
     } catch (SQLException ex) {
