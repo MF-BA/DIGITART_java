@@ -101,7 +101,7 @@
             <ImageView fx:id="imagev" fitHeight="241.0" fitWidth="221.0" pickOnBounds="true" preserveRatio="true" />
             <VBox prefHeight="62.0" prefWidth="242.0" />
             <Line endX="139.99342346191406" endY="-1.2082266807556152" startX="-100.89950561523438" startY="-1.207310438156128" />
-            <Button fx:id="btnparticipate" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="34.0" prefWidth="131.0" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Participate" />
+            <Button fx:id="btnparticipate" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="40.0" prefWidth="150.0" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Participate" />
          </children>
       </VBox>
       <VBox prefHeight="384.0" prefWidth="224.0">
@@ -114,7 +114,7 @@
             <ImageView fx:id="qrcode" fitHeight="180.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <VBox prefHeight="123.0" prefWidth="224.0" />
             <Line endX="121.89283752441406" endY="0.4137672483921051" startX="-100.0" />
-            <Button fx:id="btn_qr" mnemonicParsing="false" onAction="#btn_qr_clicked" prefHeight="34.0" prefWidth="179.0" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Generate Qr code" />
+            <Button fx:id="btn_qr" mnemonicParsing="false" onAction="#btn_qr_clicked" prefHeight="40.0" prefWidth="215.0" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Generate Qr code" />
          </children>
       </VBox>
    </children>

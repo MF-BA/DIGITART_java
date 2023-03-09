@@ -492,6 +492,10 @@ public void showSpinner1(Spinner<Integer> spinner) {
     errormsgenddate.setText("Fill end date !!");
 } else if (start_date.isBefore(today)) {
     errormsgenddate.setText("End date cannot be in the past!!");
+} else if (end_date.isBefore(start_date)) {
+    errormsgenddate.setText("End date cannot come before start date!!");
+} else if (start_date.isAfter(end_date)) {
+    errormsgenddate.setText("Start date cannot come after end date!!");
 }
    
             
@@ -1004,6 +1008,7 @@ public void showSpinner1(Spinner<Integer> spinner) {
         contentStream.newLineAtOffset(0, -20);
         contentStream.showText("The Event details are: " + selectedEvent.getDetail());
         contentStream.endText();
+        
         
         // Close the content stream
         contentStream.close();
