@@ -2,29 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/Services/Auction_Services.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/view/auctionDesign.css</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/entity/users.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/Signup_pageController.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/Editprofileuser_frontController.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/Services/users_Services.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/Signin_pageController.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/Home_pageController.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/main/main.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/entity/Data.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/controller/DashboardController.java</file>
-            <file>file:/C:/Users/venom-1/OneDrive/Documents/GitHub/Primes/digitart/src/view/Dashboard_homepage.fxml</file>
-        </group>
-        <group>
-            <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/main/main.java</file>
-            <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Display_auctionsController.java</file>
-            <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Auction_frontController.java</file>
-            <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Add_auction_Controller.java</file>
-            <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Home_pageController.java</file>
-            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/controller/Add_ticket_userController.java</file>
-            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/main/main.java</file>
-        </group>
         <group/>
         <group>
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/DashboardController.java</file>
@@ -60,6 +37,44 @@
             <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/main/main.java</file>
             <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/Services/Event_Services.java</file>
             <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/view/event_display.fxml</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/Services/users_Services.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/entity/Ticket.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Add_eventController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Participate_eventController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Event_displayController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/utils/Conn.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/DashboardController.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/entity/Event.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/entity/Participants.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Auction_frontController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Display_auctionsController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Signin_pageController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/entity/Data.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Add_roomController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/TicketController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/main/main.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/Services/Event_Services.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/Services/users_Services.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/entity/Ticket.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Add_eventController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Participate_eventController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Event_displayController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/utils/Conn.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/DashboardController.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/entity/Event.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/entity/Participants.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Auction_frontController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Display_auctionsController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Signin_pageController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/entity/Data.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Add_roomController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/TicketController.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/main/main.java</file>
+            <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/Services/Event_Services.java</file>
             <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/Services/users_Services.java</file>
             <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/entity/Ticket.java</file>
             <file>file:/C:/Users/kossay/Documents/GitHub/Primes/digitart/src/controller/Add_eventController.java</file>

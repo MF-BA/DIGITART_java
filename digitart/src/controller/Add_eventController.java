@@ -86,6 +86,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -162,10 +165,6 @@ public class Add_eventController implements Initializable {
     @FXML
     private Label labeladminname;
     @FXML
-    private Label labeladminname1;
-    @FXML
-    private Label labeladminname2;
-    @FXML
     private Button add_event;
     @FXML
     private Button modify_event;
@@ -197,7 +196,6 @@ public class Add_eventController implements Initializable {
     @FXML
     private Label errormsgnbparticipants;
   
-    @FXML
     private Label welcome;
     @FXML
     private TableView<Participants> tabpart;
@@ -233,6 +231,14 @@ public class Add_eventController implements Initializable {
     private ImageView imageev;
     @FXML
     private Label errormsgimage;
+    @FXML
+    private Pane avatar_icon;
+    @FXML
+    private Circle circle_image;
+    @FXML
+    private ImageView avatar_image;
+    @FXML
+    private Button return_dash_btn;
     @FXML
     
     private void searchTicket() {
@@ -295,7 +301,14 @@ public class Add_eventController implements Initializable {
         list_of_events.setVisible(false);
         part_anc.setVisible(false);
         welcome.setText(Data.user.getFirstname());
-         
+         if(Data.user.getRole().equals("Event manager"))
+         {
+             return_dash_btn.setVisible(false);
+         }
+          if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image.setFill(new ImagePattern(image));
+        }
      showevent();
      showparticipants();
      combobox();
@@ -391,8 +404,13 @@ public void showSpinner1(Spinner<Integer> spinner) {
 }
  if (end_date == null) {
     errormsgenddate.setText("Fill end date !!");
-} else if (start_date.isBefore(today)) {
+} else if (end_date.isBefore(today)) {
     errormsgenddate.setText("End date cannot be in the past!!");
+}
+ else if (end_date.isBefore(start_date)) {
+    errormsgenddate.setText("End date cannot come before start date!!");
+} else if (start_date.isAfter(end_date)) {
+    errormsgenddate.setText("Start date cannot come after end date!!");
 }
    
             
@@ -821,7 +839,6 @@ public void showSpinner1(Spinner<Integer> spinner) {
         list_of_events.setVisible(false);
         part_anc.setVisible(false);
         add_event.setStyle("-fx-background-color:   #470011 ");
-        modify_event.setStyle("-fx-background-color:  transparent ");
         list_events.setStyle("-fx-background-color: transparent "); 
         list_participants.setStyle("-fx-background-color: transparent "); 
         txt_event_id.setText("");
@@ -996,6 +1013,23 @@ public void showSpinner1(Spinner<Integer> spinner) {
         imageev.setImage(image);
     }
        
+    }
+
+    @FXML
+    private void return_dash_btn(ActionEvent event) {
+         try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/Dashboard_homepage.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
  
 

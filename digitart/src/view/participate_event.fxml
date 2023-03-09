@@ -141,7 +141,7 @@
       </AnchorPane>
       <AnchorPane fx:id="anc_scroll" layoutX="95.0" layoutY="157.0" prefHeight="595.0" prefWidth="1019.0">
          <children>
-            <ScrollPane fx:id="event_scroll" layoutX="24.0" layoutY="130.0" prefHeight="451.0" prefWidth="848.0">
+            <ScrollPane fx:id="event_scroll" layoutX="96.0" layoutY="130.0" prefHeight="451.0" prefWidth="848.0">
                <content>
                   <HBox fx:id="event_view" prefHeight="170.0" prefWidth="248.0" style="-fx-background-color: #000000;">
                      <children>
@@ -154,17 +154,17 @@
                   </HBox>
                </content>
             </ScrollPane>
-            <Label layoutX="45.0" layoutY="57.0" text="The event you participated in :" textFill="WHITE">
+            <Label layoutX="120.0" layoutY="57.0" text="The event you participated in :" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="event_name_show" layoutX="403.0" layoutY="57.0" prefHeight="35.0" prefWidth="197.0" text="Label">
+            <Label fx:id="event_name_show" layoutX="492.0" layoutY="57.0" prefHeight="35.0" prefWidth="197.0" text="Label" textFill="#ff5050">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Button fx:id="btndelete" layoutX="753.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="148.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete Participation" />
+            <Button fx:id="btndelete" layoutX="810.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="148.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete Participation" />
          </children>
       </AnchorPane>
    </children>

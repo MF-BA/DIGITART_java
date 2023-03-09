@@ -42,7 +42,7 @@ public class main extends Application {
         this.primaryStage.setTitle("DIGITART");
 
         //Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/back_admin/display_auction_back.fxml"));
-        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/participate_event.fxml"));
+        Parent DisplayROOM_Page = FXMLLoader.load(getClass().getResource("/view/add_event.fxml"));
         Scene scene = new Scene(DisplayROOM_Page);
 
         this.primaryStage.setScene(scene);
