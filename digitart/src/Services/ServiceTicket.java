@@ -6,7 +6,6 @@ package Services;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author User
@@ -19,23 +18,22 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ServiceTicket {
 
-    public static void addTicket(String ticket_id, LocalDate ticket_date, String ticket_type, int price, int ticket_nb, String ticket_desc) {
+    public static void addTicket(LocalDate ticketDate, LocalDate ticketEDate, int price, String ticketType) {
         Connection connection;
         PreparedStatement statement;
         try {
             connection = Conn.getCon();
-            statement = connection.prepareStatement("INSERT INTO ticket (ticket_id, ticket_date, ticket_type, price, ticket_nb, ticket_desc) VALUES (?,?,?,?,?,?)");
-            statement.setString(1, ticket_id);
-            statement.setDate(2, Date.valueOf(ticket_date));
-            statement.setString(3, ticket_type);
-            statement.setInt(4, price);
-            statement.setInt(5, ticket_nb);
-            statement.setString(6, ticket_desc);
+            statement = connection.prepareStatement("INSERT INTO ticket (ticket_date, ticket_edate, price, ticket_type) VALUES (?,?,?,?)");
+            statement.setDate(1, java.sql.Date.valueOf(ticketDate));
+            statement.setDate(2, java.sql.Date.valueOf(ticketEDate));
+            statement.setInt(3, price);
+            statement.setString(4, ticketType);
             statement.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "error in add!!", e);
@@ -43,7 +41,6 @@ public class ServiceTicket {
     }
 
     public static ArrayList<Ticket> displayTicket() {
-
         ArrayList<Ticket> list = new ArrayList<>();
         Connection connection;
         Statement statement;
@@ -51,10 +48,10 @@ public class ServiceTicket {
         try {
             connection = Conn.getCon();
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM ticket");
+            resultSet = statement.executeQuery("SELECT ticket_id, ticket_date, ticket_edate, price, ticket_type FROM ticket");
 
             while (resultSet.next()) {
-                Ticket data = new Ticket(resultSet.getInt(1), resultSet.getDate(2), resultSet.getString(3), resultSet.getInt(4), resultSet.getInt(5), resultSet.getString(6));
+                Ticket data = new Ticket(resultSet.getInt("ticket_id"), resultSet.getDate("ticket_date"), resultSet.getDate("ticket_edate"), resultSet.getInt("price"), resultSet.getString("ticket_type"));
                 list.add(data);
             }
         } catch (SQLException e) {
@@ -88,21 +85,24 @@ public class ServiceTicket {
         PreparedStatement preparedStatement;
         try {
             connection = Conn.getCon();
-            preparedStatement = connection.prepareStatement("UPDATE ticket SET ticket_date = ?, ticket_type = ?, price = ?, ticket_nb = ?, ticket_desc = ? WHERE ticket_id = ?");
+            preparedStatement = connection.prepareStatement("UPDATE ticket SET ticket_date = ?, ticket_edate= ?,  price = ?, ticket_type = ? WHERE ticket_id = ?");
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String ticketDate = dateFormat.format(t.getTicket_date());
-
+            String ticketeDate = dateFormat.format(t.getTicket_edate());
             preparedStatement.setString(1, ticketDate);
-            preparedStatement.setString(2, t.getTicket_type());
+            preparedStatement.setString(2, ticketeDate);
             preparedStatement.setInt(3, t.getPrice());
-            preparedStatement.setInt(4, t.getTicket_nb());
-            preparedStatement.setString(5, t.getTicket_desc());
-            preparedStatement.setInt(6, t.getTicket_id());
+            preparedStatement.setString(4, t.getTicket_type());
+            preparedStatement.setInt(5, t.getTicket_id());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "error in update!!", e);
         }
     }
+    
+    //public static void fetchUser(String email, String )
+
+ 
 
 }

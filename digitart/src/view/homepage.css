@@ -1,0 +1,25 @@
+/* Set background color */
+.root {
+    -fx-background-color: #E5E7E6;
+}
+
+/* Create gradient background */
+.background {
+    -fx-background-color: linear-gradient(to bottom, #bd2a2e, #E5E7E6);
+}
+
+/* Set style for title */
+.title {
+    -fx-font-size: 40px;
+    -fx-font-family: Arial;
+    -fx-text-fill: #3B3936;
+    -fx-padding: 20px;
+}
+
+/* Set style for subtitle */
+.subtitle {
+    -fx-font-size: 20px;
+    -fx-font-family: Arial;
+    -fx-text-fill: #3B3936;
+    -fx-padding: 10px;
+}

@@ -9,13 +9,13 @@ and open the template in the editor.
 */
 
 .left-form{
-    -fx-background-color:linear-gradient(to bottom right, #360a0a, #4d3532);
+    -fx-background-color:linear-gradient(to bottom right,  #BD2A2E,  #7C060F);
     -fx-border-color:#000;
     -fx-border-width:.4px 0px .4px .4px;
 }
 
 .right-form{
-    -fx-background-color:#fff;
+    -fx-background-color:#E5E7E6;
     -fx-border-color:#000;
     -fx-border-width:.4px .4px .4px 0px;
 }
@@ -46,16 +46,27 @@ and open the template in the editor.
 .nav-btn{
     -fx-background-color:transparent;
     -fx-text-fill:#fff;
-    -fx-font-size:15px;
+    -fx-font-size:18px;
     -fx-cursor:hand;
-    -fx-font-family:"Arial";
-    -fx-alignment: CENTER_LEFT;
+    -fx-font-family:"Berlin Sans FB";
+    -fx-alignment: CENTER;
 }
 
 .nav-form{
     -fx-background-color:linear-gradient(to bottom right, #360a0a, #4d3532);
 }
+.navRETURN-btn{
+    -fx-background-color:#3B3936;
+    -fx-text-fill:#fff;
+    -fx-font-size:18px;
+    -fx-cursor:hand;
+    -fx-font-family:"Berlin Sans FB";
+    -fx-alignment: CENTER;
+}
 
+.navRETURN-form{
+    -fx-background-color:#3B3936;
+}
 .white-bg{
     -fx-background-color:#fff;
     -fx-background-radius:5px;
@@ -65,71 +76,163 @@ and open the template in the editor.
     -fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.4), 5,0,0,0);
 }
 .card1{
-    -fx-background-color:linear-gradient(to right, #6b2f39, #a34747);
-    -fx-background-radius:8px;
+    -fx-background-color:linear-gradient(to bottom right,  #BD2A2E,  #7C060F);
+    -fx-border-color:#000;
+    -fx-border-width:.4px 0px .4px .4px;
+    -fx-background-radius:20;
 }
 
-.card2{
-    -fx-background-color:linear-gradient(to right, #324a72, #4667a0);
-    -fx-background-radius:8px;
-}
-.card3{
-    -fx-background-color:linear-gradient(to right, #7c3a70, #a15794);
-    -fx-background-radius:8px;
-} 
+
 
 .textfield{
     -fx-background-color:transparent;
-    -fx-border-color:#000;
+    -fx-border-color: #3B3936;
+    -fx-font-family:"Tahoma";
+    -fx-font-size:16px;
+    -fx-border-radius:10px 5px 10px 5px;
+    -fx-border-width:.8px;
+}
+.textfield:focused{
+    -fx-border-color:#BD2A2E;
+    -fx-border-width:1.8px;
+}
+.textfield-home{
+    -fx-background-color:transparent;
+    -fx-border-color: #ffff;
+    -fx-text-fill: white;
     -fx-font-family:"Tahoma";
     -fx-font-size:13px;
     -fx-border-radius:10px 5px 10px 5px;
     -fx-border-width:.8px;
 }
-.textfield:focused{
-    -fx-border-color:linear-gradient(to bottom right, #753036, #3c8256);
+.textfield-home:focused{
+    -fx-border-color:#BD2A2E;
     -fx-border-width:1.8px;
+}
+/*.textfieldmbar9ech{
+    -fx-background-color:transparent;
+   
+    -fx-font-family:"Tahoma";
+    -fx-font-size:13px;
+   -fx-border-color:#BD2A2E;
+    -fx-border-width:0px 0px 2px 0px;
+}*/
+.textfieldmbar9ech {
+    -fx-background-color:transparent;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20 20 20 20;
+    -fx-font-family:"Berlin Sans FB";
+    -fx-font-size:18px;
+    -fx-border-color:  #3B3936;
+    -fx-text-fill: #BD2A2E;
+}
+.textfieldmbar9ech:focused {
+    -fx-border-color: #BD2A2E;
+    -fx-background-color:transparent;
+    -fx-border-radius: 20px;
+    -fx-font-size:18px;
+    -fx-background-radius: 20 20 20 20;
+    -fx-font-family:"Berlin Sans FB";
+    -fx-text-fill: #BD2A2E;
 }
 
 .combobox{
     -fx-background-color:transparent;
     -fx-border-color:#000;
     -fx-font-family:"Tahoma";
-    -fx-font-size:13px;
+    -fx-font-size:16px;
     -fx-border-radius:10px 5px 10px 5px;
     -fx-border-width:.8px;
 }
 .combobox:focused{
-    -fx-border-color:linear-gradient(to bottom right, #753036, #3c8256);
+    -fx-border-color:#BD2A2E;
     -fx-border-width:1.8px;
 }
 
 .add-btn{
-    -fx-background-color:#446093;
-    -fx-background-radius:8px;
+    -fx-background-color:#3B3936;
     -fx-cursor:hand;
     -fx-text-fill:#fff;
-    -fx-font-size:14px;
-    -fx-font-family:"Arial";
+    -fx-font-size:18px;
+   -fx-background-radius:20;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+    -fx-background-radius:20;
 }
 .add-btn:hover{
-    -fx-background-color:#5981c5;
+    -fx-background-color:#BD2A2E;
 }
 
-.update-btn{
-    -fx-background-color:#42877a;
-    -fx-background-radius:8px;
+.add-btn1{
+    -fx-background-color:#3B3936;
     -fx-cursor:hand;
     -fx-text-fill:#fff;
-    -fx-font-size:14px;
-    -fx-font-family:"Arial";
+    -fx-font-size:30px;
+   -fx-background-radius:20;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+    -fx-background-radius:20;
 }
-.update-btn:hover{
-    -fx-background-color:#65bbaa;
+.add-btn1:hover{
+    -fx-background-color:#BD2A2E;
+}
+.home-btn{
+    -fx-background-color:transparent;
+    
+    -fx-text-fill:#fff;
+    -fx-font-size:18px;
+    border-radius:15px 0 15px;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+}
+.home-btn:hover{
+    -fx-background-color:#BD2A2E;
+}
+.hometest-btn{
+    -fx-background-color:#ffff;
+  
+    -fx-text-fill:#3B3936;
+    -fx-font-size:22px;
+    -fx-background-radius:20;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+}
+.hometest-btn:hover{
+    -fx-background-color:#BD2A2E;
+    -fx-text-fill:#ffff;
+    
+}
+.dashhome-btn{
+    -fx-background-color:linear-gradient(to bottom right,  #BD2A2E,  #7C060F);
+    -fx-background-radius:50;
+    -fx-text-fill:#ffffff;
+    -fx-font-size:18px;
+    border-radius:50px;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+}
+.dashhome-btn:hover{
+    -fx-background-color:#7C060F;
+    -fx-border-radius:50px;
+    -fx-text-fill:#ffffff;
+    -fx-effect: dropshadow(gaussian, #3B3936, 5, 0, 0, 1);
+    
+    
+}
+.forget-btn{
+    -fx-background-color: transparent;
+    -fx-cursor:hand;
+    -fx-font-size:14px;
+    border-radius:15px 0 15px;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+}
+.forget-btn:hover{
+    -fx-text-fill:#BD2A2E;
 }
 
 .reset-btn{
-    -fx-background-color:#774689;
+    -fx-background-color:#e49b9b;
     -fx-background-radius:8px;
     -fx-cursor:hand;
     -fx-text-fill:#fff;
@@ -137,11 +240,11 @@ and open the template in the editor.
     -fx-font-family:"Arial";
 }
 .reset-btn:hover{
-    -fx-background-color:#9d61b5;
+    -fx-background-color:#e49b50;
 }
 
 .delete-btn{
-    -fx-background-color:#864251;
+    -fx-background-color:#c11c1c;
     -fx-background-radius:8px;
     -fx-cursor:hand;
     -fx-text-fill:#fff;
@@ -149,7 +252,7 @@ and open the template in the editor.
     -fx-font-family:"Arial";
 }
 .delete-btn:hover{
-    -fx-background-color:#c95f6f;
+    -fx-background-color:#e70000;
 }
 
 .search{
@@ -162,12 +265,12 @@ and open the template in the editor.
     -fx-padding:0px 0px 0px 28px;
 }
 .search:focused{
-    -fx-border-color:linear-gradient(to bottom right, #360a0a, #4d3532);
+    -fx-border-color:#BD2A2E;
     -fx-border-width:1.8px;
 }
 
 .table-view{
-    -fx-border-color:linear-gradient(to bottom right, #360a0a, #4d3532);
+    -fx-border-color:linear-gradient(to bottom right,  #3B3936,  #3B3936);
     -fx-padding:0px;
     -fx-border-radius:8px;
     -fx-border-width:2px;
@@ -178,7 +281,7 @@ and open the template in the editor.
 }
 
 .table-view .column-header-background{
-    -fx-background-color:linear-gradient(to bottom right, #360a0a, #4d3532);
+    -fx-background-color:linear-gradient(to bottom right,  #3B3936, #3B3936);
     -fx-background-insets: 0 0 0 0;
 }
 .table-view .column-header, .filter{
@@ -187,4 +290,122 @@ and open the template in the editor.
 }
 .table-view .column-header .label{
     -fx-text-fill:#fff;
+}
+
+.date_warning {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-radius: 0;
+    -fx-font-family:"Microsoft New Tai Lue";
+    -fx-font-size:20px;
+    -fx-text-fill:#bd2a2e;
+}
+
+.chart {
+  -fx-font-size: 14px;
+  -fx-animation-duration: 1000ms;
+  -fx-animation-easing: ease-in-out;
+}
+
+.chart-legend {
+  -fx-font-size: 12px;
+}
+
+.chart-pie-label {
+  -fx-font-size: 16px;
+  -fx-text-fill: white;
+  -fx-font-family: "Berlin Sans FB";
+}
+
+.default-color0.chart-pie {
+  -fx-pie-color:#BD2A2E;
+}
+
+.default-color1.chart-pie {
+  -fx-pie-color:#ff878b;
+}
+
+.default-color2.chart-pie {
+  -fx-pie-color:#ffc1c1;
+}
+
+.dashboard_chart {
+  -fx-background-color: white;
+  -fx-padding: 10px;
+  -fx-border-style: solid;
+  -fx-border-color: #ccc;
+  -fx-border-width: 1px;
+}
+.chart-series-line {
+  -fx-stroke: #BD2A2E;
+}
+.default-color0.chart-line-symbol {
+    -fx-background-color: #BD2A2E;
+}
+
+.dashboard_chart .chart-title {
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #333;
+}
+
+.dashboard_chart .chart {
+  -fx-font-size: 14px;
+  -fx-animation-duration: 800ms;
+  -fx-animation-easing: ease-in-out;
+}
+
+.dashboard_chart .chart-legend {
+  -fx-font-size: 12px;
+}
+
+.dashboard_chart .chart-pie-label {
+  -fx-font-size: 16px;
+  -fx-text-fill: white;
+}
+
+.dashboard_chart .chart-pie-label {
+    -fx-font-family: "Berlin Sans FB";
+}
+.hometest-btn{
+    -fx-background-color:#ffff;
+
+    -fx-text-fill:#3B3936;
+    -fx-font-size:22px;
+    -fx-background-radius:20;
+    -fx-border-width:.8px;
+    -fx-font-family:"Berlin Sans FB";
+}
+.hometest-btn:hover{
+    -fx-background-color:#BD2A2E;
+}
+
+/* Styling for payment form text fields */
+.payment-text-field {
+  -fx-background-color: #f5f5f5;
+  -fx-background-radius: 5;
+  -fx-border-color: #ddd;
+  -fx-border-radius: 5;
+  -fx-border-width: 1;
+  -fx-padding: 5;
+  -fx-font-size: 14;
+  -fx-text-fill: #333;
+}
+
+/* Styling for payment form text field labels */
+.payment-label {
+  -fx-font-size: 14;
+  -fx-text-fill: #666;
+  -fx-font-weight: bold;
+}
+
+.anchor-pane {
+  -fx-background-color: transparent;
+}
+
+
+.anchor-pane {
+  -fx-background-color: transparent;
 }

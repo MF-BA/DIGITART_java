@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="909.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Artwork_userfrontController">
+   <children>
+      <VBox prefHeight="353.0" prefWidth="490.0">
+         <children>
+            <HBox prefHeight="49.0" prefWidth="360.0">
+               <children>
+                  <Text fill="#bd2a2e" strokeType="OUTSIDE" strokeWidth="0.0" text="Artwork Name:" wrappingWidth="167.935546875">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_nameartwork" text="Label" textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="47.0" prefWidth="360.0">
+               <children>
+                  <Text fill="#bd2a2e" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name:" wrappingWidth="169.2314453125">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_nameartist" text="Label" textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="54.0" prefWidth="360.0">
+               <children>
+                  <Text fill="#bd2a2e" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="170.6826171875">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_date" text="Label" textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="62.0" prefWidth="360.0">
+               <children>
+                  <Text fill="#bd2a2e" strokeType="OUTSIDE" strokeWidth="0.0" text="Room:" wrappingWidth="169.4267578125">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_room" text="Label" textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="117.0" prefWidth="405.0">
+               <children>
+                  <Text fill="#bd2a2e" strokeType="OUTSIDE" strokeWidth="0.0" text="Description:" wrappingWidth="169.080078125">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+                  <Label fx:id="l_desc" prefHeight="25.0" prefWidth="229.0" text="Label                                                                                                                                                                                         " textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Line endX="297.29290771484375" endY="0.4138038754463196" startX="-100.0" stroke="WHITE" />
+         </children>
+      </VBox>
+      <VBox prefHeight="353.0" prefWidth="0.0">
+         <children>
+            <VBox prefHeight="42.0" prefWidth="295.0">
+               <children>
+                  <Text fill="#bd2a2e" strokeType="OUTSIDE" strokeWidth="0.0" text="Image:" textAlignment="CENTER" wrappingWidth="295.357421875">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+               </children>
+            </VBox>
+            <ImageView fx:id="imagev" fitHeight="279.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true" />
+            <Line endX="192.2928924560547" endY="-1.2071068286895752" startX="-100.89950561523438" startY="-1.207310438156128" />
+         </children>
+      </VBox>
+      <VBox prefHeight="353.0" prefWidth="62.0">
+         <children>
+            <VBox prefHeight="56.0" prefWidth="200.0">
+               <children>
+                  <Text fill="#bd2a2e" strokeType="OUTSIDE" strokeWidth="0.0" text="Qr Code for more information:" textAlignment="CENTER" wrappingWidth="208.357421875">
+                     <font>
+                        <Font name="Berlin Sans FB" size="22.0" />
+                     </font>
+                  </Text>
+               </children></VBox>
+            <ImageView fx:id="qrcode" fitHeight="202.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </VBox>
+   </children>
+</HBox>

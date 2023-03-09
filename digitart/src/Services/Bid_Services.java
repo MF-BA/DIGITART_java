@@ -5,16 +5,16 @@
  */
 package Services;
 
-import static Services.Auction_Services.conn;
-import entity.Auction;
 import entity.Bid;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +28,75 @@ import utils.Conn;
 public class Bid_Services {
 
     static Connection conn = Conn.getCon();
+
+    public static int highest_offer_user(int ID_auction) {
+        String latest_bid_sql = "SELECT id_user FROM bid WHERE offer = (SELECT MAX(offer) FROM bid where id_auction=? )and id_auction=?";
+        int latest_bid = 0;
+        PreparedStatement latest_bid_stmt;
+        ResultSet resultLatest_bidt;
+        try {
+            latest_bid_stmt = conn.prepareStatement(latest_bid_sql);
+
+            latest_bid_stmt.setInt(1, ID_auction);
+            latest_bid_stmt.setInt(2, ID_auction);
+
+            resultLatest_bidt = latest_bid_stmt.executeQuery();
+            if (resultLatest_bidt.next()) {
+                latest_bid = resultLatest_bidt.getInt(1);
+            }
+            /*if (latest_bid == 0) {
+                String starting_price = "SELECT starting_price FROM auction WHERE id_auction = ?";
+                PreparedStatement starting_price_stmt;
+                ResultSet resultstarting_price;
+                starting_price_stmt = conn.prepareStatement(starting_price);
+                starting_price_stmt.setInt(1, ID_auction);
+
+                resultstarting_price = starting_price_stmt.executeQuery();
+                if (resultstarting_price.next()) {
+                    return resultstarting_price.getInt(1);
+                }
+            }*/
+        } catch (SQLException ex) {
+            Logger.getLogger(Bid_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return latest_bid;
+
+    }
+
+    public static int highest_offer(int ID_auction) {
+        String latest_bid_sql = "SELECT MAX(offer) FROM bid WHERE id_auction = ?";
+        int latest_bid = 0;
+        PreparedStatement latest_bid_stmt;
+        ResultSet resultLatest_bidt;
+        try {
+            latest_bid_stmt = conn.prepareStatement(latest_bid_sql);
+
+            latest_bid_stmt.setInt(1, ID_auction);
+
+            resultLatest_bidt = latest_bid_stmt.executeQuery();
+            if (resultLatest_bidt.next()) {
+                latest_bid = resultLatest_bidt.getInt(1);
+            }
+            /*if (latest_bid == 0) {
+                String starting_price = "SELECT starting_price FROM auction WHERE id_auction = ?";
+                PreparedStatement starting_price_stmt;
+                ResultSet resultstarting_price;
+                starting_price_stmt = conn.prepareStatement(starting_price);
+                starting_price_stmt.setInt(1, ID_auction);
+
+                resultstarting_price = starting_price_stmt.executeQuery();
+                if (resultstarting_price.next()) {
+                    return resultstarting_price.getInt(1);
+                }
+            }*/
+        } catch (SQLException ex) {
+            Logger.getLogger(Bid_Services.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return latest_bid;
+
+    }
 
     public static int next_offer(int ID_auction) {
         String latest_bid_sql = "SELECT MAX(offer) FROM bid WHERE id_auction = ?";
@@ -64,7 +133,7 @@ public class Bid_Services {
                 ResultSet resultstarting_price;
                 starting_price_stmt = conn.prepareStatement(starting_price);
                 starting_price_stmt.setInt(1, ID_auction);
-                
+
                 resultstarting_price = starting_price_stmt.executeQuery();
                 if (resultstarting_price.next()) {
                     return resultstarting_price.getInt(1);
@@ -83,7 +152,8 @@ public class Bid_Services {
             String add_to_auction = "insert into bid (date,offer,id_auction , id_user ) values (?,?,?,?) ";
             try {
                 PreparedStatement st = conn.prepareStatement(add_to_auction);
-                st.setDate(1, Date.valueOf(bid.getDate()));
+
+                st.setTimestamp(1, Timestamp.from(bid.getDate().toInstant()));
                 st.setInt(2, bid.getOffer());
                 st.setInt(3, bid.getId_auction());
                 st.setInt(4, bid.getId_user());
@@ -97,23 +167,26 @@ public class Bid_Services {
         } else {
             System.err.println("offer must be more than " + next_offer(bid.getId_auction()));
         }
-
     }
 
-    public static ArrayList<Bid> Display() {
+    public static ArrayList<Bid> Display(int id_auction) {
 
         ArrayList<Bid> list = new ArrayList<>();
+
+        ZoneId zoneId = ZoneId.of("Africa/Tunis"); // or any other time zone you want to use
 
         Statement statement;
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM bid");
+            resultSet = statement.executeQuery("SELECT * FROM bid where id_auction =" + id_auction);
 
             while (resultSet.next()) {
-                LocalDate D = resultSet.getDate(2).toLocalDate();
-                Bid data = new Bid(resultSet.getInt(1), resultSet.getInt(4),
-                        resultSet.getInt(5), resultSet.getInt(3), D);
+                Timestamp jdbcTimestamp = resultSet.getTimestamp(2);
+                Instant instant = jdbcTimestamp.toInstant();
+                ZonedDateTime D = instant.atZone(zoneId);
+                Bid data = new Bid(resultSet.getInt(1), resultSet.getInt(5), resultSet.getInt(4),
+                        resultSet.getInt(3), D);
 
                 list.add(data);
             }
@@ -145,7 +218,7 @@ public class Bid_Services {
 
         try {
             PreparedStatement st = conn.prepareStatement(modify_bid);
-            st.setDate(1, Date.valueOf(bid.getDate()));
+            st.setTimestamp(1, Timestamp.from(bid.getDate().toInstant()));
             st.setInt(2, bid.getOffer());
             st.setInt(3, bid.getId_auction());
             st.setInt(4, bid.getId_user());
