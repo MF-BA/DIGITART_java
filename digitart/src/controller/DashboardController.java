@@ -685,7 +685,7 @@ public void comboboxedit()
     }
 
     @FXML
-    private void update_btn_dash(ActionEvent event) throws NoSuchAlgorithmException, MalformedURLException {
+    private void update_btn_dash(ActionEvent event) throws NoSuchAlgorithmException, MalformedURLException, IOException {
         
         int Cin = 0;
         int phone_number = 0;
@@ -782,7 +782,90 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     
          }
        else if(Cin != 0 && phone_number != 0){
-      users newSelection = user_table.getSelectionModel().getSelectedItem();
+           if (imageFile!=null){
+       imageUrl="http://localhost/images/"+imageFile.getName();
+       String phpUrl = "http://localhost/images/upload.php";
+//        String imageFilePath = "C:\xamppp\htdocs\piImg";
+
+        // Read the image file data
+        byte[] imageData = Files.readAllBytes(imageFile.toPath());
+
+        // Create the boundary string for the multipart request
+        String boundary = "---------------------------12345";
+
+        // Open the connection to the PHP script
+        URL url = new URL(phpUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setDoOutput(true);
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+        // Write the image file data to the output stream of the connection
+        OutputStream outputStream = connection.getOutputStream();
+        outputStream.write(("--" + boundary + "\r\n").getBytes());
+        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + imageFile.getName() + "\"\r\n").getBytes());
+        outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+        outputStream.write(imageData);
+        outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+        // Read the response from the PHP script
+        InputStream inputStream = connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        reader.close();
+         users newSelection = user_table.getSelectionModel().getSelectedItem();
+      if (newSelection != null) {
+        String role = (String) Rolebox_up.getSelectionModel().getSelectedItem();
+        users u = new users (idup,
+             Cin,
+             firstname,
+                lastname,
+                newSelection.getEmail(),
+                newSelection.getPwd(),
+                Address,
+             phone_number,   
+             BirthDate,
+                gender,
+                role,
+                newSelection.getStatus(),
+                imageUrl,
+                newSelection.getSecretcode()
+        );
+        users_Services user = new users_Services();
+        user.modifyuser(u);
+        
+      }
+        errormsgfname_modif.setText("");
+    errormsglname_modif.setText("");
+    errormsgcin_modif.setText("");
+    errormsgaddress_modif.setText("");
+     errormsgphonenum_modif.setText("");
+   errormsggender_modif.setText("");
+   errormsgbirthdate_modif.setText("");
+        //clearupd();
+        try {
+                    Notification.sendNotification("Digitart","The user was modified succesfully",TrayIcon.MessageType.INFO);
+                } catch (AWTException ex) {
+                    Logger.getLogger(Add_eventController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        list_users.setStyle("-fx-background-color: #470011 ");
+       add_user.setStyle("-fx-background-color: transparent ");
+       edit_profile.setStyle("-fx-background-color: transparent ");
+        listusers_btn.setVisible(true);
+        adduser_dash_btn.setVisible(false);
+        editprofile_page.setVisible(false);
+        userstats_dash.setVisible(false);
+        update_page.setVisible(false);
+        default_anchor.setVisible(false);
+       }
+           else
+           {
+              users newSelection = user_table.getSelectionModel().getSelectedItem();
       if (newSelection != null) {
         String role = (String) Rolebox_up.getSelectionModel().getSelectedItem();
         users u = new users (idup,
@@ -825,7 +908,9 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
         editprofile_page.setVisible(false);
         userstats_dash.setVisible(false);
         update_page.setVisible(false);
-        default_anchor.setVisible(false);
+        default_anchor.setVisible(false); 
+           }
+     
        }
    }
     }

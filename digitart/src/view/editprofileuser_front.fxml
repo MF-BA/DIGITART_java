@@ -71,12 +71,12 @@
                   <Font name="Microsoft New Tai Lue Bold" size="15.0" />
                </font>
             </Label>
-            <RadioButton fx:id="male_gender_editprof" layoutX="278.0" layoutY="501.0" mnemonicParsing="false" text="Male" textFill="WHITE">
+            <RadioButton fx:id="male_gender_editprof" layoutX="285.0" layoutY="501.0" mnemonicParsing="false" text="Male" textFill="WHITE">
                <font>
                   <Font name="Microsoft New Tai Lue Bold" size="13.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="female_gender_editprof" layoutX="364.0" layoutY="501.0" mnemonicParsing="false" text="Female" textFill="WHITE">
+            <RadioButton fx:id="female_gender_editprof" layoutX="386.0" layoutY="501.0" mnemonicParsing="false" text="Female" textFill="WHITE">
                <font>
                   <Font name="Microsoft New Tai Lue Bold" size="13.0" />
                </font>
@@ -103,7 +103,7 @@
             <Label fx:id="errormsgaddress_edit" layoutX="944.0" layoutY="341.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgbirthdate_edit" layoutX="945.0" layoutY="527.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgphonenum_edit" layoutX="944.0" layoutY="438.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Button layoutX="606.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleSelectImage" prefHeight="39.0" prefWidth="212.0" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Upload your image" />
+            <Button layoutX="589.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleSelectImage" prefHeight="39.0" prefWidth="212.0" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Upload your image" />
             <Button fx:id="newpwd_btn" cache="true" layoutX="862.0" layoutY="645.0" mnemonicParsing="false" onAction="#newpwd_btn" prefHeight="41.0" prefWidth="191.0" style="-fx-background-radius: 20;" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="new password" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />

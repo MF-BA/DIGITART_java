@@ -211,7 +211,26 @@ public class Add_artworkController implements Initializable {
 
     @FXML
 private void btn_add_clicked(ActionEvent event) throws IOException {
+     TextInputControl nameControl = this.Input_name_artwork;
+    TextInputControl nameArtistControl = this.input_name_artist;
+  
+    ComboBox<String> idRoomControl = this.input_idroom;
+    TextInputControl descControl = this.input_desc;
+    DatePicker dateControl = this.input_date;
+
+    String name = nameControl.getText();
+    String nameartist = nameArtistControl.getText();
     
+    int id_room;
+    String desc = descControl.getText();
+    LocalDate date = dateControl.getValue();
+    int id_artist;
+      if(this.input_id_artist.getSelectionModel().getSelectedItem()== null){
+            id_artist=-1;
+        }else
+        {id_artist = this.input_id_artist.getSelectionModel().getSelectedItem();}
+      Alert alert;
+    if(selectedFile!=null)  {
        imageUrl="http://localhost/images/"+selectedFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
 
@@ -248,27 +267,6 @@ private void btn_add_clicked(ActionEvent event) throws IOException {
         }
         reader.close();
     
-    
-    TextInputControl nameControl = this.Input_name_artwork;
-    TextInputControl nameArtistControl = this.input_name_artist;
-  
-    ComboBox<String> idRoomControl = this.input_idroom;
-    TextInputControl descControl = this.input_desc;
-    DatePicker dateControl = this.input_date;
-
-    String name = nameControl.getText();
-    String nameartist = nameArtistControl.getText();
-    
-    int id_room;
-    String desc = descControl.getText();
-    LocalDate date = dateControl.getValue();
-    int id_artist;
-      if(this.input_id_artist.getSelectionModel().getSelectedItem()== null){
-            id_artist=-1;
-        }else
-        {id_artist = this.input_id_artist.getSelectionModel().getSelectedItem();}
-
-    Alert alert;
 
     // CHECK IF THE FIELDS ARE EMPTY
     if (name.isEmpty() || nameartist.isEmpty() || desc.isEmpty() || date == null ||this.input_idroom.getSelectionModel().getSelectedItem()==null ) {
@@ -291,6 +289,33 @@ private void btn_add_clicked(ActionEvent event) throws IOException {
         // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
         go_Display(event);
     }
+    }
+     else
+     {
+       if (name.isEmpty() || nameartist.isEmpty() || desc.isEmpty() || date == null ||this.input_idroom.getSelectionModel().getSelectedItem()==null ) {
+        alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill all fields");
+        alert.showAndWait();
+    } else {
+         nameRoom = idRoomControl.getSelectionModel().getSelectedItem();
+        
+        id_room = Artwork_Services.find_idroom(nameRoom) ;
+        Artwork artwork = new Artwork(name, id_artist, nameartist, date, desc, Data.artwork.getImage_art(), id_room);
+        Artwork_Services.add(artwork);
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Successfully Added!");
+        alert.showAndWait();
+        // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+        go_Display(event);
+    }
+         
+         
+         
+     }
 }
 
         public void combobox() {

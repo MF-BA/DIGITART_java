@@ -223,6 +223,24 @@ public class Add_artwork_userController implements Initializable {
     @FXML
     private void btn_add_clicked(ActionEvent event) throws IOException {
         
+        TextInputControl nameControl = this.Input_name_artwork;
+   
+  
+    ComboBox<String> idRoomControl = this.input_idroom;
+    TextInputControl descControl = this.input_desc;
+    DatePicker dateControl = this.input_date;
+
+    String name = nameControl.getText();
+    String nameartist = Data.user.getLastname();
+    
+    int id_room;
+    String desc = descControl.getText();
+    LocalDate date = dateControl.getValue();
+    int id_artist = Data.user.getId();
+      nameRoom = idRoomControl.getSelectionModel().getSelectedItem();
+
+    Alert alert;
+     if(selectedFile!=null)  {
          // String imagePath = file.getPath();
        imageUrl="http://localhost/images/"+selectedFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
@@ -260,23 +278,6 @@ public class Add_artwork_userController implements Initializable {
         }
         reader.close();
     
-        TextInputControl nameControl = this.Input_name_artwork;
-   
-  
-    ComboBox<String> idRoomControl = this.input_idroom;
-    TextInputControl descControl = this.input_desc;
-    DatePicker dateControl = this.input_date;
-
-    String name = nameControl.getText();
-    String nameartist = Data.user.getLastname();
-    
-    int id_room;
-    String desc = descControl.getText();
-    LocalDate date = dateControl.getValue();
-    int id_artist = Data.user.getId();
-      
-
-    Alert alert;
 
     // CHECK IF THE FIELDS ARE EMPTY
     if (name.isEmpty() || nameartist.isEmpty() || desc.isEmpty() || date == null ||this.input_idroom.getSelectionModel().getSelectedItem()==null ) {
@@ -308,6 +309,44 @@ public class Add_artwork_userController implements Initializable {
         String title="An Artwork was added successfully";
         String message="Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n You have successfully added the artwork "+name;
         showNotification(title,message,imageUrl,300,300);
+    }
+     }
+    else
+    {
+     if (name.isEmpty() || nameartist.isEmpty() || desc.isEmpty() || date == null ||this.input_idroom.getSelectionModel().getSelectedItem()==null ) {
+        alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Please fill all fields");
+        alert.showAndWait();
+    } else {
+       nameRoom = idRoomControl.getSelectionModel().getSelectedItem();
+        
+        id_room = Artwork_Services.find_idroom(nameRoom) ;
+        Artwork artwork = new Artwork(name, id_artist, nameartist, date, desc, Data.artwork.getImage_art(), id_room);
+        Artwork_Services.add(artwork);
+        alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Message");
+        alert.setHeaderText(null);
+        alert.setContentText("Successfully Added!");
+        alert.showAndWait();
+        
+        try {
+        sendEmail(Data.user.getEmail(), "ADD ARTWORK IN DIGITART", "Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n Thank you for trusting our application, \n You have successfully added the artwork "+name);
+    } catch (MessagingException e) {
+        e.printStackTrace();
+    }
+        
+        
+        go_Display(event);
+        String title="An Artwork was added successfully";
+        String message="Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n You have successfully added the artwork "+name;
+        showNotification(title,message,imageUrl,300,300);
+    }
+        
+        
+        
+        
     }
         
     }
