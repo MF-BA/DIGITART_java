@@ -37,17 +37,12 @@
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_statistics" layoutX="847.0" layoutY="592.0" mnemonicParsing="false" onAction="#BTN_statistics_clicked" prefHeight="38.0" prefWidth="194.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Show statistics">
+      <Button fx:id="BTN_modify" layoutX="749.0" layoutY="592.0" mnemonicParsing="false" onAction="#btn_modify_clicked" prefHeight="38.0" prefWidth="98.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="modify ">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_modify" layoutX="1098.0" layoutY="293.0" mnemonicParsing="false" onAction="#btn_modify_clicked" prefHeight="38.0" prefWidth="98.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="modify ">
-         <font>
-            <Font name="Impact" size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="BTN_delete" layoutX="1098.0" layoutY="454.0" mnemonicParsing="false" onAction="#btn_delete_clicked" prefHeight="38.0" prefWidth="98.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="delete">
+      <Button fx:id="BTN_delete" layoutX="961.0" layoutY="592.0" mnemonicParsing="false" onAction="#btn_delete_clicked" prefHeight="38.0" prefWidth="98.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="delete">
          <font>
             <Font name="Impact" size="18.0" />
          </font>
@@ -144,7 +139,9 @@
             <Label />
          </children>
       </VBox>
-      <Pane layoutX="829.0" layoutY="264.0" prefHeight="263.0" prefWidth="263.0" style="-fx-background-color: #3B3936;" />
-      <ImageView fx:id="image" fitHeight="237.0" fitWidth="245.0" layoutX="836.0" layoutY="276.0" pickOnBounds="true" preserveRatio="true" />
+      <Pane layoutX="833.0" layoutY="230.0" prefHeight="323.0" prefWidth="375.0" style="-fx-background-color: #3B3936;">
+         <children>
+            <ImageView fx:id="image" fitHeight="314.0" fitWidth="367.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+         </children></Pane>
    </children>
 </AnchorPane>

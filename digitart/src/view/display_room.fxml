@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" style="-fx-background-color: #E5E7E6;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_roomController">
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Display_roomController">
    <children>
       <Text fill="#bd2a2e" layoutX="517.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="List of rooms" textAlignment="CENTER" wrappingWidth="382.64453125">
          <font>
