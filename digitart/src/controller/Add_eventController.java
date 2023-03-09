@@ -493,6 +493,10 @@ public void showSpinner1(Spinner<Integer> spinner) {
     errormsgenddate.setText("Fill end date !!");
 } else if (start_date.isBefore(today)) {
     errormsgenddate.setText("End date cannot be in the past!!");
+} else if (end_date.isBefore(start_date)) {
+    errormsgenddate.setText("End date cannot come before start date!!");
+} else if (start_date.isAfter(end_date)) {
+    errormsgenddate.setText("Start date cannot come after end date!!");
 }
    
             
@@ -500,7 +504,7 @@ public void showSpinner1(Spinner<Integer> spinner) {
    
     } else {
                 try {
-                    Notification.sendNotification("Digitart","An Event was added",MessageType.INFO);
+                    Notification.sendNotification("Digitart","An Event was updated",MessageType.INFO);
                 } catch (AWTException ex) {
                     Logger.getLogger(Add_eventController.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (MalformedURLException ex) {
@@ -789,13 +793,49 @@ public void showSpinner1(Spinner<Integer> spinner) {
                 alert.setHeaderText(null);
                 alert.setContentText("Are you sure you want to UPDATE Event: " + event_name+ "?");
                 Optional<ButtonType> option = alert.showAndWait();
+                
                 if (option.get().equals(ButtonType.OK)) {
+                      imageUrl="http://localhost/images/"+selectedFile.getName();
+       String phpUrl = "http://localhost/images/upload.php";
+//        String imageFilePath = "C:\\xamppp\\htdocs\\piImg";
+
+        // Read the image file data
+        byte[] imageData = Files.readAllBytes(selectedFile.toPath());
+
+        // Create the boundary string for the multipart request
+        String boundary = "---------------------------12345";
+
+        // Open the connection to the PHP script
+        URL url = new URL(phpUrl);
+        HttpURLConnection connectionn = (HttpURLConnection) url.openConnection();
+        connectionn.setDoOutput(true);
+        connectionn.setRequestMethod("POST");
+        connectionn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+        // Write the image file data to the output stream of the connection
+        OutputStream outputStream = connectionn.getOutputStream();
+        outputStream.write(("--" + boundary + "\r\n").getBytes());
+        outputStream.write(("Content-Disposition: form-data; name=\"file\"; filename=\"" + selectedFile.getName() + "\"\r\n").getBytes());
+        outputStream.write(("Content-Type: image/jpeg\r\n\r\n").getBytes());
+        outputStream.write(imageData);
+        outputStream.write(("\r\n--" + boundary + "--\r\n").getBytes());
+        outputStream.flush();
+        outputStream.close();
+
+        // Read the response from the PHP script
+        InputStream inputStream = connectionn.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        reader.close();
                     LocalDate localDates = start_date;
                     LocalDate localDatee = end_date;
                     
                     Date dates = Date.from(localDates.atStartOfDay(ZoneId.systemDefault()).toInstant());
                     Date datee = Date.from(localDatee.atStartOfDay(ZoneId.systemDefault()).toInstant());
-                    Event e = new Event (event_id,dates,datee, start_time, event_name,event_desc,nb_participants,id_room);
+                    Event e = new Event (event_id,dates,datee, start_time, event_name,event_desc,nb_participants,id_room,imageUrl);
                     Event_Services.updateEvent(e);
                     alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Message");
@@ -969,6 +1009,7 @@ public void showSpinner1(Spinner<Integer> spinner) {
         contentStream.newLineAtOffset(0, -20);
         contentStream.showText("The Event details are: " + selectedEvent.getDetail());
         contentStream.endText();
+        
         
         // Close the content stream
         contentStream.close();
