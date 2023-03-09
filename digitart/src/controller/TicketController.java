@@ -61,6 +61,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -698,8 +699,17 @@ public class TicketController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        name.setText(Data.user.getFirstname());
         
+        
+        if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image.setFill(new ImagePattern(image));
+        }
+       name.setText(Data.user.getFirstname());
+        if (Data.user.getRole().equals("Tickets manager"))
+        {
+           return_dash_btn.setVisible(false);
+        }
         dashboard_anchor.setVisible(true);
         addticket_anchor.setVisible(false);
         payment_anchor.setVisible(false);

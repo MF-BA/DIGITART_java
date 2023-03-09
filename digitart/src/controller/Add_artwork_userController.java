@@ -49,6 +49,7 @@ import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import javax.mail.Authenticator;
@@ -191,6 +192,15 @@ public class Add_artwork_userController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        labelusername.setText(Data.user.getFirstname());
+        if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image.setFill(new ImagePattern(image));
+        }
+        else
+        {
+            circle_image.setFill(null);
+        }
         artwork_btn.setStyle("-fx-background-color: #bd2a2e ");
         add_artwork_btn.setStyle("-fx-background-color: #bd2a2e ");
         combobox();
@@ -413,6 +423,10 @@ public class Add_artwork_userController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void add_artwork_btn_clicked(ActionEvent event) {
     }
     
     

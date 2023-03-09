@@ -46,8 +46,6 @@ public class Artwork_userfrontController implements Initializable {
     private ImageView imagev;
       private Image image1;
     @FXML
-    private Button btn_qr;
-    @FXML
     private ImageView qrcode;
     
     public void qrcode() throws IOException, WriterException {

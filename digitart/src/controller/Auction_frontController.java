@@ -26,11 +26,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -85,6 +87,15 @@ public class Auction_frontController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        labelusername.setText(Data.user.getFirstname());
+        if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image.setFill(new ImagePattern(image));
+        }
+        else
+        {
+            circle_image.setFill(null);
+        }
         if(Data.user.getRole().equals("Subscriber") )
         {
             auction_btn1.setVisible(false);
@@ -106,7 +117,7 @@ public class Auction_frontController implements Initializable {
         }
         else if(auction_array_detailed.size() == 0)
         {
-            scrollPane.setPrefSize(0,0);
+            scrollPane.setVisible(false);
         }
         for (int i = 0; i < auction_array_detailed.size(); i++) {
 

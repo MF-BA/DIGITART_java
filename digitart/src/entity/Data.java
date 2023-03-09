@@ -31,4 +31,5 @@ public class Data {
     public static int nbTeenager;
     public static int nbStudent;
     public static Boolean back_auction; 
+    public static String email;
 }

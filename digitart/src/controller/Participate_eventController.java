@@ -46,12 +46,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import utils.Conn;
@@ -152,10 +154,19 @@ public class Participate_eventController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        labelusername.setText(Data.user.getFirstname());
+        if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image.setFill(new ImagePattern(image));
+        }
+        else
+        {
+            circle_image.setFill(null);
+        }
         showparticipants();
         combobox();
         labelupdate();
-        anc_scroll.setVisible(false);
+        anc_scroll.setVisible(true);
         event_array = Event_Services.displayEventFront();
         event_array1 = Event_Services.displayEventPart();
         int column = 0;
@@ -389,7 +400,7 @@ public class Participate_eventController implements Initializable {
 
     @FXML
     private void disconnect_btn(ActionEvent event) {
-          try {
+         try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/signin_page.fxml"));
 
@@ -404,11 +415,11 @@ public class Participate_eventController implements Initializable {
         }
     }
 
+
     @FXML
-    private void editprof_btn(ActionEvent event) {
-         try {
+    private void home_btn(ActionEvent event) {try {
             Parent parent2 = FXMLLoader
-                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+                    .load(getClass().getResource("/view/Home_page.fxml"));
 
             Scene scene = new Scene(parent2);
             Stage stage = (Stage) ((Node) event.getSource())
@@ -422,25 +433,81 @@ public class Participate_eventController implements Initializable {
     }
 
     @FXML
-    private void home_btn(ActionEvent event) {
-    }
-
-    @FXML
     private void artwork_btn(ActionEvent event) {
+        
+         try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/display_artwork_user.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void auction_btn(ActionEvent event) {
+       try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/auction_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 
+   
+
+    @FXML
+    private void tickets_btn(ActionEvent event) {
+            try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_ticket_user.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void editprof_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     @FXML
     private void events_btn(ActionEvent event) {
         anc_scroll.setVisible(true);
         events_btn.setStyle("-fx-background-color: #bd2a2e "); 
     }
 
-    @FXML
-    private void tickets_btn(ActionEvent event) {
-    }
+    
 
 }

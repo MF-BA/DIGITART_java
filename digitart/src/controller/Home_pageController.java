@@ -72,6 +72,7 @@ public class Home_pageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
         labelusername.setText(Data.user.getFirstname());
         if (Data.user.getImage()!=null){
         Image image = new Image(Data.user.getImage());

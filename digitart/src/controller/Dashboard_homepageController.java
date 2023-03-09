@@ -65,6 +65,8 @@ public class Dashboard_homepageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
        labeladminname.setText(Data.user.getFirstname());
+       System.out.println(Data.user.getImage());
+        
        if (Data.user.getImage()!=null){
         Image image = new Image(Data.user.getImage());
         circle_image.setFill(new ImagePattern(image));

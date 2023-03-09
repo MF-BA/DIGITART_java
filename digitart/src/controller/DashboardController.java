@@ -6,8 +6,11 @@
 package controller;
 
 import Services.users_Services;
+import doryan.windowsnotificationapi.fr.Notification;
 import entity.Data;
 import entity.users;
+import java.awt.AWTException;
+import java.awt.TrayIcon;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -15,6 +18,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -77,8 +81,7 @@ public class DashboardController implements Initializable {
     private Label labeladminname;
     @FXML
     private Button add_user;
-    @FXML
-    private Button modify_user;
+    
     @FXML
     private Button list_users;
     @FXML
@@ -335,6 +338,10 @@ public class DashboardController implements Initializable {
         Image image = new Image(Data.user.getImage());
         circle_image.setFill(new ImagePattern(image));
         }
+        if (Data.user.getRole().equals("Users manager"))
+        {
+           return_dash_btn.setVisible(false);
+        }
         
         /*URL url = new URL(Data.user.getImage());
         Image image1 = new Image(url.openStream(), 245, 237, false, true);
@@ -377,7 +384,6 @@ public class DashboardController implements Initializable {
         
          add_user.setStyle("-fx-background-color: #470011 ");
         list_users.setStyle("-fx-background-color:  transparent ");
-        modify_user.setStyle("-fx-background-color: transparent ");
         edit_profile.setStyle("-fx-background-color: transparent ");
         
     }
@@ -408,22 +414,7 @@ public void comboboxedit()
         options.add("Subscriber");
         Rolebox_editprof.getItems().addAll(options);
 }
-    @FXML
-    private void modify_user_btn(ActionEvent event) {
-      default_anchor.setVisible(false);
-        listusers_btn.setVisible(false);
-        adduser_dash_btn.setVisible(false);
-        editprofile_page.setVisible(false);
-        userstats_dash.setVisible(false);
-        update_page.setVisible(true);
-        
-        list_users.setStyle("-fx-background-color:   transparent ");
-        edit_profile.setStyle("-fx-background-color: transparent ");
-        add_user.setStyle("-fx-background-color:  transparent ");
-        modify_user.setStyle("-fx-background-color: #470011 ");  
-        
-    }
-
+    
     @FXML
     private void list_users_btn(ActionEvent event) {
         default_anchor.setVisible(false);
@@ -435,7 +426,6 @@ public void comboboxedit()
         
        list_users.setStyle("-fx-background-color: #470011 ");
        add_user.setStyle("-fx-background-color: transparent ");
-       modify_user.setStyle("-fx-background-color:  transparent ");
        edit_profile.setStyle("-fx-background-color: transparent ");
        
        showusers();
@@ -495,6 +485,7 @@ public void comboboxedit()
     private void add_dash_btn(ActionEvent event) throws NoSuchAlgorithmException {
         
         LocalDate BirthDate = birth_d.getValue();
+        LocalDate today = LocalDate.now();
         String firstname = fname.getText();
         String lastname = lname.getText();
         String Email = email.getText();
@@ -528,6 +519,7 @@ public void comboboxedit()
      if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
     errormsgemail.setText("Invalid email format!");
     }
+     
      
    if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || passwd.isEmpty() || Address.isEmpty() || phone_num.getText().isEmpty() || cin.getText().isEmpty() || BirthDate == null || (!male_gender.isSelected() && !female_gender.isSelected())) {
          
@@ -603,7 +595,11 @@ public void comboboxedit()
         Cin = Integer.parseInt(cin.getText().trim());  
     }   
     }
-       if(Cin != 0 && phone_number != 0){
+       if (BirthDate.isAfter(today)) {
+    errormsgbirthdate_edit.setText("Birth Date cannot be in the future!!");
+    
+         }
+      else if(Cin != 0 && phone_number != 0){
     String hashedPassword = users_Services.hashPassword(passwd);
         
     user1 = new users(Cin ,firstname, lastname, Email, hashedPassword, Address, phone_number, BirthDate, gender, role);
@@ -622,6 +618,15 @@ public void comboboxedit()
    errormsgbirthdate.setText("");
    errormsgrole.setText("");
    clear();
+   edit_profile.setStyle("-fx-background-color: transparent ");
+        add_user.setStyle("-fx-background-color: transparent ");
+        list_users.setStyle("-fx-background-color:  #470011 ");
+   default_anchor.setVisible(false);
+   listusers_btn.setVisible(true);
+    adduser_dash_btn.setVisible(false);
+     update_page.setVisible(false);  
+     userstats_dash.setVisible(false);
+      editprofile_page.setVisible(true);
        }
     }
         
@@ -649,7 +654,7 @@ public void comboboxedit()
       edit_profile.setStyle("-fx-background-color: #470011 ");
         add_user.setStyle("-fx-background-color: transparent ");
         list_users.setStyle("-fx-background-color:  transparent ");
-        modify_user.setStyle("-fx-background-color: transparent ");
+       
         
         default_anchor.setVisible(false);
         listusers_btn.setVisible(false);
@@ -680,10 +685,11 @@ public void comboboxedit()
     }
 
     @FXML
-    private void update_btn_dash(ActionEvent event) {
+    private void update_btn_dash(ActionEvent event) throws NoSuchAlgorithmException, MalformedURLException {
         
         int Cin = 0;
         int phone_number = 0;
+        LocalDate today = LocalDate.now();
         LocalDate BirthDate = birth_d_up.getValue();
         String firstname = fname_up.getText();
         String lastname = lname_up.getText();
@@ -703,6 +709,7 @@ public void comboboxedit()
           
         errormsggender_modif.setText("Please specify your gender!"); 
         }  
+     
  
 if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_up.getText().isEmpty() || cin_up.getText().isEmpty() || BirthDate == null || (!male_gender_up.isSelected() && !female_gender_up.isSelected())) {
          
@@ -770,7 +777,11 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
         Cin = Integer.parseInt(cin_up.getText().trim());  
     }   
     }
-       if(Cin != 0 && phone_number != 0){
+       if (BirthDate.isAfter(today)) {
+    errormsgbirthdate_modif.setText("Birth Date cannot be in the future!!");
+    
+         }
+       else if(Cin != 0 && phone_number != 0){
       users newSelection = user_table.getSelectionModel().getSelectedItem();
       if (newSelection != null) {
         String role = (String) Rolebox_up.getSelectionModel().getSelectedItem();
@@ -791,6 +802,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
         );
         users_Services user = new users_Services();
         user.modifyuser(u);
+        
       }
         errormsgfname_modif.setText("");
     errormsglname_modif.setText("");
@@ -800,7 +812,20 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
    errormsggender_modif.setText("");
    errormsgbirthdate_modif.setText("");
         //clearupd();
-        msgsuccess_modif.setText("User modified successfully !!");
+        try {
+                    Notification.sendNotification("Digitart","The user was modified succesfully",TrayIcon.MessageType.INFO);
+                } catch (AWTException ex) {
+                    Logger.getLogger(Add_eventController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        list_users.setStyle("-fx-background-color: #470011 ");
+       add_user.setStyle("-fx-background-color: transparent ");
+       edit_profile.setStyle("-fx-background-color: transparent ");
+        listusers_btn.setVisible(true);
+        adduser_dash_btn.setVisible(false);
+        editprofile_page.setVisible(false);
+        userstats_dash.setVisible(false);
+        update_page.setVisible(false);
+        default_anchor.setVisible(false);
        }
    }
     }
@@ -811,7 +836,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     }
     public void showmodif()
     {
-        modify_user.setStyle("-fx-background-color: #470011 ");
+        
        list_users.setStyle("-fx-background-color: transparent ");
        add_user.setStyle("-fx-background-color: transparent ");
        edit_profile.setStyle("-fx-background-color: transparent ");
@@ -891,10 +916,11 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     }*/
 
     @FXML
-    private void editprof_btn(ActionEvent event) throws IOException {
+    private void editprof_btn(ActionEvent event) throws IOException, NoSuchAlgorithmException {
         
        int Cin = 0;
         int phone_number = 0;
+        LocalDate today = LocalDate.now();
         LocalDate BirthDate = birth_d_editprof.getValue();
         String firstname = fname_editprof.getText();
         String lastname = lname_editprof.getText();
@@ -925,6 +951,10 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
      if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
     errormsgemail_edit.setText("Invalid email format!");
     }
+     if (BirthDate.isBefore(today)) {
+    errormsgbirthdate_edit.setText("Birth Date cannot be in the future!!");
+    
+         }
      if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || Address.isEmpty() || phone_num_editprof.getText().isEmpty() || cin_editprof.getText().isEmpty() || BirthDate == null || (!male_gender_editprof.isSelected() && !female_gender_editprof.isSelected())) {
          
        errormsgfiiledit.setText("Please fill all elements!!");  
@@ -957,7 +987,11 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
         Cin = Integer.parseInt(cin_editprof.getText().trim());  
     }   
     }
-       if (Cin!=0 && phone_number!=0 && Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")){
+       if (BirthDate.isAfter(today)) {
+    errormsgbirthdate_edit.setText("Birth Date cannot be in the future!!");
+    
+         }
+     else if (Cin!=0 && phone_number!=0 && Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")){
            
        if (imageFile!=null){
        imageUrl="http://localhost/images/"+imageFile.getName();
@@ -1017,6 +1051,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
         System.out.println("Image url: " + imageUrl);
      
         user.modifyuser(u);
+        Data.user = user.getgoogleuserdata(u.getEmail());
          showusers();
          errormsgfiiledit.setText("your profile is successfully modified!!");  
          errormsggender_edit.setText(""); 
@@ -1051,6 +1086,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
         System.out.println("Image url: " + imageUrl);
      
         user.modifyuser(u);
+        Data.user = user.getgoogleuserdata(u.getEmail());
          showusers();
          errormsgfiiledit.setText("your profile is successfully modified!!");  
          errormsggender_edit.setText(""); 
@@ -1088,7 +1124,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
         edit_profile.setStyle("-fx-background-color: transparent ");
         add_user.setStyle("-fx-background-color: transparent ");
         list_users.setStyle("-fx-background-color:  transparent ");
-        modify_user.setStyle("-fx-background-color: transparent ");
+      
         
         
         default_anchor.setVisible(false);
@@ -1211,50 +1247,7 @@ public String upload() throws IOException {
         }
         reader.close();
     return imageUrl;
-    /*try {
-        // Read the image file into a byte array
-        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-
-        // Create a MultipartEntityBuilder to build the HTTP request body
-        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-
-        // Add the user ID and file name as text fields in the request body
-        builder.addTextBody("userId", String.valueOf(Data.user.getId()));
-        builder.addTextBody("filename", imageFile.getName());
-
-        // Add the image data as a binary field in the request body
-        builder.addBinaryBody("imageData", imageBytes, ContentType.DEFAULT_BINARY, imageFile.getName());
-
-        // Create a HTTP client and a HTTP post request to the server
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("http://localhost/images");
-        httpPost.setEntity(builder.build());
-
-        // Execute the HTTP post request and get the response
-        CloseableHttpResponse response = httpClient.execute(httpPost);
-
-        // Check the response code
-        int statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode != 200) {
-            throw new RuntimeException("Failed to upload image: HTTP error code " + statusCode);
-        }
-
-        // Save the image file to the specified directory
-        String uploadDir = "http://localhost/images";
-        Path imagePath = Paths.get(uploadDir, imageFile.getName());
-        Files.write(imagePath, imageBytes);
-
-        // Close the response and the HTTP client
-        response.close();
-        httpClient.close();
-
-        // Return the path to the saved image file
-        return imagePath.toString();
-
-    } catch (IOException ex) {
-        ex.printStackTrace();
-        return null;
-    }*/
+   
 
 }
 
@@ -1366,7 +1359,7 @@ chartgender.setLabelsVisible(true);
         edit_profile.setStyle("-fx-background-color: transparent ");
         add_user.setStyle("-fx-background-color: transparent ");
         list_users.setStyle("-fx-background-color:  #470011 ");
-        modify_user.setStyle("-fx-background-color: transparent ");
+      
     }
 
     @FXML
@@ -1382,7 +1375,7 @@ chartgender.setLabelsVisible(true);
         edit_profile.setStyle("-fx-background-color: transparent ");
         add_user.setStyle("-fx-background-color: transparent ");
         list_users.setStyle("-fx-background-color:  #470011 ");
-        modify_user.setStyle("-fx-background-color: transparent ");
+      
     }
 
     @FXML

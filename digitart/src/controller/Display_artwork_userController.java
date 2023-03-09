@@ -26,11 +26,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -78,6 +80,7 @@ public class Display_artwork_userController implements Initializable {
     private Button add_artwork_btn;
     
     private void go_add_artwork(ActionEvent event) {
+        
         try {
             root = FXMLLoader.load(getClass().getResource("/view/add_artwork_user.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -93,7 +96,15 @@ public class Display_artwork_userController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        labelusername.setText(Data.user.getFirstname());
+        if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image.setFill(new ImagePattern(image));
+        }
+        else
+        {
+            circle_image.setFill(null);
+        }
             artwork_btn.setStyle("-fx-background-color: #bd2a2e ");
         if("Artist".equals(Data.user.getRole())){
             add_artwork_btn.setVisible(true);
@@ -238,6 +249,23 @@ public class Display_artwork_userController implements Initializable {
         try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/editprofileuser_front.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void add_artwork_btn_clicked(ActionEvent event) {
+          try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/add_artwork_user.fxml"));
 
             Scene scene = new Scene(parent2);
             Stage stage = (Stage) ((Node) event.getSource())

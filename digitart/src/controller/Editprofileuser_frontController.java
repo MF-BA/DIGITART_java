@@ -69,7 +69,6 @@ public class Editprofileuser_frontController implements Initializable {
     private TextField fname_editprof;
     @FXML
     private TextField lname_editprof;
-    @FXML
     private TextField email_editprof;
     @FXML
     private DatePicker birth_d_editprof;
@@ -132,6 +131,7 @@ public class Editprofileuser_frontController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        Data.email = Data.user.getEmail();
         labelusername_edit.setText(Data.user.getFirstname());
         if (Data.user.getImage()!=null){
         Image image = new Image(Data.user.getImage());
@@ -140,7 +140,7 @@ public class Editprofileuser_frontController implements Initializable {
         comboboxedit();
         fname_editprof.setText(Data.user.getFirstname());
         lname_editprof.setText(Data.user.getLastname());
-        email_editprof.setText(Data.user.getEmail());
+        //email_editprof.setText(Data.user.getEmail());
         //pwd_editprof.setText(user.hashPassword(Data.user.getPwd()));
         cin_editprof.setText(Integer.toString(Data.user.getCin()));
         address_editprof.setText(Data.user.getAddress());
@@ -162,22 +162,25 @@ public class Editprofileuser_frontController implements Initializable {
   public void comboboxedit()
 {
     List<String> options = new ArrayList<>();
-        options.add("Admin");
         options.add("Artist");
         options.add("Subscriber");
         Rolebox_editprof.getItems().addAll(options);
 }
     @FXML
-    private void editprof_btn(ActionEvent event) throws IOException {
+    private void editprof_btn(ActionEvent event) throws IOException, NoSuchAlgorithmException {
+        
         int Cin = 0;
         int phone_number = 0;
+        LocalDate today = LocalDate.now();
         LocalDate BirthDate = birth_d_editprof.getValue();
         String firstname = fname_editprof.getText();
         String lastname = lname_editprof.getText();
-        String Email = email_editprof.getText();
+        //String Email = email_editprof.getText();
         //String passwd = pwd_editprof.getText();
         String Address = address_editprof.getText();
         String gender = null;
+        
+        
         if (male_gender_editprof.isSelected()) {
         gender = male_gender_editprof.getText();  
     } else if (female_gender_editprof.isSelected()) {
@@ -198,10 +201,14 @@ public class Editprofileuser_frontController implements Initializable {
         errormsggender_edit.setText("Please specify your gender!"); 
         }  
      
-     if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
-    errormsgemail_edit.setText("Invalid email format!");
-    }
-     if (firstname.isEmpty() || lastname.isEmpty() || Email.isEmpty() || Address.isEmpty() || phone_num_editprof.getText().isEmpty() || cin_editprof.getText().isEmpty() || BirthDate == null || (!male_gender_editprof.isSelected() && !female_gender_editprof.isSelected())) {
+//     if (!Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
+//    errormsgemail_edit.setText("Invalid email format!");
+//    }
+if (BirthDate.isBefore(today)) {
+    errormsgbirthdate_edit.setText("Birth Date cannot be in the future!!");
+    
+         }
+     if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_editprof.getText().isEmpty() || cin_editprof.getText().isEmpty() || BirthDate == null || (!male_gender_editprof.isSelected() && !female_gender_editprof.isSelected())) {
          
        errormsgfiiledit.setText("Please fill all elements!!");  
        
@@ -233,7 +240,7 @@ public class Editprofileuser_frontController implements Initializable {
         Cin = Integer.parseInt(cin_editprof.getText().trim());  
     }   
     }
-       if (Cin!=0 && phone_number!=0 && Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")){
+       if (Cin!=0 && phone_number!=0 ){
            
        if (imageFile!=null){
             imageUrl="http://localhost/images/"+imageFile.getName();
@@ -278,7 +285,7 @@ public class Editprofileuser_frontController implements Initializable {
              Cin,
              firstname,
                 lastname,
-                Email,
+                Data.email,
                 Data.user.getPwd(),
                 Address,
              phone_number,   
@@ -296,7 +303,7 @@ public class Editprofileuser_frontController implements Initializable {
         System.out.println("Image url: " + imageUrl);
      
          user.modifyuser(u);
-         
+         Data.user = user.getgoogleuserdata(u.getEmail());
          errormsgfiiledit.setText("your profile is successfully modified!!");  
          errormsggender_edit.setText(""); 
          errormsgfname_edit.setText(""); 
@@ -305,6 +312,7 @@ public class Editprofileuser_frontController implements Initializable {
          errormsgemail_edit.setText(""); 
          errormsgbirthdate_edit.setText(""); 
          errormsgphonenum_edit.setText(""); 
+         
          gotohomepage(event);
        }
        else
@@ -313,7 +321,7 @@ public class Editprofileuser_frontController implements Initializable {
              Cin,
              firstname,
                 lastname,
-                Email,
+                Data.email,
                 Data.user.getPwd(),
                 Address,
              phone_number,   
@@ -331,7 +339,7 @@ public class Editprofileuser_frontController implements Initializable {
         System.out.println("Image url: " + imageUrl);
      
          user.modifyuser(u);
-         
+         Data.user = user.getgoogleuserdata(u.getEmail());
          errormsgfiiledit.setText("your profile is successfully modified!!");  
          errormsggender_edit.setText(""); 
          errormsgfname_edit.setText(""); 
@@ -342,7 +350,7 @@ public class Editprofileuser_frontController implements Initializable {
          errormsgphonenum_edit.setText("");   
          gotohomepage(event);
        }
-         
+        
        }
         }
     }

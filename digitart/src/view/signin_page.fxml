@@ -70,7 +70,7 @@
                   </Label>
                   <FontAwesomeIconView fill="#bcbbbb" glyphName="ENVELOPE" layoutX="306.0" layoutY="82.0" size="20" wrappingWidth="14.0" />
                   <FontAwesomeIconView fill="#bcbbbb" glyphName="UNLOCK" layoutX="313.0" layoutY="185.0" size="20" wrappingWidth="14.0" />
-                  <CheckBox fx:id="showpwd" layoutX="73.0" layoutY="196.0" mnemonicParsing="false" onAction="#showpwd" text="show password">
+                  <CheckBox fx:id="showpwd" layoutX="72.0" layoutY="203.0" mnemonicParsing="false" onAction="#showpwd" text="show password">
                      <font>
                         <Font name="Berlin Sans FB" size="12.0" />
                      </font>

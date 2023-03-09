@@ -136,35 +136,37 @@
                   <AnchorPane fx:id="home" layoutX="8.0" layoutY="193.0" prefHeight="577.0" prefWidth="1198.0" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="homepage_anchorpane" layoutX="14.0" layoutY="195.0" prefHeight="587.0" prefWidth="1268.0" />
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="anc_scroll" layoutX="95.0" layoutY="157.0" prefHeight="595.0" prefWidth="1019.0">
-         <children>
-            <ScrollPane fx:id="event_scroll" layoutX="96.0" layoutY="130.0" prefHeight="451.0" prefWidth="848.0">
-               <content>
-                  <HBox fx:id="event_view" prefHeight="170.0" prefWidth="248.0" style="-fx-background-color: #000000;">
+            <AnchorPane fx:id="homepage_anchorpane" layoutX="14.0" layoutY="195.0" prefHeight="587.0" prefWidth="1268.0">
+               <children>
+                  <AnchorPane fx:id="anc_scroll" layoutX="107.0" layoutY="6.0" prefHeight="524.0" prefWidth="968.0">
                      <children>
-                        <GridPane fx:id="event_container" prefHeight="146.0" prefWidth="200.0" style="-fx-background-color: #000000;">
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
+                        <ScrollPane fx:id="event_scroll" layoutX="75.0" layoutY="72.0" prefHeight="451.0" prefWidth="848.0">
+                           <content>
+                              <HBox fx:id="event_view" prefHeight="170.0" prefWidth="248.0" style="-fx-background-color: #000000;">
+                                 <children>
+                                    <GridPane fx:id="event_container" prefHeight="146.0" prefWidth="200.0" style="-fx-background-color: #000000;">
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                    </GridPane>
+                                 </children>
+                              </HBox>
+                           </content>
+                        </ScrollPane>
+                        <Label layoutX="86.0" layoutY="25.0" text="The event you participated in :" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="event_name_show" layoutX="457.0" layoutY="25.0" prefHeight="35.0" prefWidth="197.0" text="Label" textFill="#ff5050">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btndelete" layoutX="806.0" layoutY="28.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="148.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete Participation" />
                      </children>
-                  </HBox>
-               </content>
-            </ScrollPane>
-            <Label layoutX="120.0" layoutY="57.0" text="The event you participated in :" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="event_name_show" layoutX="492.0" layoutY="57.0" prefHeight="35.0" prefWidth="197.0" text="Label" textFill="#ff5050">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <Button fx:id="btndelete" layoutX="810.0" layoutY="60.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="148.0" styleClass="delete-btn" stylesheets="@auctionDesign.css" text="Delete Participation" />
+                  </AnchorPane>
+               </children></AnchorPane>
          </children>
       </AnchorPane>
    </children>

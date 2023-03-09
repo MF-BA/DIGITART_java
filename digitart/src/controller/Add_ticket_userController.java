@@ -34,9 +34,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -114,6 +116,15 @@ public class Add_ticket_userController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        labelusername.setText(Data.user.getFirstname());
+        if (Data.user.getImage()!=null){
+        Image image = new Image(Data.user.getImage());
+        circle_image.setFill(new ImagePattern(image));
+        }
+        else
+        {
+            circle_image.setFill(null);
+        }
         tickets_btn.setStyle("-fx-background-color:#bd2a2e");
         showSpinner(spinner_adult);
         showSpinner(spinner_student);

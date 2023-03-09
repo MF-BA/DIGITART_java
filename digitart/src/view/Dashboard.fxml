@@ -54,6 +54,9 @@
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Button>
+            <Label prefHeight="17.0" prefWidth="251.0" />
+            <Label prefHeight="17.0" prefWidth="251.0" />
+            <Label prefHeight="17.0" prefWidth="251.0" />
             <Button fx:id="edit_profile" mnemonicParsing="false" onAction="#edit_profile_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Edit profile" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="USER" size="20" text="" />
@@ -70,14 +73,6 @@
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Button>
-            <Button fx:id="modify_user" mnemonicParsing="false" onAction="#modify_user_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="Modify user" textFill="WHITE">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="COGS" size="20" text="" />
-               </graphic>
-               <font>
-                  <Font name="Berlin Sans FB" size="18.0" />
-               </font>
-            </Button>
             <Button fx:id="list_users" mnemonicParsing="false" onAction="#list_users_btn" prefHeight="51.0" prefWidth="271.0" styleClass="nav-btn" stylesheets="@auctionDesign.css" text="List of users" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="LIST_ALT" size="20" />
@@ -86,6 +81,7 @@
                   <Font name="Berlin Sans FB" size="18.0" />
                </font>
             </Button>
+            <Label prefHeight="17.0" prefWidth="251.0" />
             <Label prefHeight="17.0" prefWidth="252.0" />
             <ImageView fitHeight="147.0" fitWidth="250.0">
                <image>
@@ -193,13 +189,13 @@
             <ComboBox fx:id="Rolebox" layoutX="542.0" layoutY="500.0" prefHeight="32.0" prefWidth="171.0" promptText="select your role" styleClass="combobox" stylesheets="@auctionDesign.css" />
             <Label fx:id="errormsgfname" layoutX="231.0" layoutY="211.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsglname" layoutX="230.0" layoutY="284.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsgemail" layoutX="230.0" layoutY="361.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsgpwd" layoutX="230.0" layoutY="453.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgemail" layoutX="230.0" layoutY="361.0" prefHeight="17.0" prefWidth="171.0" textFill="RED" />
+            <Label fx:id="errormsgpwd" layoutX="231.0" layoutY="456.0" prefHeight="17.0" prefWidth="171.0" textFill="RED" />
             <Label fx:id="errormsgcin" layoutX="542.0" layoutY="210.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgaddress" layoutX="542.0" layoutY="435.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgphonenum" layoutX="542.0" layoutY="284.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsggender" layoutX="230.0" layoutY="524.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsgelements" layoutX="379.0" layoutY="660.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgelements" layoutX="379.0" layoutY="660.0" prefHeight="17.0" prefWidth="164.0" textFill="#05ff00" />
             <Label fx:id="errormsgbirthdate" layoutX="542.0" layoutY="361.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgrole" layoutX="542.0" layoutY="532.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <CheckBox fx:id="showpwd_add" layoutX="230.0" layoutY="436.0" mnemonicParsing="false" onAction="#showpwd_add" text="show password">
@@ -275,7 +271,7 @@
          </children>
       </AnchorPane>
       <AnchorPane fx:id="default_anchor" layoutX="254.0" layoutY="-1.0" prefHeight="722.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;" visible="false" />
-      <AnchorPane fx:id="update_page" layoutX="255.0" layoutY="2.0" prefHeight="709.0" prefWidth="936.0">
+      <AnchorPane fx:id="update_page" layoutX="255.0" layoutY="2.0" prefHeight="709.0" prefWidth="936.0" visible="false">
          <children>
             <Label layoutX="323.0" layoutY="52.0" prefHeight="67.0" prefWidth="290.0" text="Modify user" textFill="#bd2a2e">
                <font>
@@ -352,14 +348,14 @@
                </font>
             </Button>
             <ComboBox fx:id="Rolebox_up" layoutX="542.0" layoutY="450.0" prefHeight="25.0" prefWidth="164.0" styleClass="combobox" stylesheets="@auctionDesign.css" />
-            <Label fx:id="errormsgfname_modif" layoutX="230.0" layoutY="245.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsglname_modif" layoutX="230.0" layoutY="321.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsgcin_modif" layoutX="542.0" layoutY="245.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsgaddress_modif" layoutX="230.0" layoutY="397.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsgphonenum_modif" layoutX="542.0" layoutY="321.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsggender_modif" layoutX="225.0" layoutY="476.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsgbirthdate_modif" layoutX="542.0" layoutY="397.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsgrole_modif" layoutX="542.0" layoutY="485.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsgfname_modif" layoutX="222.0" layoutY="254.0" prefHeight="17.0" prefWidth="181.0" textFill="RED" />
+            <Label fx:id="errormsglname_modif" layoutX="217.0" layoutY="321.0" prefHeight="17.0" prefWidth="181.0" textFill="RED" />
+            <Label fx:id="errormsgcin_modif" layoutX="506.0" layoutY="254.0" prefHeight="17.0" prefWidth="216.0" textFill="RED" />
+            <Label fx:id="errormsgaddress_modif" layoutX="219.0" layoutY="406.0" prefHeight="17.0" prefWidth="194.0" textFill="RED" />
+            <Label fx:id="errormsgphonenum_modif" layoutX="516.0" layoutY="321.0" prefHeight="17.0" prefWidth="208.0" textFill="RED" />
+            <Label fx:id="errormsggender_modif" layoutX="210.0" layoutY="485.0" prefHeight="17.0" prefWidth="181.0" textFill="RED" />
+            <Label fx:id="errormsgbirthdate_modif" layoutX="515.0" layoutY="397.0" prefHeight="17.0" prefWidth="235.0" textFill="RED" />
+            <Label fx:id="errormsgrole_modif" layoutX="516.0" layoutY="485.0" prefHeight="17.0" prefWidth="208.0" textFill="RED" />
             <Label fx:id="msgsuccess_modif" layoutX="339.0" layoutY="623.0" prefHeight="33.0" prefWidth="259.0" />
          </children>
       </AnchorPane>
@@ -459,7 +455,7 @@
             <Label fx:id="errormsgbirthdate_edit" layoutX="581.0" layoutY="374.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgphonenum_edit" layoutX="581.0" layoutY="463.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Button layoutX="383.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleSelectImage" prefHeight="33.0" prefWidth="171.0" styleClass="add-btn" stylesheets="@auctionDesign.css" text="Upload your image" />
-            <Label fx:id="errormsgfiiledit" layoutX="351.0" layoutY="687.0" prefHeight="17.0" prefWidth="235.0" textFill="RED" />
+            <Label fx:id="errormsgfiiledit" layoutX="351.0" layoutY="687.0" prefHeight="17.0" prefWidth="235.0" textFill="#0fff00" />
             <Button fx:id="newpwd_btn" cache="true" layoutX="610.0" layoutY="632.0" mnemonicParsing="false" onAction="#newpwd_btn" prefHeight="41.0" prefWidth="164.0" style="-fx-background-radius: 20;" styleClass="add-btn" stylesheets="@auctionDesign.css" text="new password" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />

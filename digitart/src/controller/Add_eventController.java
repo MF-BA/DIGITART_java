@@ -301,14 +301,15 @@ public class Add_eventController implements Initializable {
         list_of_events.setVisible(false);
         part_anc.setVisible(false);
         labeladminname.setText(Data.user.getFirstname());
-         if(Data.user.getRole().equals("Event manager"))
-         {
-             return_dash_btn.setVisible(false);
-         }
-          if (Data.user.getImage()!=null){
+         if (Data.user.getImage()!=null){
         Image image = new Image(Data.user.getImage());
         circle_image.setFill(new ImagePattern(image));
         }
+         if(Data.user.getRole().equals("Events manager"))
+         {
+             return_dash_btn.setVisible(false);
+         }
+         
      showevent();
      showparticipants();
      combobox();

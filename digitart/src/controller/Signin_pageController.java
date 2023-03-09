@@ -146,7 +146,8 @@ public class Signin_pageController implements Initializable {
     GoogleAuthenticator Auth;
     private String Rolelogin;
     private int test = 0;
-
+    private String emailgoogle;
+    
     @FXML
     private Button confirm_sign;
     @FXML
@@ -701,17 +702,22 @@ public class Signin_pageController implements Initializable {
                     st = conn.prepareStatement(sql);
                     st.setString(1, email);
                     res = st.executeQuery();
-
+                    Data.email = email;
+                    
                     if (res.next()) {
-
-                        Data.user = user.getgoogleuserdata(email);
-                        Rolelogin= Data.user.getRole();
-                        if ((Data.user.getAddress() == null) && (Data.user.getCin() == 0) && (Data.user.getFirstname() == null) && (Data.user.getLastname() == null) && (Data.user.getPwd() == null) && (Data.user.getPwd() == null) && (Data.user.getRole() == null) && (Data.user.getPhone_number() == 0)) {
+                       
+                          Data.user = user.getgoogleuserdata(email);
+                          Rolelogin= Data.user.getRole();
+                          
+                          
+                        if ((Data.user.getAddress() == null) && (Data.user.getCin() == 0) && (Data.user.getFirstname() == null) && (Data.user.getLastname() == null) && (Data.user.getPwd() == null) && (Data.user.getBirth_date() == null) && (Data.user.getRole() == null) && (Data.user.getPhone_number() == 0)) {
+                            
                             codepage.setVisible(false);
                             loginpage.setVisible(false);
                             loginfields_google.setVisible(true);
                             qrcodelogin.setVisible(false);
                         } else {
+                        
                             if (Rolelogin != null) {
                                 if (Rolelogin.equals("Admin")) {
                                     gotohomeDash(event);
@@ -732,12 +738,17 @@ public class Signin_pageController implements Initializable {
                         }
 
                     } else {
-
-                        stmt = conn.prepareStatement(query);
-                        stmt.setString(1, email);
-                        stmt.setString(2, password);
-                        stmt.executeUpdate();
-                        Data.user = user.getgoogleuserdata(email);
+                        
+//                        stmt = conn.prepareStatement(query);
+//                        stmt.setString(1, email);
+//                        stmt.setString(2, password);
+//                        stmt.executeUpdate();
+                        //emailgoogle =email;
+                        //Data.user = user.getgoogleuserdata(email);
+                        
+                        
+                        
+                        
                         codepage.setVisible(false);
                         loginpage.setVisible(false);
                         qrcodelogin.setVisible(false);
@@ -858,11 +869,12 @@ public class Signin_pageController implements Initializable {
             if (noartist.isSelected()) {
                 role = "Subscriber";
             }
-
-            String hashedPassword = users_Services.hashPassword(passwd);
-            user1 = new users(Cin, firstname, lastname, Data.user.getEmail(), hashedPassword, Address, phone_number, BirthDate, gender, role, "unblocked");
-            user = new users_Services();
-            user.modifyusergoogle(user1);
+            //System.out.println(emailgoogle);
+             //Data.user = user.getgoogleuserdata(Data.user.getEmail());
+             String hashedPassword = users_Services.hashPassword(passwd);
+             user1 = new users(Cin, firstname, lastname, Data.email, hashedPassword, Address, phone_number, BirthDate, gender, role, "unblocked");
+             user = new users_Services();
+             user.adduser(user1);
 
             errormsgfname.setText("");
             errormsglname.setText("");
@@ -874,7 +886,7 @@ public class Signin_pageController implements Initializable {
             errormsgelements.setText("");
             errormsgbirthdate.setText("");
             errorquestionartist.setText("");
-            Data.user = user.getgoogleuserdata(user1.getEmail());
+            Data.user = user.getgoogleuserdata(Data.email);
             gotoHome(event);
 
         }

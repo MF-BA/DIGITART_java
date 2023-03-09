@@ -22,7 +22,7 @@
       </ImageView>
       <AnchorPane fx:id="editprofile_page" layoutX="10.0" layoutY="10.0" prefHeight="793.0" prefWidth="1300.0" style="-fx-background-color: tranparent;">
          <children>
-            <Button fx:id="editprof_btn" cache="true" layoutX="385.0" layoutY="645.0" mnemonicParsing="false" onAction="#editprof_btn" prefHeight="41.0" prefWidth="152.0" style="-fx-background-radius: 20;" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Confirm edit" textFill="WHITE">
+            <Button fx:id="editprof_btn" cache="true" layoutX="342.0" layoutY="645.0" mnemonicParsing="false" onAction="#editprof_btn" prefHeight="41.0" prefWidth="180.0" style="-fx-background-radius: 20;" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Confirm edit" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />
                </font>
@@ -42,12 +42,6 @@
                </font>
             </Label>
             <TextField fx:id="lname_editprof" layoutX="292.0" layoutY="322.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
-            <Label layoutX="299.0" layoutY="387.0" text="Email" textFill="WHITE">
-               <font>
-                  <Font name="Microsoft New Tai Lue Bold" size="15.0" />
-               </font>
-            </Label>
-            <TextField fx:id="email_editprof" layoutX="292.0" layoutY="417.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
             <Label layoutX="955.0" layoutY="180.0" text="Cin" textFill="WHITE">
                <font>
                   <Font name="Microsoft New Tai Lue Bold" size="15.0" />
@@ -72,27 +66,27 @@
             <TextField fx:id="cin_editprof" layoutX="946.0" layoutY="208.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
             <TextField fx:id="address_editprof" layoutX="946.0" layoutY="306.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
             <TextField fx:id="phone_num_editprof" layoutX="946.0" layoutY="401.0" prefHeight="25.0" prefWidth="164.0" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
-            <Label layoutX="665.0" layoutY="458.0" text="Gender" textFill="WHITE">
+            <Label layoutX="286.0" layoutY="470.0" text="Gender" textFill="WHITE">
                <font>
                   <Font name="Microsoft New Tai Lue Bold" size="15.0" />
                </font>
             </Label>
-            <RadioButton fx:id="male_gender_editprof" layoutX="605.0" layoutY="492.0" mnemonicParsing="false" text="Male" textFill="WHITE">
+            <RadioButton fx:id="male_gender_editprof" layoutX="278.0" layoutY="501.0" mnemonicParsing="false" text="Male" textFill="WHITE">
                <font>
                   <Font name="Microsoft New Tai Lue Bold" size="13.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="female_gender_editprof" layoutX="691.0" layoutY="492.0" mnemonicParsing="false" text="Female" textFill="WHITE">
+            <RadioButton fx:id="female_gender_editprof" layoutX="364.0" layoutY="501.0" mnemonicParsing="false" text="Female" textFill="WHITE">
                <font>
                   <Font name="Microsoft New Tai Lue Bold" size="13.0" />
                </font>
             </RadioButton>
-            <Label layoutX="298.0" layoutY="470.0" text="Role" textFill="WHITE">
+            <Label layoutX="296.0" layoutY="387.0" text="Role" textFill="WHITE">
                <font>
                   <Font name="Microsoft New Tai Lue Bold" size="15.0" />
                </font>
             </Label>
-            <Button fx:id="clear_fields_editprof" cache="true" layoutX="616.0" layoutY="645.0" mnemonicParsing="false" onAction="#clear_fields_update_btn" prefHeight="41.0" prefWidth="164.0" style="-fx-background-radius: 20;" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Clear all fields" textFill="WHITE">
+            <Button fx:id="clear_fields_editprof" cache="true" layoutX="599.0" layoutY="645.0" mnemonicParsing="false" onAction="#clear_fields_update_btn" prefHeight="41.0" prefWidth="191.0" style="-fx-background-radius: 20;" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Clear all fields" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />
                </font>
@@ -100,17 +94,17 @@
                   <FontAwesomeIconView glyphName="ERASER" size="25" />
                </graphic>
             </Button>
-            <ComboBox fx:id="Rolebox_editprof" layoutX="292.0" layoutY="498.0" prefHeight="26.0" prefWidth="164.0" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
+            <ComboBox fx:id="Rolebox_editprof" layoutX="290.0" layoutY="415.0" prefHeight="26.0" prefWidth="164.0" styleClass="textfield-home" stylesheets="@auctionDesign.css" />
             <Label fx:id="errormsglname_edit" layoutX="290.0" layoutY="357.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgfname_edit" layoutX="290.0" layoutY="260.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgemail_edit" layoutX="292.0" layoutY="454.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Label fx:id="errormsggender_edit" layoutX="602.0" layoutY="527.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
+            <Label fx:id="errormsggender_edit" layoutX="275.0" layoutY="536.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgcin_edit" layoutX="944.0" layoutY="244.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgaddress_edit" layoutX="944.0" layoutY="341.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgbirthdate_edit" layoutX="945.0" layoutY="527.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
             <Label fx:id="errormsgphonenum_edit" layoutX="944.0" layoutY="438.0" prefHeight="17.0" prefWidth="164.0" textFill="RED" />
-            <Button layoutX="607.0" layoutY="575.0" mnemonicParsing="false" onAction="#handleSelectImage" prefHeight="33.0" prefWidth="171.0" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Upload your image" />
-            <Button fx:id="newpwd_btn" cache="true" layoutX="862.0" layoutY="645.0" mnemonicParsing="false" onAction="#newpwd_btn" prefHeight="41.0" prefWidth="164.0" style="-fx-background-radius: 20;" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="new password" textFill="WHITE">
+            <Button layoutX="606.0" layoutY="553.0" mnemonicParsing="false" onAction="#handleSelectImage" prefHeight="39.0" prefWidth="212.0" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="Upload your image" />
+            <Button fx:id="newpwd_btn" cache="true" layoutX="862.0" layoutY="645.0" mnemonicParsing="false" onAction="#newpwd_btn" prefHeight="41.0" prefWidth="191.0" style="-fx-background-radius: 20;" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="new password" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />
                </font>
@@ -118,16 +112,16 @@
                   <FontAwesomeIconView glyphName="LOCK" size="25" />
                </graphic>
             </Button>
-            <Label fx:id="errormsgfiiledit" layoutX="575.0" layoutY="704.0" prefHeight="17.0" prefWidth="235.0" textFill="RED" />
-            <Circle fill="#bd2a2e" layoutX="685.0" layoutY="117.0" radius="86.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
-            <Circle fx:id="circle_image_edit" fill="#bd2a2e" layoutX="685.0" layoutY="117.0" radius="82.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
-            <ImageView fx:id="avatar_image1" fitHeight="179.0" fitWidth="180.0" layoutX="594.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="labelusername_edit" alignment="CENTER" contentDisplay="CENTER" layoutX="512.0" layoutY="222.0" prefHeight="44.0" prefWidth="347.0" text="Welcome" textFill="#bd2a2e">
+            <Label fx:id="errormsgfiiledit" layoutX="577.0" layoutY="703.0" prefHeight="17.0" prefWidth="235.0" textFill="#3aff00" />
+            <Circle fill="#bd2a2e" layoutX="694.0" layoutY="117.0" radius="86.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
+            <Circle fx:id="circle_image_edit" fill="#bd2a2e" layoutX="694.0" layoutY="117.0" radius="82.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
+            <ImageView fx:id="avatar_image1" fitHeight="179.0" fitWidth="180.0" layoutX="603.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="labelusername_edit" alignment="CENTER" contentDisplay="CENTER" layoutX="521.0" layoutY="222.0" prefHeight="44.0" prefWidth="347.0" text="Welcome" textFill="#bd2a2e">
                <font>
                   <Font name="Berlin Sans FB" size="40.0" />
                </font>
             </Label>
-            <Button fx:id="return_btn" layoutX="26.0" layoutY="28.0" mnemonicParsing="false" onAction="#return_btn_clicked" prefHeight="26.0" prefWidth="105.0" style="-fx-background-radius: 11;" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="return" textFill="WHITE">
+            <Button fx:id="return_btn" layoutX="26.0" layoutY="28.0" mnemonicParsing="false" onAction="#return_btn_clicked" prefHeight="39.0" prefWidth="120.0" style="-fx-background-radius: 11;" styleClass="hometest-btn" stylesheets="@auctionDesign.css" text="return" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="15.0" />
                </font>
