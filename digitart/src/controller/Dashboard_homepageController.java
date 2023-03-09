@@ -54,15 +54,16 @@ public class Dashboard_homepageController implements Initializable {
     @FXML
     private Label labeladminname11;
 
-    
     private Stage stage;
     private Scene scene;
     private Parent pt;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+<<<<<<< HEAD
         // TODO
        labeladminname.setText(Data.user.getFirstname());
        if (Data.user.getImage()!=null){
@@ -71,15 +72,23 @@ public class Dashboard_homepageController implements Initializable {
         }
        
     }    
+=======
+        labeladminname.setText(Data.user.getFirstname());
+        if (Data.user.getImage() != null) {
+            Image image = new Image(Data.user.getImage());
+            circle_image.setFill(new ImagePattern(image));
+        }
+    }
+>>>>>>> fedi
 
     @FXML
     private void users_btn(ActionEvent event) {
         try {
-             pt=FXMLLoader
+            pt = FXMLLoader
                     .load(getClass().getResource("/view/Dashboard.fxml"));
-            
-             scene=new Scene(pt);
-             stage=(Stage) ((Node) event.getSource())
+
+            scene = new Scene(pt);
+            stage = (Stage) ((Node) event.getSource())
                     .getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Login");
@@ -91,6 +100,7 @@ public class Dashboard_homepageController implements Initializable {
 
     @FXML
     private void gallery_btn(ActionEvent event) {
+<<<<<<< HEAD
        try {
              pt=FXMLLoader
                     .load(getClass().getResource("/view/display_artwork.fxml"));
@@ -104,6 +114,9 @@ public class Dashboard_homepageController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         } 
+=======
+
+>>>>>>> fedi
     }
 
     @FXML
@@ -126,11 +139,19 @@ public class Dashboard_homepageController implements Initializable {
     @FXML
     private void auction_btn(ActionEvent event) {
         try {
+<<<<<<< HEAD
              pt=FXMLLoader
                     .load(getClass().getResource("/view/display_auction_back.fxml"));
             
              scene=new Scene(pt);
              stage=(Stage) ((Node) event.getSource())
+=======
+            pt = FXMLLoader
+                    .load(getClass().getResource("/view/display_auction_back.fxml"));
+
+            scene = new Scene(pt);
+            stage = (Stage) ((Node) event.getSource())
+>>>>>>> fedi
                     .getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Login");
@@ -156,5 +177,5 @@ public class Dashboard_homepageController implements Initializable {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
