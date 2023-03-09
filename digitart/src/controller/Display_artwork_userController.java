@@ -249,4 +249,8 @@ public class Display_artwork_userController implements Initializable {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @FXML
+    private void add_artwork_btn_clicked(ActionEvent event) {
+    }
 }

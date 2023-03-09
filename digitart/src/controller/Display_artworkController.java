@@ -45,6 +45,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -224,7 +225,7 @@ public class Display_artworkController implements Initializable {
         }
         
           URL url = new URL(selectedArtwork.getImage_art());
-        Image image1 = new Image(url.openStream(), 245, 237, false, true);
+        Image image1 = new Image(url.openStream(), 367, 314, false, true);
         image.setImage(image1);
 
     }
@@ -240,6 +241,23 @@ public class Display_artworkController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+           return_dash_btn.setVisible(true);
+        if (!Data.user.getRole().equals("Admin")) {
+            return_dash_btn.setVisible(false);
+        }
+        labeladminname3.setText(Data.user.getFirstname());
+
+        /*if (Data.user.getImage()!=null){
+            String imagePath = Data.user.getImage();
+        Image image = new Image(new File(imagePath).toURI().toString());
+        circle_image.setFill(new ImagePattern(image));
+        }*/
+        if (Data.user.getImage() != null) {
+            Image image = new Image(Data.user.getImage());
+            circle_image.setFill(new ImagePattern(image));
+        }
+        
         ShowArtwork();
 
         btn_room.setStyle("-fx-background-color: transparent ");

@@ -32,8 +32,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -89,6 +91,21 @@ public class Modify_roomController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+           return_dash_btn.setVisible(true);
+        if (!Data.user.getRole().equals("Admin")) {
+            return_dash_btn.setVisible(false);
+        }
+        labeladminname3.setText(Data.user.getFirstname());
+
+        /*if (Data.user.getImage()!=null){
+            String imagePath = Data.user.getImage();
+        Image image = new Image(new File(imagePath).toURI().toString());
+        circle_image.setFill(new ImagePattern(image));
+        }*/
+        if (Data.user.getImage() != null) {
+            Image image = new Image(Data.user.getImage());
+            circle_image.setFill(new ImagePattern(image));
+        }
         showvalues();
         
         // controle de saisie

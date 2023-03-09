@@ -54,7 +54,7 @@
             <Font name="Berlin Sans FB" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="744.0" layoutY="436.0" prefHeight="32.0" prefWidth="132.0" text="Id room:">
+      <Label layoutX="744.0" layoutY="436.0" prefHeight="32.0" prefWidth="132.0" text="Room:">
          <font>
             <Font name="Berlin Sans FB" size="22.0" />
          </font>
