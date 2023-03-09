@@ -40,6 +40,7 @@
         </group>
         <group>
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/main/main.java</file>
+<<<<<<< HEAD
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/Services/Bid_Services.java</file>
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Display_auctionsController.java</file>
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Artwork_userfrontController.java</file>
@@ -110,6 +111,8 @@
         <group>
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/DashboardController.java</file>
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/main/main.java</file>
+=======
+>>>>>>> amine
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Display_auctionsController.java</file>
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Auction_frontController.java</file>
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Add_auction_Controller.java</file>
@@ -120,5 +123,25 @@
             <file>file:/E:/Esprit/3eme/sem2/PiDev/Primes/Primes/digitart/src/controller/Home_pageController.java</file>
 >>>>>>> fedi
         </group>
+<<<<<<< HEAD
+=======
+        <group/>
+        <group>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/controller/DashboardController.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/controller/TicketController.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/controller/Dashboard_homepageController.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/main/main.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/controller/Event_displayController.java</file>
+        </group>
+        <group>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/controller/DashboardController.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/controller/Dashboard_homepageController.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/controller/TicketController.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/entity/Data.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/main/main.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/controller/PaymentController.java</file>
+            <file>file:/C:/Users/User/OneDrive/Bureau/Next/Primes/digitart/src/entity/users.java</file>
+        </group>
+>>>>>>> amine
     </open-files>
 </project-private>

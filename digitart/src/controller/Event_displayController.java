@@ -169,7 +169,8 @@ public class Event_displayController implements Initializable {
         int event_id = id_event;
 
         Alert alert;
-
+    }
+/*
         // CHECK IF THE FIELDS ARE EMPTY
       
             try {
@@ -241,6 +242,12 @@ public class Event_displayController implements Initializable {
         }
         
     }
+<<<<<<< HEAD
+=======
+        */
+public void generateQRCode() {
+    String url = "https://artsandculture.google.com/search?q="+txt_event_name.getText().replaceAll("\\s+", "%20")+"%20"+ txt_start_date.getText().replaceAll("\\s+", "%20"+ txt_end_date.getText().replaceAll("\\s+", "%20")+ txt_event_desc.getText().replaceAll("\\s+", "%20"));
+>>>>>>> amine
 
 <<<<<<< HEAD
     QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -260,9 +267,15 @@ public class Event_displayController implements Initializable {
             int value = byteMatrix.get(x, y);
             image.setRGB(x, y, value == 0 ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
         }
+<<<<<<< HEAD
+=======
 =======
 
-    public void generateQRCode() {
+    }
+}
+>>>>>>> amine
+
+   /* public void generateQRCode() {
         String url = "https://artsandculture.google.com/search?q=" + txt_event_name.getText().replaceAll("\\s+", "%20") + "%20" + txt_start_date.getText().replaceAll("\\s+", "%20" + txt_end_date.getText().replaceAll("\\s+", "%20") + txt_event_desc.getText().replaceAll("\\s+", "%20"));
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         ByteMatrix byteMatrix;
@@ -287,6 +300,7 @@ public class Event_displayController implements Initializable {
         qrcode.setImage(fxImage);
 >>>>>>> fedi
     }
+*/
 
     Image fxImage = SwingFXUtils.toFXImage(image, null);
     qrcode.setImage(fxImage);
