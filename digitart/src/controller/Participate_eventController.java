@@ -66,7 +66,8 @@ import static utils.Conn.conn;
  */
 public class Participate_eventController implements Initializable {
 
-   
+ 
+    private Button deconnect;
     @FXML
     private AnchorPane default_anchor;
     @FXML
@@ -224,6 +225,8 @@ public class Participate_eventController implements Initializable {
     @FXML
     private void handleButtonAction(ActionEvent event) {
         
+           
+        
         if(event.getSource()==btndelete){
            EventDelete();
         }
@@ -273,7 +276,7 @@ public class Participate_eventController implements Initializable {
         }
         
     }
-   
+    
 
 //    private void deconnect_btn(ActionEvent event) {
 //        deconnect.setStyle("-fx-background-color: #470011 ");

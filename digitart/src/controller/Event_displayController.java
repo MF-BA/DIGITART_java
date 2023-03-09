@@ -11,6 +11,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.ByteMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import entity.Data;
 import entity.Event;
 import java.awt.Color;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -46,6 +48,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import utils.Conn;
+import static utils.Conn.conn;
 
 /**
  * FXML Controller class
@@ -76,13 +79,15 @@ public class Event_displayController implements Initializable {
     private ImageView qrcode;
     @FXML
     private Button btn_qr;
+    @FXML
+    private FontAwesomeIconView part;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+       part.setVisible(false);
         // TODO
     }   
     Event test;
@@ -196,6 +201,41 @@ public class Event_displayController implements Initializable {
                 Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "fatal error!!", e);
             }
         
+    }
+     public String getname(String name)
+    {
+        int id=0;
+        PreparedStatement pst;
+        String sql = "SELECT * FROM participants WHERE id_user=?";
+        String sql1 = "SELECT * FROM event WHERE id=?";
+        
+        try {
+            pst = conn.prepareStatement(sql);
+             pst.setInt(1, Data.user.getId());
+             
+
+
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    id=rs.getInt("id_event");
+                    
+                }
+                pst = conn.prepareStatement(sql1);
+             pst.setInt(1, id);
+              ResultSet rs1 = pst.executeQuery();
+              if (rs1.next()) {
+                    name=rs1.getString("event_name");
+                    
+                }
+             if(name.equals(""))
+             {
+                 part.setVisible(true);
+             }
+        } catch (SQLException ex) {
+            Logger.getLogger(Participate_eventController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return name;
     }
 public void generateQRCode() {
     String url = "https://artsandculture.google.com/search?q="+txt_event_name.getText().replaceAll("\\s+", "%20")+"%20"+ txt_start_date.getText().replaceAll("\\s+", "%20"+ txt_end_date.getText().replaceAll("\\s+", "%20")+ txt_event_desc.getText().replaceAll("\\s+", "%20"));
