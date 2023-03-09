@@ -235,7 +235,7 @@ public class Event_Services {
         PreparedStatement preparedStatement;
         try {
             connection = Conn.getCon();
-            preparedStatement = connection.prepareStatement("UPDATE event SET event_name = ?, start_date = ?, end_date = ?, nb_participants = ?, detail = ?, start_time = ?,id_room=? WHERE id = ?");
+            preparedStatement = connection.prepareStatement("UPDATE event SET event_name = ?, start_date = ?, end_date = ?, nb_participants = ?, detail = ?, start_time = ?,id_room=?,image=? WHERE id = ?");
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String sdate = dateFormat.format(ev.getStart_date());
@@ -248,7 +248,8 @@ public class Event_Services {
             preparedStatement.setString(5, ev.getDetail());
             preparedStatement.setInt(6,ev.getStart_time() );
             preparedStatement.setInt(7,ev.getId_room() );
-            preparedStatement.setInt(8,ev.getEvent_id());
+            preparedStatement.setString(8,ev.getImage());
+            preparedStatement.setInt(9,ev.getEvent_id() );
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "error in update!!", e);
