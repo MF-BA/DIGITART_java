@@ -64,10 +64,42 @@ import static utils.Conn.conn;
  */
 public class Participate_eventController implements Initializable {
 
- 
+    private Label welcome;
+    @FXML
+    private TableView<Event> tabevent_user;
+    @FXML
+    private TableColumn<Event, String> colevent_name;
+    @FXML
+    private TableColumn<Event, Date> colstart_date;
+    @FXML
+    private TableColumn<Event, Date> colend_date;
+    @FXML
+    private TextField txt_event_id;
+    @FXML
+    private DatePicker txt_start_date;
+    @FXML
+    private TextField txt_nb_participants;
+    @FXML
+    private TextField txt_start_time;
+    @FXML
+    private TextArea txt_desc;
+    @FXML
+    private TextField txt_event_name;
+    @FXML
+    private DatePicker txt_end_date;
+    @FXML
+    private ComboBox<Integer> txt_room;
+    @FXML
+    private Button btnparticipate;
+    @FXML
+    private Label event_id_text;
+    @FXML
+    private Label nb_participants_text;
     private Button deconnect;
     @FXML
     private AnchorPane default_anchor;
+    @FXML
+    private AnchorPane test_anc;
     @FXML
     private AnchorPane anc_scroll;
     @FXML
@@ -120,6 +152,8 @@ public class Participate_eventController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        showparticipants();
+        combobox();
         labelupdate();
         anc_scroll.setVisible(false);
         event_array = Event_Services.displayEventFront();
@@ -199,20 +233,51 @@ public class Participate_eventController implements Initializable {
         System.out.println(event.getEvent_id());
     }
 
+    @FXML
+    private void handleMouseAction(MouseEvent event) {
+        Event eventt = tabevent_user.getSelectionModel().getSelectedItem();
+        txt_event_id.setText(String.valueOf(eventt.getEvent_id()));
+        txt_start_date.setValue(LocalDate.parse(String.valueOf(eventt.getStart_date())));
+        txt_end_date.setValue(LocalDate.parse(String.valueOf(eventt.getEnd_date())));
+        txt_nb_participants.setText(String.valueOf(eventt.getNb_participants()));
+        txt_desc.setText(String.valueOf(eventt.getDetail()));
+        txt_start_time.setText(String.valueOf(eventt.getStart_time()));
+        txt_event_name.setText(String.valueOf(eventt.getEvent_name()));
+        ((ComboBox<Integer>) txt_room).setValue(eventt.getId_room());
+    }
+    
+      private ArrayList<Event> eventlist;
+    public void showparticipants() {
 
+        eventlist = Event_Services.displayEvent();
+        colevent_name.setCellValueFactory(new PropertyValueFactory<>("event_name"));
+        colstart_date.setCellValueFactory(new PropertyValueFactory<>("start_date") );
+        colend_date.setCellValueFactory(new PropertyValueFactory<>("end_date") );
+    
 
+        if (tabevent_user != null && tabevent_user instanceof TableView) {
+            // Cast ticket_tableview to TableView<Ticket> and set its items
+            ((TableView<Event>) tabevent_user).setItems(FXCollections.observableArrayList(eventlist));
+        }
+    }
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        
+        if(event.getSource()==btnparticipate){
+           UserAdd();
            
-        
+           
+        }
         if(event.getSource()==btndelete){
            EventDelete();
         }
     }
     
-     
+     public void combobox() {
+        ObservableList<Integer> myObservableList = FXCollections.observableArrayList(Event_Services.find_idroom());
+        txt_room.setItems(myObservableList);
+        
+        }
      public void EventDelete() {
         Alert alert;
          int id=0;
@@ -256,7 +321,50 @@ public class Participate_eventController implements Initializable {
         }
         
     }
-    
+    public void UserAdd() {
+
+       int id_user=Data.user.getId();
+        String first_name=Data.user.getFirstname();
+        String last_name=Data.user.getLastname();
+        String adress=Data.user.getAddress();
+        String gender=Data.user.getGender();
+        int event_id = Integer.parseInt(this.txt_event_id.getText());
+
+        Alert alert;
+
+        // CHECK IF THE FIELDS ARE EMPTY
+      
+            try {
+                // CHECK IF THE TICKET ID ALREADY EXISTS
+                Connection connection;
+                connection = Conn.getCon();
+                String check = "SELECT id_user FROM participants WHERE id_user = ?";
+                PreparedStatement checkStatement = connection.prepareStatement(check);
+                checkStatement.setInt(1, id_user);
+                ResultSet result = checkStatement.executeQuery();
+                if (result.next()) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("User ID: " + id_user + " can only participate in one event at a time!");
+                    alert.showAndWait();
+                } else {
+                    Event_Services.insertuser(id_user,first_name, last_name,adress,gender,event_id);
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Added!");
+                    alert.showAndWait();
+                    // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+                    showparticipants();
+                    labelupdate();
+                    
+                }
+            } catch (Exception e) {
+                Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "fatal error!!", e);
+            }
+        
+    }
 
 //    private void deconnect_btn(ActionEvent event) {
 //        deconnect.setStyle("-fx-background-color: #470011 ");
