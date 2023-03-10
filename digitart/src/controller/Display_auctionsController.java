@@ -175,8 +175,10 @@ public class Display_auctionsController implements Initializable {
         Data.back_auction = false;
         if (Bid_Services.Display(t.getId_auction()).isEmpty()) {
             Dslay_update_button.setDisable(false);
+            Dslay_delete_button.setDisable(false);
         } else {
             Dslay_update_button.setDisable(true);
+            Dslay_delete_button.setDisable(true);
         }
         return t;
     }
