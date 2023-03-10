@@ -304,6 +304,7 @@ if (BirthDate.isBefore(today)) {
      
          user.modifyuser(u);
          Data.user = user.getgoogleuserdata(u.getEmail());
+         Data.user.setImage(imageUrl);
          errormsgfiiledit.setText("your profile is successfully modified!!");  
          errormsggender_edit.setText(""); 
          errormsgfname_edit.setText(""); 
@@ -340,6 +341,7 @@ if (BirthDate.isBefore(today)) {
      
          user.modifyuser(u);
          Data.user = user.getgoogleuserdata(u.getEmail());
+         
          errormsgfiiledit.setText("your profile is successfully modified!!");  
          errormsggender_edit.setText(""); 
          errormsgfname_edit.setText(""); 

@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<HBox fx:id="one_event" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="809.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event_displayController">
+<HBox fx:id="one_event" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="923.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Event_displayController">
    <children>
-      <VBox prefHeight="349.0" prefWidth="339.0">
+      <VBox prefHeight="384.0" prefWidth="446.0">
          <children>
             <HBox prefHeight="49.0" prefWidth="360.0">
                <children>
@@ -20,7 +20,7 @@
                         <Font name="Berlin Sans FB" size="22.0" />
                      </font>
                   </Text>
-                  <Label fx:id="txt_event_name" text="Label" textFill="WHITE">
+                  <Label fx:id="txt_event_name" prefHeight="22.0" prefWidth="270.0" text="Label" textFill="WHITE">
                      <font>
                         <Font name="Berlin Sans FB" size="20.0" />
                      </font>
@@ -55,7 +55,7 @@
                   </Label>
                </children>
             </HBox>
-            <HBox prefHeight="62.0" prefWidth="360.0">
+            <HBox prefHeight="62.0" prefWidth="443.0">
                <children>
                   <Text fill="#dfdfdf" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Details :" wrappingWidth="169.4267578125">
                      <font>
