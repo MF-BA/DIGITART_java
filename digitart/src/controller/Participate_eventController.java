@@ -147,8 +147,8 @@ public class Participate_eventController implements Initializable {
      */
     public void labelupdate()
     {
-        String name=null;
-        event_name_show.setText(getname(name));
+        
+        event_name_show.setText(getname());
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -196,8 +196,9 @@ public class Participate_eventController implements Initializable {
 
     
     
-    public String getname(String name)
+    public String getname()
     {
+     String name=null;   
         int id=0;
         PreparedStatement pst;
         String sql = "SELECT * FROM participants WHERE id_user=?";
@@ -270,6 +271,7 @@ public class Participate_eventController implements Initializable {
         }
         if(event.getSource()==btndelete){
            EventDelete();
+           labelupdate();
         }
     }
     

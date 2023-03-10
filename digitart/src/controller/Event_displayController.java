@@ -38,13 +38,18 @@ import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 import utils.Conn;
 
 /**
@@ -151,6 +156,7 @@ public class Event_displayController implements Initializable {
     private void handleButtonAction(ActionEvent event) {
         if(event.getSource()==btnparticipate){
            UserAdd(test.getEvent_id());
+           refresh(event);
         }
     }
     public void UserAdd(int id_event) {
@@ -196,6 +202,22 @@ public class Event_displayController implements Initializable {
                 Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "fatal error!!", e);
             }
         
+    }
+      public void refresh(ActionEvent event) {
+
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/participate_event.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 public void generateQRCode() {
     String url = "https://artsandculture.google.com/search?q="+txt_event_name.getText().replaceAll("\\s+", "%20")+"%20"+ txt_start_date.getText().replaceAll("\\s+", "%20"+ txt_end_date.getText().replaceAll("\\s+", "%20")+ txt_event_desc.getText().replaceAll("\\s+", "%20"));
