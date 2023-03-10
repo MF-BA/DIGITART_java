@@ -6,6 +6,7 @@
 package controller;
 
 import Services.users_Services;
+import static controller.Signin_pageController.conn;
 import doryan.windowsnotificationapi.fr.Notification;
 import entity.Data;
 import entity.users;
@@ -314,6 +315,10 @@ public class DashboardController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent pt;
+    @FXML
+    private Circle circle_image_user;
+    @FXML
+    private ImageView avatar_image1;
     /**
      * Initializes the controller class.
      */
@@ -865,7 +870,21 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
        }
            else
            {
-              users newSelection = user_table.getSelectionModel().getSelectedItem();
+               users newSelection = user_table.getSelectionModel().getSelectedItem();
+                String image_user = null;
+                String sql = "SELECT * FROM users where email = ?";
+       try {
+        pst = conn.prepareStatement(sql);
+        pst.setString(1, newSelection.getEmail());
+        ResultSet rs1 = pst.executeQuery();
+                            if (rs1.next()) {
+                                image_user = rs1.getString("image");
+                            }   
+    } catch (SQLException ex) {
+         System.err.println("error!!");
+          Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+          }
+              
       if (newSelection != null) {
         String role = (String) Rolebox_up.getSelectionModel().getSelectedItem();
         users u = new users (idup,
@@ -880,7 +899,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
                 gender,
                 role,
                 newSelection.getStatus(),
-                newSelection.getImage(),
+                image_user,
                 newSelection.getSecretcode()
         );
         users_Services user = new users_Services();
@@ -932,6 +951,8 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
         editprofile_page.setVisible(false);
         userstats_dash.setVisible(false);
         update_page.setVisible(true);
+        
+        
     }
     @FXML
     private void clear_fields_update_btn(ActionEvent event) {
@@ -955,16 +976,40 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     @FXML
     private void modify_fromlist_btn(ActionEvent event) throws NoSuchAlgorithmException {
        
-       
+       String image_user = null;
       users newSelection = user_table.getSelectionModel().getSelectedItem();
+      
     if (newSelection != null) {
         // Set up the update page with text fields filled with the data of the selected user
-        
         getidupdate(newSelection.getId());
+        String sql = "SELECT * FROM users where email = ?";
+       try {
+        pst = conn.prepareStatement(sql);
+        pst.setString(1, newSelection.getEmail());
+        ResultSet rs1 = pst.executeQuery();
+                            if (rs1.next()) {
+                                image_user = rs1.getString("image");
+                            }   
+    } catch (SQLException ex) {
+         System.err.println("error!!");
+          Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        if (image_user!=null){
+      Image image = new Image(image_user);
+      circle_image_user.setFill(new ImagePattern(image));
+      }
+        else
+        {
+           circle_image_user.setFill(null); 
+        }
+        
         fname_up.setText(newSelection.getFirstname());
         lname_up.setText(newSelection.getLastname());
         //email_up.setText(newSelection.getEmail());
         //pwd_up.setText(newSelection.getPwd());
+        
+        
+        
         address_up.setText(newSelection.getAddress());
         if (newSelection.getGender().equals("Male")) {
             male_gender_up.setSelected(true);
@@ -1279,7 +1324,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     fileChooser.setTitle("Select Image");
     fileChooser.getExtensionFilters().addAll(
         new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-    File selectedFile = fileChooser.showOpenDialog(circle_image.getScene().getWindow());
+    File selectedFile = fileChooser.showOpenDialog(circle_image_user.getScene().getWindow());
     if (selectedFile != null) {
         imageFile = selectedFile;
         Image image = new Image(selectedFile.toURI().toString());
@@ -1288,7 +1333,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
          // Set the clip of the ImageView to the circle shape
          //avatar_image.setClip(circle_image);
         
-        circle_image.setFill(new ImagePattern(image));
+        circle_image_user.setFill(new ImagePattern(image));
     }
         
     }
@@ -1560,6 +1605,25 @@ chartgender.setLabelsVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void handleSelectImageprofile(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Select Image");
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+    File selectedFile = fileChooser.showOpenDialog(circle_image.getScene().getWindow());
+    if (selectedFile != null) {
+        imageFile = selectedFile;
+        Image image = new Image(selectedFile.toURI().toString());
+        
+        
+         // Set the clip of the ImageView to the circle shape
+         //avatar_image.setClip(circle_image);
+        
+        circle_image.setFill(new ImagePattern(image));
+    }
     }
     
 }

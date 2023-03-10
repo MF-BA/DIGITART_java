@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 08 mars 2023 à 14:40
+-- Généré le : ven. 10 mars 2023 à 03:43
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -62,15 +62,14 @@ CREATE TABLE `artwork` (
 --
 
 INSERT INTO `artwork` (`id_art`, `artwork_name`, `id_artist`, `artist_name`, `date_art`, `description`, `image_art`, `id_room`) VALUES
-(11, 'La Joconde', -1, 'Léonard de Vinci', '1506-02-23', 'La Joconde, ou Portrait de Mona Lisa', 'http://localhost/images/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_natural_color.jpg', 2),
+(11, 'La Joconde', -1, 'Leonard de Vinci', '1506-02-23', 'La Joconde, ou Portrait de Mona Lisa', 'http://localhost/images/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_natural_color.jpg', 2),
 (28, 'starry night', -1, 'Van Gogh', '1807-03-02', 'starry night van gogh', 'http://localhost/images/starry-night-1093721_960_720.jpg', 14),
 (33, 'Guernica', -1, 'Pablo Picasso', '1937-01-10', 'Guernica Pablo Picasso', 'http://localhost/images/Main_Guernica_BAT-10313.jpg', 11),
 (34, 'Ulysse et les sirène', -1, 'Bardo', '2023-03-18', 'dzqdqzd', 'http://localhost/images/Bardo_Mosaic_Ulysses.jpg', 12),
-(36, 'the scream', 2, ' Munch', '2023-03-24', 'the scream ', 'http://localhost/images/Edvard_Munch,_1893,_The_Scream,_oil,_tempera_and_pastel_on_cardboard,_91_x_73_cm,_National_Gallery_of_Norway.jpg', 2),
-(37, 'Meduse', 2, ' Munch', '1638-03-23', 'Le buste de Méduse est une sculpture en marbre inspirée du personnage mythologique éponyme.', 'http://localhost/images/Medusa_head_attributed_to_Gianlorenzo_Bernini_(Roma).jpg', 2),
-(50, 'Girl with mandolin', 35, 'Pablo Picasso', '2020-03-14', 'Pablo Picasso', 'http://localhost/images/9166uNbx9DL._AC_SL1500_.jpg', 4),
-(52, 'gauffrette', -1, 'CHOKOTOM', '2022-10-07', 'ma9tou33', 'http://localhost/images/Gaufrettes-CHOCOTOM-100g.jpg', 2),
-(53, 'La Boheme', 35, 'lastname', '2023-03-08', 'tanja77', 'http://localhost/images/1665_Girl_with_a_Pearl_Earring.jpg', 14);
+(36, 'the scream', 63, ' Munch', '2023-03-24', 'the scream ', 'http://localhost/images/Edvard_Munch,_1893,_The_Scream,_oil,_tempera_and_pastel_on_cardboard,_91_x_73_cm,_National_Gallery_of_Norway.jpg', 2),
+(37, 'Meduse', 63, ' Munch', '1638-03-23', 'Le buste de Méduse est une sculpture en marbre inspirée du personnage mythologique éponyme.', 'http://localhost/images/Medusa_head_attributed_to_Gianlorenzo_Bernini_(Roma).jpg', 2),
+(38, 'louve capitoline', 63, ' Munch', '2013-03-16', 'Elle est un symbole associé à la mythique légende de Romulus et Rémus et à la fondation de Rome depuis l\'Antiquité', 'http://localhost/images/22400-roma-campidoglio-e-musei-capitolini-03-sculture_jpg_1200_630_cover_85.jpg', 12),
+(50, 'Girl with mandolin', 63, 'Pablo Picasso', '2020-03-14', 'Pablo Picasso', 'http://localhost/images/9166uNbx9DL._AC_SL1500_.jpg', 4);
 
 -- --------------------------------------------------------
 
@@ -93,7 +92,7 @@ CREATE TABLE `auction` (
 --
 
 INSERT INTO `auction` (`id_auction`, `starting_price`, `increment`, `ending_date`, `description`, `id_artwork`, `state`) VALUES
-(38, 1000, 10, '2023-03-10', 'test', 37, NULL);
+(39, 15, 6, '2023-03-16', 'joli', 36, NULL);
 
 -- --------------------------------------------------------
 
@@ -114,7 +113,8 @@ CREATE TABLE `bid` (
 --
 
 INSERT INTO `bid` (`ID`, `date`, `offer`, `id_auction`, `id_user`) VALUES
-(1, '2023-03-08', 1000, 38, 2);
+(1, '2023-03-08', 1000, 38, 2),
+(2, '2023-03-10', 20, 39, 60);
 
 -- --------------------------------------------------------
 
@@ -139,12 +139,11 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`id`, `event_name`, `start_date`, `end_date`, `nb_participants`, `detail`, `start_time`, `id_room`, `image`) VALUES
-(20, 'event78', '2023-03-11', '2023-03-19', '4', '77', 9, 4, 'http://localhost/images/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_natural_color.jpg'),
-(25, 'event10', '2023-03-17', '2023-03-24', '13', 'awesome', 15, 4, 'http://localhost/images/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_natural_color.jpg'),
-(26, 'event13', '2023-03-16', '2023-03-25', '50', 'test', 6, 4, 'http://localhost/images/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_natural_color.jpg'),
-(27, 'event14', '2023-03-16', '2023-03-25', '50', 'test', 4, 4, 'http://localhost/images/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_natural_color.jpg'),
-(28, 'event89', '2023-03-09', '2023-03-18', '14', 'teest', 7, 4, 'http://localhost/images/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_natural_color.jpg'),
-(29, 'tlili', '2023-03-09', '2023-03-23', '100', 'test', 17, 11, 'http://localhost/images/333193552_2431029213712333_5205244347491257198_n.jpg');
+(20, 'Art workshops or classes', '2023-03-11', '2023-03-19', '4', 'This Event is dedicated to people who love art.', 9, 4, 'http://localhost/images/eventp1.jpg'),
+(25, 'Halloween event', '2023-03-17', '2023-03-24', '14', 'A halloween event where you can have fun with your friends', 15, 4, 'http://localhost/images/eventp2.jpg'),
+(30, 'Art event', '2023-03-11', '2023-03-16', '14', 'An event for gifted artists to develop their skills', 9, 4, 'http://localhost/images/eventp3.jpg'),
+(31, 'Summer event', '2023-06-08', '2023-06-15', '5', 'An awesome event ', 18, 4, 'http://localhost/images/eventp4.jpg'),
+(32, 'Guided tours of exhibitions', '2023-03-16', '2023-03-17', '24', 'A workshop for rookies to develop', 7, 4, 'http://localhost/images/eventp6.jpg');
 
 -- --------------------------------------------------------
 
@@ -160,14 +159,6 @@ CREATE TABLE `participants` (
   `adress` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `participants`
---
-
-INSERT INTO `participants` (`id_user`, `id_event`, `first_name`, `last_name`, `adress`, `gender`) VALUES
-(1, 20, 'firstname', 'lastname', 'address', ' gender'),
-(35, 27, 'aziz', 'loukil', 'soukra', 'Male');
 
 -- --------------------------------------------------------
 
@@ -190,9 +181,25 @@ CREATE TABLE `payment` (
 --
 
 INSERT INTO `payment` (`payment_id`, `user_id`, `purchase_date`, `nb_adult`, `nb_teenager`, `nb_student`, `total_payment`) VALUES
-(17, NULL, '2023-02-23', 4, 4, 4, 360),
-(21, NULL, '2023-02-22', 2, 4, 5, 300),
-(22, 1, '2026-03-25', 0, 0, 10, 500);
+(29, 58, '2023-02-24', 4, 4, 3, 66),
+(30, 58, '2023-02-25', 3, 2, 4, 119),
+(33, 58, '2023-02-28', 2, 2, 2, 78),
+(34, 58, '2023-02-27', 3, 4, 3, 127),
+(35, 58, '2023-02-28', 1, 2, 3, 73),
+(38, 58, '2023-03-19', 1, 1, 1, 48),
+(39, 58, '2023-03-19', 1, 1, 2, 63),
+(41, 58, '2023-03-20', 2, 0, 0, 40),
+(42, 58, '2023-03-31', 2, 1, 1, 68),
+(43, 58, '2023-04-09', 5, 4, 0, 150),
+(44, 58, '2023-04-09', 0, 1, 0, 15),
+(45, 58, '2023-04-09', 3, 0, 0, 54),
+(46, 58, '2023-04-03', 2, 3, 0, 114),
+(47, 58, '2023-04-09', 1, 0, 0, 24),
+(48, 58, '2023-04-03', 1, 3, 0, 90),
+(49, 58, '2023-04-20', 0, 2, 0, 44),
+(50, 58, '2023-03-09', 1, 0, 0, 18),
+(51, 58, '2023-03-30', 2, 2, 2, 120),
+(53, 58, '2023-03-10', 4, 2, 0, 100);
 
 -- --------------------------------------------------------
 
@@ -213,7 +220,6 @@ CREATE TABLE `room` (
 --
 
 INSERT INTO `room` (`id_room`, `name_room`, `area`, `state`, `description`) VALUES
-(1, 'room 1', 12, 'available', NULL),
 (2, 'Carthage', 260, 'Available', 'salle principale'),
 (4, 'Paris', 3333, 'Available', 'qdqzdqzd testazdazdaz'),
 (10, 'elyssa', 1000, 'Available', 'mezyena barcha'),
@@ -240,12 +246,17 @@ CREATE TABLE `ticket` (
 --
 
 INSERT INTO `ticket` (`ticket_id`, `ticket_date`, `ticket_edate`, `price`, `ticket_type`) VALUES
-(1, '2023-02-22', '2023-02-28', 20, 'Student'),
-(2, '2023-02-22', '2023-02-28', 30, 'Teen'),
-(3, '2023-02-22', '2023-02-28', 40, 'Adult'),
-(5555565, '2023-03-01', '2023-03-31', 100, 'Adult'),
-(5555566, '2023-03-01', '2023-03-31', 200, 'Teen'),
-(5555569, '2026-03-02', '2026-08-04', 50, 'Student');
+(5555579, '2023-03-09', '2023-03-19', 18, 'Adult'),
+(5555580, '2023-03-09', '2023-03-19', 14, 'Teen'),
+(5555581, '2023-03-09', '2023-03-19', 16, 'Student'),
+(5555582, '2023-03-26', '2023-03-31', 22, 'Adult'),
+(5555583, '2023-03-26', '2023-03-31', 18, 'Teen'),
+(5555584, '2023-03-26', '2023-03-31', 20, 'Student'),
+(5555585, '2023-04-04', '2023-04-18', 24, 'Adult'),
+(5555586, '2023-04-04', '2023-04-18', 22, 'Teen'),
+(5555587, '2023-04-26', '2023-04-30', 30, 'Adult'),
+(5555588, '2023-04-26', '2023-04-30', 28, 'Student'),
+(5555589, '2023-05-05', '2023-05-09', 12, 'Adult');
 
 -- --------------------------------------------------------
 
@@ -275,11 +286,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `cin`, `firstname`, `lastname`, `email`, `password`, `address`, `phone_num`, `birth_date`, `gender`, `role`, `status`, `image`, `secretcode`) VALUES
-(1, 12056998, 'mohamed amine', 'tlili', 'tliliamine@gmail.com', 'ebf173b0111b8539dbdb798c747365df73fda40bc5d2236ac2855f5bbf4575fd', 'ben arous', 96332258, '2020-02-21', 'Female', 'Admin', 'unblocked', '', NULL),
-(2, 12056889, 'koussay', 'bedhief', 'bedhiefkoussay2015@gmail.com', '6bb5f0d8fa58579312fd302f80f28fea70c7e9ece2e0b4a31a632c603dd19159', 'mourouj', 58963366, '2023-03-14', 'Male', 'Artist', 'unblocked', '', '4UQWPTI5GQPZ2YGU'),
-(16, 12056778, 'mohamed', 'aziz', 'azizlk@gmail.com', '50a6bd8bb1879fa3359cbe61ad7d623925671ecdb39980008cdd0dafca08db90', 'sokra', 58963364, '2023-02-08', 'Male', 'Subscriber', 'unblocked', '', NULL),
-(32, 12256889, 'mohamed', 'loukil', 'azouzloukil@gmail.com', '801add67bc22ff61beab8e41c71835d8ddfd6514039e802f90fefc90d8f9be8c', 'sokra', 25899455, '2001-07-26', 'Male', 'Admin', 'unblocked', '', 'ZDTHDOPLGWVDXKQ3'),
-(35, 12056889, 'Mohamed aziz', 'Loukil', 'mohamedazizloukil@gmail.com', '801add67bc22ff61beab8e41c71835d8ddfd6514039e802f90fefc90d8f9be8c', 'ariana', 99709666, '2001-07-26', 'Male', 'Artist', 'unblocked', '', NULL);
+(37, 12056996, 'mohamed aziz', 'loukil', 'mohamedazizloukil@gmail.com', '801add67bc22ff61beab8e41c71835d8ddfd6514039e802f90fefc90d8f9be8c', 'sokra', 22568930, '2001-02-23', 'Male', 'Subscriber', 'unblocked', 'http://localhost/images/aziz33_superman_b267cce2-5ef5-4db7-ae81-4271d2c94475.png', 'O746TGGCU2BPUA72'),
+(58, 12056333, 'mohamed', 'Loukil', 'mohamedaziz.loukil@esprit.tn', '801add67bc22ff61beab8e41c71835d8ddfd6514039e802f90fefc90d8f9be8c', 'sokra', 22568933, '2023-03-06', 'Male', 'Artist', 'unblocked', 'http://localhost/images/aziz33_tarzan_ffc9f0c2-fff6-494d-bde5-683822493e43.png', 'PNRI6SJUAFIBBQZG'),
+(59, 15062336, 'mohamed', 'laatar', 'laatarmomo@gmail.com', '4745650ac58c6724ffc4dca877da8d21fd9710dc2e9e0c1406d8e9e1e55e8e66', 'ghazela', 22568721, '2005-12-15', 'Male', 'Gallery manager', 'unblocked', 'http://localhost/images/333030573_1485429128655295_2971294285675876785_n.jpg', 'ULSPLOAKS7PODBG6'),
+(60, 12056996, 'mohamed fedi', 'ben aoun', 'fedi12.benaoun@gmail.com', 'c281175401fe13710b9b59ff54c02ee6c5c75c0e982d1ed17458d1d4a5a036f8', 'benzart', 77956223, '2008-03-13', 'Male', 'Auction manager', 'unblocked', 'http://localhost/images/aziz33_soldier_ffb01c9c-ab87-400f-b5a4-b7f819bfa17c.png', 'ONXBMA36U5FSK5MZ'),
+(63, 12056889, 'mohamed aziz', 'loukil', 'azouzloukil@gmail.com', '801add67bc22ff61beab8e41c71835d8ddfd6514039e802f90fefc90d8f9be8c', 'sokra', 99717964, '2001-07-26', 'Male', 'Admin', 'unblocked', 'http://localhost/images/aziz33_marine_captain_e752b03f-5c4d-464b-bd21-c8d68b90cb10.png', 'JWRFFVXDWUK6OGJB'),
+(64, 12256889, 'koussay ', 'bedhief', 'bedhiefkoussay2015@gmail.com', 'da647e52af229e752ea5a9e68a588ddca0989449c24cc473060d72ef7e2e8af1', 'ben arous', 22456889, '2005-03-17', 'Male', 'Events manager', 'unblocked', 'http://localhost/images/325644093_580052893938483_341883584659727359_n.jpg', 'J75QYLOP77QJ6ILE'),
+(65, 15263889, 'mohamed amine ', 'tlili', 'aminemehdi999@gmail.com', 'ebf173b0111b8539dbdb798c747365df73fda40bc5d2236ac2855f5bbf4575fd', 'ben arous', 22567812, '2013-03-15', 'Male', 'Tickets manager', 'unblocked', 'http://localhost/images/tlili.png', '25LFPTJHRNZFKUBV');
 
 --
 -- Index pour les tables déchargées
@@ -352,49 +365,49 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `artwork`
 --
 ALTER TABLE `artwork`
-  MODIFY `id_art` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_art` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT pour la table `auction`
 --
 ALTER TABLE `auction`
-  MODIFY `id_auction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id_auction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT pour la table `bid`
 --
 ALTER TABLE `bid`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `payment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `payment_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT pour la table `room`
 --
 ALTER TABLE `room`
-  MODIFY `id_room` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_room` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `ticket`
 --
 ALTER TABLE `ticket`
-  MODIFY `ticket_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5555570;
+  MODIFY `ticket_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5555590;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- Contraintes pour les tables déchargées

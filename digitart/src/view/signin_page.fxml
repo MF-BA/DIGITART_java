@@ -111,7 +111,7 @@
                   <Font size="17.0" />
                </font>
             </Button>
-            <Button layoutX="296.0" layoutY="651.0" mnemonicParsing="false" onAction="#forgotPasswordButton" style="-fx-background-color: transparent;" styleClass="forget-btn" stylesheets="@auctionDesign.css" text="Forget your password?" underline="true" />
+            <Button layoutX="296.0" layoutY="651.0" mnemonicParsing="false" onAction="#forgotPasswordButton" style="-fx-background-color: transparent;" styleClass="forget-btn" stylesheets="@auctionDesign.css" text="Forgot your password?" underline="true" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="codepage" layoutX="276.0" layoutY="9.0" prefHeight="680.0" prefWidth="719.0" visible="false">

@@ -274,8 +274,8 @@ public class Signin_pageController implements Initializable {
 
                 ResultSet rs = pst.executeQuery();
                 if (rs.next()) {
-                    //if (!captcha.equals(captchaText))
-                    if (!captcha.equals("aziz")) {
+                    
+                    if (!captcha.equals(captchaText)) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
                         alert.setHeaderText("Invalid Captcha");

@@ -148,16 +148,12 @@ public class Participate_eventController implements Initializable {
      * Initializes the controller class.
      */
     public void labelupdate()
-    {
-        String name_event = getname();
-        if (name_event!=null){
-            event_name_show.setText(getname());
-        }
-        
-        
+    {  
+        event_name_show.setText(getname());
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        events_btn.setStyle("-fx-background-color: #bd2a2e"); 
         labelusername.setText(Data.user.getFirstname());
         if (Data.user.getImage()!=null){
         Image image = new Image(Data.user.getImage());
@@ -167,8 +163,6 @@ public class Participate_eventController implements Initializable {
         {
             circle_image.setFill(null);
         }
-       
-     
         showparticipants();
         combobox();
         labelupdate();
@@ -215,7 +209,7 @@ public class Participate_eventController implements Initializable {
     
     public String getname()
     {
-        String name=null;
+     String name=null;   
         int id=0;
         PreparedStatement pst;
         String sql = "SELECT * FROM participants WHERE id_user=?";
@@ -288,6 +282,7 @@ public class Participate_eventController implements Initializable {
         }
         if(event.getSource()==btndelete){
            EventDelete();
+           labelupdate();
         }
     }
     
@@ -405,7 +400,7 @@ public class Participate_eventController implements Initializable {
 //        }
 //    }
 
-    @FXML
+        @FXML
     private void disconnect_btn(ActionEvent event) {
          try {
             Parent parent2 = FXMLLoader
@@ -514,7 +509,5 @@ public class Participate_eventController implements Initializable {
         anc_scroll.setVisible(true);
         events_btn.setStyle("-fx-background-color: #bd2a2e "); 
     }
-
-    
 
 }

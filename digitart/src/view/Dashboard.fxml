@@ -205,7 +205,7 @@
             </CheckBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="listusers_btn" layoutX="250.0" layoutY="7.0" prefHeight="709.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;" visible="false">
+      <AnchorPane fx:id="listusers_btn" layoutX="250.0" layoutY="7.0" prefHeight="709.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;">
          <children>
             <TableView fx:id="user_table" layoutX="17.0" layoutY="197.0" prefHeight="445.0" prefWidth="913.0" style="-fx-alignement: center;" stylesheets="@auctionDesign.css">
               <columns>
@@ -271,7 +271,7 @@
          </children>
       </AnchorPane>
       <AnchorPane fx:id="default_anchor" layoutX="254.0" layoutY="-1.0" prefHeight="722.0" prefWidth="946.0" style="-fx-background-color: #E5E7E6;" visible="false" />
-      <AnchorPane fx:id="update_page" layoutX="255.0" layoutY="2.0" prefHeight="709.0" prefWidth="936.0">
+      <AnchorPane fx:id="update_page" layoutX="255.0" layoutY="2.0" prefHeight="709.0" prefWidth="936.0" visible="false">
          <children>
             <Label layoutX="323.0" layoutY="8.0" prefHeight="67.0" prefWidth="290.0" text="Modify user" textFill="#bd2a2e">
                <font>

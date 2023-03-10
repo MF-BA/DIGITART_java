@@ -55,6 +55,23 @@
             <AnchorPane fx:id="home" layoutX="8.0" layoutY="193.0" prefHeight="577.0" prefWidth="1198.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="homepage_anchorpane" layoutX="14.0" layoutY="195.0" prefHeight="587.0" prefWidth="1268.0" />
+      <AnchorPane fx:id="homepage_anchorpane" layoutX="14.0" layoutY="195.0" prefHeight="587.0" prefWidth="1268.0">
+         <children>
+            <Label layoutX="444.0" layoutY="32.0" prefHeight="294.0" prefWidth="380.0" text="WELCOME " textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="74.0" />
+               </font>
+            </Label>
+            <Label layoutX="266.0" layoutY="244.0" text="TO OUR APPLICATION" textFill="WHITE">
+               <font>
+                  <Font name="Berlin Sans FB" size="75.0" />
+               </font>
+            </Label>
+            <Label layoutX="387.0" layoutY="326.0" prefHeight="34.0" prefWidth="495.0" text="DIGITART IS AN APPLICATION FOR MUSEUM MANAGEMENT." textFill="#cd2c31">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children></AnchorPane>
    </children>
 </AnchorPane>

@@ -83,5 +83,13 @@
             <Font name="Berlin Sans FB" size="70.0" />
          </font>
       </Label>
+      <Button fx:id="disconnect" cache="true" layoutX="14.0" layoutY="634.0" mnemonicParsing="false" onAction="#deconnect_btn" prefHeight="43.0" prefWidth="139.0" styleClass="dashhome-btn" stylesheets="@auctionDesign.css" text="Disconnect" textFill="WHITE">
+         <font>
+            <Font name="Berlin Sans FB" size="17.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="25" />
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

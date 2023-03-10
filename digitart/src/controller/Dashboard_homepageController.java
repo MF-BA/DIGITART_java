@@ -58,12 +58,15 @@ public class Dashboard_homepageController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent pt;
+    @FXML
+    private Button disconnect;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
        labeladminname.setText(Data.user.getFirstname());
        System.out.println(Data.user.getImage());
         
@@ -153,6 +156,23 @@ public class Dashboard_homepageController implements Initializable {
                     .getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Login");
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void deconnect_btn(ActionEvent event) {
+        try {
+            Parent parent2 = FXMLLoader
+                    .load(getClass().getResource("/view/signin_page.fxml"));
+
+            Scene scene = new Scene(parent2);
+            Stage stage = (Stage) ((Node) event.getSource())
+                    .getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("DIGITART");
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
