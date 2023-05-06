@@ -98,6 +98,7 @@ public class main extends Application {
         for (users user : users) {
             main test = new main();
             test.send_mail(user, id_auction.get(i));
+            System.out.println(user.getFirstname() + "  " + user.getLastname());
             i++;
         }
         Data.user = new users(35, 12, "Toutou", "Toutou", "laatarmomo@gmail.com", " pwd", "address", 45, LocalDate.of(2023, Month.FEBRUARY, 15), " gender", "Admin");

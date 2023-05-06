@@ -88,14 +88,18 @@ public class Auction_frontController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         labelusername.setText(Data.user.getFirstname());
-        if (Data.user.getImage()!=null){
+        try {
+    if (Data.user.getImage()!=null){
         Image image = new Image(Data.user.getImage());
         circle_image.setFill(new ImagePattern(image));
-        }
-        else
-        {
-            circle_image.setFill(null);
-        }
+    } else {
+        circle_image.setFill(null);
+    }
+} catch (Exception e) {
+    // handle the exception
+    System.out.println("An error occurred: " + e.getMessage());
+}
+
         if(Data.user.getRole().equals("Subscriber") )
         {
             auction_btn1.setVisible(false);

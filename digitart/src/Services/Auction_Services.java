@@ -170,15 +170,15 @@ public class Auction_Services {
         }
         return list;
     }
-    
+
     public static ArrayList<Auction> Display_front_public(int id_artist) {
         ArrayList<Auction> list = new ArrayList<>();
         Statement statement;
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE ending_date > CURDATE() and artwork.id_artist <>" + id_artist);
-
+            resultSet = statement.executeQuery("SELECT id_auction,starting_price,increment,ending_date,auction.description,auction.id_artwork  FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE ending_date > CURDATE() and artwork.id_artist <>" + id_artist);
+            //int id_auction, int starting_price, int increment, int id_artwork, LocalDate date, String description)
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(4).toLocalDate();
                 Auction data = new Auction(resultSet.getInt(1),
@@ -407,13 +407,14 @@ public class Auction_Services {
     public static ArrayList<users> verif_winners(ArrayList<Integer> id_auction) {
         ArrayList<users> list = new ArrayList<>();
 
-        Statement statement;
+        PreparedStatement statement;
         ResultSet resultSet;
         try {
-            statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT b.id_user,a.id_auction FROM bid b INNER JOIN auction a ON b.id_auction = a.id_auction WHERE b.offer = (SELECT MAX(b2.offer)"
-                    + "  FROM bid b2 WHERE b2.id_auction = a.id_auction) AND a.ending_date <= CURDATE() AND a.state IS NULL");
 
+            statement = conn.prepareStatement("SELECT b.id_user,a.id_auction FROM bid b INNER JOIN auction a ON b.id_auction = a.id_auction WHERE b.offer = (SELECT MAX(b2.offer)"
+                    + "  FROM bid b2 WHERE b2.id_auction = a.id_auction) AND a.ending_date <= CURDATE() AND a.state = ?  ");
+            statement.setString(1, "sold");
+            resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 id_auction.add(resultSet.getInt(2));
 
