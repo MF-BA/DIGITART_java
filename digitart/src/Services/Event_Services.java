@@ -109,8 +109,7 @@ public class Event_Services {
         try {
             connection = Conn.getCon();
             statement = connection.createStatement();
-            result = statement.executeQuery("SELECT * FROM event where start_date > current_date");
-
+result = statement.executeQuery("SELECT id, start_date, end_date, start_time, event_name, detail, nb_participants, id_room, image FROM event WHERE start_date > current_date");
             while (result.next()) {
                 
                

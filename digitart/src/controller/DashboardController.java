@@ -339,11 +339,11 @@ public class DashboardController implements Initializable {
         Image image = new Image(new File(imagePath).toURI().toString());
         circle_image.setFill(new ImagePattern(image));
         }*/
-        try {
-            
+        try {            
                 Image image = new Image(Data.user.getImage());
                 circle_image.setFill(new ImagePattern(image));
             
+
         } catch (Exception e) {
             // handle the exception
             System.out.println("An error occurred: " + e.getMessage());

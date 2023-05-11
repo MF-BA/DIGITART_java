@@ -131,10 +131,7 @@ public class Add_bidController implements Initializable {
         Map<String, String> map = objectMapper.readValue(json, new TypeReference<Map<String, String>>() {
         });
         Map<String, String> sortedMap = new TreeMap<>(map);
-
-        for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
-        }
+        
         return sortedMap;
     }
 

@@ -17,6 +17,15 @@ public class Participants {
     private int id_event;
     private String adress;
     private String gender;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Participants() {
     }

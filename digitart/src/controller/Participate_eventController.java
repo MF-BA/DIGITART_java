@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -147,21 +148,31 @@ public class Participate_eventController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    public void labelupdate()
-    {  
-        event_name_show.setText(getname());
+    public void labelupdate() {
+    List<String> eventNames = getname();
+    String labelText = "";
+    for (String name : eventNames) {
+        labelText += name + "\n";
     }
+    event_name_show.setText(labelText);
+    
+}
+
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        events_btn.setStyle("-fx-background-color: #bd2a2e"); 
+        events_btn.setStyle("-fx-background-color: #bd2a2e");
         labelusername.setText(Data.user.getFirstname());
-        if (Data.user.getImage()!=null){
-        Image image = new Image(Data.user.getImage());
-        circle_image.setFill(new ImagePattern(image));
-        }
-        else
-        {
-            circle_image.setFill(null);
+        try {
+            if (Data.user.getImage() != null) {
+                Image image = new Image(Data.user.getImage());
+                circle_image.setFill(new ImagePattern(image));
+            } else {
+                circle_image.setFill(null);
+            }
+        } catch (Exception e) {
+            // handle the exception
+            System.out.println("An error occurred: " + e.getMessage());
         }
         showparticipants();
         combobox();
@@ -180,16 +191,16 @@ public class Participate_eventController implements Initializable {
 
             try {
                 cardBox = fxmlLoader.load();
-                
+
                 Event_displayController cardController = fxmlLoader.getController();
-             //   System.out.println(auction_array_detailed.get(0));
+                //   System.out.println(auction_array_detailed.get(0));
                 cardController.show_event(event_array.get(i));
                 VBox cardPane = (VBox) cardBox.getChildren().get(1);
-                 cardPane.setOnMouseClicked(event -> {
+                cardPane.setOnMouseClicked(event -> {
                     // Pass the selected artwork to the detail view
                     getID(cardController.getEvent());
                 });
-            System.out.println(cardBox.getChildren());
+                System.out.println(cardBox.getChildren());
                 event_view.getChildren().add(cardBox);
                 if (column == 1) {
                     column = 0;
@@ -203,45 +214,39 @@ public class Participate_eventController implements Initializable {
             }
         }
 
-    }    
-
-    
-    
-    public String getname()
-    {
-     String name=null;   
-        int id=0;
-        PreparedStatement pst;
-        String sql = "SELECT * FROM participants WHERE id_user=?";
-        String sql1 = "SELECT * FROM event WHERE id=?";
-        
-        try {
-            pst = conn.prepareStatement(sql);
-             pst.setInt(1, Data.user.getId());
-             
-
-
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()) {
-                    id=rs.getInt("id_event");
-                    
-                }
-                pst = conn.prepareStatement(sql1);
-             pst.setInt(1, id);
-              ResultSet rs1 = pst.executeQuery();
-              if (rs1.next()) {
-                    name=rs1.getString("event_name");
-                    
-                }
-             
-        } catch (SQLException ex) {
-            Logger.getLogger(Participate_eventController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return name;
     }
-    
-    public void getID(Event event)
-    {
+
+   public List<String> getname() {
+    List<String> names = new ArrayList<>();
+    int id = 0;
+    PreparedStatement pst;
+    String sql = "SELECT * FROM participants WHERE id_user=?";
+    String sql1 = "SELECT * FROM event WHERE id=?";
+
+    try {
+        pst = conn.prepareStatement(sql);
+        pst.setInt(1, Data.user.getId());
+
+        ResultSet rs = pst.executeQuery();
+        while (rs.next()) {
+            id = rs.getInt("id_event");
+
+            pst = conn.prepareStatement(sql1);
+            pst.setInt(1, id);
+            ResultSet rs1 = pst.executeQuery();
+            if (rs1.next()) {
+                String name = rs1.getString("event_name");
+                names.add(name);
+            }
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(Participate_eventController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return names;
+}
+
+
+    public void getID(Event event) {
         System.out.println(event.getEvent_id());
     }
 
@@ -257,15 +262,15 @@ public class Participate_eventController implements Initializable {
         txt_event_name.setText(String.valueOf(eventt.getEvent_name()));
         ((ComboBox<Integer>) txt_room).setValue(eventt.getId_room());
     }
-    
-      private ArrayList<Event> eventlist;
+
+    private ArrayList<Event> eventlist;
+
     public void showparticipants() {
 
         eventlist = Event_Services.displayEvent();
         colevent_name.setCellValueFactory(new PropertyValueFactory<>("event_name"));
-        colstart_date.setCellValueFactory(new PropertyValueFactory<>("start_date") );
-        colend_date.setCellValueFactory(new PropertyValueFactory<>("end_date") );
-    
+        colstart_date.setCellValueFactory(new PropertyValueFactory<>("start_date"));
+        colend_date.setCellValueFactory(new PropertyValueFactory<>("end_date"));
 
         if (tabevent_user != null && tabevent_user instanceof TableView) {
             // Cast ticket_tableview to TableView<Ticket> and set its items
@@ -275,108 +280,106 @@ public class Participate_eventController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        if(event.getSource()==btnparticipate){
-           UserAdd();
-           
-           
+        if (event.getSource() == btnparticipate) {
+            UserAdd();
+
         }
-        if(event.getSource()==btndelete){
-           EventDelete();
-           labelupdate();
+        if (event.getSource() == btndelete) {
+            EventDelete();
+            labelupdate();
         }
     }
-    
-     public void combobox() {
+
+    public void combobox() {
         ObservableList<Integer> myObservableList = FXCollections.observableArrayList(Event_Services.find_idroom());
         txt_room.setItems(myObservableList);
-        
-        }
-     public void EventDelete() {
+
+    }
+
+    public void EventDelete() {
         Alert alert;
-         int id=0;
+        int id = 0;
         PreparedStatement pst;
         String sql = "SELECT * FROM participants WHERE id_user=?";
 
-        
         try {
             pst = conn.prepareStatement(sql);
-             pst.setInt(1, Data.user.getId());
-                ResultSet rs = pst.executeQuery();
-                if (rs.next()) {
-                    id=rs.getInt("id_event");               
-                }          
+            pst.setInt(1, Data.user.getId());
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id_event");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Participate_eventController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            
-        
-                alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Confirmation Message");
+
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete Your participation: " + id + "?");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get().equals(ButtonType.OK)) {
+                Event_Services.deletePart(id);
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Message");
                 alert.setHeaderText(null);
-                alert.setContentText("Are you sure you want to delete Your participation: " + id + "?");
-                Optional<ButtonType> option = alert.showAndWait();
-                if (option.get().equals(ButtonType.OK)) {
-                    Event_Services.deletePart(id);
-                    alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Deleted!");
-                    alert.showAndWait();
-                    labelupdate();
-                  
-                } else {
-                    return;
-                }
-            
+                alert.setContentText("Successfully Deleted!");
+                alert.showAndWait();
+                labelupdate();
+
+            } else {
+                return;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
+
     public void UserAdd() {
 
-       int id_user=Data.user.getId();
-        String first_name=Data.user.getFirstname();
-        String last_name=Data.user.getLastname();
-        String adress=Data.user.getAddress();
-        String gender=Data.user.getGender();
+        int id_user = Data.user.getId();
+        String first_name = Data.user.getFirstname();
+        String last_name = Data.user.getLastname();
+        String adress = Data.user.getAddress();
+        String gender = Data.user.getGender();
         int event_id = Integer.parseInt(this.txt_event_id.getText());
 
         Alert alert;
 
         // CHECK IF THE FIELDS ARE EMPTY
-      
-            try {
-                // CHECK IF THE TICKET ID ALREADY EXISTS
-                Connection connection;
-                connection = Conn.getCon();
-                String check = "SELECT id_user FROM participants WHERE id_user = ?";
-                PreparedStatement checkStatement = connection.prepareStatement(check);
-                checkStatement.setInt(1, id_user);
-                ResultSet result = checkStatement.executeQuery();
-                if (result.next()) {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("User ID: " + id_user + " can only participate in one event at a time!");
-                    alert.showAndWait();
-                } else {
-                    Event_Services.insertuser(id_user,first_name, last_name,adress,gender,event_id);
-                    alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
-                    alert.showAndWait();
-                    // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
-                    showparticipants();
-                    labelupdate();
-                    
-                }
-            } catch (Exception e) {
-                Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "fatal error!!", e);
+        try {
+            // CHECK IF THE TICKET ID ALREADY EXISTS
+            Connection connection;
+            connection = Conn.getCon();
+            String check = "SELECT id_user FROM participants WHERE id_user = ?";
+            PreparedStatement checkStatement = connection.prepareStatement(check);
+            checkStatement.setInt(1, id_user);
+            ResultSet result = checkStatement.executeQuery();
+            if (result.next()) {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("User ID: " + id_user + " can only participate in one event at a time!");
+                alert.showAndWait();
+            } else {
+                Event_Services.insertuser(id_user, first_name, last_name, adress, gender, event_id);
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Successfully Added!");
+                alert.showAndWait();
+                // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
+                showparticipants();
+                labelupdate();
+
             }
-        
+        } catch (Exception e) {
+            Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "fatal error!!", e);
+        }
+
     }
 
 //    private void deconnect_btn(ActionEvent event) {
@@ -399,10 +402,9 @@ public class Participate_eventController implements Initializable {
 //            Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //    }
-
-        @FXML
+    @FXML
     private void disconnect_btn(ActionEvent event) {
-         try {
+        try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/signin_page.fxml"));
 
@@ -417,9 +419,9 @@ public class Participate_eventController implements Initializable {
         }
     }
 
-
     @FXML
-    private void home_btn(ActionEvent event) {try {
+    private void home_btn(ActionEvent event) {
+        try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/Home_page.fxml"));
 
@@ -436,8 +438,8 @@ public class Participate_eventController implements Initializable {
 
     @FXML
     private void artwork_btn(ActionEvent event) {
-        
-         try {
+
+        try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/display_artwork_user.fxml"));
 
@@ -454,7 +456,7 @@ public class Participate_eventController implements Initializable {
 
     @FXML
     private void auction_btn(ActionEvent event) {
-       try {
+        try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/auction_front.fxml"));
 
@@ -466,14 +468,12 @@ public class Participate_eventController implements Initializable {
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
-
-   
 
     @FXML
     private void tickets_btn(ActionEvent event) {
-            try {
+        try {
             Parent parent2 = FXMLLoader
                     .load(getClass().getResource("/view/add_ticket_user.fxml"));
 
@@ -504,10 +504,11 @@ public class Participate_eventController implements Initializable {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     @FXML
     private void events_btn(ActionEvent event) {
         anc_scroll.setVisible(true);
-        events_btn.setStyle("-fx-background-color: #bd2a2e "); 
+        events_btn.setStyle("-fx-background-color: #bd2a2e ");
     }
 
 }

@@ -70,6 +70,7 @@ public class Dashboard_homepageController implements Initializable {
        labeladminname.setText(Data.user.getFirstname());
        System.out.println(Data.user.getImage());
         
+
        try {
             if (Data.user.getImage() != null) {
         Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage());

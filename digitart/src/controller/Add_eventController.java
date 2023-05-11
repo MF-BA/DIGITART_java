@@ -301,9 +301,16 @@ public class Add_eventController implements Initializable {
         list_of_events.setVisible(false);
         part_anc.setVisible(false);
         labeladminname.setText(Data.user.getFirstname());
-         if (Data.user.getImage()!=null){
-        Image image = new Image(Data.user.getImage());
-        circle_image.setFill(new ImagePattern(image));
+          try {
+            if (Data.user.getImage() != null) {
+                Image image = new Image(Data.user.getImage());
+                circle_image.setFill(new ImagePattern(image));
+            } else {
+                circle_image.setFill(null);
+            }
+        } catch (Exception e) {
+            // handle the exception
+            System.out.println("An error occurred: " + e.getMessage());
         }
          if(Data.user.getRole().equals("Events manager"))
          {
@@ -644,7 +651,7 @@ public void showSpinner1(Spinner<Integer> spinner) {
                 ResultSet result = checkStatement.executeQuery();
                  // String imagePath = file.getPath();
                  
-       imageUrl="http://localhost/images/"+selectedFile.getName();
+       imageUrl=selectedFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
 //        String imageFilePath = "C:\\xamppp\\htdocs\\piImg";
 
