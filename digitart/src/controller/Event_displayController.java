@@ -159,50 +159,47 @@ public class Event_displayController implements Initializable {
            refresh(event);
         }
     }
-    public void UserAdd(int id_event) {
+   public void UserAdd(int id_event) {
 
-        Event event =null;
-       int id_user=Data.user.getId();
-        String first_name=Data.user.getFirstname();
-        String last_name=Data.user.getLastname();
-        String adress=Data.user.getAddress();
-        String gender=Data.user.getGender();
-        int event_id = id_event;
+    int id_user = Data.user.getId();
+    String first_name = Data.user.getFirstname();
+    String last_name = Data.user.getLastname();
+    String address = Data.user.getAddress();
+    String gender = Data.user.getGender();
+    int event_id = id_event;
 
-        Alert alert;
+    Alert alert;
 
-        // CHECK IF THE FIELDS ARE EMPTY
-      
-            try {
-                // CHECK IF THE TICKET ID ALREADY EXISTS
-                Connection connection;
-                connection = Conn.getCon();
-                String check = "SELECT id_user FROM participants WHERE id_user = ?";
-                PreparedStatement checkStatement = connection.prepareStatement(check);
-                checkStatement.setInt(1, id_user);
-                ResultSet result = checkStatement.executeQuery();
-                if (result.next()) {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("User ID: " + id_user + " can only participate in one event at a time!");
-                    alert.showAndWait();
-                } else {
-                    Event_Services.insertuser(id_user,first_name, last_name,adress,gender,event_id);
-                    alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully Added!");
-                    alert.showAndWait();
-                    // UPDATE THE TABLE VIEW ONCE THE DATA IS SUCCESSFUL
-
-                    
-                }
-            } catch (Exception e) {
-                Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "fatal error!!", e);
-            }
+    try {
+        // Check if the user has already participated in this event
+        Connection connection = Conn.getCon();
+        String check = "SELECT id_user FROM participants WHERE id_user = ? AND id_event = ?";
+        PreparedStatement checkStatement = connection.prepareStatement(check);
+        checkStatement.setInt(1, id_user);
+        checkStatement.setInt(2, event_id);
+        ResultSet result = checkStatement.executeQuery();
         
+        if (result.next()) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("User ID: " + id_user + " has already participated in this event!");
+            alert.showAndWait();
+        } else {
+            // Insert the user's participation in the event
+            Event_Services.insertuser(id_user, first_name, last_name, address, gender, event_id);
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Successfully added!");
+            alert.showAndWait();
+            // Update the table view once the data is successful
+        }
+    } catch (Exception e) {
+        Logger.getLogger(ServiceTicket.class.getName()).log(Level.SEVERE, "Fatal error!", e);
     }
+}
+
       public void refresh(ActionEvent event) {
 
         try {

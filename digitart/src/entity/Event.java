@@ -82,7 +82,8 @@ public class Event {
     }
 
     public String getImage() {
-        return image;
+        String url = "http://127.0.0.1:8000/uploads/"+this.image;
+        return url;
     }
 
     public void setImage(String image) {

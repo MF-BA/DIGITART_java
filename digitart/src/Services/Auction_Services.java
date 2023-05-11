@@ -358,13 +358,13 @@ public class Auction_Services {
 
     public static String get_img(int id) {
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT image_art FROM artwork WHERE id_art= ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT image_name FROM imageartwork WHERE id_art = ? LIMIT 1;");
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString(1);
             } else {
-                throw new SQLException("No image_art found with id: " + id);
+                return "" ;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);

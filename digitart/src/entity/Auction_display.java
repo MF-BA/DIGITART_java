@@ -46,7 +46,13 @@ public class Auction_display {
     }
 
     public String getImg() {
-        return img;
+        String full_url;
+        if (!this.img.isEmpty()) {
+            full_url = "http://127.0.0.1:8000/uploads/" + this.img;
+        } else {
+            full_url = "http://127.0.0.1:8000/uploads/empty.jpeg";
+        }
+        return full_url;
     }
 
     public void setImg(String img) {

@@ -339,9 +339,16 @@ public class DashboardController implements Initializable {
         Image image = new Image(new File(imagePath).toURI().toString());
         circle_image.setFill(new ImagePattern(image));
         }*/
-        if (Data.user.getImage()!=null){
-        Image image = new Image(Data.user.getImage());
-        circle_image.setFill(new ImagePattern(image));
+        try {
+            if (Data.user.getImage() != null) {
+                Image image = new Image(Data.user.getImage());
+                circle_image.setFill(new ImagePattern(image));
+            } else {
+                circle_image.setFill(null);
+            }
+        } catch (Exception e) {
+            // handle the exception
+            System.out.println("An error occurred: " + e.getMessage());
         }
         if (Data.user.getRole().equals("Users manager"))
         {

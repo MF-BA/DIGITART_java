@@ -701,9 +701,16 @@ public class TicketController implements Initializable {
         
         
         
-        if (Data.user.getImage()!=null){
-        Image image = new Image(Data.user.getImage());
-        circle_image.setFill(new ImagePattern(image));
+         try {
+            if (Data.user.getImage() != null) {
+                Image image = new Image(Data.user.getImage());
+                circle_image.setFill(new ImagePattern(image));
+            } else {
+                circle_image.setFill(null);
+            }
+        } catch (Exception e) {
+            // handle the exception
+            System.out.println("An error occurred: " + e.getMessage());
         }
        name.setText(Data.user.getFirstname());
         if (Data.user.getRole().equals("Tickets manager"))
