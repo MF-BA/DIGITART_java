@@ -283,7 +283,8 @@ public class users {
     }
 
     public String getImage() {
-        return image;
+        
+        return image;    
     }
 
     public void setImage(String image) {

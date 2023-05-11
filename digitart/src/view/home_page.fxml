@@ -45,7 +45,7 @@
             <Button fx:id="events_btn" layoutX="274.0" layoutY="158.0" mnemonicParsing="false" onAction="#events_btn" prefHeight="35.0" prefWidth="94.0" styleClass="home-btn" stylesheets="@auctionDesign.css" text="Events" />
             <Circle fill="#bd2a2e" layoutX="1218.0" layoutY="66.0" radius="47.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.0" />
             <Circle fx:id="circle_image" fill="#bd2a2e" layoutX="1218.0" layoutY="66.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" />
-            <ImageView fx:id="avatar_image" fitHeight="94.0" fitWidth="103.0" layoutX="1167.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="avatar_image" fitHeight="94.0" fitWidth="103.0" layoutX="1167.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="labelusername" alignment="CENTER" contentDisplay="CENTER" layoutX="1026.0" layoutY="46.0" prefHeight="41.0" prefWidth="141.0" text="Welcome" textFill="#bd2a2e">
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />

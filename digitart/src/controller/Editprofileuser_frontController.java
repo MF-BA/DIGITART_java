@@ -138,12 +138,10 @@ public class Editprofileuser_frontController implements Initializable {
 //        circle_image_edit.setFill(new ImagePattern(image));
 //        }
  try {
-            if (Data.user.getImage() != null) {
-                Image image = new Image(Data.user.getImage());
-                circle_image_edit.setFill(new ImagePattern(image));
-            } else {
-                circle_image_edit.setFill(null);
-            }
+            
+              /*  Image image = new Image(Data.user.getImage());
+                circle_image_edit.setFill(new ImagePattern(image));*/
+            
         } catch (Exception e) {
             // handle the exception
             System.out.println("An error occurred: " + e.getMessage());
@@ -252,10 +250,10 @@ if (BirthDate.isBefore(today)) {
         Cin = Integer.parseInt(cin_editprof.getText().trim());  
     }   
     }
-       if (Cin!=0 && phone_number!=0 ){
-           
-       if (imageFile!=null){
-            imageUrl=imageFile.getName();
+       if (Cin!=0 && phone_number!=0 ){ 
+           System.out.println(imageFile);
+       if (imageFile != null){
+            imageUrl= imageFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
        //String imageFilePath = "C:\xamppp\htdocs\piImg";
 
