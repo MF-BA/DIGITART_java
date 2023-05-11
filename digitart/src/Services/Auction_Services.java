@@ -52,7 +52,7 @@ public class Auction_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date <= CURDATE() and artwork.id_artist =" + id_artist);
+            resultSet = statement.executeQuery("SELECT id_auction,starting_price,increment,ending_date,auction.description,auction.id_artwork FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date <= CURDATE() and artwork.id_artist =" + id_artist);
 
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(4).toLocalDate();
@@ -77,7 +77,7 @@ public class Auction_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date > CURDATE() and artwork.id_artist =" + id_artist);
+            resultSet = statement.executeQuery("SELECT id_auction ,starting_price,increment,ending_date,auction.description,auction.id_artwork  FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date > CURDATE() and artwork.id_artist =" + id_artist);
 
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(4).toLocalDate();
@@ -102,7 +102,7 @@ public class Auction_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date <= CURDATE()");
+            resultSet = statement.executeQuery("SELECT id_auction,starting_price,increment,ending_date,auction.description,auction.id_artwork FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date <= CURDATE()");
 
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(4).toLocalDate();
@@ -127,7 +127,7 @@ public class Auction_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date > CURDATE() ");
+            resultSet = statement.executeQuery("SELECT id_auction,starting_price,increment,ending_date,auction.description,auction.id_artwork FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE auction.ending_date > CURDATE() ");
 
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(4).toLocalDate();
@@ -152,7 +152,7 @@ public class Auction_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE ending_date > CURDATE() and artwork.id_artist =" + id_artist);
+            resultSet = statement.executeQuery("SELECT id_auction,starting_price,increment,ending_date,auction.description,auction.id_artwork FROM auction INNER JOIN artwork ON auction.id_artwork  = artwork.id_art WHERE ending_date > CURDATE() and artwork.id_artist =" + id_artist);
 
             while (resultSet.next()) {
                 LocalDate D = resultSet.getDate(4).toLocalDate();
@@ -364,7 +364,7 @@ public class Auction_Services {
             if (resultSet.next()) {
                 return resultSet.getString(1);
             } else {
-                return "" ;
+                return "";
             }
         } catch (SQLException ex) {
             Logger.getLogger(Auction_Services.class.getName()).log(Level.SEVERE, null, ex);

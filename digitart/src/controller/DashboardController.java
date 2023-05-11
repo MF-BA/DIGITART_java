@@ -317,7 +317,6 @@ public class DashboardController implements Initializable {
     private Circle circle_image_user;
     @FXML
     private ImageView avatar_image1;
-    @FXML
     private TableColumn<?, ?> profileImage_tb;
     /**
      * Initializes the controller class.
@@ -339,10 +338,26 @@ public class DashboardController implements Initializable {
         Image image = new Image(new File(imagePath).toURI().toString());
         circle_image.setFill(new ImagePattern(image));
         }*/
-        try {            
-                Image image = new Image(Data.user.getImage());
+        try {
+            if (Data.user.getImage() != null) {
+                Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage());
+                //Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage(), 350, 300, false, true);
+                // Set the image in the avatar_image ImageView (if you want to display it elsewhere)
+                //avatar_image.setImage(image);
+
+                // Create an ImagePattern object from the Image object
+                ImagePattern pattern = new ImagePattern(image);
+
+                // Set the ImagePattern as the fill for the circle
                 circle_image.setFill(new ImagePattern(image));
-            
+
+                // Print out some debug information (if you want)
+                System.out.println("Loaded user image: " + image);
+            } else {
+                Image image = new Image("http://127.0.0.1:8000/Back/images/icon-img.png", 350, 300, false, true);
+                //avatar_image.setImage(image);
+                circle_image.setFill(new ImagePattern(image));
+            }
 
         } catch (Exception e) {
             // handle the exception
@@ -445,7 +460,6 @@ public void comboboxedit()
     public void showusers()
     {
        userslist = users_Services.Displayusers();
-         profileImage_tb.setCellValueFactory(new PropertyValueFactory<>("image"));
         cin_tb.setCellValueFactory(new PropertyValueFactory<>("cin"));
         fname_tb.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         lname_tb.setCellValueFactory(new PropertyValueFactory<>("lastname"));
@@ -999,13 +1013,30 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
          System.err.println("error!!");
           Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
           }
-        if (image_user!=null){
-      Image image = new Image(image_user);
-      circle_image_user.setFill(new ImagePattern(image));
-      }
-        else
-        {
-           circle_image_user.setFill(null); 
+         try {
+            if (Data.user.getImage() != null) {
+                Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage());
+                //Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage(), 350, 300, false, true);
+                // Set the image in the avatar_image ImageView (if you want to display it elsewhere)
+                //avatar_image.setImage(image);
+
+                // Create an ImagePattern object from the Image object
+                ImagePattern pattern = new ImagePattern(image);
+
+                // Set the ImagePattern as the fill for the circle
+                circle_image.setFill(new ImagePattern(image));
+
+                // Print out some debug information (if you want)
+                System.out.println("Loaded user image: " + image);
+            } else {
+                Image image = new Image("http://127.0.0.1:8000/Back/images/icon-img.png", 350, 300, false, true);
+                //avatar_image.setImage(image);
+                circle_image.setFill(new ImagePattern(image));
+            }
+
+        } catch (Exception e) {
+            // handle the exception
+            System.out.println("An error occurred: " + e.getMessage());
         }
         
         fname_up.setText(newSelection.getFirstname());
@@ -1046,8 +1077,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
         user_table.getItems().remove(selectedUser);
         
     }
-   
-        
+
     }*/
 
     @FXML

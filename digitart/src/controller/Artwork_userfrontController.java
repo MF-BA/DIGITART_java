@@ -44,48 +44,55 @@ public class Artwork_userfrontController implements Initializable {
     private Label l_desc;
     @FXML
     private ImageView imagev;
-      private Image image1;
+    private Image image1;
     @FXML
     private ImageView qrcode;
-    
+
     public void qrcode() throws IOException, WriterException {
- 
-}
-public void generateQRCode() {
-    String url = "https://artsandculture.google.com/search?q="+l_nameartwork.getText().replaceAll("\\s+", "%20")+"%20";
 
-    QRCodeWriter qrCodeWriter = new QRCodeWriter();
-    ByteMatrix byteMatrix;
-    try {
-        byteMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
-    } catch (WriterException e) {
-        e.printStackTrace();
-        return;
     }
 
-    int width = byteMatrix.getWidth();
-    int height = byteMatrix.getHeight();
-    BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
-    for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-            int value = byteMatrix.get(x, y);
-            image.setRGB(x, y, value == 0 ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
+    public void generateQRCode() {
+        String url = "https://artsandculture.google.com/search?q=" + l_nameartwork.getText().replaceAll("\\s+", "%20") + "%20";
+
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        ByteMatrix byteMatrix;
+        try {
+            byteMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
+        } catch (WriterException e) {
+            e.printStackTrace();
+            return;
         }
-    }
 
-    Image fxImage = SwingFXUtils.toFXImage(image, null);
-    qrcode.setImage(fxImage);
-}
+        int width = byteMatrix.getWidth();
+        int height = byteMatrix.getHeight();
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_GRAY);
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int value = byteMatrix.get(x, y);
+                image.setRGB(x, y, value == 0 ? Color.WHITE.getRGB() : Color.BLACK.getRGB());
+            }
+        }
+
+        Image fxImage = SwingFXUtils.toFXImage(image, null);
+        qrcode.setImage(fxImage);
+    }
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
-    }  
+
+    }
+
     public void show_artwork(Artwork artwork) {
-         image1 = new Image("http://127.0.0.1:8000/uploads/"+artwork.getImage_art(), 350, 300, false, true);
+
+        if (!artwork.getImage_art().isEmpty()) {
+            image1 = new Image("http://127.0.0.1:8000/uploads/" + artwork.getImage_art(), 350, 300, false, true);
+        } else {
+            image1 = new Image("http://127.0.0.1:8000/uploads/empty.jpeg", 350, 300, false, true);
+        }
 
         imagev.setImage(image1);
         l_nameartwork.setText(artwork.getArtwork_name().toUpperCase());
@@ -94,21 +101,11 @@ public void generateQRCode() {
         l_date.setText(artwork.getDate_art().toString());
         l_room.setText(Artwork_Services.find_nameroom(artwork.getId_room()).toString());
         generateQRCode();
-        
+
     }
     /*
      public Artwork getArtwork() {
         return this.auction_display;
     }*/
 
-   
-       
-
-
-        
-        
-    
-        
-        
-    
 }

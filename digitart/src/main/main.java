@@ -48,7 +48,6 @@ public class main extends Application {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
-
     public void send_mail(users user, int id_auction) {
         //Session Creation
         Properties props = new Properties();

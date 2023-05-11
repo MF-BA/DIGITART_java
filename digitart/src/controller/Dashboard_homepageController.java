@@ -54,59 +54,58 @@ public class Dashboard_homepageController implements Initializable {
     @FXML
     private Label labeladminname11;
 
-    
     private Stage stage;
     private Scene scene;
     private Parent pt;
     @FXML
     private Button disconnect;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
-       labeladminname.setText(Data.user.getFirstname());
-       System.out.println(Data.user.getImage());
-        
 
-       try {
+        labeladminname.setText(Data.user.getFirstname());
+        System.out.println(Data.user.getImage());
+
+        try {
             if (Data.user.getImage() != null) {
-        Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage());
-   //Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage(), 350, 300, false, true);
-    // Set the image in the avatar_image ImageView (if you want to display it elsewhere)
-       avatar_image.setImage(image);
+                Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage());
+                //Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage(), 350, 300, false, true);
+                // Set the image in the avatar_image ImageView (if you want to display it elsewhere)
+                //avatar_image.setImage(image);
 
-    // Create an ImagePattern object from the Image object
-    //ImagePattern pattern = new ImagePattern(image);
+                // Create an ImagePattern object from the Image object
+                ImagePattern pattern = new ImagePattern(image);
 
-    // Set the ImagePattern as the fill for the circle
-    //circle_image.setFill(new ImagePattern(image));
+                // Set the ImagePattern as the fill for the circle
+                circle_image.setFill(new ImagePattern(image));
 
-    // Print out some debug information (if you want)
-    System.out.println("Loaded user image: " + image);
-    } else {
-        Image image = new Image("http://127.0.0.1:8000/Back/images/icon-img.png", 350, 300, false, true);
-    avatar_image.setImage(image);
-   // circle_image.setFill(new ImagePattern(image));
-    }
-            
+                // Print out some debug information (if you want)
+                System.out.println("Loaded user image: " + image);
+            } else {
+                Image image = new Image("http://127.0.0.1:8000/Back/images/icon-img.png", 350, 300, false, true);
+                //avatar_image.setImage(image);
+                circle_image.setFill(new ImagePattern(image));
+            }
+
         } catch (Exception e) {
             // handle the exception
             System.out.println("An error occurred: " + e.getMessage());
         }
-       
-    }    
+
+    }
 
     @FXML
     private void users_btn(ActionEvent event) {
         try {
-             pt=FXMLLoader
+            pt = FXMLLoader
                     .load(getClass().getResource("/view/Dashboard.fxml"));
-            
-             scene=new Scene(pt);
-             stage=(Stage) ((Node) event.getSource())
+
+            scene = new Scene(pt);
+            stage = (Stage) ((Node) event.getSource())
                     .getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Login");
@@ -118,29 +117,29 @@ public class Dashboard_homepageController implements Initializable {
 
     @FXML
     private void gallery_btn(ActionEvent event) {
-       try {
-             pt=FXMLLoader
+        try {
+            pt = FXMLLoader
                     .load(getClass().getResource("/view/display_artwork.fxml"));
-            
-             scene=new Scene(pt);
-             stage=(Stage) ((Node) event.getSource())
+
+            scene = new Scene(pt);
+            stage = (Stage) ((Node) event.getSource())
                     .getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Login");
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     @FXML
     private void tickets_btn(ActionEvent event) {
         try {
-             pt=FXMLLoader
+            pt = FXMLLoader
                     .load(getClass().getResource("/view/add_ticket.fxml"));
-            
-             scene=new Scene(pt);
-             stage=(Stage) ((Node) event.getSource())
+
+            scene = new Scene(pt);
+            stage = (Stage) ((Node) event.getSource())
                     .getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Login");
@@ -153,11 +152,11 @@ public class Dashboard_homepageController implements Initializable {
     @FXML
     private void auction_btn(ActionEvent event) {
         try {
-             pt=FXMLLoader
+            pt = FXMLLoader
                     .load(getClass().getResource("/view/display_auction_back.fxml"));
-            
-             scene=new Scene(pt);
-             stage=(Stage) ((Node) event.getSource())
+
+            scene = new Scene(pt);
+            stage = (Stage) ((Node) event.getSource())
                     .getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Login");
@@ -170,11 +169,11 @@ public class Dashboard_homepageController implements Initializable {
     @FXML
     private void events_btn(ActionEvent event) {
         try {
-             pt=FXMLLoader
+            pt = FXMLLoader
                     .load(getClass().getResource("/view/add_event.fxml"));
-            
-             scene=new Scene(pt);
-             stage=(Stage) ((Node) event.getSource())
+
+            scene = new Scene(pt);
+            stage = (Stage) ((Node) event.getSource())
                     .getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Login");
@@ -200,5 +199,5 @@ public class Dashboard_homepageController implements Initializable {
             Logger.getLogger(Signin_pageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
