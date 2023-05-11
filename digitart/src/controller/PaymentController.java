@@ -191,14 +191,15 @@ public class PaymentController implements Initializable {
 
                 try {
                     Connection conn = Conn.getCon();
-                    PreparedStatement stmt = conn.prepareStatement("INSERT INTO payment (purchase_date, nb_adult, nb_teenager, nb_student, total_payment, user_id) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement stmt = conn.prepareStatement("INSERT INTO payment (purchase_date, nb_adult, nb_teenager, nb_student, total_payment, user_id, paid) VALUES (?, ?, ?, ?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
                     stmt.setDate(1, java.sql.Date.valueOf(payment.getPurchaseDate()));
                     stmt.setInt(2, payment.getNbAdult());
                     stmt.setInt(3, payment.getNbTeenager());
                     stmt.setInt(4, payment.getNbStudent());
                     stmt.setInt(5, payment.getTotalPayment());
-                    stmt.setInt(6, payment.getId());
-
+                    stmt.setInt(6, payment.getId());  
+                    stmt.setInt(7, 1);
+                 
                     int affectedRows = stmt.executeUpdate();
 
                     if (affectedRows == 0) {
@@ -219,11 +220,12 @@ public class PaymentController implements Initializable {
                 String to = payment_email.getText(); // email address where the email will be sent
                 String subject = "Thanks Sir " + payment_name.getText() + " for your Purchase"; // email subject
 
-                // Generate the content for the email body
                 String body = "<html><body style='font-family: Arial, sans-serif;'>"
-                        + "<h1 style='color: #5c5c5c;'>Enjoy you're tour !</h1>"
-                        + "<p>Here's a summary of your purchase:</p>"
-                        + "<ul>"
+                        + "<table style='width: 100%; border-collapse: collapse;'>"
+                        + "<tr><td style='text-align: center;'><img src='cid:logo' style='max-width: 100%; height: auto;'></td></tr>"
+                        + "<tr><td style='text-align: center;'><h1 style='color: #5c5c5c;'>Enjoy your tour!</h1></td></tr>"
+                        + "<tr><td><p>Here's a summary of your purchase:</p></td></tr>"
+                        + "<tr><td><ul>"
                         + "<li style='list-style: none;'><b>Date:</b> " + purchaseDate + "</li>";
 
                 // Add Adult ticket info if not 0
@@ -242,10 +244,11 @@ public class PaymentController implements Initializable {
                 }
 
                 body += "<li style='list-style: none;'><b>Total Price:</b> $" + totalPayment + "</li>" // Add the $ symbol here
-                        + "</ul>"
-                        + "<p>Thank you for choosing our service. We hope to see you again soon!</p>"
-                        + "<img src='cid:logo'/>"
+                        + "</ul></td></tr>"
+                        + "<tr><td style='text-align: center;'><p>Thank you for choosing our service. We hope to see you again soon!</p></td></tr>"
+                        + "</table>"
                         + "</body></html>";
+
 
                 final String username = "aminenoob614@gmail.com"; // your email address
                 final String password = "jgfplacevvaghzfj"; // your email password
@@ -273,21 +276,23 @@ public class PaymentController implements Initializable {
                     // Create a MimeMultipart object to hold the email content and attachments
                     MimeMultipart multipart = new MimeMultipart();
 
+                    // Create a MimeBodyPart for the logo image
+                    MimeBodyPart imagePart = new MimeBodyPart();
+                    imagePart.attachFile(new File("src/view/image/Banner.PNG")); // replace with the actual path to your logo image
+                    imagePart.setContentID("<logo>");
+
+                    // Add the imagePart as the first body part in the MimeMultipart
+                    multipart.addBodyPart(imagePart, 0);
+
                     // Create a MimeBodyPart for the email content and add it to the MimeMultipart
                     MimeBodyPart contentPart = new MimeBodyPart();
                     contentPart.setContent(body, "text/html");
                     multipart.addBodyPart(contentPart);
 
-                    // Create a MimeBodyPart for the logo image and add it to the MimeMultipart
-                    // Create a MimeBodyPart for the logo image and add it to the MimeMultipart
-                    MimeBodyPart imagePart = new MimeBodyPart();
-                    imagePart.attachFile(new File("src/view/image/logoD.PNG")); // replace with the actual path to your logo image
-                    imagePart.setContentID("<logo>");
-                    multipart.addBodyPart(imagePart);
-                   
                     // Set the MimeMultipart as the email content and send the email
                     message.setContent(multipart);
                     Transport.send(message);
+
 
                     System.out.println("Email sent successfully!");
 
