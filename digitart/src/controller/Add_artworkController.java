@@ -230,8 +230,13 @@ private void btn_add_clicked(ActionEvent event) throws IOException {
         }else
         {id_artist = this.input_id_artist.getSelectionModel().getSelectedItem();}
       Alert alert;
-    if(selectedFile!=null)  {
-       imageUrl="http://localhost/images/"+selectedFile.getName();
+    if(selectedFile != null)  {
+        
+        System.out.println("_____________");
+        System.out.println(selectedFile.getName());
+        System.out.println("----------");
+       imageUrl=selectedFile.getName();
+        
        String phpUrl = "http://localhost/images/upload.php";
 
 
@@ -302,7 +307,7 @@ private void btn_add_clicked(ActionEvent event) throws IOException {
          nameRoom = idRoomControl.getSelectionModel().getSelectedItem();
         
         id_room = Artwork_Services.find_idroom(nameRoom) ;
-        Artwork artwork = new Artwork(name, id_artist, nameartist, date, desc, Data.artwork.getImage_art(), id_room);
+        Artwork artwork = new Artwork(name, id_artist, nameartist, date, desc,null, id_room);
         Artwork_Services.add(artwork);
         alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information Message");

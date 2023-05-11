@@ -62,6 +62,7 @@ public class Artwork_display {
     public void setImage_art(String image_art) {
         this.image_art = image_art;
     }
+    
 
     public void setId_room(int id_room) {
         this.id_room = id_room;
@@ -96,7 +97,7 @@ public class Artwork_display {
     }
 
     public String getImage_art() {
-        return image_art;
+        return image_art="http://127.0.0.1:8000/uploads/"+this.image_art;
     }
 
     public int getId_room() {

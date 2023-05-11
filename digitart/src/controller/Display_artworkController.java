@@ -224,8 +224,10 @@ public class Display_artworkController implements Initializable {
             return;
         }
         
-          URL url = new URL(selectedArtwork.getImage_art());
-        Image image1 = new Image(url.openStream(), 367, 314, false, true);
+          String url = selectedArtwork.getImage_art();
+          if(selectedArtwork.getImage_art().isEmpty())
+              url="pasdimage.jpg";
+        Image image1 = new Image("http://127.0.0.1:8000/uploads/"+url, 367, 314, false, true);
         image.setImage(image1);
 
     }

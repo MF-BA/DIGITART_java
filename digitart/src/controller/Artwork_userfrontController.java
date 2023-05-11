@@ -52,7 +52,7 @@ public class Artwork_userfrontController implements Initializable {
  
 }
 public void generateQRCode() {
-    String url = "https://artsandculture.google.com/search?q="+l_nameartwork.getText().replaceAll("\\s+", "%20")+"%20"+ l_nameartist.getText().replaceAll("\\s+", "%20");
+    String url = "https://artsandculture.google.com/search?q="+l_nameartwork.getText().replaceAll("\\s+", "%20")+"%20";
 
     QRCodeWriter qrCodeWriter = new QRCodeWriter();
     ByteMatrix byteMatrix;
@@ -85,7 +85,7 @@ public void generateQRCode() {
        
     }  
     public void show_artwork(Artwork artwork) {
-         image1 = new Image(artwork.getImage_art(), 350, 300, false, true);
+         image1 = new Image("http://127.0.0.1:8000/uploads/"+artwork.getImage_art(), 350, 300, false, true);
 
         imagev.setImage(image1);
         l_nameartwork.setText(artwork.getArtwork_name().toUpperCase());
@@ -93,7 +93,7 @@ public void generateQRCode() {
         l_desc.setText(artwork.getDescription());
         l_date.setText(artwork.getDate_art().toString());
         l_room.setText(Artwork_Services.find_nameroom(artwork.getId_room()).toString());
-         generateQRCode();
+        generateQRCode();
         
     }
     /*
