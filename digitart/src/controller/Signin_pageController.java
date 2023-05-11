@@ -6,6 +6,7 @@
 package controller;
 
 import Services.users_Services;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.google.api.client.auth.oauth2.TokenResponseException;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -96,7 +97,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.PasswordAuthentication;
-import org.mindrot.jbcrypt.BCrypt;
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 /**
  * FXML Controller class
@@ -257,7 +258,7 @@ public class Signin_pageController implements Initializable {
         users_Services user = new users_Services();
         String role = null;
         String captcha = txtCaptcha.getText();
-
+       
         if (emaillogin.getText().trim().isEmpty() && pwdlogin.getText().trim().isEmpty()) {
             emailerrormsg.setText("Email is Empty !! ");
             pwderrormsg.setText("Password is Empty !! ");
@@ -277,8 +278,10 @@ public class Signin_pageController implements Initializable {
                 ResultSet rs = pst.executeQuery();
                
                 if (rs.next()) {
-                    String hashedPassword = rs.getString("password");
-                    if(BCrypt.checkpw(pwdlogin.getText(), hashedPassword))
+                    //String hashedPassword = rs.getString("password");
+                   BCrypt.Result result = BCrypt.verifyer().verify(pwdlogin.getText().toCharArray(), rs.getString("password"));
+                   System.out.println(result);
+                    if(result.verified == true)
                     {
                        if (!captcha.equals(captchaText)) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);

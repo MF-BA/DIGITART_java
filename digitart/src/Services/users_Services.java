@@ -22,8 +22,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.main;
 import utils.Conn;
-import org.mindrot.jbcrypt.BCrypt;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 /**
  *
@@ -243,8 +243,9 @@ public class users_Services {
         //stmt.setString(2, hashPassword(pwd));
         res = stmt.executeQuery();
         if (res.next()) {
-            String hashedPassword = res.getString("password");
-            if(BCrypt.checkpw(pwd, hashedPassword))
+            //String hashedPassword = res.getString("password");
+            BCrypt.Result result = BCrypt.verifyer().verify(pwd.toCharArray(), res.getString("password"));
+            if(result.verified == true)
                     {
              LocalDate D = res.getDate(9).toLocalDate();
             data = new users(
@@ -338,13 +339,25 @@ public class users_Services {
     
     }
     
-    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+   /* public static String hashPassword(String password) throws NoSuchAlgorithmException {
         int cost = 13; // cost factor
     String salt = BCrypt.gensalt(cost);
     String hashedPassword = BCrypt.hashpw(password, salt);
     return hashedPassword;
-    } 
-    
+  
+    } */
+    public static String hashPassword(String password) {
+        String hashedPassword = BCrypt.with(BCrypt.Version.VERSION_2Y).hashToString(6, password.toCharArray());
+        return hashedPassword;
+    }
+    /*public boolean checkPassword(String passwordText, String DbHash) {
+    boolean password_verified = false;
+    if (null == DbHash || !DbHash.startsWith("$2a$")) {
+        throw new java.lang.IllegalArgumentException("Invalid hash provided for comparison");
+    }
+    password_verified = BCrypt.checkpw(passwordText, DbHash);
+    return (password_verified);
+ }*/
     
    public List<users> getUsersMatchingSearchQuery(String searchQuery) {
     
