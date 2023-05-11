@@ -191,14 +191,15 @@ public class PaymentController implements Initializable {
 
                 try {
                     Connection conn = Conn.getCon();
-                    PreparedStatement stmt = conn.prepareStatement("INSERT INTO payment (purchase_date, nb_adult, nb_teenager, nb_student, total_payment, user_id) VALUES (?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement stmt = conn.prepareStatement("INSERT INTO payment (purchase_date, nb_adult, nb_teenager, nb_student, total_payment, user_id, paid) VALUES (?, ?, ?, ?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
                     stmt.setDate(1, java.sql.Date.valueOf(payment.getPurchaseDate()));
                     stmt.setInt(2, payment.getNbAdult());
                     stmt.setInt(3, payment.getNbTeenager());
                     stmt.setInt(4, payment.getNbStudent());
                     stmt.setInt(5, payment.getTotalPayment());
-                    stmt.setInt(6, payment.getId());
-
+                    stmt.setInt(6, payment.getId());  
+                    stmt.setInt(7, 1);
+                 
                     int affectedRows = stmt.executeUpdate();
 
                     if (affectedRows == 0) {

@@ -20,6 +20,7 @@ public class Ticket {
     private Date ticket_edate;
     private int price;
     private String ticket_type;
+    private boolean paid;
 
     public Ticket(int ticket_id, Date ticket_date, Date ticket_edate, int price, String ticket_type) {
         this.ticket_id = ticket_id;
@@ -77,6 +78,14 @@ public class Ticket {
 
     public void setTicket_type(String ticket_type) {
         this.ticket_type = ticket_type;
+    }
+    
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 
     @Override
