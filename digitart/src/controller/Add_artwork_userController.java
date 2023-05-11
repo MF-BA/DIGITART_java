@@ -142,7 +142,7 @@ public class Add_artwork_userController implements Initializable {
        
        
      public void showNotification(String title, String message, String imageUrl, double imageWidth, double imageHeight) {
-    Image image = new Image(imageUrl);
+    Image image = new Image("http://127.0.0.1:8000/uploads/"+imageUrl);
     
     ImageView imageView = new ImageView(image);
     imageView.setFitWidth(imageWidth);
@@ -242,7 +242,7 @@ public class Add_artwork_userController implements Initializable {
     Alert alert;
      if(selectedFile!=null)  {
          // String imagePath = file.getPath();
-       imageUrl="http://localhost/images/"+selectedFile.getName();
+       imageUrl=selectedFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
 //        String imageFilePath = "C:\\xamppp\\htdocs\\piImg";
 
@@ -308,7 +308,7 @@ public class Add_artwork_userController implements Initializable {
         go_Display(event);
         String title="An Artwork was added successfully";
         String message="Dear " +Data.user.getFirstname()+" "+Data.user.getLastname()+",\n You have successfully added the artwork "+name;
-        showNotification(title,message,imageUrl,300,300);
+        showNotification(title,message,artwork.getImage_art(),300,300);
     }
      }
     else
@@ -323,7 +323,7 @@ public class Add_artwork_userController implements Initializable {
        nameRoom = idRoomControl.getSelectionModel().getSelectedItem();
         
         id_room = Artwork_Services.find_idroom(nameRoom) ;
-        Artwork artwork = new Artwork(name, id_artist, nameartist, date, desc, Data.artwork.getImage_art(), id_room);
+        Artwork artwork = new Artwork(name, id_artist, nameartist, date, desc, imageUrl, id_room);
         Artwork_Services.add(artwork);
         alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Message");

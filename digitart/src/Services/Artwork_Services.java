@@ -22,7 +22,7 @@ public class Artwork_Services {
 
     public static void add(Artwork artwork) {
 
-        String add_to_artwork = "insert into artwork (artwork_name,id_artist,artist_name,date_art,description,image_art,id_room) values (?,?,?,?,?,?,?) ";
+        String add_to_artwork = "insert into artwork (artwork_name,id_artist,artist_name,date_art,description,id_room) values (?,?,?,?,?,?) ";
         try {
             PreparedStatement st = conn.prepareStatement(add_to_artwork);
            
@@ -30,14 +30,31 @@ public class Artwork_Services {
             st.setInt(2, artwork.getId_artist());
             st.setString(3, artwork.getArtist_name());
             st.setDate(4, Date.valueOf(artwork.getDate_art()));
-            st.setString(5, artwork.getDescription());
-            st.setString(6, artwork.getImage_art());
-            st.setInt(7, artwork.getId_room());
+            st.setString(5, artwork.getDescription());         
+            st.setInt(6, artwork.getId_room());
             
             
             
             st.executeUpdate();
             System.out.println("success!!Add artwork");
+            
+            
+             String add_image_Artwork = "insert into imageartwork (id_art,image_name) values (?,?) ";
+        try {
+            PreparedStatement stt = conn.prepareStatement(add_image_Artwork);
+           
+            stt.setInt(1,findLastArtwork() );
+           stt.setString(2, artwork.getImage_art());
+    
+            
+            
+            
+            stt.executeUpdate();
+            System.out.println("success!!Add image");
+        } catch (SQLException ex) {
+            System.err.println("Err Add image");
+             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
         } catch (SQLException ex) {
             System.err.println("Err Add artwork");
              Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,19 +70,36 @@ public class Artwork_Services {
         ResultSet resultSet;
         try {
             statement = conn.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM artwork");
+            resultSet = statement.executeQuery("SELECT id_art,id_artist,id_room,artwork_name,artist_name,date_art,description FROM artwork");
             
 
             while (resultSet.next()) {
-                    LocalDate D = resultSet.getDate(5).toLocalDate();
-                    int idroom = resultSet.getInt(8);
-                Artwork data = new Artwork(resultSet.getInt(1),
-                        resultSet.getString(2),
-                        resultSet.getInt(3),
-                        resultSet.getString(4),
+                    LocalDate D = resultSet.getDate("date_art").toLocalDate();
+                    int idroom = resultSet.getInt("id_room");
+                    
+                    int idArt = resultSet.getInt(1);
+                    String imageName = "";
+                    try {
+                                 Statement stmt = conn.createStatement();
+                                ResultSet imageResultSet = stmt.executeQuery("SELECT image_name FROM imageartwork WHERE id_art = " + idArt);
+
+                                if (imageResultSet.next()) {
+                                    imageName = imageResultSet.getString("image_name");
+                                }
+
+                                imageResultSet.close();
+                                stmt.close();
+                        } catch (SQLException ex) {
+                         System.err.println("Error retrieving image_name from imageartwork table: " + ex.getMessage());
+                        }
+                    
+                Artwork data = new Artwork(idArt,
+                        resultSet.getString("artwork_name"),
+                        resultSet.getInt("id_artist"),
+                        resultSet.getString("artist_name"),
                         D,
-                        resultSet.getString(6), 
-                        resultSet.getString(7),
+                        resultSet.getString("description"), 
+                        imageName,
                         idroom
                         
                 );
@@ -270,5 +304,23 @@ public class Artwork_Services {
         return list;
 
     }
-    
+      
+    public static int findLastArtwork() {
+      int result = 0;
+      Statement statement;
+      ResultSet resultSet;
+
+      try {
+          statement = conn.createStatement();
+          resultSet = statement.executeQuery("SELECT MAX(id_art) AS max_id FROM artwork");
+
+          if (resultSet.next()) {
+              result = resultSet.getInt("max_id");
+          }
+      } catch (SQLException ex) {
+          System.err.println("Error searching artwork: " + ex.getMessage());
+      }
+
+      return result;
+  }
 }
