@@ -22,6 +22,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.main;
 import utils.Conn;
+import org.mindrot.jbcrypt.BCrypt;
+
 
 /**
  *
@@ -86,7 +88,8 @@ public class users_Services {
                            D,
                         res.getString(10),
                         res.getString(11),
-                        res.getString(12)
+                        res.getString(12),
+                        res.getString(13)
                         
                 );
                 list.add(data);
@@ -234,13 +237,16 @@ public class users_Services {
     public users getuserdata(String email, String pwd) throws NoSuchAlgorithmException {
     users data = null;
     ResultSet res = null;
-    String sql = "SELECT * FROM users WHERE email=? AND password=?";
+    String sql = "SELECT id,cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role,status,image,secretcode FROM users WHERE email=?";
     try (PreparedStatement stmt = conn.prepareStatement(sql)) {
         stmt.setString(1, email);
-        stmt.setString(2, hashPassword(pwd));
+        //stmt.setString(2, hashPassword(pwd));
         res = stmt.executeQuery();
         if (res.next()) {
-            LocalDate D = res.getDate(9).toLocalDate();
+            String hashedPassword = res.getString("password");
+            if(BCrypt.checkpw(pwd, hashedPassword))
+                    {
+             LocalDate D = res.getDate(9).toLocalDate();
             data = new users(
                 res.getInt(1),
                 res.getInt(2),
@@ -256,7 +262,10 @@ public class users_Services {
                 res.getString(12),
                 res.getString(13),
                 res.getString(14)
-            );
+            );   
+                    }
+            
+           
         }
     } catch (SQLException ex) {
         Logger.getLogger(users_Services.class.getName()).log(Level.SEVERE, null, ex);
@@ -330,14 +339,10 @@ public class users_Services {
     }
     
     public static String hashPassword(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update(password.getBytes());
-        byte[] bytes = md.digest();
-        StringBuilder sb = new StringBuilder();
-        for(int i=0; i< bytes.length ;i++){
-            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-        return sb.toString();
+        int cost = 13; // cost factor
+    String salt = BCrypt.gensalt(cost);
+    String hashedPassword = BCrypt.hashpw(password, salt);
+    return hashedPassword;
     } 
     
     

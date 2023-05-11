@@ -96,6 +96,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.PasswordAuthentication;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  * FXML Controller class
@@ -266,16 +267,20 @@ public class Signin_pageController implements Initializable {
             pwderrormsg.setText("Password is Empty !! ");
         } else {
             try {
-                String sql = "Select * from users where email=? and password=?";
+                
+                String sql = "Select id,cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role,status,image,secretcode from users where email=?";
                 //pst =  conn.createStatement();
                 pst = conn.prepareStatement(sql);
                 pst.setString(1, emaillogin.getText());
-                pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
+                //pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
 
                 ResultSet rs = pst.executeQuery();
+               
                 if (rs.next()) {
-                    
-                    if (!captcha.equals(captchaText)) {
+                    String hashedPassword = rs.getString("password");
+                    if(BCrypt.checkpw(pwdlogin.getText(), hashedPassword))
+                    {
+                       if (!captcha.equals(captchaText)) {
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Error");
                         alert.setHeaderText("Invalid Captcha");
@@ -292,11 +297,11 @@ public class Signin_pageController implements Initializable {
                             loginpage.setVisible(false);
                             qrcodelogin.setVisible(true);
                             String secretcode = null;
-                            String sql1 = "Select secretcode from users where email=? and password=?";
+                            String sql1 = "Select secretcode from users where email=?";
 
                             pst = conn.prepareStatement(sql1);
                             pst.setString(1, emaillogin.getText());
-                            pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
+                            //pst.setString(2, users_Services.hashPassword(pwdlogin.getText()));
 
                             ResultSet rs1 = pst.executeQuery();
                             if (rs1.next()) {
@@ -392,10 +397,18 @@ public class Signin_pageController implements Initializable {
                             pwdlogin.setText("");
                         }
 
+                    }  
                     }
+                    else
+                    {
+                        loginerrormsg.setText("Password incorrect !! ");
+                    emaillogin.setText("");
+                    pwdlogin.setText("");
+                    }
+                   
 
                 } else {
-                    loginerrormsg.setText("Email or Password incorrect !! ");
+                    loginerrormsg.setText("Email incorrect !! ");
                     emaillogin.setText("");
                     pwdlogin.setText("");
 

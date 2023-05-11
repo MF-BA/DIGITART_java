@@ -133,10 +133,22 @@ public class Editprofileuser_frontController implements Initializable {
         // TODO
         Data.email = Data.user.getEmail();
         labelusername_edit.setText(Data.user.getFirstname());
-        if (Data.user.getImage()!=null){
-        Image image = new Image(Data.user.getImage());
-        circle_image_edit.setFill(new ImagePattern(image));
+//        if (Data.user.getImage()!=null){
+//        Image image = new Image(Data.user.getImage());
+//        circle_image_edit.setFill(new ImagePattern(image));
+//        }
+ try {
+            if (Data.user.getImage() != null) {
+                Image image = new Image(Data.user.getImage());
+                circle_image_edit.setFill(new ImagePattern(image));
+            } else {
+                circle_image_edit.setFill(null);
+            }
+        } catch (Exception e) {
+            // handle the exception
+            System.out.println("An error occurred: " + e.getMessage());
         }
+
         comboboxedit();
         fname_editprof.setText(Data.user.getFirstname());
         lname_editprof.setText(Data.user.getLastname());
@@ -243,9 +255,9 @@ if (BirthDate.isBefore(today)) {
        if (Cin!=0 && phone_number!=0 ){
            
        if (imageFile!=null){
-            imageUrl="http://localhost/images/"+imageFile.getName();
+            imageUrl=imageFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
-//        String imageFilePath = "C:\xamppp\htdocs\piImg";
+       //String imageFilePath = "C:\xamppp\htdocs\piImg";
 
         // Read the image file data
         byte[] imageData = Files.readAllBytes(imageFile.toPath());

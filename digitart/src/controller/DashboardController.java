@@ -131,8 +131,6 @@ public class DashboardController implements Initializable {
     @FXML
     private TableColumn<?, ?> email_tb;
     @FXML
-    private TableColumn<?, ?> pwd_tb;
-    @FXML
     private TableColumn<?, ?> address_tb;
     @FXML
     private TableColumn<?, ?> phnum_tb;
@@ -319,6 +317,8 @@ public class DashboardController implements Initializable {
     private Circle circle_image_user;
     @FXML
     private ImageView avatar_image1;
+    @FXML
+    private TableColumn<?, ?> profileImage_tb;
     /**
      * Initializes the controller class.
      */
@@ -339,9 +339,16 @@ public class DashboardController implements Initializable {
         Image image = new Image(new File(imagePath).toURI().toString());
         circle_image.setFill(new ImagePattern(image));
         }*/
-        if (Data.user.getImage()!=null){
-        Image image = new Image(Data.user.getImage());
-        circle_image.setFill(new ImagePattern(image));
+        try {
+            if (Data.user.getImage() != null) {
+                Image image = new Image(Data.user.getImage());
+                circle_image.setFill(new ImagePattern(image));
+            } else {
+                circle_image.setFill(null);
+            }
+        } catch (Exception e) {
+            // handle the exception
+            System.out.println("An error occurred: " + e.getMessage());
         }
         if (Data.user.getRole().equals("Users manager"))
         {
@@ -440,12 +447,11 @@ public void comboboxedit()
     public void showusers()
     {
        userslist = users_Services.Displayusers();
-     
+         profileImage_tb.setCellValueFactory(new PropertyValueFactory<>("image"));
         cin_tb.setCellValueFactory(new PropertyValueFactory<>("cin"));
         fname_tb.setCellValueFactory(new PropertyValueFactory<>("firstname"));
         lname_tb.setCellValueFactory(new PropertyValueFactory<>("lastname"));
        email_tb.setCellValueFactory(new PropertyValueFactory<>("email"));
-       pwd_tb.setCellValueFactory(new PropertyValueFactory<>("pwd"));
        address_tb.setCellValueFactory(new PropertyValueFactory<>("address"));
        phnum_tb.setCellValueFactory(new PropertyValueFactory<>("phone_number"));
        birth_d_tb.setCellValueFactory(new PropertyValueFactory<>("birth_date"));
@@ -788,9 +794,10 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
          }
        else if(Cin != 0 && phone_number != 0){
            if (imageFile!=null){
-       imageUrl="http://localhost/images/"+imageFile.getName();
+       imageUrl=imageFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
 //        String imageFilePath = "C:\xamppp\htdocs\piImg";
+//"http://127.0.0.1:8000/Uploads/"+
 
         // Read the image file data
         byte[] imageData = Files.readAllBytes(imageFile.toPath());
@@ -982,7 +989,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
     if (newSelection != null) {
         // Set up the update page with text fields filled with the data of the selected user
         getidupdate(newSelection.getId());
-        String sql = "SELECT * FROM users where email = ?";
+        String sql = "SELECT id,cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role,status,image,secretcode FROM users where email = ?";
        try {
         pst = conn.prepareStatement(sql);
         pst.setString(1, newSelection.getEmail());
