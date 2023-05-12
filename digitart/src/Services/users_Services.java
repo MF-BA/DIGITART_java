@@ -39,7 +39,7 @@ public class users_Services {
     
     public void adduser(users u){
        
-            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role,status, image) values (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into users (cin,firstname,lastname,email,password,address,phone_num,birth_date,gender,role,status, image,roles,is_verified) values (? ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)";
              try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1,u.getCin());
@@ -54,6 +54,23 @@ public class users_Services {
             pst.setString(10,u.getRole());
             pst.setString(11,"unblocked");
             pst.setString(12,null);
+            if(u.getRole().equals("Subscriber"))
+            pst.setString(13,"[\"ROLE_SUBSCRIBER\"]");
+            if(u.getRole().equals("Artist"))
+            pst.setString(13,"[\"ROLE_ARTIST\"]");
+            if(u.getRole().equals("Admin"))
+            pst.setString(13,"[\"ROLE_ADMIN\"]");
+            if(u.getRole().equals("Gallery Manager"))
+            pst.setString(13,"[\"ROLE_GALLERY_MANAGER\"]");
+            if(u.getRole().equals("Auction Manager"))
+            pst.setString(13,"[\"ROLE_AUCTION_MANAGER\"]");
+            if(u.getRole().equals("Events Manager"))
+            pst.setString(13,"[\"ROLE_EVENT_MANAGER\"]");
+            if(u.getRole().equals("Tickets Manager"))
+            pst.setString(13,"[\"ROLE_TICKETS_MANAGER\"]");
+            if(u.getRole().equals("Users Manager"))
+            pst.setString(13,"[\"ROLE_USERS_MANAGER\"]");
+            pst.setBoolean(14,true);
              pst.executeUpdate();
             System.out.println("success!!");
                 
