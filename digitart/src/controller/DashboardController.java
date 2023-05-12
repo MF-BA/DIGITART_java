@@ -1159,7 +1159,7 @@ if (firstname.isEmpty() || lastname.isEmpty() || Address.isEmpty() || phone_num_
      else if (Cin!=0 && phone_number!=0 && Email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")){
            
        if (imageFile!=null){
-       imageUrl="http://localhost/images/"+imageFile.getName();
+       imageUrl=imageFile.getName();
        String phpUrl = "http://localhost/images/upload.php";
 //        String imageFilePath = "C:\xamppp\htdocs\piImg";
 
