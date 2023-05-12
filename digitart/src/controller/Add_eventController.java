@@ -301,13 +301,27 @@ public class Add_eventController implements Initializable {
         list_of_events.setVisible(false);
         part_anc.setVisible(false);
         labeladminname.setText(Data.user.getFirstname());
-          try {
+           try {
             if (Data.user.getImage() != null) {
-                Image image = new Image(Data.user.getImage());
+                Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage());
+                //Image image = new Image("http://127.0.0.1:8000/Uploads/" + Data.user.getImage(), 350, 300, false, true);
+                // Set the image in the avatar_image ImageView (if you want to display it elsewhere)
+                //avatar_image.setImage(image);
+
+                // Create an ImagePattern object from the Image object
+                ImagePattern pattern = new ImagePattern(image);
+
+                // Set the ImagePattern as the fill for the circle
                 circle_image.setFill(new ImagePattern(image));
+
+                // Print out some debug information (if you want)
+                System.out.println("Loaded user image: " + image);
             } else {
-                circle_image.setFill(null);
+                Image image = new Image("http://127.0.0.1:8000/Back/images/icon-img.png", 350, 300, false, true);
+                //avatar_image.setImage(image);
+                circle_image.setFill(new ImagePattern(image));
             }
+
         } catch (Exception e) {
             // handle the exception
             System.out.println("An error occurred: " + e.getMessage());
